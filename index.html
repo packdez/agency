@@ -1795,12 +1795,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
     }
 
-    // Contact Form
-    function handleContactForm(event) {
-      event.preventDefault();
-      showToast('Thanks — we got your details. Check your inbox for next steps.');
-      event.target.reset();
-    }
 
     // Toast Notification
     function showToast(message) {
@@ -1812,6 +1806,91 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         toast.classList.remove('active');
       }, 5000);
     }
+
+  // --- DROP IN THIS CONSTANT (uses your corsproxy + Apps Script URL) ---
+  const scriptBaseURL =
+    "https://corsproxy.io/?" + encodeURIComponent(
+      "https://script.google.com/macros/s/AKfycbx1X6W4iPdUjV8lXhAvPayq3GRTRKZsja1PEezk7X1KMK2MR2LxRNfawxoIfKzJ6ReGfg/exec"
+    );
+
+  // --- Replace the existing handleContactForm(event) with this ---
+  async function handleContactForm(event) {
+    event.preventDefault();
+    const form = event.target;
+
+    // Grab inputs from this form only (keeps change minimal - no new HTML attributes)
+    // The contact form has 3 inputs then a textarea in that order.
+    const controls = Array.from(form.querySelectorAll('input, textarea'));
+    const nameInput = controls[0];
+    const emailInput = controls[1];
+    const companyInput = controls[2];
+    const messageInput = controls[3];
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnHTML = submitBtn.innerHTML;
+
+    // Simple validation (email format)
+    const name = (nameInput.value || '').trim();
+    const email = (emailInput.value || '').trim();
+    const company = (companyInput.value || '').trim();
+    const message = (messageInput.value || '').trim();
+
+    if (!name || !email || !message) {
+      showToast('Please fill in name, email, and a short description of the task.');
+      return;
+    }
+    // rudimentary email check
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      showToast('Please enter a valid email address.');
+      return;
+    }
+
+    // Prepare payload - keys used here will appear in Apps Script as e.parameter.name, etc.
+    const payload = {
+      name,
+      email,
+      company,
+      message,
+      submittedAt: new Date().toISOString()
+    };
+
+    // disable UI while submitting
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Sending…';
+
+    try {
+      // Using application/x-www-form-urlencoded so Apps Script doPost(e).parameter works well
+      const response = await fetch(scriptBaseURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+        body: new URLSearchParams(payload).toString(),
+        // keep credentials mode default (no cookies)
+      });
+
+      // Many Apps Script webapps reply with JSON; handle both JSON and text
+      let text = await response.text();
+      let json;
+      try { json = JSON.parse(text); } catch (e) { json = null; }
+
+      if (response.ok) {
+        // If Apps Script returns {result: "success"} or similar, we accept that; otherwise assume ok
+        showToast('Thanks — we got your details. Check your inbox for next steps.');
+        form.reset();
+      } else {
+        // Non-2xx status
+        console.error('Form submission failed', response.status, text);
+        showToast('There was an error sending your request. Please try again or email us directly.');
+      }
+    } catch (err) {
+      console.error('Submission error', err);
+      showToast('Network error — could not send form. Please try again.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnHTML;
+    }
+  }
   </script>
 </body>
 </html>
