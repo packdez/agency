@@ -29,7 +29,13 @@
 
 <body>
 
-
+  <!-- Session guard (conceptual for now) -->
+  <script>
+    const token = localStorage.getItem('session_token');
+    if (!token) {
+      window.location.href = './auth/login.html';
+    }
+  </script>
 
   <div id="app" class="app"></div>
 
