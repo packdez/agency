@@ -1,6 +1,6 @@
 import { Sidebar } from './sidebar.js';
 import { renderDashboard } from './pages/dashboard.js';
-import { renderComposer } from './pages/composer.js';
+import { renderComposer, loadCampaign } from './pages/composer.js';
 import { renderCampaigns } from './pages/campaigns.js';
 
 export function renderApp(root) {
