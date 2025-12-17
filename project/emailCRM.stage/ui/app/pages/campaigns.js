@@ -34,14 +34,26 @@ google.script.run
       return;
     }
 
-    campaigns.forEach(c => {
-      const row = document.createElement('div');
-      row.className = 'campaign-row';
-      row.innerHTML = `
-        <strong>${c.name}</strong><br/>
-        <small>${c.subject}</small>
-      `;
-      list.appendChild(row);
+campaigns.forEach(c => {
+  const row = document.createElement('div');
+  row.className = 'campaign-row';
+  row.style.cursor = 'pointer';
+  row.style.padding = '12px';
+  row.style.borderBottom = '1px solid #E5E7EB';
+
+  row.innerHTML = `
+    <strong>${c.name}</strong><br/>
+    <small>${c.subject || ''}</small>
+  `;
+
+  // 🔥 THIS WAS MISSING
+  row.onclick = () => {
+    navigateToComposer(c.campaign_id);
+  };
+
+  list.appendChild(row);
+});
+
     });
   })
   .withFailureHandler(err => {
