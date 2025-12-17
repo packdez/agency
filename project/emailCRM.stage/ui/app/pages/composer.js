@@ -152,10 +152,11 @@ if (el.type === 'text') {
     activeInput = textarea;
   };
 
-  textarea.oninput = e => {
-    el.settings.content = e.target.value;
-    refreshUI();
-  };
+textarea.oninput = e => {
+  el.settings.content = e.target.value;
+  // ❌ do NOT call refreshUI here
+};
+
 
   panel.appendChild(textarea);
   panel.appendChild(renderAttributePicker(el, 'content'));
@@ -172,10 +173,11 @@ if (el.type === 'button') {
     activeInput = input;
   };
 
-  input.oninput = e => {
-    el.settings.label = e.target.value;
-    refreshUI();
-  };
+input.oninput = e => {
+  el.settings.label = e.target.value;
+  // ❌ no refreshUI here
+};
+
 
   panel.appendChild(input);
   panel.appendChild(renderAttributePicker(el, 'label'));
