@@ -1,6 +1,18 @@
+// TEMP: dynamic attributes (will be loaded from backend later)
+const AVAILABLE_ATTRIBUTES = [
+  'first_name',
+  'last_name',
+  'email',
+  'company',
+  'position',
+  'deal_value',
+  'phone'
+];
+
 import { Panel } from '../../components/panel.js';
 
 let selectedElementId = null;
+let activeInput = null;
 
 const elements = [];
 
@@ -108,33 +120,89 @@ function refreshInspector() {
     return;
   }
 
-  if (el.type === 'text') {
-    const textarea = document.createElement('textarea');
-    textarea.value = el.content;
-    textarea.style.width = '100%';
-    textarea.style.height = '100px';
+if (el.type === 'text') {
+  const textarea = document.createElement('textarea');
+  textarea.value = el.content;
+  textarea.style.width = '100%';
+  textarea.style.height = '100px';
 
-    textarea.oninput = e => {
-      el.content = e.target.value;
-      refreshUI();
-    };
+  textarea.onfocus = () => {
+    activeInput = textarea;
+  };
 
-    panel.appendChild(textarea);
-  }
+  textarea.oninput = e => {
+    el.content = e.target.value;
+    refreshUI();
+  };
 
-  if (el.type === 'button') {
-    const input = document.createElement('input');
-    input.value = el.label;
-    input.placeholder = 'Button label';
-    input.style.width = '100%';
+  panel.appendChild(textarea);
+  panel.appendChild(renderAttributePicker(el, 'content'));
+}
 
-    input.oninput = e => {
-      el.label = e.target.value;
-      refreshUI();
-    };
 
-    panel.appendChild(input);
-  }
+if (el.type === 'button') {
+  const input = document.createElement('input');
+  input.value = el.label;
+  input.placeholder = 'Button label';
+  input.style.width = '100%';
+
+  input.onfocus = () => {
+    activeInput = input;
+  };
+
+  input.oninput = e => {
+    el.label = e.target.value;
+    refreshUI();
+  };
+
+  panel.appendChild(input);
+  panel.appendChild(renderAttributePicker(el, 'label'));
+}
+
+}
+
+
+function renderAttributePicker(el, field) {
+  const wrapper = document.createElement('div');
+  wrapper.style.marginTop = '12px';
+
+  const label = document.createElement('div');
+  label.innerText = 'Insert attribute';
+  label.style.fontSize = '12px';
+  label.style.color = '#64748B';
+  label.style.marginBottom = '4px';
+
+  const select = document.createElement('select');
+  select.style.width = '100%';
+  select.style.padding = '6px';
+  select.style.borderRadius = '6px';
+  select.style.border = '1px solid #E5E7EB';
+
+  const defaultOpt = document.createElement('option');
+  defaultOpt.innerText = 'Select attribute';
+  defaultOpt.value = '';
+  select.appendChild(defaultOpt);
+
+  AVAILABLE_ATTRIBUTES.forEach(attr => {
+    const opt = document.createElement('option');
+    opt.value = attr;
+    opt.innerText = attr;
+    select.appendChild(opt);
+  });
+
+  select.onchange = () => {
+    if (!select.value || !activeInput) return;
+
+    insertAtCursor(activeInput, `{{${select.value}}}`);
+    el[field] = activeInput.value;
+    select.value = '';
+    refreshUI();
+  };
+
+  wrapper.appendChild(label);
+  wrapper.appendChild(select);
+
+  return wrapper;
 }
 
 
@@ -171,3 +239,16 @@ function refreshUI() {
   refreshCanvas(document.getElementById('email-canvas'));
   refreshInspector();
 }
+
+
+function insertAtCursor(input, text) {
+  const start = input.selectionStart;
+  const end = input.selectionEnd;
+
+  const before = input.value.substring(0, start);
+  const after = input.value.substring(end);
+
+  input.value = before + text + after;
+  input.selectionStart = input.selectionEnd = start + text.length;
+}
+
