@@ -1,16 +1,46 @@
-<script>
-  const token = localStorage.getItem('session_token');
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>EmailCRM</title>
 
-  if (!token) {
-    window.location.href = './auth/login.html';
-  } else {
-    google.script.run
-      .withSuccessHandler(res => {
-        if (!res.valid) {
-          localStorage.removeItem('session_token');
-          window.location.href = './auth/login.html';
-        }
-      })
-      .validateSession(token);
-  }
-</script>
+  <!-- Core -->
+  <link rel="stylesheet" href="./core/base.css">
+  <link rel="stylesheet" href="./core/animations.css">
+
+  <!-- Components -->
+  <link rel="stylesheet" href="./components/panel.css">
+  <link rel="stylesheet" href="./components/toast.css">
+
+  <style>
+    .app {
+      display: flex;
+      height: 100vh;
+    }
+
+    .main {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      background: #F8FAFC;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Session guard (conceptual for now) -->
+  <script>
+    const token = localStorage.getItem('session_token');
+    if (!token) {
+      window.location.href = './auth/login.html';
+    }
+  </script>
+
+  <div id="app" class="app"></div>
+
+  <script src="./components/toast.js"></script>
+  <script type="module" src="./app/app.js"></script>
+
+</body>
+</html>
