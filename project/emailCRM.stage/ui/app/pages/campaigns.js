@@ -23,45 +23,49 @@ export function renderCampaigns(navigateToComposer) {
   list.style.marginTop = '16px';
   wrapper.appendChild(list);
 
-  google.script.run
-    .withSuccessHandler(campaigns => {
-      if (!campaigns.length) {
-        list.innerHTML = '<p>No campaigns yet.</p>';
-        return;
-      }
+google.script.run
+  .withSuccessHandler(campaigns => {
+    console.log('FRONTEND RECEIVED CAMPAIGNS:', campaigns);
 
-      campaigns.forEach(c => {
-        const row = document.createElement('div');
-        row.style.display = 'flex';
-        row.style.justifyContent = 'space-between';
-        row.style.alignItems = 'center';
-        row.style.padding = '12px';
-        row.style.border = '1px solid #E5E7EB';
-        row.style.borderRadius = '10px';
-        row.style.marginBottom = '8px';
+    if (!campaigns || !campaigns.length) {
+      list.innerHTML = '<p>No campaigns found.</p>';
+      return;
+    }
 
-        const info = document.createElement('div');
-        info.innerHTML = `
-          <strong>${c.name || 'Untitled Campaign'}</strong><br>
-          <span style="color:#64748B;font-size:12px;">
-            ${c.subject || '(no subject)'} • ${c.status || 'draft'}
-          </span>
-        `;
+    campaigns.forEach(c => {
+      const row = document.createElement('div');
+      row.style.display = 'flex';
+      row.style.justifyContent = 'space-between';
+      row.style.alignItems = 'center';
+      row.style.padding = '12px';
+      row.style.border = '1px solid #E5E7EB';
+      row.style.borderRadius = '10px';
+      row.style.marginBottom = '8px';
 
-        const openBtn = document.createElement('button');
-        openBtn.className = 'btn btn-secondary';
-        openBtn.innerText = 'Open';
-        openBtn.onclick = () => navigateToComposer(c.campaign_id);
+      const info = document.createElement('div');
+      info.innerHTML = `
+        <strong>${c.name || 'Untitled Campaign'}</strong><br>
+        <span style="color:#64748B;font-size:12px;">
+          ${c.subject || '(no subject)'} • ${c.status || 'draft'}
+        </span>
+      `;
 
-        row.appendChild(info);
-        row.appendChild(openBtn);
-        list.appendChild(row);
-      });
-    })
-    .withFailureHandler(err => {
-      list.innerHTML = `<p style="color:red;">${err.message}</p>`;
-    })
-    .listCampaigns();
+      const openBtn = document.createElement('button');
+      openBtn.className = 'btn btn-secondary';
+      openBtn.innerText = 'Open';
+      openBtn.onclick = () => navigateToComposer(c.campaign_id);
+
+      row.appendChild(info);
+      row.appendChild(openBtn);
+      list.appendChild(row);
+    });
+  })
+  .withFailureHandler(err => {
+    console.error('listCampaigns failed:', err);
+    list.innerHTML = `<p style="color:red;">${err.message}</p>`;
+  })
+  .listCampaigns();
+
 
   return wrapper;
 }
