@@ -37,6 +37,15 @@ saveBtn.onclick = saveCampaign;
 
 library.appendChild(saveBtn);
 
+  const previewBtn = document.createElement('button');
+previewBtn.className = 'btn btn-secondary';
+previewBtn.innerText = 'Preview';
+previewBtn.style.marginTop = '8px';
+previewBtn.onclick = previewCampaign;
+
+library.appendChild(previewBtn);
+
+
   const canvas = renderCanvas();
   const inspector = renderInspector();
 
@@ -320,6 +329,23 @@ function loadCampaign(campaignId) {
 }
 
 
+function previewCampaign() {
+  const bodyJson = {
+    elements
+  };
+
+  google.script.run
+    .withSuccessHandler(html => {
+      const previewWindow = window.open('', '_blank');
+      previewWindow.document.open();
+      previewWindow.document.write(html);
+      previewWindow.document.close();
+    })
+    .withFailureHandler(err => {
+      showToast(err.message || 'Preview failed', 'danger');
+    })
+    .previewCampaignFromUI(bodyJson);
+}
 
 
 
