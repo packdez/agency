@@ -500,32 +500,31 @@ function loadCampaign(campaignId) {
 
 
 function previewCampaign() {
-  const bodyJson = {
-    elements
-  };
+  const bodyJson = { elements };
 
   const contact = PREVIEW_CONTACTS.find(
     c => c.id === selectedPreviewContactId
   );
 
-  // 🔒 GUARD — PLACE IT HERE
   if (!contact) {
     showToast('Select a contact first', 'danger');
     return;
   }
 
   google.script.run
-    .withSuccessHandler(html => {
-      const previewWindow = window.open('', '_blank');
-      previewWindow.document.open();
-      previewWindow.document.write(html);
-      previewWindow.document.close();
+    .withSuccessHandler(htmlOutput => {
+      // ✅ IMPORTANT: htmlOutput is HtmlOutput, not string
+      const win = window.open(
+        'data:text/html;charset=utf-8,' +
+        encodeURIComponent(htmlOutput.getContent())
+      );
     })
     .withFailureHandler(err => {
       showToast(err.message || 'Preview failed', 'danger');
     })
     .previewCampaignFromUI(bodyJson, contact);
 }
+
 
 
 
