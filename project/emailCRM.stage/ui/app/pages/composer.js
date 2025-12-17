@@ -144,13 +144,15 @@ function refreshInspector() {
   const panel = document.getElementById('inspector');
   panel.innerHTML = '<h3>Inspector</h3>';
 
-  const el = elements.find(e => e.id === selectedElementId);
-  ensureStyles(el);
+const el = elements.find(e => e.id === selectedElementId);
 
-  if (!el) {
-    panel.innerHTML += '<p style="color:#64748B;">Select an element</p>';
-    return;
-  }
+if (!el) {
+  panel.innerHTML += '<p style="color:#64748B;">Select an element</p>';
+  return;
+}
+
+ensureStyles(el);
+
 
 if (el.type === 'text') {
 const textarea = document.createElement('textarea');
@@ -171,7 +173,6 @@ textarea.oninput = e => {
   panel.appendChild(textarea);
   panel.appendChild(renderAttributePicker(el, 'content'));
 
-  ensureStyles(el);
 
 // Font size
 const fontSize = document.createElement('input');
@@ -240,8 +241,6 @@ input.oninput = e => {
 
   panel.appendChild(input);
   panel.appendChild(renderAttributePicker(el, 'label'));
-
-  ensureStyles(el);
 
 // Button background
 const bg = document.createElement('input');
