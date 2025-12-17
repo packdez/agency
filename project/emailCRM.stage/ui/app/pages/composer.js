@@ -14,7 +14,13 @@ import { Panel } from '../../components/panel.js';
 let selectedElementId = null;
 let activeInput = null;
 
+let currentCampaignId = null;
+let currentCampaignName = 'Untitled Campaign';
+let currentCampaignSubject = '';
+
+
 const elements = [];
+
 
 export function renderComposer() {
   const wrapper = document.createElement('div');
@@ -24,6 +30,13 @@ export function renderComposer() {
   wrapper.style.height = '100%';
 
   const library = renderLibrary();
+const saveBtn = document.createElement('button');
+saveBtn.className = 'btn btn-primary';
+saveBtn.innerText = 'Save Campaign';
+saveBtn.onclick = saveCampaign;
+
+library.appendChild(saveBtn);
+
   const canvas = renderCanvas();
   const inspector = renderInspector();
 
@@ -131,7 +144,7 @@ if (el.type === 'text') {
   };
 
   textarea.oninput = e => {
-    el.content = e.target.value;
+    el.settings.content = e.target.value;
     refreshUI();
   };
 
@@ -151,7 +164,7 @@ if (el.type === 'button') {
   };
 
   input.oninput = e => {
-    el.label = e.target.value;
+    el.settings.label = e.target.value;
     refreshUI();
   };
 
@@ -209,28 +222,39 @@ function renderAttributePicker(el, field) {
 function addElement(type) {
   const id = 'el_' + Date.now();
 
-  const base = { id, type };
+  const base = {
+    id,
+    type,
+    settings: {},
+    styles: {}
+  };
 
-  if (type === 'text') base.content = 'New text';
-  if (type === 'button') base.label = 'Click me';
+  if (type === 'text') {
+    base.settings.content = 'New text';
+  }
+
+  if (type === 'button') {
+    base.settings.label = 'Click me';
+    base.settings.url = '';
+  }
 
   elements.push(base);
   selectedElementId = id;
-
   refreshUI();
 }
+
 
 function renderElementPreview(el) {
   switch (el.type) {
     case 'text':
-      return `<div>${el.content}</div>`;
-    case 'button':
-      return `<button class="btn btn-primary">${el.label}</button>`;
-    case 'divider':
+  return `<div>${el.settings.content || ''}</div>`;
+  case 'button':
+    return `<button class="btn btn-primary">${el.settings.label || ''}</button>`;
+  case 'divider':
       return `<hr />`;
-    case 'spacer':
+  case 'spacer':
       return `<div style="height:16px;"></div>`;
-    default:
+ default:
       return `<em>${el.type}</em>`;
   }
 }
@@ -251,4 +275,53 @@ function insertAtCursor(input, text) {
   input.value = before + text + after;
   input.selectionStart = input.selectionEnd = start + text.length;
 }
+
+function saveCampaign() {
+  const campaign = {
+    campaign_id: currentCampaignId,
+    name: currentCampaignName,
+    subject: currentCampaignSubject,
+    body_json: {
+      elements
+    }
+  };
+
+  google.script.run
+    .withSuccessHandler(res => {
+      currentCampaignId = res.campaign_id;
+      showToast('Campaign saved');
+    })
+    .withFailureHandler(err => {
+      showToast(err.message || 'Failed to save', 'danger');
+    })
+    .saveCampaign(campaign);
+}
+
+
+
+function loadCampaign(campaignId) {
+  google.script.run
+    .withSuccessHandler(campaign => {
+      currentCampaignId = campaign.campaign_id;
+      currentCampaignName = campaign.name;
+      currentCampaignSubject = campaign.subject || '';
+
+      elements.length = 0;
+      campaign.body_json.elements.forEach(el => elements.push(el));
+
+      selectedElementId = null;
+      refreshUI();
+      showToast('Campaign loaded');
+    })
+    .withFailureHandler(err => {
+      showToast(err.message || 'Failed to load', 'danger');
+    })
+    .getCampaign(campaignId);
+}
+
+
+
+
+
+
 
