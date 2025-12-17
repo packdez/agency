@@ -1,6 +1,8 @@
 import { Sidebar } from './sidebar.js';
 import { renderDashboard } from './pages/dashboard.js';
 import { renderCampaigns } from './pages/campaigns.js';
+import { renderComposer } from './pages/composer.js';
+
 
 const app = document.getElementById('app');
 
@@ -13,6 +15,9 @@ function navigate(page) {
   switch (page) {
     case 'dashboard':
       main.appendChild(renderDashboard());
+      break;
+    case 'campaigns':
+      main.appendChild(renderComposer());
       break;
     case 'campaigns':
       main.appendChild(renderCampaigns());
