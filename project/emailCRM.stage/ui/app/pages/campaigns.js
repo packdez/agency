@@ -23,18 +23,17 @@ export function renderCampaigns(navigateToComposer) {
   // List container
   const list = document.createElement('div');
   list.style.marginTop = '16px';
+  list.innerHTML = '<p>Loading campaigns…</p>';
   wrapper.appendChild(list);
 
-  // Load campaigns
-google.script.run
-  .withSuccessHandler(html => {
-    const w = window.open('', '_blank');
-    w.document.open();
-    w.document.write(html);
-    w.document.close();
-  })
-  .previewCampaignFromUI(bodyJson, contact);
+  // ✅ Load campaigns from backend
+  google.script.run
+    .withSuccessHandler(res => {
+      const campaigns = res && res.rows ? res.rows : [];
 
+      console.log('FRONTEND RECEIVED CAMPAIGNS:', campaigns);
+
+      list.innerHTML = '';
 
       if (!campaigns.length) {
         list.innerHTML = '<p>No campaigns found.</p>';
