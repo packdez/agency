@@ -26,11 +26,15 @@ export function renderCampaigns(navigateToComposer) {
   wrapper.appendChild(list);
 
   // Load campaigns
-  google.script.run
-    .withSuccessHandler(res => {
-      const campaigns = res && res.rows ? res.rows : [];
+google.script.run
+  .withSuccessHandler(html => {
+    const w = window.open('', '_blank');
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+  })
+  .previewCampaignFromUI(bodyJson, contact);
 
-      console.log('FRONTEND RECEIVED CAMPAIGNS:', campaigns);
 
       if (!campaigns.length) {
         list.innerHTML = '<p>No campaigns found.</p>';
