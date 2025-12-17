@@ -478,7 +478,7 @@ function saveCampaign() {
 
 
 
-function loadCampaign(campaignId) {
+export function loadCampaign(campaignId) {
   google.script.run
     .withSuccessHandler(campaign => {
       currentCampaignId = campaign.campaign_id;
