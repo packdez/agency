@@ -52,3 +52,21 @@ input, textarea {
   background: transparent;
 }
 
+
+/* --- Apps Script iframe fix --- */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+}
+
+.main {
+  flex: 1;
+  min-height: 100vh;
+}
+
+
