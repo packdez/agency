@@ -24,7 +24,9 @@ export function renderCampaigns(navigateToComposer) {
   wrapper.appendChild(list);
 
 google.script.run
-  .withSuccessHandler(campaigns => {
+  .withSuccessHandler(res => {
+    const campaigns = res.rows; // 🔥 THIS IS THE FIX
+
     console.log('FRONTEND RECEIVED CAMPAIGNS:', campaigns);
 
     if (!campaigns || !campaigns.length) {
@@ -34,29 +36,11 @@ google.script.run
 
     campaigns.forEach(c => {
       const row = document.createElement('div');
-      row.style.display = 'flex';
-      row.style.justifyContent = 'space-between';
-      row.style.alignItems = 'center';
-      row.style.padding = '12px';
-      row.style.border = '1px solid #E5E7EB';
-      row.style.borderRadius = '10px';
-      row.style.marginBottom = '8px';
-
-      const info = document.createElement('div');
-      info.innerHTML = `
-        <strong>${c.name || 'Untitled Campaign'}</strong><br>
-        <span style="color:#64748B;font-size:12px;">
-          ${c.subject || '(no subject)'} • ${c.status || 'draft'}
-        </span>
+      row.className = 'campaign-row';
+      row.innerHTML = `
+        <strong>${c.name}</strong><br/>
+        <small>${c.subject}</small>
       `;
-
-      const openBtn = document.createElement('button');
-      openBtn.className = 'btn btn-secondary';
-      openBtn.innerText = 'Open';
-      openBtn.onclick = () => navigateToComposer(c.campaign_id);
-
-      row.appendChild(info);
-      row.appendChild(openBtn);
       list.appendChild(row);
     });
   })
