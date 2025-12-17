@@ -12,6 +12,26 @@ const AVAILABLE_ATTRIBUTES = [
   'phone'
 ];
 
+// TEMP: preview contacts (will come from Sheets later)
+const PREVIEW_CONTACTS = [
+  {
+    id: 'c1',
+    first_name: 'Raphael',
+    last_name: 'Levinder',
+    email: 'packdezhq@gmail.com',
+    company: 'Packdez',
+    deal_value: '500000'
+  },
+  {
+    id: 'c2',
+    first_name: 'Alex',
+    last_name: 'Morgan',
+    email: 'alex@example.com',
+    company: 'X Ltd',
+    deal_value: '12000'
+  }
+];
+
 
 let selectedElementId = null;
 let activeInput = null;
@@ -19,6 +39,8 @@ let activeInput = null;
 let currentCampaignId = null;
 let currentCampaignName = 'Untitled Campaign';
 let currentCampaignSubject = '';
+let selectedPreviewContactId = PREVIEW_CONTACTS[0].id;
+
 
 
 const elements = [];
@@ -32,6 +54,31 @@ export function renderComposer() {
   wrapper.style.height = '100%';
 
   const library = renderLibrary();
+  const contactLabel = document.createElement('div');
+contactLabel.innerText = 'Preview contact';
+contactLabel.style.fontSize = '12px';
+contactLabel.style.color = '#64748B';
+contactLabel.style.marginTop = '12px';
+
+const contactSelect = document.createElement('select');
+contactSelect.style.width = '100%';
+contactSelect.style.marginBottom = '8px';
+
+PREVIEW_CONTACTS.forEach(c => {
+  const opt = document.createElement('option');
+  opt.value = c.id;
+  opt.innerText = `${c.first_name} ${c.last_name}`;
+  if (c.id === selectedPreviewContactId) opt.selected = true;
+  contactSelect.appendChild(opt);
+});
+
+contactSelect.onchange = e => {
+  selectedPreviewContactId = e.target.value;
+};
+
+library.appendChild(contactLabel);
+library.appendChild(contactSelect);
+
 const saveBtn = document.createElement('button');
 saveBtn.className = 'btn btn-primary';
 saveBtn.innerText = 'Save Campaign';
@@ -457,6 +504,16 @@ function previewCampaign() {
     elements
   };
 
+  const contact = PREVIEW_CONTACTS.find(
+    c => c.id === selectedPreviewContactId
+  );
+
+  // 🔒 GUARD — PLACE IT HERE
+  if (!contact) {
+    showToast('Select a contact first', 'danger');
+    return;
+  }
+
   google.script.run
     .withSuccessHandler(html => {
       const previewWindow = window.open('', '_blank');
@@ -467,7 +524,7 @@ function previewCampaign() {
     .withFailureHandler(err => {
       showToast(err.message || 'Preview failed', 'danger');
     })
-    .previewCampaignFromUI(bodyJson);
+    .previewCampaignFromUI(bodyJson, contact);
 }
 
 
