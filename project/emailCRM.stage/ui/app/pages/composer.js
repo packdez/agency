@@ -133,6 +133,8 @@ function renderInspector() {
 }
 
 function refreshInspector() {
+  activeInput = null;
+
   const panel = document.getElementById('inspector');
   panel.innerHTML = '<h3>Inspector</h3>';
 
@@ -143,8 +145,8 @@ function refreshInspector() {
   }
 
 if (el.type === 'text') {
-  const textarea = document.createElement('textarea');
-  textarea.value = el.content;
+const textarea = document.createElement('textarea');
+textarea.value = el.settings?.content || '';
   textarea.style.width = '100%';
   textarea.style.height = '100px';
 
@@ -165,7 +167,7 @@ textarea.oninput = e => {
 
 if (el.type === 'button') {
   const input = document.createElement('input');
-  input.value = el.label;
+input.value = el.settings?.label || '';
   input.placeholder = 'Button label';
   input.style.width = '100%';
 
