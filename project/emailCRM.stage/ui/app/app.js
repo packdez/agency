@@ -17,9 +17,14 @@ export function renderApp(root) {
         main.appendChild(renderDashboard());
         break;
 
-      case 'campaigns':
-        main.appendChild(renderCampaigns());
-        break;
+    case 'campaigns':
+      main.appendChild(renderCampaigns(openComposer));
+      break;
+    
+    case 'composer':
+      main.appendChild(renderComposer());
+      break;
+
 
       case 'composer':
         main.appendChild(renderComposer());
