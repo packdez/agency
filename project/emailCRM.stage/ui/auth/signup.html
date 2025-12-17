@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>EmailCRM — Signup</title>
+
+  <link rel="stylesheet" href="../core/base.css">
+  <link rel="stylesheet" href="../core/animations.css">
+  <link rel="stylesheet" href="../components/panel.css">
+  <link rel="stylesheet" href="../components/toast.css">
+
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .signup-box {
+      width: 360px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="panel signup-box fade-in">
+    <h2>Create account</h2>
+
+    <input id="email" type="email" placeholder="Email" />
+    <input id="password" type="password" placeholder="Password" />
+    <input id="clientName" type="text" placeholder="Company name" />
+
+    <button id="signupBtn" class="btn btn-primary" style="margin-top:16px;">
+      Sign up
+    </button>
+
+    <p style="margin-top:12px;">
+      <a href="./login.html">Back to login</a>
+    </p>
+  </div>
+
+  <script src="../components/toast.js"></script>
+  <script src="./auth.js"></script>
+
+  <script>
+    document.getElementById('signupBtn').onclick = async () => {
+      const email = email.value.trim();
+      const password = password.value;
+      const clientName = clientName.value.trim();
+
+      if (!email || !password) {
+        showToast('Missing email or password', 'warning');
+        return;
+      }
+
+      try {
+        const res = await callApi('signup', [email, password, clientName]);
+        saveSession(res.session_token);
+        showToast('Account created');
+        window.location.href = '../index.html';
+      } catch (err) {
+        showToast(err, 'danger');
+      }
+    };
+  </script>
+
+</body>
+</html>
