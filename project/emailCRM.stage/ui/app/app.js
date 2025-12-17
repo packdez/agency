@@ -17,21 +17,24 @@ export function renderApp(root) {
         main.appendChild(renderDashboard());
         break;
 
-    case 'campaigns':
-      main.appendChild(renderCampaigns(openComposer));
-      break;
-    
-    case 'composer':
-      main.appendChild(renderComposer());
-      break;
-
+      case 'campaigns':
+        main.appendChild(renderCampaigns(openComposer));
+        break;
 
       case 'composer':
         main.appendChild(renderComposer());
         break;
+    }
+  }
 
-      default:
-        main.innerHTML = '<p>Coming soon</p>';
+  // ✅ ADD THIS FUNCTION HERE
+  function openComposer(campaignId = null) {
+    navigate('composer');
+
+    if (campaignId) {
+      setTimeout(() => {
+        loadCampaign(campaignId);
+      }, 0);
     }
   }
 
