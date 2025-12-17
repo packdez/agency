@@ -1,0 +1,16 @@
+<script>
+  const token = localStorage.getItem('session_token');
+
+  if (!token) {
+    window.location.href = './auth/login.html';
+  } else {
+    google.script.run
+      .withSuccessHandler(res => {
+        if (!res.valid) {
+          localStorage.removeItem('session_token');
+          window.location.href = './auth/login.html';
+        }
+      })
+      .validateSession(token);
+  }
+</script>
