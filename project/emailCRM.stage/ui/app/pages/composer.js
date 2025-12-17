@@ -1,3 +1,6 @@
+import { Panel } from '../../components/panel.js';
+
+
 // TEMP: dynamic attributes (will be loaded from backend later)
 const AVAILABLE_ATTRIBUTES = [
   'first_name',
@@ -9,7 +12,6 @@ const AVAILABLE_ATTRIBUTES = [
   'phone'
 ];
 
-import { Panel } from '../../components/panel.js';
 
 let selectedElementId = null;
 let activeInput = null;
@@ -54,6 +56,10 @@ library.appendChild(previewBtn);
   wrapper.appendChild(inspector);
 
   return wrapper;
+}
+
+function ensureStyles(el) {
+  el.styles = el.styles || {};
 }
 
 
@@ -139,6 +145,8 @@ function refreshInspector() {
   panel.innerHTML = '<h3>Inspector</h3>';
 
   const el = elements.find(e => e.id === selectedElementId);
+  ensureStyles(el);
+
   if (!el) {
     panel.innerHTML += '<p style="color:#64748B;">Select an element</p>';
     return;
@@ -162,6 +170,55 @@ textarea.oninput = e => {
 
   panel.appendChild(textarea);
   panel.appendChild(renderAttributePicker(el, 'content'));
+
+  ensureStyles(el);
+
+// Font size
+const fontSize = document.createElement('input');
+fontSize.type = 'number';
+fontSize.placeholder = 'Font size (px)';
+fontSize.value = el.styles.font_size || 16;
+fontSize.style.width = '100%';
+fontSize.style.marginTop = '8px';
+
+fontSize.oninput = e => {
+  el.styles.font_size = Number(e.target.value);
+};
+
+panel.appendChild(fontSize);
+
+// Alignment
+const align = document.createElement('select');
+align.style.width = '100%';
+align.style.marginTop = '8px';
+
+['left', 'center', 'right'].forEach(a => {
+  const opt = document.createElement('option');
+  opt.value = a;
+  opt.innerText = a;
+  if (el.styles.align === a) opt.selected = true;
+  align.appendChild(opt);
+});
+
+align.onchange = e => {
+  el.styles.align = e.target.value;
+};
+
+panel.appendChild(align);
+
+// Text color
+const color = document.createElement('input');
+color.type = 'color';
+color.value = el.styles.color || '#000000';
+color.style.width = '100%';
+color.style.marginTop = '8px';
+
+color.oninput = e => {
+  el.styles.color = e.target.value;
+};
+
+panel.appendChild(color);
+
 }
 
 
@@ -183,6 +240,49 @@ input.oninput = e => {
 
   panel.appendChild(input);
   panel.appendChild(renderAttributePicker(el, 'label'));
+
+  ensureStyles(el);
+
+// Button background
+const bg = document.createElement('input');
+bg.type = 'color';
+bg.value = el.styles.background_color || '#2563eb';
+bg.style.width = '100%';
+bg.style.marginTop = '8px';
+
+bg.oninput = e => {
+  el.styles.background_color = e.target.value;
+};
+
+panel.appendChild(bg);
+
+// Text color
+const textColor = document.createElement('input');
+textColor.type = 'color';
+textColor.value = el.styles.text_color || '#ffffff';
+textColor.style.width = '100%';
+textColor.style.marginTop = '8px';
+
+textColor.oninput = e => {
+  el.styles.text_color = e.target.value;
+};
+
+panel.appendChild(textColor);
+
+// Border radius
+const radius = document.createElement('input');
+radius.type = 'number';
+radius.placeholder = 'Border radius (px)';
+radius.value = el.styles.border_radius || 6;
+radius.style.width = '100%';
+radius.style.marginTop = '8px';
+
+radius.oninput = e => {
+  el.styles.border_radius = `${e.target.value}px`;
+};
+
+panel.appendChild(radius);
+
 }
 
 }
@@ -220,7 +320,7 @@ function renderAttributePicker(el, field) {
     if (!select.value || !activeInput) return;
 
     insertAtCursor(activeInput, `{{${select.value}}}`);
-    el[field] = activeInput.value;
+el.settings[field] = activeInput.value;
     select.value = '';
     refreshUI();
   };
@@ -260,9 +360,29 @@ function addElement(type) {
 function renderElementPreview(el) {
   switch (el.type) {
     case 'text':
-  return `<div>${el.settings.content || ''}</div>`;
-  case 'button':
-    return `<button class="btn btn-primary">${el.settings.label || ''}</button>`;
+  return `
+    <div style="
+      font-size:${el.styles.font_size || 16}px;
+      text-align:${el.styles.align || 'left'};
+      color:${el.styles.color || '#000'};
+    ">
+      ${el.settings.content || ''}
+    </div>
+  `;
+
+case 'button':
+  return `
+    <button style="
+      background:${el.styles.background_color || '#2563eb'};
+      color:${el.styles.text_color || '#fff'};
+      border-radius:${el.styles.border_radius || '6px'};
+      padding:8px 16px;
+      border:none;
+    ">
+      ${el.settings.label || ''}
+    </button>
+  `;
+
   case 'divider':
       return `<hr />`;
   case 'spacer':
