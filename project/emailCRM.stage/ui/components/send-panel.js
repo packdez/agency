@@ -103,20 +103,6 @@ export function createSendPanel({ onClose } = {}) {
     })
     .getContactAttributes();
 
-  /* ----------------------------
-     Load contacts (for manual)
-  ---------------------------- */
-  google.script.run
-    .withSuccessHandler(contacts => {
-      allContacts = Array.isArray(contacts) ? contacts : [];
-      renderContactList(allContacts);
-    })
-    .withFailureHandler(err => {
-      contactList.innerHTML =
-        `<p style="color:red;">Failed to load contacts</p>`;
-      console.error(err);
-    })
-    .getContacts();
 
   /* ----------------------------
      Render contact list
@@ -141,6 +127,9 @@ export function createSendPanel({ onClose } = {}) {
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.checked = selectedRecipients.has(contact.email);
+      checkbox.disabled =
+      panel.querySelector('input[name="recipient_mode"]:checked')?.value !== 'manual';
+
 
       checkbox.onchange = () => {
         if (checkbox.checked) {
@@ -172,14 +161,37 @@ export function createSendPanel({ onClose } = {}) {
   /* ----------------------------
      Mode switching
   ---------------------------- */
-  panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
-    radio.onchange = e => {
-      const mode = e.target.value;
+panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
+  radio.onchange = e => {
+    const mode = e.target.value;
 
-      filterSection.classList.toggle('hidden', mode !== 'filtered');
-      manualSection.classList.toggle('hidden', mode !== 'manual');
-    };
-  });
+    // Reset state
+    selectedRecipients.clear();
+    updateSelectedCount();
+    contactList.innerHTML = '';
+
+    filterSection.classList.toggle('hidden', mode !== 'filtered');
+    manualSection.classList.toggle('hidden', mode !== 'manual');
+
+    // Load contacts ONLY for manual mode
+    if (mode === 'manual' && !allContacts.length) {
+      contactList.innerHTML = '<p>Loading contacts…</p>';
+
+      google.script.run
+        .withSuccessHandler(contacts => {
+          allContacts = Array.isArray(contacts) ? contacts : [];
+          renderContactList(allContacts);
+        })
+        .withFailureHandler(err => {
+          contactList.innerHTML =
+            `<p style="color:red;">Failed to load contacts</p>`;
+          console.error(err);
+        })
+        .getContacts();
+    }
+  };
+});
+
 
   /* ----------------------------
      Close handlers
