@@ -59,13 +59,18 @@ export function createSendPanel({ onClose } = {}) {
       </div>
 
       <!-- MANUAL SELECTION -->
-      <div class="manual-section hidden">
-        <div class="manual-header">
-          <small class="selected-count">0 selected</small>
-        </div>
+<div class="manual-section hidden">
+  <input
+    type="text"
+    class="manual-search"
+    placeholder="Search name or email…"
+  />
 
-        <div class="contact-list"></div>
-      </div>
+  <small class="selected-count">0 selected</small>
+
+  <div class="contact-list"></div>
+</div>
+
 
     </div>
 
@@ -85,6 +90,8 @@ export function createSendPanel({ onClose } = {}) {
   const manualSection = panel.querySelector('.manual-section');
   const contactList = panel.querySelector('.contact-list');
   const selectedCount = panel.querySelector('.selected-count');
+  const searchInput = panel.querySelector('.manual-search');
+
 
   /* ----------------------------
      Load contact attributes (filters)
@@ -158,6 +165,23 @@ export function createSendPanel({ onClose } = {}) {
     selectedCount.innerText = `${selectedRecipients.size} selected`;
   }
 
+
+
+
+  function applySearchFilter() {
+  const q = searchInput.value.toLowerCase().trim();
+
+  const filtered = allContacts.filter(c => {
+    const name = `${c.first_name || ''} ${c.last_name || ''}`.toLowerCase();
+    const email = (c.email || '').toLowerCase();
+    return name.includes(q) || email.includes(q);
+  });
+
+  renderContactList(filtered);
+}
+
+searchInput.oninput = applySearchFilter;
+
   /* ----------------------------
      Mode switching
   ---------------------------- */
@@ -169,6 +193,8 @@ panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
     selectedRecipients.clear();
     updateSelectedCount();
     contactList.innerHTML = '';
+    searchInput.value = '';
+
 
     filterSection.classList.toggle('hidden', mode !== 'filtered');
     manualSection.classList.toggle('hidden', mode !== 'manual');
