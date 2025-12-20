@@ -1,3 +1,4 @@
+import { createSendPanel } from '../../components/send-panel.js';
 import { Panel } from '../../components/panel.js';
 
 
@@ -94,14 +95,14 @@ previewBtn.onclick = previewCampaign;
 
 library.appendChild(previewBtn);
 
-  const sendBtn = document.createElement('button');
+const sendBtn = document.createElement('button');
 sendBtn.className = 'btn btn-danger';
-sendBtn.innerText = 'Send Campaign';
-sendBtn.style.marginTop = '8px';
-sendBtn.onclick = sendCampaignFromComposer;
+sendBtn.innerText = 'Send';
+sendBtn.onclick = () => {
+  createSendPanel();
+};
 
 library.appendChild(sendBtn);
-
 
 
   const canvas = renderCanvas();
