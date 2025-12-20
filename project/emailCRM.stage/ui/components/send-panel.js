@@ -18,7 +18,7 @@ export function createSendPanel({ onClose } = {}) {
     <div class="send-panel-header">
       <h3>Send Campaign</h3>
       <button class="close-btn">×</button>
-    </div>
+    
 
     <div class="send-panel-body">
 
@@ -68,6 +68,8 @@ export function createSendPanel({ onClose } = {}) {
       placeholder="Search name or email…"
     />
     <small class="selected-count">0 selected</small>
+  </div>
+
   </div>
 
   <div class="contact-list"></div>
