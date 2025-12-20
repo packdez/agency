@@ -1,4 +1,13 @@
 export function createSendPanel({ onClose } = {}) {
+  /* ----------------------------
+     State (in-memory)
+  ---------------------------- */
+  const selectedRecipients = new Set();
+  let allContacts = [];
+
+  /* ----------------------------
+     Overlay + Panel
+  ---------------------------- */
   const overlay = document.createElement('div');
   overlay.className = 'send-panel-overlay';
 
@@ -12,6 +21,8 @@ export function createSendPanel({ onClose } = {}) {
     </div>
 
     <div class="send-panel-body">
+
+      <!-- MODE SELECTION -->
       <label class="radio">
         <input type="radio" name="recipient_mode" value="all" checked />
         <span>All contacts</span>
@@ -22,6 +33,12 @@ export function createSendPanel({ onClose } = {}) {
         <span>Filtered contacts</span>
       </label>
 
+      <label class="radio">
+        <input type="radio" name="recipient_mode" value="manual" />
+        <span>Select manually</span>
+      </label>
+
+      <!-- FILTER SECTION -->
       <div class="filter-section hidden">
         <div class="filter-row">
           <select class="filter-field">
@@ -40,6 +57,16 @@ export function createSendPanel({ onClose } = {}) {
           />
         </div>
       </div>
+
+      <!-- MANUAL SELECTION -->
+      <div class="manual-section hidden">
+        <div class="manual-header">
+          <small class="selected-count">0 selected</small>
+        </div>
+
+        <div class="contact-list"></div>
+      </div>
+
     </div>
 
     <div class="send-panel-footer">
@@ -51,51 +78,139 @@ export function createSendPanel({ onClose } = {}) {
   overlay.appendChild(panel);
   document.body.appendChild(overlay);
 
-  // Load contact attributes dynamically
-google.script.run
-  .withSuccessHandler(res => {
-    const fields = res?.attributes || [];
-    const fieldSelect = panel.querySelector('.filter-field');
+  /* ----------------------------
+     DOM refs
+  ---------------------------- */
+  const filterSection = panel.querySelector('.filter-section');
+  const manualSection = panel.querySelector('.manual-section');
+  const contactList = panel.querySelector('.contact-list');
+  const selectedCount = panel.querySelector('.selected-count');
 
-    fields.forEach(attr => {
-      const opt = document.createElement('option');
-      opt.value = attr;
-      opt.innerText = attr;
-      fieldSelect.appendChild(opt);
+  /* ----------------------------
+     Load contact attributes (filters)
+  ---------------------------- */
+  google.script.run
+    .withSuccessHandler(res => {
+      const fields = res?.attributes || [];
+      const fieldSelect = panel.querySelector('.filter-field');
+
+      fields.forEach(attr => {
+        const opt = document.createElement('option');
+        opt.value = attr;
+        opt.innerText = attr;
+        fieldSelect.appendChild(opt);
+      });
+    })
+    .getContactAttributes();
+
+  /* ----------------------------
+     Load contacts (for manual)
+  ---------------------------- */
+  google.script.run
+    .withSuccessHandler(contacts => {
+      allContacts = Array.isArray(contacts) ? contacts : [];
+      renderContactList(allContacts);
+    })
+    .withFailureHandler(err => {
+      contactList.innerHTML =
+        `<p style="color:red;">Failed to load contacts</p>`;
+      console.error(err);
+    })
+    .getContacts();
+
+  /* ----------------------------
+     Render contact list
+  ---------------------------- */
+  function renderContactList(contacts) {
+    contactList.innerHTML = '';
+
+    if (!contacts.length) {
+      contactList.innerHTML = '<p>No contacts found.</p>';
+      return;
+    }
+
+    contacts.forEach(contact => {
+      const row = document.createElement('label');
+      row.className = 'contact-row';
+      row.style.display = 'flex';
+      row.style.alignItems = 'center';
+      row.style.gap = '8px';
+      row.style.padding = '8px';
+      row.style.cursor = 'pointer';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = selectedRecipients.has(contact.email);
+
+      checkbox.onchange = () => {
+        if (checkbox.checked) {
+          selectedRecipients.add(contact.email);
+        } else {
+          selectedRecipients.delete(contact.email);
+        }
+        updateSelectedCount();
+      };
+
+      const info = document.createElement('div');
+      info.innerHTML = `
+        <strong>${contact.first_name || ''} ${contact.last_name || ''}</strong><br/>
+        <small>${contact.email}</small>
+      `;
+
+      row.appendChild(checkbox);
+      row.appendChild(info);
+      contactList.appendChild(row);
     });
-  })
-  .withFailureHandler(err => {
-    console.error('Failed to load contact attributes', err);
-  })
-  .getContactAttributes();
 
+    updateSelectedCount();
+  }
 
-  // Close handlers
-  overlay.querySelector('.close-btn').onclick = close;
-  overlay.querySelector('.cancel-btn').onclick = close;
+  function updateSelectedCount() {
+    selectedCount.innerText = `${selectedRecipients.size} selected`;
+  }
+
+  /* ----------------------------
+     Mode switching
+  ---------------------------- */
+  panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
+    radio.onchange = e => {
+      const mode = e.target.value;
+
+      filterSection.classList.toggle('hidden', mode !== 'filtered');
+      manualSection.classList.toggle('hidden', mode !== 'manual');
+    };
+  });
+
+  /* ----------------------------
+     Close handlers
+  ---------------------------- */
+  panel.querySelector('.close-btn').onclick = close;
+  panel.querySelector('.cancel-btn').onclick = close;
+
   overlay.onclick = e => {
     if (e.target === overlay) close();
   };
 
-  // Toggle filter section
-  panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
-    radio.onchange = e => {
-      panel.querySelector('.filter-section')
-        .classList.toggle('hidden', e.target.value !== 'filtered');
-    };
-  });
-
   function close() {
     overlay.classList.remove('open');
     setTimeout(() => overlay.remove(), 200);
-    onClose?.();
+    if (typeof onClose === 'function') onClose();
   }
 
-  // Animate in
+  /* ----------------------------
+     Animate in
+  ---------------------------- */
   requestAnimationFrame(() => overlay.classList.add('open'));
 
+  /* ----------------------------
+     Exposed API (for Send later)
+  ---------------------------- */
   return {
-    overlay,
-    panel
+    getMode: () =>
+      panel.querySelector('input[name="recipient_mode"]:checked')?.value,
+
+    getSelectedEmails: () => Array.from(selectedRecipients),
+
+    close
   };
 }
