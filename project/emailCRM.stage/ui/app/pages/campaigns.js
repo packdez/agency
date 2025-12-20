@@ -41,7 +41,7 @@ google.script.run
       list.innerHTML = '<p>No campaigns found.</p>';
       return;
     }
-
+ 
 
       console.log('FRONTEND RECEIVED CAMPAIGNS:', campaigns);
 
