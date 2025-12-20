@@ -1,23 +1,21 @@
 /* ==============================
    Overlay
 ================================ */
-.recipient-sticky {
-  position: sticky;
-  top: 0;
-  z-index: 3;
-  background: white;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
+.send-panel-controls {
+  padding: 16px;
   border-bottom: 1px solid #E5E7EB;
+  background: white;
 }
 
-.manual-controls {
-  margin-top: 8px;
+/* ==============================
+   Body (scrollable)
+================================ */
+.send-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
 }
 
-.manual-controls.hidden {
-  display: none;
-}
 
 
 .send-panel-overlay {
@@ -72,14 +70,6 @@
   cursor: pointer;
 }
 
-/* ==============================
-   Body (scrollable)
-================================ */
-.send-panel-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px;
-}
 
 /* ==============================
    Footer (sticky)
