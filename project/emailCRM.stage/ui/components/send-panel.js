@@ -22,36 +22,52 @@ export function createSendPanel({ onClose } = {}) {
 
     <div class="send-panel-body">
 
+      <!-- MODE SELECTION -->
+      <label class="radio">
+        <input type="radio" name="recipient_mode" value="all" checked />
+        <span>All contacts</span>
+      </label>
 
-<div class="recipient-sticky">
+      <label class="radio">
+        <input type="radio" name="recipient_mode" value="filtered" />
+        <span>Filtered contacts</span>
+      </label>
 
-  <label class="radio">
-    <input type="radio" name="recipient_mode" value="all" checked />
-    <span>All contacts</span>
-  </label>
+      <label class="radio">
+        <input type="radio" name="recipient_mode" value="manual" />
+        <span>Select manually</span>
+      </label>
 
-  <label class="radio">
-    <input type="radio" name="recipient_mode" value="filtered" />
-    <span>Filtered contacts</span>
-  </label>
+      <!-- FILTER SECTION -->
+      <div class="filter-section hidden">
+        <div class="filter-row">
+          <select class="filter-field">
+            <option value="">Select field</option>
+          </select>
 
-  <label class="radio">
-    <input type="radio" name="recipient_mode" value="manual" />
-    <span>Select manually</span>
-  </label>
+          <select class="filter-operator">
+            <option value="equals">equals</option>
+            <option value="contains">contains</option>
+          </select>
 
-  <div class="manual-controls hidden">
-    <input
-      type="text"
-      class="manual-search"
-      placeholder="Search name or email…"
-    />
-    <small class="selected-count">0 selected</small>
-  </div>
+          <input
+            class="filter-value"
+            placeholder="Value"
+            type="text"
+          />
+        </div>
+      </div>
 
-</div>
-
+      <!-- MANUAL SELECTION -->
 <div class="manual-section hidden">
+  <input
+    type="text"
+    class="manual-search"
+    placeholder="Search name or email…"
+  />
+
+  <small class="selected-count">0 selected</small>
+
   <div class="contact-list"></div>
 </div>
 
