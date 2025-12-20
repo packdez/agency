@@ -16,12 +16,14 @@ export function createSendPanel({ onClose } = {}) {
 
   panel.innerHTML = `
     <div class="send-panel-header">
-  <h3>Send Campaign</h3>
-  <button class="close-btn">×</button>
-</div>
+      <h3>Send Campaign</h3>
+      <button class="close-btn">×</button>
+    </div>
 
-<!-- 🔒 FIXED CONTROLS -->
-<div class="send-panel-controls">
+    <div class="send-panel-body">
+
+
+<div class="recipient-sticky">
 
   <label class="radio">
     <input type="radio" name="recipient_mode" value="all" checked />
@@ -49,18 +51,17 @@ export function createSendPanel({ onClose } = {}) {
 
 </div>
 
-<!-- 📜 SCROLLABLE LIST ONLY -->
-<div class="send-panel-body">
-  <div class="manual-section hidden">
-    <div class="contact-list"></div>
-  </div>
+<div class="manual-section hidden">
+  <div class="contact-list"></div>
 </div>
 
-<div class="send-panel-footer">
-  <button class="btn btn-secondary cancel-btn">Cancel</button>
-  <button class="btn btn-danger send-btn">Send Campaign</button>
-</div>
 
+    </div>
+
+    <div class="send-panel-footer">
+      <button class="btn btn-secondary cancel-btn">Cancel</button>
+      <button class="btn btn-danger send-btn">Send Campaign</button>
+    </div>
   `;
 
   overlay.appendChild(panel);
