@@ -173,18 +173,17 @@ panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
   radio.onchange = e => {
     const mode = e.target.value;
 
+    // Reset state
     selectedRecipients.clear();
     updateSelectedCount();
     contactList.innerHTML = '';
     searchInput.value = '';
 
-    // Toggle sections
+
     filterSection.classList.toggle('hidden', mode !== 'filtered');
     manualSection.classList.toggle('hidden', mode !== 'manual');
-    panel.querySelector('.manual-controls')
-      .classList.toggle('hidden', mode !== 'manual');
 
-    // Load contacts only for manual
+    // Load contacts ONLY for manual mode
     if (mode === 'manual' && !allContacts.length) {
       contactList.innerHTML = '<p>Loading contacts…</p>';
 
@@ -193,11 +192,15 @@ panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
           allContacts = Array.isArray(contacts) ? contacts : [];
           renderContactList(allContacts);
         })
+        .withFailureHandler(err => {
+          contactList.innerHTML =
+            `<p style="color:red;">Failed to load contacts</p>`;
+          console.error(err);
+        })
         .getContacts();
     }
   };
 });
-
 
 
   /* ----------------------------
