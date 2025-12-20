@@ -512,13 +512,13 @@ function previewCampaign() {
   }
 
   google.script.run
-    .withSuccessHandler(htmlOutput => {
-      // ✅ IMPORTANT: htmlOutput is HtmlOutput, not string
-      const win = window.open(
-        'data:text/html;charset=utf-8,' +
-        encodeURIComponent(htmlOutput.getContent())
-      );
-    })
+.withSuccessHandler(html => {
+  const w = window.open('', '_blank');
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+})
+
     .withFailureHandler(err => {
       showToast(err.message || 'Preview failed', 'danger');
     })
