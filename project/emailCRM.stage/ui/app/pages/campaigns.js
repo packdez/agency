@@ -29,7 +29,7 @@ export function renderCampaigns(navigateToComposer) {
   // ✅ Load campaigns from backend
 google.script.run
   .withSuccessHandler(campaigns => {
-    console.log('RAW RESPONSE FROM APPS SCRIPT:', campaigns);
+    console.log('FRONTEND RECEIVED CAMPAIGNS:', campaigns);
 
     list.innerHTML = '';
 
@@ -41,25 +41,16 @@ google.script.run
     campaigns.forEach(c => {
       const row = document.createElement('div');
       row.className = 'campaign-row';
-      row.style.cursor = 'pointer';
-      row.style.padding = '12px';
-      row.style.borderBottom = '1px solid #E5E7EB';
-
       row.innerHTML = `
         <strong>${c.name}</strong><br/>
         <small>${c.subject || ''}</small>
       `;
-
       row.onclick = () => navigateToComposer(c.campaign_id);
-
       list.appendChild(row);
     });
   })
-  .withFailureHandler(err => {
-    console.error('listCampaigns failed:', err);
-    list.innerHTML = `<p style="color:red;">${err.message}</p>`;
-  })
   .listCampaigns();
+
 
 
   return wrapper;
