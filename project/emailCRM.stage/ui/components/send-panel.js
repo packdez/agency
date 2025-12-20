@@ -22,25 +22,46 @@ export function createSendPanel({ onClose } = {}) {
 
     <div class="send-panel-body">
 
+      <!-- MODE SELECTION -->
+      <label class="radio">
+        <input type="radio" name="recipient_mode" value="all" checked />
+        <span>All contacts</span>
+      </label>
 
-<div class="recipient-sticky">
+      <label class="radio">
+        <input type="radio" name="recipient_mode" value="filtered" />
+        <span>Filtered contacts</span>
+      </label>
 
-  <label class="radio">
-    <input type="radio" name="recipient_mode" value="all" checked />
-    <span>All contacts</span>
-  </label>
+      <label class="radio">
+        <input type="radio" name="recipient_mode" value="manual" />
+        <span>Select manually</span>
+      </label>
 
-  <label class="radio">
-    <input type="radio" name="recipient_mode" value="filtered" />
-    <span>Filtered contacts</span>
-  </label>
+      <!-- FILTER SECTION -->
+      <div class="filter-section hidden">
+        <div class="filter-row">
+          <select class="filter-field">
+            <option value="">Select field</option>
+          </select>
 
-  <label class="radio">
-    <input type="radio" name="recipient_mode" value="manual" />
-    <span>Select manually</span>
-  </label>
+          <select class="filter-operator">
+            <option value="equals">equals</option>
+            <option value="contains">contains</option>
+          </select>
 
-  <div class="manual-controls hidden">
+          <input
+            class="filter-value"
+            placeholder="Value"
+            type="text"
+          />
+        </div>
+      </div>
+
+      <!-- MANUAL SELECTION -->
+<div class="manual-section hidden">
+
+  <div class="manual-sticky">
     <input
       type="text"
       class="manual-search"
@@ -49,9 +70,6 @@ export function createSendPanel({ onClose } = {}) {
     <small class="selected-count">0 selected</small>
   </div>
 
-</div>
-
-<div class="manual-section hidden">
   <div class="contact-list"></div>
 </div>
 
@@ -74,8 +92,6 @@ export function createSendPanel({ onClose } = {}) {
   const manualSection = panel.querySelector('.manual-section');
   const contactList = panel.querySelector('.contact-list');
   const selectedCount = panel.querySelector('.selected-count');
-  const searchInput = panel.querySelector('.manual-search');
-
 
   /* ----------------------------
      Load contact attributes (filters)
@@ -149,23 +165,6 @@ export function createSendPanel({ onClose } = {}) {
     selectedCount.innerText = `${selectedRecipients.size} selected`;
   }
 
-
-
-
-  function applySearchFilter() {
-  const q = searchInput.value.toLowerCase().trim();
-
-  const filtered = allContacts.filter(c => {
-    const name = `${c.first_name || ''} ${c.last_name || ''}`.toLowerCase();
-    const email = (c.email || '').toLowerCase();
-    return name.includes(q) || email.includes(q);
-  });
-
-  renderContactList(filtered);
-}
-
-searchInput.oninput = applySearchFilter;
-
   /* ----------------------------
      Mode switching
   ---------------------------- */
@@ -177,8 +176,6 @@ panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
     selectedRecipients.clear();
     updateSelectedCount();
     contactList.innerHTML = '';
-    searchInput.value = '';
-
 
     filterSection.classList.toggle('hidden', mode !== 'filtered');
     manualSection.classList.toggle('hidden', mode !== 'manual');
