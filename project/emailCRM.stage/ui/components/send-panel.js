@@ -60,16 +60,19 @@ export function createSendPanel({ onClose } = {}) {
 
       <!-- MANUAL SELECTION -->
 <div class="manual-section hidden">
-  <input
-    type="text"
-    class="manual-search"
-    placeholder="Search name or email…"
-  />
 
-  <small class="selected-count">0 selected</small>
+  <div class="manual-sticky">
+    <input
+      type="text"
+      class="manual-search"
+      placeholder="Search name or email…"
+    />
+    <small class="selected-count">0 selected</small>
+  </div>
 
   <div class="contact-list"></div>
 </div>
+
 
 
     </div>
