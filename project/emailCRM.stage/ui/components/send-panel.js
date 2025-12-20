@@ -1,4 +1,4 @@
-export function createSendPanel({ onClose }) {
+export function createSendPanel({ onClose } = {}) {
   const overlay = document.createElement('div');
   overlay.className = 'send-panel-overlay';
 
