@@ -27,9 +27,21 @@ export function renderCampaigns(navigateToComposer) {
   wrapper.appendChild(list);
 
   // ✅ Load campaigns from backend
-  google.script.run
-    .withSuccessHandler(res => {
-      const campaigns = Array.isArray(res) ? res : [];
+google.script.run
+  .withSuccessHandler(res => {
+    console.log('RAW RESPONSE FROM APPS SCRIPT:', res);
+    console.log('TYPE:', typeof res);
+    console.log('IS ARRAY:', Array.isArray(res));
+
+    const campaigns = Array.isArray(res) ? res : [];
+
+    list.innerHTML = '';
+
+    if (!campaigns.length) {
+      list.innerHTML = '<p>No campaigns found.</p>';
+      return;
+    }
+
 
       console.log('FRONTEND RECEIVED CAMPAIGNS:', campaigns);
 
