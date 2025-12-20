@@ -1,16 +1,6 @@
 /* ==============================
    Overlay
 ================================ */
-.manual-sticky {
-  position: sticky;
-  top: 0;
-  background: white;
-  padding-bottom: 8px;
-  margin-bottom: 8px;
-  z-index: 2;
-  border-bottom: 1px solid #E5E7EB;
-}
-
 .send-panel-overlay {
   position: fixed;
   inset: 0;
