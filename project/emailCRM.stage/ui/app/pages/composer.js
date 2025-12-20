@@ -94,6 +94,15 @@ previewBtn.onclick = previewCampaign;
 
 library.appendChild(previewBtn);
 
+  const sendBtn = document.createElement('button');
+sendBtn.className = 'btn btn-danger';
+sendBtn.innerText = 'Send Campaign';
+sendBtn.style.marginTop = '8px';
+sendBtn.onclick = sendCampaignFromComposer;
+
+library.appendChild(sendBtn);
+
+
 
   const canvas = renderCanvas();
   const inspector = renderInspector();
@@ -522,6 +531,28 @@ function previewCampaign() {
       showToast(err.message || 'Preview failed', 'danger');
     })
     .previewCampaignFromUI(bodyJson, contact);
+}
+
+
+function sendCampaignFromComposer() {
+  if (!currentCampaignId) {
+    showToast('Save the campaign before sending', 'danger');
+    return;
+  }
+
+  showToast('Sending campaign…');
+
+  google.script.run
+    .withSuccessHandler(result => {
+      showToast(
+        `Sent: ${result.sent}, Failed: ${result.failed}`,
+        result.failed ? 'warning' : 'success'
+      );
+    })
+    .withFailureHandler(err => {
+      showToast(err.message || 'Send failed', 'danger');
+    })
+    .sendCampaign(currentCampaignId);
 }
 
 
