@@ -38,8 +38,7 @@ export function createSendPanel({ onClose } = {}) {
         <span>Select manually</span>
       </label>
 
-<div class="manual-section hidden">
-  <div class="manual-sticky">
+
   
       <!-- FILTER SECTION -->
       <div class="filter-section hidden">
@@ -62,7 +61,8 @@ export function createSendPanel({ onClose } = {}) {
       </div>
 
       <!-- MANUAL SELECTION -->
-
+<div class="manual-section hidden">
+  <div class="manual-sticky">
     <input
       type="text"
       class="manual-search"
