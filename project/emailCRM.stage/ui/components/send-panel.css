@@ -1,22 +1,15 @@
 /* ==============================
    Overlay
 ================================ */
-.send-panel-controls {
-  padding: 16px;
-  border-bottom: 1px solid #E5E7EB;
+.manual-sticky {
+  position: sticky;
+  top: 0;
   background: white;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  z-index: 2;
+  border-bottom: 1px solid #E5E7EB;
 }
-
-/* ==============================
-   Body (scrollable)
-================================ */
-.send-panel-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px;
-}
-
-
 
 .send-panel-overlay {
   position: fixed;
@@ -70,6 +63,14 @@
   cursor: pointer;
 }
 
+/* ==============================
+   Body (scrollable)
+================================ */
+.send-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
 
 /* ==============================
    Footer (sticky)
