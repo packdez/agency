@@ -29,7 +29,7 @@ export function renderCampaigns(navigateToComposer) {
   // ✅ Load campaigns from backend
   google.script.run
     .withSuccessHandler(res => {
-      const campaigns = res && res.rows ? res.rows : [];
+      const campaigns = Array.isArray(res) ? res : [];
 
       console.log('FRONTEND RECEIVED CAMPAIGNS:', campaigns);
 
