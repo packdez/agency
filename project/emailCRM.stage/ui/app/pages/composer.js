@@ -513,11 +513,12 @@ function previewCampaign() {
 
   google.script.run
 .withSuccessHandler(html => {
-  const w = window.open('', '_blank');
-  w.document.open();
-  w.document.write(html);
-  w.document.close();
-})
+  window.open(
+    'data:text/html;charset=utf-8,' +
+    encodeURIComponent(html)
+  );
+});
+
 
     .withFailureHandler(err => {
       showToast(err.message || 'Preview failed', 'danger');
