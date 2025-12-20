@@ -512,22 +512,16 @@ function previewCampaign() {
   }
 
   google.script.run
-.withSuccessHandler(html => {
-  window.open(
-    'data:text/html;charset=utf-8,' +
-    encodeURIComponent(html)
-  );
-});
-
-
+    .withSuccessHandler(html => {
+      window.open(
+        'data:text/html;charset=utf-8,' +
+        encodeURIComponent(html)
+      );
+    })
     .withFailureHandler(err => {
       showToast(err.message || 'Preview failed', 'danger');
     })
     .previewCampaignFromUI(bodyJson, contact);
 }
-
-
-
-
 
 
