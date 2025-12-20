@@ -28,54 +28,39 @@ export function renderCampaigns(navigateToComposer) {
 
   // ✅ Load campaigns from backend
 google.script.run
-  .withSuccessHandler(res => {
-    console.log('RAW RESPONSE FROM APPS SCRIPT:', res);
-    console.log('TYPE:', typeof res);
-    console.log('IS ARRAY:', Array.isArray(res));
-
-    const campaigns = Array.isArray(res) ? res : [];
+  .withSuccessHandler(campaigns => {
+    console.log('RAW RESPONSE FROM APPS SCRIPT:', campaigns);
 
     list.innerHTML = '';
 
-    if (!campaigns.length) {
+    if (!Array.isArray(campaigns) || !campaigns.length) {
       list.innerHTML = '<p>No campaigns found.</p>';
       return;
     }
- 
 
-      console.log('FRONTEND RECEIVED CAMPAIGNS:', campaigns);
+    campaigns.forEach(c => {
+      const row = document.createElement('div');
+      row.className = 'campaign-row';
+      row.style.cursor = 'pointer';
+      row.style.padding = '12px';
+      row.style.borderBottom = '1px solid #E5E7EB';
 
-      list.innerHTML = '';
+      row.innerHTML = `
+        <strong>${c.name}</strong><br/>
+        <small>${c.subject || ''}</small>
+      `;
 
-      if (!campaigns.length) {
-        list.innerHTML = '<p>No campaigns found.</p>';
-        return;
-      }
+      row.onclick = () => navigateToComposer(c.campaign_id);
 
-      campaigns.forEach(c => {
-        const row = document.createElement('div');
-        row.className = 'campaign-row';
-        row.style.cursor = 'pointer';
-        row.style.padding = '12px';
-        row.style.borderBottom = '1px solid #E5E7EB';
+      list.appendChild(row);
+    });
+  })
+  .withFailureHandler(err => {
+    console.error('listCampaigns failed:', err);
+    list.innerHTML = `<p style="color:red;">${err.message}</p>`;
+  })
+  .listCampaigns();
 
-        row.innerHTML = `
-          <strong>${c.name}</strong><br/>
-          <small>${c.subject || ''}</small>
-        `;
-
-        row.onclick = () => {
-          navigateToComposer(c.campaign_id);
-        };
-
-        list.appendChild(row);
-      });
-    })
-    .withFailureHandler(err => {
-      console.error('listCampaigns failed:', err);
-      list.innerHTML = `<p style="color:red;">${err.message}</p>`;
-    })
-    .listCampaigns();
 
   return wrapper;
 }
