@@ -51,6 +51,25 @@ export function createSendPanel({ onClose } = {}) {
   overlay.appendChild(panel);
   document.body.appendChild(overlay);
 
+  // Load contact attributes dynamically
+google.script.run
+  .withSuccessHandler(res => {
+    const fields = res?.attributes || [];
+    const fieldSelect = panel.querySelector('.filter-field');
+
+    fields.forEach(attr => {
+      const opt = document.createElement('option');
+      opt.value = attr;
+      opt.innerText = attr;
+      fieldSelect.appendChild(opt);
+    });
+  })
+  .withFailureHandler(err => {
+    console.error('Failed to load contact attributes', err);
+  })
+  .getContactAttributes();
+
+
   // Close handlers
   overlay.querySelector('.close-btn').onclick = close;
   overlay.querySelector('.cancel-btn').onclick = close;
