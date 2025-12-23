@@ -33,6 +33,8 @@ const PREVIEW_CONTACTS = [
   }
 ];
 
+let nameInput = null;
+let subjectInput = null;
 
 let selectedElementId = null;
 let activeInput = null;
@@ -109,6 +111,12 @@ sendBtn.onclick = () => {
     return;
   }
 
+  if (!elements.length) {
+  showToast('Add at least one element before sending', 'danger');
+  return;
+}
+
+
   createSendPanel({
     campaign: {
       campaign_id: currentCampaignId,
@@ -136,7 +144,7 @@ campaignMeta.style.flexDirection = 'column';
 campaignMeta.style.gap = '8px';
 campaignMeta.style.marginBottom = '12px';
 
-const nameInput = document.createElement('input');
+nameInput = document.createElement('input');
 nameInput.placeholder = 'Campaign name';
 nameInput.value = currentCampaignName || '';
 nameInput.className = 'input';
@@ -145,7 +153,7 @@ nameInput.oninput = e => {
   currentCampaignName = e.target.value;
 };
 
-const subjectInput = document.createElement('input');
+subjectInput = document.createElement('input');
 subjectInput.placeholder = 'Email subject';
 subjectInput.value = currentCampaignSubject || '';
 subjectInput.className = 'input';
