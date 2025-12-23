@@ -4,7 +4,9 @@ export function createSendPanel({ onClose } = {}) {
   ---------------------------- */
   const selectedRecipients = new Set();
   let allContacts = [];
-
+  let filteredContacts = [];
+  let selectedRecipients = new Set();
+  
   /* ----------------------------
      Overlay + Panel
   ---------------------------- */
@@ -93,6 +95,7 @@ export function createSendPanel({ onClose } = {}) {
   const manualSection = panel.querySelector('.manual-section');
   const contactList = panel.querySelector('.contact-list');
   const selectedCount = panel.querySelector('.selected-count');
+  const searchInput = panel.querySelector('.manual-search');
 
   /* ----------------------------
      Load contact attributes (filters)
@@ -112,6 +115,20 @@ export function createSendPanel({ onClose } = {}) {
     .getContactAttributes();
 
 
+  searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+
+  filteredContacts = allContacts.filter(c => {
+    const name = `${c.first_name || ''} ${c.last_name || ''}`.toLowerCase();
+    const email = (c.email || '').toLowerCase();
+
+    return name.includes(q) || email.includes(q);
+  });
+
+  renderContactList(filteredContacts);
+});
+
+  
   /* ----------------------------
      Render contact list
   ---------------------------- */
