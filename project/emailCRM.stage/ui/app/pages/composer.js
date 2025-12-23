@@ -565,10 +565,17 @@ export function loadCampaign(campaignId) {
 
       nameInput.value = currentCampaignName;
       subjectInput.value = currentCampaignSubject;
+      saveBtn.disabled = true;
 
 
       elements.length = 0;
       campaign.body_json.elements.forEach(el => elements.push(el));
+
+      if (campaign.status === 'sent') {
+        sendBtn.disabled = true;
+        sendBtn.innerText = 'Already Sent';
+      }
+
 
       selectedElementId = null;
       refreshUI();
