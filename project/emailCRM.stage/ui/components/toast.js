@@ -1,6 +1,6 @@
 let container;
 
-function showToast(message, type = 'success') {
+window.showToast = function (message, type = 'success') {
   if (!container) {
     container = document.createElement('div');
     container.className = 'toast-container';
@@ -12,22 +12,17 @@ function showToast(message, type = 'success') {
   toast.innerText = message;
 
   container.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+};
 
-  setTimeout(() => {
-    toast.remove();
-  }, 4000);
-}
-
-
-
-export function showConfirmToast({
+window.showConfirmToast = function ({
   message,
   confirmText = 'Confirm',
   cancelText = 'Cancel',
   onConfirm
 }) {
   const toast = document.createElement('div');
-  toast.className = 'toast toast-warning';
+  toast.className = 'toast toast-warning show';
 
   toast.innerHTML = `
     <div class="toast-message">${message}</div>
@@ -38,8 +33,6 @@ export function showConfirmToast({
   `;
 
   document.body.appendChild(toast);
-
-  requestAnimationFrame(() => toast.classList.add('show'));
 
   const cleanup = () => {
     toast.classList.remove('show');
@@ -52,4 +45,4 @@ export function showConfirmToast({
   };
 
   toast.querySelector('.cancel-btn').onclick = cleanup;
-}
+};
