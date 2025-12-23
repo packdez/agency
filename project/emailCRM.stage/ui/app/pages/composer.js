@@ -98,9 +98,22 @@ library.appendChild(previewBtn);
 const sendBtn = document.createElement('button');
 sendBtn.className = 'btn btn-danger';
 sendBtn.innerText = 'Send';
+import { createSendPanel } from '../components/send-panel.js'; // adjust path if needed
+
 sendBtn.onclick = () => {
-  createSendPanel();
+  createSendPanel({
+    campaign: {
+      campaign_id: currentCampaignId,
+      name: currentCampaignName,
+      subject: currentCampaignSubject,
+      body_json: { elements }
+    },
+    onClose: () => {
+      // optional cleanup later
+    }
+  });
 };
+
 
 library.appendChild(sendBtn);
 
