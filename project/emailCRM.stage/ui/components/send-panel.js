@@ -1,6 +1,3 @@
-import { showConfirmToast } from '../ui/components/toast.js'; // adjust path
-
-
 export function createSendPanel({ campaign, onClose } = {}) {
   const { campaign_id, name, subject, body_json } = campaign;
 
@@ -101,11 +98,19 @@ let filteredContacts = [];
   const manualSection = panel.querySelector('.manual-section');
   const contactList = panel.querySelector('.contact-list');
   const selectedCount = panel.querySelector('.selected-count');
-  const searchInput = panel.querySelector('.manual-search');const sendBtn = panel.querySelector('.send-btn');
+  const searchInput = panel.querySelector('.manual-search');
+  
+  
+  const sendBtn = panel.querySelector('.send-btn');
 
 sendBtn.onclick = () => {
   const mode =
     panel.querySelector('input[name="recipient_mode"]:checked')?.value;
+
+  if (mode === 'manual' && selectedRecipients.size === 0) {
+    showToast('Select at least one recipient', 'danger');
+    return;
+  }
 
   const payload = {
     mode,
@@ -118,26 +123,13 @@ sendBtn.onclick = () => {
             value: panel.querySelector('.filter-value')?.value
           }
         : null,
-campaign: {
-  campaign_id,
-  name,
-  subject,
-  body_json
-}
-
+    campaign: {
+      campaign_id,
+      name,
+      subject,
+      body_json
+    }
   };
-
-if (mode === 'manual' && selectedRecipients.size === 0) {
-  showToast('Select at least one recipient', 'danger');
-  return;
-}
-
-
-sendBtn.onclick = () => {
-  if (mode === 'manual' && selectedRecipients.size === 0) {
-    showToast('Select at least one recipient', 'danger');
-    return;
-  }
 
   showConfirmToast({
     message: `
@@ -146,14 +138,11 @@ sendBtn.onclick = () => {
     `,
     confirmText: 'Send now',
     cancelText: 'Cancel',
-    onConfirm: () => {
-      actuallySendCampaign();
-    }
+    onConfirm: () => actuallySendCampaign(payload)
   });
 };
 
-
-function actuallySendCampaign() {
+function actuallySendCampaign(payload) {
   sendBtn.disabled = true;
   sendBtn.innerText = 'Sending…';
 
@@ -173,7 +162,7 @@ function actuallySendCampaign() {
     })
     .sendCampaignFromUI(payload);
 }
- 
+
 
   /* ----------------------------
      Load contact attributes (filters)
