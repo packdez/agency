@@ -100,6 +100,15 @@ sendBtn.className = 'btn btn-danger';
 sendBtn.innerText = 'Send';
 
 sendBtn.onclick = () => {
+  // 🔒 Prevent opening multiple send panels
+  if (document.querySelector('.send-panel-overlay')) return;
+
+  // ❗ Require subject before sending
+  if (!currentCampaignSubject.trim()) {
+    showToast('Email subject is required', 'danger');
+    return;
+  }
+
   createSendPanel({
     campaign: {
       campaign_id: currentCampaignId,
@@ -112,6 +121,7 @@ sendBtn.onclick = () => {
     }
   });
 };
+
 
 
 library.appendChild(sendBtn);
