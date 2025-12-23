@@ -1,11 +1,6 @@
-export function createSendPanel({
-  campaign: {
-    campaign_id,
-    name,
-    subject,
-    body_json
-  },
-  onClose = {}) {
+export function createSendPanel({ campaign, onClose } = {}) {
+  const { campaign_id, name, subject, body_json } = campaign;
+
 
   /* ----------------------------
    State (in-memory)
