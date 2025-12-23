@@ -119,6 +119,8 @@ let filteredContacts = [];
   searchInput.addEventListener('input', () => {
   const q = searchInput.value.trim().toLowerCase();
 
+  if (manualSection.classList.contains('hidden')) return;
+
   filteredContacts = allContacts.filter(c => {
     const name = `${c.first_name || ''} ${c.last_name || ''}`.toLowerCase();
     const email = (c.email || '').toLowerCase();
