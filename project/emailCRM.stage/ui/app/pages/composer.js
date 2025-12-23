@@ -149,9 +149,18 @@ campaignMeta.appendChild(subjectInput);
 
   const inspector = renderInspector();
 
-  wrapper.appendChild(library);
-  wrapper.appendChild(canvas);
-  wrapper.appendChild(inspector);
+const centerColumn = document.createElement('div');
+centerColumn.style.display = 'flex';
+centerColumn.style.flexDirection = 'column';
+centerColumn.style.height = '100%';
+
+centerColumn.appendChild(campaignMeta);
+centerColumn.appendChild(canvas);
+
+wrapper.appendChild(library);
+wrapper.appendChild(centerColumn);
+wrapper.appendChild(inspector);
+
 
   return wrapper;
 }
@@ -536,6 +545,10 @@ export function loadCampaign(campaignId) {
       currentCampaignName = campaign.name;
       currentCampaignSubject = campaign.subject || '';
 
+      nameInput.value = currentCampaignName;
+      subjectInput.value = currentCampaignSubject;
+
+
       elements.length = 0;
       campaign.body_json.elements.forEach(el => elements.push(el));
 
@@ -547,8 +560,6 @@ export function loadCampaign(campaignId) {
       showToast(err.message || 'Failed to load', 'danger');
     })
     .getCampaign(campaignId);
-
-  refreshUI();
 
 }
 
