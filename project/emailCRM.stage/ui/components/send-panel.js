@@ -96,7 +96,48 @@ let filteredContacts = [];
   const manualSection = panel.querySelector('.manual-section');
   const contactList = panel.querySelector('.contact-list');
   const selectedCount = panel.querySelector('.selected-count');
-  const searchInput = panel.querySelector('.manual-search');
+  const searchInput = panel.querySelector('.manual-search');const sendBtn = panel.querySelector('.send-btn');
+
+sendBtn.onclick = () => {
+  const mode =
+    panel.querySelector('input[name="recipient_mode"]:checked')?.value;
+
+  const payload = {
+    mode,
+    selectedEmails: Array.from(selectedRecipients),
+    filter:
+      mode === 'filtered'
+        ? {
+            field: panel.querySelector('.filter-field')?.value,
+            operator: panel.querySelector('.filter-operator')?.value,
+            value: panel.querySelector('.filter-value')?.value
+          }
+        : null
+  };
+
+  sendBtn.disabled = true;
+  sendBtn.innerText = 'Sending…';
+
+  google.script.run
+    .withSuccessHandler(res => {
+      showToast(
+        `Sent: ${res.sent}, Failed: ${res.failed}`,
+        res.failed ? 'warning' : 'success'
+      );
+      close();
+    })
+    .withFailureHandler(err => {
+      console.error(err);
+      showToast(err.message || 'Send failed', 'danger');
+      sendBtn.disabled = false;
+      sendBtn.innerText = 'Send Campaign';
+    })
+    .sendCampaignFromUI(payload);
+};
+
+
+
+  
 
   /* ----------------------------
      Load contact attributes (filters)
@@ -255,65 +296,4 @@ panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
     close
   };
 }
-
-
-function buildSendPayload() {
-  const mode = currentMode; // 'manual' | 'all' | 'filtered'
-
-  const payload = {
-    campaignId: currentCampaignId,
-    mode
-  };
-
-  if (mode === 'manual') {
-    payload.emails = Array.from(selectedRecipients);
-  }
-
-  if (mode === 'filtered') {
-    payload.filters = activeFilters; 
-    // example:
-    // [{ field: 'company', operator: 'equals', value: 'Acme' }]
-  }
-
-  return payload;
-}
-
-
-async function sendCampaign() {
-  const payload = buildSendPayload();
-
-  if (payload.mode === 'manual' && payload.emails.length === 0) {
-    toast.error('No recipients selected');
-    return;
-  }
-
-  toast.info('Sending campaign...');
-
-  google.script.run
-    .withSuccessHandler(onSendComplete)
-    .withFailureHandler(onSendError)
-    .sendCampaign(payload);
-}
-
-
-
-function onSendComplete(result) {
-  toast.success(`Sent: ${result.sent}, Failed: ${result.failed}`);
-}
-
-function onSendError(err) {
-  console.error(err);
-  toast.error('Send failed. Check logs.');
-}
-
-
-
-
-
-
-
-
-
-
-
 
