@@ -104,7 +104,7 @@ sendBtn.onclick = () => {
 
 const payload = {
   mode,
-  selectedEmails,
+  selectedEmails: Array.from(selectedRecipients),
   filter,
   campaign: {
     campaign_id: currentCampaignId, // may be null
