@@ -38,7 +38,7 @@ let selectedElementId = null;
 let activeInput = null;
 
 let currentCampaignId = null;
-let currentCampaignName = 'Untitled Campaign';
+let currentCampaignName = '';
 let currentCampaignSubject = '';
 let selectedPreviewContactId = PREVIEW_CONTACTS[0].id;
 
@@ -118,6 +118,35 @@ library.appendChild(sendBtn);
 
 
   const canvas = renderCanvas();
+
+
+  const campaignMeta = document.createElement('div');
+campaignMeta.style.display = 'flex';
+campaignMeta.style.flexDirection = 'column';
+campaignMeta.style.gap = '8px';
+campaignMeta.style.marginBottom = '12px';
+
+const nameInput = document.createElement('input');
+nameInput.placeholder = 'Campaign name';
+nameInput.value = currentCampaignName || '';
+nameInput.className = 'input';
+
+nameInput.oninput = e => {
+  currentCampaignName = e.target.value;
+};
+
+const subjectInput = document.createElement('input');
+subjectInput.placeholder = 'Email subject';
+subjectInput.value = currentCampaignSubject || '';
+subjectInput.className = 'input';
+
+subjectInput.oninput = e => {
+  currentCampaignSubject = e.target.value;
+};
+
+campaignMeta.appendChild(nameInput);
+campaignMeta.appendChild(subjectInput);
+
   const inspector = renderInspector();
 
   wrapper.appendChild(library);
@@ -518,6 +547,9 @@ export function loadCampaign(campaignId) {
       showToast(err.message || 'Failed to load', 'danger');
     })
     .getCampaign(campaignId);
+
+  refreshUI();
+
 }
 
 
