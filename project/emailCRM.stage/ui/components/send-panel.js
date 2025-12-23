@@ -1,11 +1,12 @@
 export function createSendPanel({ onClose } = {}) {
+
   /* ----------------------------
-     State (in-memory)
-  ---------------------------- */
-  const selectedRecipients = new Set();
-  let allContacts = [];
-  let filteredContacts = [];
-  let selectedRecipients = new Set();
+   State (in-memory)
+---------------------------- */
+const selectedRecipients = new Set();
+let allContacts = [];
+let filteredContacts = [];
+
   
   /* ----------------------------
      Overlay + Panel
@@ -204,9 +205,10 @@ panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
 
       google.script.run
         .withSuccessHandler(contacts => {
-          allContacts = Array.isArray(contacts) ? contacts : [];
-          renderContactList(allContacts);
-        })
+  allContacts = Array.isArray(contacts) ? contacts : [];
+  filteredContacts = allContacts;
+  renderContactList(filteredContacts);
+})
         .withFailureHandler(err => {
           contactList.innerHTML =
             `<p style="color:red;">Failed to load contacts</p>`;
