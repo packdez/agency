@@ -57,10 +57,10 @@ google.script.run
     });
   })
   .withFailureHandler(err => {
-    console.error('listCampaigns failed:', err);
+    console.error('ui_listCampaigns failed:', err);
     list.innerHTML = `<p style="color:red;">${err.message}</p>`;
   })
-  .listCampaignsForUI();
+  .ui_listCampaigns();
 
   return wrapper;
 }
