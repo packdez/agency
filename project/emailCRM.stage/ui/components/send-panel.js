@@ -102,18 +102,24 @@ sendBtn.onclick = () => {
   const mode =
     panel.querySelector('input[name="recipient_mode"]:checked')?.value;
 
-const payload = {
-  mode,
-  selectedEmails: Array.from(selectedRecipients),
-  filter,
-  campaign: {
-    campaign_id: currentCampaignId, // may be null
-    name: currentCampaignName,
-    subject: currentCampaignSubject,
-    body_json: { elements }
-  }
-};
-
+  const payload = {
+    mode,
+    selectedEmails: Array.from(selectedRecipients),
+    filter:
+      mode === 'filtered'
+        ? {
+            field: panel.querySelector('.filter-field')?.value,
+            operator: panel.querySelector('.filter-operator')?.value,
+            value: panel.querySelector('.filter-value')?.value
+          }
+        : null,
+    campaign: {
+      campaign_id: currentCampaignId,
+      name: currentCampaignName,
+      subject: currentCampaignSubject,
+      body_json: { elements }
+    }
+  };
 
   sendBtn.disabled = true;
   sendBtn.innerText = 'Sending…';
