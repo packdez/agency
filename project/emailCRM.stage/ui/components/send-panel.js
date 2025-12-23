@@ -255,3 +255,65 @@ panel.querySelectorAll('input[name="recipient_mode"]').forEach(radio => {
     close
   };
 }
+
+
+function buildSendPayload() {
+  const mode = currentMode; // 'manual' | 'all' | 'filtered'
+
+  const payload = {
+    campaignId: currentCampaignId,
+    mode
+  };
+
+  if (mode === 'manual') {
+    payload.emails = Array.from(selectedRecipients);
+  }
+
+  if (mode === 'filtered') {
+    payload.filters = activeFilters; 
+    // example:
+    // [{ field: 'company', operator: 'equals', value: 'Acme' }]
+  }
+
+  return payload;
+}
+
+
+async function sendCampaign() {
+  const payload = buildSendPayload();
+
+  if (payload.mode === 'manual' && payload.emails.length === 0) {
+    toast.error('No recipients selected');
+    return;
+  }
+
+  toast.info('Sending campaign...');
+
+  google.script.run
+    .withSuccessHandler(onSendComplete)
+    .withFailureHandler(onSendError)
+    .sendCampaign(payload);
+}
+
+
+
+function onSendComplete(result) {
+  toast.success(`Sent: ${result.sent}, Failed: ${result.failed}`);
+}
+
+function onSendError(err) {
+  console.error(err);
+  toast.error('Send failed. Check logs.');
+}
+
+
+
+
+
+
+
+
+
+
+
+
