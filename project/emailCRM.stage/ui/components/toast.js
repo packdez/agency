@@ -1,6 +1,6 @@
 let container;
 
-export function showToast(message, type = 'success') {
+function showToast(message, type = 'success') {
   if (!container) {
     container = document.createElement('div');
     container.className = 'toast-container';
