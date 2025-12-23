@@ -27,40 +27,16 @@ export function renderCampaigns(navigateToComposer) {
   wrapper.appendChild(list);
 
   // ✅ Load campaigns from backend
-google.script.run
-  .withSuccessHandler(res => {
+window.AS.listCampaigns(
+  res => {
     console.log('RAW RESPONSE:', res);
+    // render campaigns
+  },
+  err => {
+    console.error(err);
+  }
+);
 
-    const campaigns = Array.isArray(res) ? res : [];
-
-    list.innerHTML = '';
-
-    if (!campaigns.length) {
-      list.innerHTML = '<p>No campaigns found.</p>';
-      return;
-    }
-
-    campaigns.forEach(c => {
-      const row = document.createElement('div');
-      row.className = 'campaign-row';
-      row.style.cursor = 'pointer';
-      row.style.padding = '12px';
-      row.style.borderBottom = '1px solid #E5E7EB';
-
-      row.innerHTML = `
-        <strong>${c.name}</strong><br/>
-        <small>${c.subject || ''}</small>
-      `;
-
-      row.onclick = () => navigateToComposer(c.campaign_id);
-      list.appendChild(row);
-    });
-  })
-  .withFailureHandler(err => {
-    console.error('ui_listCampaigns failed:', err);
-    list.innerHTML = `<p style="color:red;">${err.message}</p>`;
-  })
-  .ui_listCampaigns();
 
   return wrapper;
 }
