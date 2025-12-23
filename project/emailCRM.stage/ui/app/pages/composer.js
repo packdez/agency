@@ -98,7 +98,6 @@ library.appendChild(previewBtn);
 const sendBtn = document.createElement('button');
 sendBtn.className = 'btn btn-danger';
 sendBtn.innerText = 'Send';
-import { createSendPanel } from '../components/send-panel.js'; // adjust path if needed
 
 sendBtn.onclick = () => {
   createSendPanel({
@@ -546,27 +545,4 @@ function previewCampaign() {
     })
     .previewCampaignFromUI(bodyJson, contact);
 }
-
-
-function sendCampaignFromComposer() {
-  if (!currentCampaignId) {
-    showToast('Save the campaign before sending', 'danger');
-    return;
-  }
-
-  showToast('Sending campaign…');
-
-  google.script.run
-    .withSuccessHandler(result => {
-      showToast(
-        `Sent: ${result.sent}, Failed: ${result.failed}`,
-        result.failed ? 'warning' : 'success'
-      );
-    })
-    .withFailureHandler(err => {
-      showToast(err.message || 'Send failed', 'danger');
-    })
-    .sendCampaign(currentCampaignId);
-}
-
 
