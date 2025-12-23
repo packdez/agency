@@ -1,4 +1,11 @@
-export function createSendPanel({ onClose } = {}) {
+export function createSendPanel({
+  campaign: {
+    campaign_id,
+    name,
+    subject,
+    body_json
+  },
+  onClose = {}) {
 
   /* ----------------------------
    State (in-memory)
@@ -123,6 +130,11 @@ sendBtn.onclick = () => {
 
   sendBtn.disabled = true;
   sendBtn.innerText = 'Sending…';
+
+  if (mode === 'manual' && selectedRecipients.size === 0) {
+  showToast('Select at least one recipient', 'danger');
+  return;
+}
 
   google.script.run
     .withSuccessHandler(res => {
