@@ -1,3 +1,6 @@
+import { showConfirmToast } from '../ui/components/toast.js'; // adjust path
+
+
 export function createSendPanel({ campaign, onClose } = {}) {
   const { campaign_id, name, subject, body_json } = campaign;
 
@@ -129,13 +132,30 @@ if (mode === 'manual' && selectedRecipients.size === 0) {
   return;
 }
 
-if (!confirm('Are you sure you want to send this campaign? This action cannot be undone.')) {
-  return;
-}
 
-sendBtn.disabled = true;
-sendBtn.innerText = 'Sending…';
+sendBtn.onclick = () => {
+  if (mode === 'manual' && selectedRecipients.size === 0) {
+    showToast('Select at least one recipient', 'danger');
+    return;
+  }
 
+  showConfirmToast({
+    message: `
+      <strong>Send this campaign?</strong><br/>
+      This action cannot be undone.
+    `,
+    confirmText: 'Send now',
+    cancelText: 'Cancel',
+    onConfirm: () => {
+      actuallySendCampaign();
+    }
+  });
+};
+
+
+function actuallySendCampaign() {
+  sendBtn.disabled = true;
+  sendBtn.innerText = 'Sending…';
 
   google.script.run
     .withSuccessHandler(res => {
@@ -152,11 +172,8 @@ sendBtn.innerText = 'Sending…';
       sendBtn.innerText = 'Send Campaign';
     })
     .sendCampaignFromUI(payload);
-};
-
-
-
-  
+}
+ 
 
   /* ----------------------------
      Load contact attributes (filters)
