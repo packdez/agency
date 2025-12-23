@@ -120,21 +120,23 @@ sendBtn.onclick = () => {
             value: panel.querySelector('.filter-value')?.value
           }
         : null,
-    campaign: {
-      campaign_id: currentCampaignId,
-      name: currentCampaignName,
-      subject: currentCampaignSubject,
-      body_json: { elements }
-    }
+campaign: {
+  campaign_id,
+  name,
+  subject,
+  body_json
+}
+
   };
 
-  sendBtn.disabled = true;
-  sendBtn.innerText = 'Sending…';
-
-  if (mode === 'manual' && selectedRecipients.size === 0) {
+if (mode === 'manual' && selectedRecipients.size === 0) {
   showToast('Select at least one recipient', 'danger');
   return;
 }
+
+sendBtn.disabled = true;
+sendBtn.innerText = 'Sending…';
+
 
   google.script.run
     .withSuccessHandler(res => {
