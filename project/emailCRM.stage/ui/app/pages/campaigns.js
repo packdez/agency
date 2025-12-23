@@ -63,7 +63,7 @@ google.script.run
     console.error('listCampaigns failed:', err);
     list.innerHTML = `<p style="color:red;">${err.message}</p>`;
   })
-  .listCampaigns();
+  .listCampaignsForUI();
 
 
 
