@@ -50,6 +50,9 @@ const elements = [];
 
 
 export function renderComposer() {
+  saveBtn = document.createElement('button');
+  sendBtn = document.createElement('button');
+  
   const wrapper = document.createElement('div');
   wrapper.style.display = 'grid';
   wrapper.style.gridTemplateColumns = '220px 1fr 280px';
@@ -104,6 +107,12 @@ sendBtn.innerText = 'Send';
 sendBtn.onclick = () => {
   // 🔒 Prevent opening multiple send panels
   if (document.querySelector('.send-panel-overlay')) return;
+
+  if (!currentCampaignId) {
+  showToast('Save the campaign before sending', 'danger');
+  return;
+}
+
 
   // ❗ Require subject before sending
   if (!currentCampaignSubject.trim()) {
@@ -565,16 +574,26 @@ export function loadCampaign(campaignId) {
 
       nameInput.value = currentCampaignName;
       subjectInput.value = currentCampaignSubject;
-      saveBtn.disabled = true;
+let saveBtn = null;
+let sendBtn = null;
 
 
       elements.length = 0;
       campaign.body_json.elements.forEach(el => elements.push(el));
 
+if (fullCampaign.status === 'sent') {
+  throw new Error('This campaign has already been sent.');
+}
+
       if (campaign.status === 'sent') {
-        sendBtn.disabled = true;
-        sendBtn.innerText = 'Already Sent';
-      }
+  sendBtn.disabled = true;
+  sendBtn.innerText = 'Already Sent';
+
+  saveBtn.disabled = true;
+  nameInput.disabled = true;
+  subjectInput.disabled = true;
+}
+
 
 
       selectedElementId = null;
