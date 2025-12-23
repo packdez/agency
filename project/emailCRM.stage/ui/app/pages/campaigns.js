@@ -52,10 +52,7 @@ google.script.run
         <small>${c.subject || ''}</small>
       `;
 
-      row.onclick = () => {
-        navigateToComposer(c.campaign_id);
-      };
-
+      row.onclick = () => navigateToComposer(c.campaign_id);
       list.appendChild(row);
     });
   })
@@ -64,8 +61,6 @@ google.script.run
     list.innerHTML = `<p style="color:red;">${err.message}</p>`;
   })
   .listCampaignsForUI();
-
-
 
   return wrapper;
 }
