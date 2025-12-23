@@ -129,6 +129,10 @@ if (mode === 'manual' && selectedRecipients.size === 0) {
   return;
 }
 
+if (!confirm('Are you sure you want to send this campaign? This action cannot be undone.')) {
+  return;
+}
+
 sendBtn.disabled = true;
 sendBtn.innerText = 'Sending…';
 
