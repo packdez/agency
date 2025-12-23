@@ -1,6 +1,6 @@
 let container;
 
-window.showToast = function (message, type = 'success') {
+window.showToast = function (message, type = 'success', duration = 4000) {
   if (!container) {
     container = document.createElement('div');
     container.className = 'toast-container';
@@ -8,12 +8,19 @@ window.showToast = function (message, type = 'success') {
   }
 
   const toast = document.createElement('div');
-  toast.className = `toast toast-${type} slide-up`;
+  toast.className = `toast toast-${type} show`;
   toast.innerText = message;
 
   container.appendChild(toast);
-  setTimeout(() => toast.remove(), 4000);
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
 };
+
+
+
 
 window.showConfirmToast = function ({
   message,
