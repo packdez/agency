@@ -32,6 +32,8 @@ const PREVIEW_CONTACTS = [
     deal_value: '12000'
   }
 ];
+let saveBtn = null;
+let sendBtn = null;
 
 let nameInput = null;
 let subjectInput = null;
@@ -50,9 +52,7 @@ const elements = [];
 
 
 export function renderComposer() {
-  saveBtn = document.createElement('button');
-  sendBtn = document.createElement('button');
-  
+ 
   const wrapper = document.createElement('div');
   wrapper.style.display = 'grid';
   wrapper.style.gridTemplateColumns = '220px 1fr 280px';
@@ -574,16 +574,9 @@ export function loadCampaign(campaignId) {
 
       nameInput.value = currentCampaignName;
       subjectInput.value = currentCampaignSubject;
-let saveBtn = null;
-let sendBtn = null;
-
 
       elements.length = 0;
       campaign.body_json.elements.forEach(el => elements.push(el));
-
-if (fullCampaign.status === 'sent') {
-  throw new Error('This campaign has already been sent.');
-}
 
       if (campaign.status === 'sent') {
   sendBtn.disabled = true;
