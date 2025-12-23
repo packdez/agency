@@ -85,7 +85,7 @@ contactSelect.onchange = e => {
 library.appendChild(contactLabel);
 library.appendChild(contactSelect);
 
-const saveBtn = document.createElement('button');
+saveBtn = document.createElement('button');
 saveBtn.className = 'btn btn-primary';
 saveBtn.innerText = 'Save Campaign';
 saveBtn.onclick = saveCampaign;
@@ -100,7 +100,7 @@ previewBtn.onclick = previewCampaign;
 
 library.appendChild(previewBtn);
 
-const sendBtn = document.createElement('button');
+sendBtn = document.createElement('button');
 sendBtn.className = 'btn btn-danger';
 sendBtn.innerText = 'Send';
 
