@@ -27,15 +27,37 @@ export function renderCampaigns(navigateToComposer) {
   wrapper.appendChild(list);
 
   // ✅ Load campaigns from backend
-window.AS.listCampaigns(
-  res => {
-    console.log('RAW RESPONSE:', res);
-    // render campaigns
-  },
-  err => {
-    console.error(err);
+if (!window.AS || !AS.listCampaigns) {
+  list.innerHTML = '<p style="color:red;">Bridge not ready</p>';
+  return;
+}
+
+AS.listCampaigns(res => {
+  console.log('RAW RESPONSE:', res);
+
+  const campaigns = Array.isArray(res) ? res : [];
+
+  list.innerHTML = '';
+
+  if (!campaigns.length) {
+    list.innerHTML = '<p>No campaigns found.</p>';
+    return;
   }
-);
+
+  campaigns.forEach(c => {
+    const row = document.createElement('div');
+    row.className = 'campaign-row';
+
+    row.innerHTML = `
+      <strong>${c.name}</strong><br/>
+      <small>${c.subject || ''}</small>
+    `;
+
+    row.onclick = () => navigateToComposer(c.campaign_id);
+    list.appendChild(row);
+  });
+});
+
 
 
   return wrapper;
