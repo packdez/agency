@@ -24,14 +24,18 @@ export function renderApp(root) {
       case 'composer':
         main.appendChild(renderComposer());
         break;
+
+      default:
+        main.appendChild(renderDashboard());
     }
   }
 
-  // ✅ ADD THIS FUNCTION HERE
+  // ✅ Centralized composer navigation
   function openComposer(campaignId = null) {
     navigate('composer');
 
     if (campaignId) {
+      // defer to allow DOM render
       setTimeout(() => {
         loadCampaign(campaignId);
       }, 0);
