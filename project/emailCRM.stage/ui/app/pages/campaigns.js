@@ -41,7 +41,10 @@ export function renderCampaigns(navigateToComposer) {
     body: JSON.stringify({})
   })
     .then(res => res.json())
-    .then(campaigns => {
+    .then(res => {
+  if (!res.ok) throw new Error('API error');
+  const campaigns = res.data;
+
       list.innerHTML = '';
 
       if (!Array.isArray(campaigns) || !campaigns.length) {
