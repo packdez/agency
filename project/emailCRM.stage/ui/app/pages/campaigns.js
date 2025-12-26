@@ -1,10 +1,10 @@
-const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev'; // ✅ no trailing slash
+const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev';
 
 export function renderCampaigns(navigateToComposer) {
   const wrapper = document.createElement('div');
   wrapper.className = 'panel';
 
-  /* ---------------- Header ---------------- */
+  /* ---------- Header ---------- */
   const header = document.createElement('div');
   header.style.display = 'flex';
   header.style.justifyContent = 'space-between';
@@ -22,47 +22,29 @@ export function renderCampaigns(navigateToComposer) {
   header.appendChild(newBtn);
   wrapper.appendChild(header);
 
-  /* ---------------- List ---------------- */
+  /* ---------- List ---------- */
   const list = document.createElement('div');
   list.style.marginTop = '16px';
   list.innerHTML = '<p>Loading campaigns…</p>';
   wrapper.appendChild(list);
 
-  /* ---------------- Auth Guard ---------------- */
-  if (!window.CLIENT_ID || !window.CLIENT_KEY) {
-    list.innerHTML =
-      '<p style="color:red;">Client authentication missing</p>';
-    console.error('CLIENT_ID / CLIENT_KEY not set');
-    return wrapper;
-  }
-
-  /* ---------------- Fetch from Worker ---------------- */
+  /* ---------- Fetch ---------- */
   fetch(`${API_BASE}/campaigns/list`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-CLIENT-ID': window.CLIENT_ID,
-      'X-CLIENT-KEY': window.CLIENT_KEY
+
+      // 🔴 MUST MATCH WORKER
+      'X-CLIENT-ID': 'client_demo',
+      'X-CLIENT-KEY': 'server-to-server-secret'
     },
     body: JSON.stringify({})
   })
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
-      return res.json();
-    })
-    .then(payload => {
-      console.log('RAW RESPONSE:', payload);
-
-      // ✅ normalize response
-      const campaigns = Array.isArray(payload)
-        ? payload
-        : payload?.data || [];
-
+    .then(res => res.json())
+    .then(campaigns => {
       list.innerHTML = '';
 
-      if (!campaigns.length) {
+      if (!Array.isArray(campaigns) || !campaigns.length) {
         list.innerHTML = '<p>No campaigns found.</p>';
         return;
       }
@@ -70,9 +52,9 @@ export function renderCampaigns(navigateToComposer) {
       campaigns.forEach(c => {
         const row = document.createElement('div');
         row.className = 'campaign-row';
-        row.style.cursor = 'pointer';
         row.style.padding = '12px';
         row.style.borderBottom = '1px solid #E5E7EB';
+        row.style.cursor = 'pointer';
 
         row.innerHTML = `
           <strong>${c.name || 'Untitled Campaign'}</strong><br/>
@@ -84,9 +66,8 @@ export function renderCampaigns(navigateToComposer) {
       });
     })
     .catch(err => {
-      console.error('Failed to load campaigns:', err);
-      list.innerHTML =
-        '<p style="color:red;">Failed to load campaigns</p>';
+      console.error(err);
+      list.innerHTML = '<p style="color:red;">Failed to load campaigns</p>';
     });
 
   return wrapper;
