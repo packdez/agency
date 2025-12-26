@@ -4,6 +4,18 @@ import { renderComposer, loadCampaign } from './pages/composer.js';
 import { renderCampaigns } from './pages/campaigns.js';
 
 export function renderApp(root) {
+
+  fetch(`${API_BASE}/auth/session`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ clientId: 'client_demo' })
+})
+  .then(r => r.json())
+  .then(({ token }) => {
+    localStorage.setItem('session_token', token);
+  });
+
+  
   const app = root;
 
   const main = document.createElement('div');
