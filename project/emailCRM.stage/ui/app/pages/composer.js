@@ -1,6 +1,6 @@
 import { showConfirmToast } from '../ui/components/toast.js';
 
-const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev/'; // 🔴 CHANGE THIS
+const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev'; // 🔴 CHANGE THIS
 
 export function createSendPanel({ campaign, onClose } = {}) {
   const { campaign_id, name, subject, body_json } = campaign;
