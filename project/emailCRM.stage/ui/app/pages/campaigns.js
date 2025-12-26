@@ -35,8 +35,8 @@ export function renderCampaigns(navigateToComposer) {
       'Content-Type': 'application/json',
 
       // 🔴 MUST MATCH WORKER
-      'X-CLIENT-ID': 'client_demo',
-      'X-CLIENT-KEY': 'server-to-server-secret'
+      'Authorization': `Bearer ${localStorage.getItem('session_token')}`
+
     },
     body: JSON.stringify({})
   })
