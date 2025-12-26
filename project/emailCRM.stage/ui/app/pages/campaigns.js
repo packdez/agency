@@ -1,4 +1,4 @@
-const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev/'; // 🔴 CHANGE THIS
+const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev'; // ✅ no trailing slash
 
 export function renderCampaigns(navigateToComposer) {
   const wrapper = document.createElement('div');
@@ -28,13 +28,19 @@ export function renderCampaigns(navigateToComposer) {
   list.innerHTML = '<p>Loading campaigns…</p>';
   wrapper.appendChild(list);
 
+  /* ---------------- Auth Guard ---------------- */
+  if (!window.CLIENT_ID || !window.CLIENT_KEY) {
+    list.innerHTML =
+      '<p style="color:red;">Client authentication missing</p>';
+    console.error('CLIENT_ID / CLIENT_KEY not set');
+    return wrapper;
+  }
+
   /* ---------------- Fetch from Worker ---------------- */
   fetch(`${API_BASE}/campaigns/list`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-
-      // 🔐 example auth (adapt if needed)
       'X-CLIENT-ID': window.CLIENT_ID,
       'X-CLIENT-KEY': window.CLIENT_KEY
     },
@@ -46,11 +52,17 @@ export function renderCampaigns(navigateToComposer) {
       }
       return res.json();
     })
-    .then(campaigns => {
-      console.log('Campaigns:', campaigns);
+    .then(payload => {
+      console.log('RAW RESPONSE:', payload);
+
+      // ✅ normalize response
+      const campaigns = Array.isArray(payload)
+        ? payload
+        : payload?.data || [];
+
       list.innerHTML = '';
 
-      if (!Array.isArray(campaigns) || !campaigns.length) {
+      if (!campaigns.length) {
         list.innerHTML = '<p>No campaigns found.</p>';
         return;
       }
