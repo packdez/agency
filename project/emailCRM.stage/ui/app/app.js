@@ -3,34 +3,42 @@ import { renderDashboard } from './pages/dashboard.js';
 import { renderComposer, loadCampaign } from './pages/composer.js';
 import { renderCampaigns } from './pages/campaigns.js';
 
+const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev';
+
 export function renderApp(root) {
-  // -----------------------------
-  // Client resolution from URL
-  // -----------------------------
+  /* -----------------------------
+     Client resolution from URL
+  ----------------------------- */
   const path = window.location.pathname
-    .replace(/^\/+|\/+$/g, ''); // trim slashes
+    .replace(/^\/+|\/+$/g, '');
 
-  // Default for local/dev
   const clientId = path || 'client_demo';
-
   window.CLIENT_ID = clientId;
 
   console.log('[CLIENT]', window.CLIENT_ID);
 
+  /* -----------------------------
+     Session bootstrap (once)
+  ----------------------------- */
+  if (!localStorage.getItem('session_token')) {
+    fetch(`${API_BASE}/auth/session`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clientId: window.CLIENT_ID })
+    })
+      .then(r => r.json())
+      .then(({ token }) => {
+        localStorage.setItem('session_token', token);
+      })
+      .catch(err => {
+        console.error('Session init failed', err);
+      });
+  }
 
-  fetch(`${API_BASE}/auth/session`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ clientId: 'client_demo' })
-})
-  .then(r => r.json())
-  .then(({ token }) => {
-    localStorage.setItem('session_token', token);
-  });
-
-  
+  /* -----------------------------
+     App layout
+  ----------------------------- */
   const app = root;
-
   const main = document.createElement('div');
   main.className = 'main';
 
@@ -55,12 +63,10 @@ export function renderApp(root) {
     }
   }
 
-  // ✅ Centralized composer navigation
   function openComposer(campaignId = null) {
     navigate('composer');
 
     if (campaignId) {
-      // defer to allow DOM render
       setTimeout(() => {
         loadCampaign(campaignId);
       }, 0);
