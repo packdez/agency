@@ -2,36 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  />
-
   <title>EmailCRM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!--
-    🔑 CRITICAL:
-    This tells the browser where "root" really is on GitHub Pages
-    Without this, ES module imports WILL break.
-  -->
+  <!-- 🔑 CRITICAL: GitHub Pages base path -->
   <base href="/project/emailCRM.stage/ui/" />
 
-  <!-- Core styles -->
-  <link rel="stylesheet" href="core/base.css" />
-  <link rel="stylesheet" href="core/animations.css" />
+  <!-- Core -->
+  <link rel="stylesheet" href="core/base.css">
+  <link rel="stylesheet" href="core/animations.css">
 
   <!-- Components -->
-  <link rel="stylesheet" href="components/panel.css" />
-  <link rel="stylesheet" href="components/toast.css" />
-  <link rel="stylesheet" href="components/send-panel.css" />
+  <link rel="stylesheet" href="components/panel.css">
+  <link rel="stylesheet" href="components/toast.css">
+  <link rel="stylesheet" href="components/send-panel.css">
+
+  <style>
+    .app {
+      display: flex;
+      height: 100vh;
+    }
+
+    .main {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      background: #F8FAFC;
+    }
+  </style>
 </head>
 
-<body style="margin:0;">
+<body>
 
-  <!-- App mount point -->
-  <div id="app"></div>
+  <!-- App mount -->
+  <div id="app" class="app"></div>
 
-  <!-- Toast (non-module global utility) -->
+  <!-- Toast (global utility) -->
   <script src="components/toast.js"></script>
 
   <!-- App bootstrap -->
