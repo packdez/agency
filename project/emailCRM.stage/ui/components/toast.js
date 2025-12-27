@@ -1,8 +1,5 @@
 let container;
 
-/* -----------------------------
-   Toast
------------------------------ */
 export function showToast(message, type = 'success', duration = 4000) {
   if (!container) {
     container = document.createElement('div');
@@ -12,7 +9,7 @@ export function showToast(message, type = 'success', duration = 4000) {
 
   const toast = document.createElement('div');
   toast.className = `toast toast-${type} show`;
-  toast.textContent = message;
+  toast.innerText = message;
 
   container.appendChild(toast);
 
@@ -22,9 +19,6 @@ export function showToast(message, type = 'success', duration = 4000) {
   }, duration);
 }
 
-/* -----------------------------
-   Confirm Toast
------------------------------ */
 export function showConfirmToast({
   message,
   confirmText = 'Confirm',
@@ -51,7 +45,7 @@ export function showConfirmToast({
 
   toast.querySelector('.confirm-btn').onclick = () => {
     cleanup();
-    if (typeof onConfirm === 'function') onConfirm();
+    onConfirm();
   };
 
   toast.querySelector('.cancel-btn').onclick = cleanup;
