@@ -29,17 +29,15 @@ export function renderCampaigns(navigateToComposer) {
   wrapper.appendChild(list);
 
   /* ---------- Fetch ---------- */
-  fetch(`${API_BASE}/campaigns/list`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+fetch(`${API_BASE}/campaigns/list`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CLIENT-ID': window.CLIENT_ID,
+    'X-CLIENT-KEY': 'server-to-server-secret'
+  }
+})
 
-      // 🔴 MUST MATCH WORKER
-      'Authorization': `Bearer ${localStorage.getItem('session_token')}`
-
-    },
-    body: JSON.stringify({})
-  })
     .then(res => res.json())
     .then(res => {
   if (!res.ok) throw new Error('API error');
