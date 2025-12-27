@@ -1,4 +1,4 @@
-const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev';
+import { apiFetch } from '../app.js';
 
 export function renderCampaigns(navigateToComposer) {
   const wrapper = document.createElement('div');
@@ -28,24 +28,14 @@ export function renderCampaigns(navigateToComposer) {
   list.innerHTML = '<p>Loading campaigns…</p>';
   wrapper.appendChild(list);
 
-  /* ---------- Fetch ---------- */
-fetch(`${API_BASE}/campaigns/list`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'X-CLIENT-ID': window.CLIENT_ID,
-    'X-CLIENT-KEY': 'server-to-server-secret'
-  }
-})
-
-    .then(res => res.json())
+  /* ---------- Fetch campaigns ---------- */
+  apiFetch('/campaigns/list')
     .then(res => {
-  if (!res.ok) throw new Error('API error');
-  const campaigns = res.data;
+      const campaigns = res.data || [];
 
       list.innerHTML = '';
 
-      if (!Array.isArray(campaigns) || !campaigns.length) {
+      if (!campaigns.length) {
         list.innerHTML = '<p>No campaigns found.</p>';
         return;
       }
@@ -67,8 +57,9 @@ fetch(`${API_BASE}/campaigns/list`, {
       });
     })
     .catch(err => {
-      console.error(err);
-      list.innerHTML = '<p style="color:red;">Failed to load campaigns</p>';
+      console.error('Failed to load campaigns:', err);
+      list.innerHTML =
+        '<p style="color:red;">Failed to load campaigns</p>';
     });
 
   return wrapper;
