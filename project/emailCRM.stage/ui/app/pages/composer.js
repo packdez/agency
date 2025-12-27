@@ -286,3 +286,22 @@ export function createSendPanel({ campaign, onClose } = {}) {
 
   requestAnimationFrame(() => overlay.classList.add('open'));
 }
+
+
+export function loadCampaign(campaignId) {
+  console.log('[loadCampaign]', campaignId);
+
+  fetch(`${API_BASE}/campaigns/get`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ campaign_id: campaignId })
+  })
+    .then(r => r.json())
+    .then(campaign => {
+      console.log('Loaded campaign:', campaign);
+      // You can wire this into your editor later
+    })
+    .catch(err => {
+      console.error('Failed to load campaign', err);
+    });
+}
