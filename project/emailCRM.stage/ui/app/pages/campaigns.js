@@ -1,10 +1,10 @@
 import { apiFetch } from '../app.js';
 
-export function renderCampaigns(navigateToComposer) {
+export function renderCampaigns(openComposer) {
   const wrapper = document.createElement('div');
   wrapper.className = 'panel';
 
-  /* ---------- Header ---------- */
+  /* Header */
   const header = document.createElement('div');
   header.style.display = 'flex';
   header.style.justifyContent = 'space-between';
@@ -16,26 +16,27 @@ export function renderCampaigns(navigateToComposer) {
   const newBtn = document.createElement('button');
   newBtn.className = 'btn btn-primary';
   newBtn.innerText = 'New Campaign';
-  newBtn.onclick = () => navigateToComposer();
+  newBtn.onclick = () => openComposer();
 
   header.appendChild(title);
   header.appendChild(newBtn);
   wrapper.appendChild(header);
 
-  /* ---------- List ---------- */
+  /* List */
   const list = document.createElement('div');
   list.style.marginTop = '16px';
   list.innerHTML = '<p>Loading campaigns…</p>';
   wrapper.appendChild(list);
 
-  /* ---------- Fetch campaigns ---------- */
+  /* Fetch */
   apiFetch('/campaigns/list')
     .then(res => {
-      const campaigns = res.data || [];
+      if (!res.ok) throw new Error(res.error || 'API error');
 
+      const campaigns = res.data;
       list.innerHTML = '';
 
-      if (!campaigns.length) {
+      if (!Array.isArray(campaigns) || campaigns.length === 0) {
         list.innerHTML = '<p>No campaigns found.</p>';
         return;
       }
@@ -48,16 +49,16 @@ export function renderCampaigns(navigateToComposer) {
         row.style.cursor = 'pointer';
 
         row.innerHTML = `
-          <strong>${c.name || 'Untitled Campaign'}</strong><br/>
+          <strong>${c.name}</strong><br/>
           <small>${c.subject || ''}</small>
         `;
 
-        row.onclick = () => navigateToComposer(c.campaign_id);
+        row.onclick = () => openComposer(c.campaign_id);
         list.appendChild(row);
       });
     })
     .catch(err => {
-      console.error('Failed to load campaigns:', err);
+      console.error(err);
       list.innerHTML =
         '<p style="color:red;">Failed to load campaigns</p>';
     });
