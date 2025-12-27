@@ -2,6 +2,16 @@ import { showConfirmToast, showToast } from '../../components/toast.js';
 
 const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev'; // 🔴 CHANGE THIS
 
+export function renderComposer() {
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = `
+    <h2>Composer</h2>
+    <p>Select a campaign or create a new one.</p>
+  `;
+  return wrapper;
+}
+
+
 export function createSendPanel({ campaign, onClose } = {}) {
   const { campaign_id, name, subject, body_json } = campaign;
 
