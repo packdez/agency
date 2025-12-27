@@ -1,7 +1,7 @@
 import { Sidebar } from './sidebar.js';
 import { renderDashboard } from './pages/dashboard.js';
 import { renderCampaigns } from './pages/campaigns.js';
-import { renderComposer, loadCampaign } from './pages/composer.js';
+import { renderComposer } from './pages/composer.js';
 
 /* =============================
    API
