@@ -1,53 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>EmailCRM</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- 🔑 CRITICAL: GitHub Pages base path -->
-  <base href="/project/emailCRM.stage/ui/" />
-
-  <!-- Core -->
-  <link rel="stylesheet" href="core/base.css">
-  <link rel="stylesheet" href="core/animations.css">
-
-  <!-- Components -->
-  <link rel="stylesheet" href="components/panel.css">
-  <link rel="stylesheet" href="components/toast.css">
-  <link rel="stylesheet" href="components/send-panel.css">
-
-  <style>
-    .app {
-      display: flex;
-      height: 100vh;
-    }
-
-    .main {
-      flex: 1;
-      padding: 24px;
-      overflow-y: auto;
-      background: #F8FAFC;
-    }
-  </style>
+  <link rel="stylesheet" href="./core/base.css">
+  <link rel="stylesheet" href="./core/animations.css">
+  <link rel="stylesheet" href="./components/panel.css">
+  <link rel="stylesheet" href="./components/toast.css">
 </head>
 
 <body>
-
-  <!-- App mount -->
   <div id="app" class="app"></div>
 
-  <!-- Toast (global utility) -->
-import { showToast, showConfirmToast } from '../../components/toast.js';
-
-
-  <!-- App bootstrap -->
   <script type="module">
     import { renderApp } from './app/app.js';
-
-    const root = document.getElementById('app');
-    renderApp(root);
+    renderApp(document.getElementById('app'));
   </script>
-
 </body>
 </html>
