@@ -1,4 +1,4 @@
-import { showConfirmToast, showToast } from '../components/toast.js';
+import { showConfirmToast, showToast } from '../../components/toast.js';
 
 const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev'; // 🔴 CHANGE THIS
 
