@@ -6,13 +6,16 @@ import { renderCampaigns } from './pages/campaigns.js';
 const API_BASE = 'https://emailcrm-clients.raphaellevinders.workers.dev';
 
 export function renderApp(root) {
-  /* -----------------------------
-     Client resolution from URL
-  ----------------------------- */
-  const path = window.location.pathname
-    .replace(/^\/+|\/+$/g, '');
+// -----------------------------
+// Client resolution (QUERY PARAM)
+// -----------------------------
+const params = new URLSearchParams(window.location.search);
+const clientId = params.get('client') || 'client_demo';
 
-  const clientId = path || 'client_demo';
+window.CLIENT_ID = clientId;
+
+console.log('[CLIENT]', window.CLIENT_ID);
+  
   window.CLIENT_ID = clientId;
 
   console.log('[CLIENT]', window.CLIENT_ID);
