@@ -41,31 +41,26 @@ export function renderApp(root) {
   const main = document.createElement('div');
   main.className = 'main';
 
-  function navigate(page, id = null) {
-    main.innerHTML = '';
+function navigate(page, id = null) {
+  main.innerHTML = '';
 
-    switch (page) {
-      case 'dashboard':
-        main.appendChild(renderDashboard());
-        break;
-
-      case 'campaigns':
-        main.appendChild(renderCampaigns(openComposer));
-        break;
-
-      case 'composer':
-        main.appendChild(renderComposer());
-        if (id) loadCampaign(id);
-        break;
-
-      default:
-        main.appendChild(renderDashboard());
-    }
+  if (page === 'dashboard') {
+    main.appendChild(renderDashboard());
   }
 
-  function openComposer(id = null) {
-    navigate('composer', id);
+  if (page === 'campaigns') {
+    main.appendChild(renderCampaigns(openComposer));
   }
+
+  if (page === 'composer') {
+    main.appendChild(renderComposer(id)); // 👈 PASS ID HERE
+  }
+}
+
+function openComposer(id = null) {
+  navigate('composer', id);
+}
+
 
   const sidebar = Sidebar(navigate);
 
