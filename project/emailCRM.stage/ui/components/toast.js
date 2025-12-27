@@ -9,7 +9,7 @@ export function showToast(message, type = 'success', duration = 4000) {
 
   const toast = document.createElement('div');
   toast.className = `toast toast-${type} show`;
-  toast.innerText = message;
+  toast.textContent = message;
 
   container.appendChild(toast);
 
@@ -19,34 +19,24 @@ export function showToast(message, type = 'success', duration = 4000) {
   }, duration);
 }
 
-export function showConfirmToast({
-  message,
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
-  onConfirm
-}) {
+export function showConfirmToast({ message, confirmText, cancelText, onConfirm }) {
   const toast = document.createElement('div');
   toast.className = 'toast toast-warning show';
 
   toast.innerHTML = `
-    <div class="toast-message">${message}</div>
+    <div>${message}</div>
     <div class="toast-actions">
-      <button class="btn btn-danger confirm-btn">${confirmText}</button>
-      <button class="btn btn-secondary cancel-btn">${cancelText}</button>
+      <button class="btn btn-danger confirm">${confirmText}</button>
+      <button class="btn btn-secondary cancel">${cancelText}</button>
     </div>
   `;
 
   document.body.appendChild(toast);
 
-  const cleanup = () => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 200);
-  };
-
-  toast.querySelector('.confirm-btn').onclick = () => {
-    cleanup();
+  toast.querySelector('.confirm').onclick = () => {
+    toast.remove();
     onConfirm();
   };
 
-  toast.querySelector('.cancel-btn').onclick = cleanup;
+  toast.querySelector('.cancel').onclick = () => toast.remove();
 }
