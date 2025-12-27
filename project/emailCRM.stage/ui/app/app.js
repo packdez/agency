@@ -4,6 +4,19 @@ import { renderComposer, loadCampaign } from './pages/composer.js';
 import { renderCampaigns } from './pages/campaigns.js';
 
 export function renderApp(root) {
+  // -----------------------------
+  // Client resolution from URL
+  // -----------------------------
+  const path = window.location.pathname
+    .replace(/^\/+|\/+$/g, ''); // trim slashes
+
+  // Default for local/dev
+  const clientId = path || 'client_demo';
+
+  window.CLIENT_ID = clientId;
+
+  console.log('[CLIENT]', window.CLIENT_ID);
+
 
   fetch(`${API_BASE}/auth/session`, {
   method: 'POST',
