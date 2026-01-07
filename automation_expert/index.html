@@ -51,86 +51,185 @@
         }
         
         .btn-primary {
-            background-color: #2e8c4e;
+            background: linear-gradient(135deg, #2e8c4e 0%, #246b3c 100%);
             color: white;
-            padding: 0.875rem 2rem;
-            border-radius: 0.5rem;
+            padding: 1rem 2.5rem;
+            border-radius: 0.75rem;
             font-weight: 600;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.125rem;
+            box-shadow: 0 4px 15px rgba(46, 140, 78, 0.3);
         }
         
         .btn-primary:hover {
-            background-color: #246b3c;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(46, 140, 78, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 140, 78, 0.4);
         }
         
         .btn-primary:disabled {
-            background-color: #9ca3af;
+            background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
             cursor: not-allowed;
             transform: none;
         }
         
-        .rating-option {
+        .rating-pill {
             flex: 1;
-            padding: 0.875rem 1rem;
+            min-width: 100px;
+            padding: 1.25rem 0.75rem;
             border: 2px solid #e5e7eb;
-            border-radius: 0.5rem;
+            border-radius: 1rem;
             background: white;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #4b5563;
+            position: relative;
+            overflow: hidden;
         }
         
-        .rating-option:hover {
-            border-color: #2e8c4e;
-            background: #f0f9f4;
+        .rating-pill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(46, 140, 78, 0.1) 0%, rgba(46, 140, 78, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
-        .rating-option.active {
+        .rating-pill:hover::before {
+            opacity: 1;
+        }
+        
+        .rating-pill:hover {
             border-color: #2e8c4e;
-            background: #2e8c4e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 140, 78, 0.15);
+        }
+        
+        .rating-pill.active {
+            border-color: #2e8c4e;
+            background: linear-gradient(135deg, #2e8c4e 0%, #3aa05d 100%);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 140, 78, 0.35);
+        }
+        
+        .rating-pill.active::before {
+            opacity: 0;
+        }
+        
+        .rating-icon {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .rating-label {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            position: relative;
+            z-index: 1;
+            line-height: 1.3;
+        }
+        
+        .form-group {
+            position: relative;
+            margin-bottom: 1.75rem;
         }
         
         .form-input {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 1rem 1rem 1rem 3.5rem;
             border: 2px solid #e5e7eb;
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
             font-size: 1rem;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            background: white;
         }
         
         .form-input:focus {
             outline: none;
             border-color: #2e8c4e;
-            box-shadow: 0 0 0 3px rgba(46, 140, 78, 0.1);
+            box-shadow: 0 0 0 4px rgba(46, 140, 78, 0.1);
         }
         
         .form-input.error {
             border-color: #ef4444;
         }
         
+        .input-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            transition: color 0.3s ease;
+        }
+        
+        .form-input:focus + .input-icon {
+            color: #2e8c4e;
+        }
+        
         .error-message {
             color: #ef4444;
             font-size: 0.875rem;
-            margin-top: 0.25rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
         }
         
         .success-message {
-            background: #d1fae5;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
             border: 2px solid #2e8c4e;
             color: #065f46;
-            padding: 1rem;
-            border-radius: 0.5rem;
+            padding: 1.5rem;
+            border-radius: 1rem;
             margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(46, 140, 78, 0.15);
+        }
+        
+        .success-message-content {
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .success-footer {
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(6, 95, 70, 0.2);
+            font-size: 0.9rem;
+        }
+        
+        .linkedin-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #065f46;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+        }
+        
+        .linkedin-link:hover {
+            color: #2e8c4e;
+            transform: translateX(2px);
+        }
+        
+        .linkedin-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
         }
         
         .video-container {
@@ -138,8 +237,8 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 1rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         }
         
         .video-container iframe {
@@ -152,34 +251,121 @@
         }
         
         .value-card {
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
             border: 1px solid #e5e7eb;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
         
         .value-card:hover {
             border-color: #2e8c4e;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
         }
         
         .icon-circle {
-            width: 48px;
-            height: 48px;
-            background: #e8f5ed;
-            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #e8f5ed 0%, #d1fae5 100%);
+            border-radius: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            border: 1px solid #f3f4f6;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #e8f5ed 0%, #d1fae5 100%);
+            color: #2e8c4e;
+            padding: 0.5rem 1.25rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
             margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
         @media (max-width: 768px) {
-            .rating-option {
-                font-size: 0.75rem;
-                padding: 0.75rem 0.5rem;
+            .rating-pill {
+                min-width: 80px;
+                padding: 1rem 0.5rem;
             }
+            
+            .rating-icon {
+                font-size: 1.5rem;
+                margin-bottom: 0.375rem;
+            }
+            
+            .rating-label {
+                font-size: 0.75rem;
+            }
+            
+            .form-card {
+                padding: 1.5rem;
+            }
+            
+            .btn-primary {
+                padding: 0.875rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .value-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .rating-pill {
+                min-width: 70px;
+                padding: 0.875rem 0.375rem;
+            }
+            
+            .rating-icon {
+                font-size: 1.375rem;
+                margin-bottom: 0.25rem;
+            }
+            
+            .rating-label {
+                font-size: 0.6875rem;
+            }
+            
+            .form-card {
+                padding: 1.25rem;
+            }
+            
+            .success-message {
+                padding: 1.25rem;
+            }
+            
+            .success-footer {
+                font-size: 0.85rem;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out;
         }
     </style>
 </head>
@@ -225,15 +411,18 @@
     <!-- Value Section -->
     <section class="py-20 px-4 sm:px-6 bg-white">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">
-                Why Join Packdez?
-            </h2>
+            <div class="text-center mb-12">
+                <span class="section-badge">Benefits</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">
+                    Why Join Packdez?
+                </h2>
+            </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Value 1 -->
                 <div class="value-card">
                     <div class="icon-circle">
-                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                     </div>
@@ -244,7 +433,7 @@
                 <!-- Value 2 -->
                 <div class="value-card">
                     <div class="icon-circle">
-                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
                         </svg>
                     </div>
@@ -255,7 +444,7 @@
                 <!-- Value 3 -->
                 <div class="value-card">
                     <div class="icon-circle">
-                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                         </svg>
@@ -267,7 +456,7 @@
                 <!-- Value 4 -->
                 <div class="value-card">
                     <div class="icon-circle">
-                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
@@ -279,82 +468,99 @@
     </section>
 
     <!-- Form Section -->
-    <section id="form-section" class="py-20 px-4 sm:px-6 bg-gray-50">
+    <section id="form-section" class="py-20 px-4 sm:px-6 bg-gradient-to-b from-gray-50 to-white">
         <div class="max-w-2xl mx-auto">
             <div class="text-center mb-10">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                <span class="section-badge">Early Access</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
                     Join the Waitlist
                 </h2>
-                <p class="text-lg text-gray-600">
-                    Be among the first automation experts to showcase your work on Packdez.
+                <p class="text-gray-600">
+                    Be among the first to showcase your work
                 </p>
             </div>
             
-            <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8">
+            <div class="form-card">
                 <div id="success-container"></div>
                 
                 <form id="waitlist-form">
                     <!-- Name -->
-                    <div class="mb-5">
-                        <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Name <span class="text-red-500">*</span>
-                        </label>
+                    <div class="form-group">
                         <input type="text" 
                                id="name" 
                                name="name" 
                                required 
                                class="form-input"
-                               placeholder="Your full name">
+                               placeholder="Full name">
+                        <svg class="input-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
                         <div id="name-error" class="error-message hidden"></div>
                     </div>
                     
                     <!-- Email -->
-                    <div class="mb-5">
-                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Email <span class="text-red-500">*</span>
-                        </label>
+                    <div class="form-group">
                         <input type="email" 
                                id="email" 
                                name="email" 
                                required 
                                class="form-input"
-                               placeholder="your@email.com">
+                               placeholder="Email address">
+                        <svg class="input-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
                         <div id="email-error" class="error-message hidden"></div>
                     </div>
                     
                     <!-- Rating -->
-                    <div class="mb-5">
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">
-                            How useful would this platform be for your automation career? <span class="text-red-500">*</span>
+                    <div class="mb-7">
+                        <label class="block text-sm font-semibold text-gray-700 mb-4 text-center">
+                            How useful would this be for you?
                         </label>
-                        <div class="flex gap-2 flex-wrap sm:flex-nowrap">
-                            <div class="rating-option" data-value="1">Not useful</div>
-                            <div class="rating-option" data-value="2">Slightly useful</div>
-                            <div class="rating-option" data-value="3">Useful</div>
-                            <div class="rating-option" data-value="4">Very useful</div>
-                            <div class="rating-option" data-value="5">Extremely useful</div>
+                        <div class="flex gap-2 flex-wrap sm:flex-nowrap justify-center">
+                            <div class="rating-pill" data-value="1">
+                                <span class="rating-icon">😐</span>
+                                <span class="rating-label">Not useful</span>
+                            </div>
+                            <div class="rating-pill" data-value="2">
+                                <span class="rating-icon">🙂</span>
+                                <span class="rating-label">Slightly</span>
+                            </div>
+                            <div class="rating-pill" data-value="3">
+                                <span class="rating-icon">😊</span>
+                                <span class="rating-label">Useful</span>
+                            </div>
+                            <div class="rating-pill" data-value="4">
+                                <span class="rating-icon">😃</span>
+                                <span class="rating-label">Very useful</span>
+                            </div>
+                            <div class="rating-pill" data-value="5">
+                                <span class="rating-icon">🤩</span>
+                                <span class="rating-label">Extremely</span>
+                            </div>
                         </div>
                         <input type="hidden" id="rating" name="rating" required>
                         <div id="rating-error" class="error-message hidden"></div>
                     </div>
                     
                     <!-- Comments -->
-                    <div class="mb-6">
-                        <label for="comments" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Additional Comments or Notes
-                        </label>
+                    <div class="form-group">
                         <textarea id="comments" 
                                   name="comments" 
-                                  rows="4" 
+                                  rows="3" 
                                   class="form-input"
-                                  placeholder="Tell us more about your automation work or what you'd like to see on the platform..."></textarea>
+                                  style="padding-top: 1rem;"
+                                  placeholder="Anything else you'd like to share? (optional)"></textarea>
+                        <svg class="input-icon w-5 h-5" style="top: 1.25rem; transform: none;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                        </svg>
                     </div>
                     
                     <!-- Submit -->
                     <button type="submit" 
                             id="submit-btn" 
                             class="btn-primary w-full">
-                        Submit Interest
+                        <span id="submit-text">Submit Interest</span>
                     </button>
                 </form>
             </div>
@@ -378,7 +584,7 @@
         }
 
         // Rating selection
-        const ratingOptions = document.querySelectorAll('.rating-option');
+        const ratingOptions = document.querySelectorAll('.rating-pill');
         const ratingInput = document.getElementById('rating');
         
         ratingOptions.forEach(option => {
@@ -395,7 +601,12 @@
             const field = document.getElementById(fieldId);
             const errorDiv = document.getElementById(`${fieldId}-error`);
             field.classList.add('error');
-            errorDiv.textContent = message;
+            errorDiv.innerHTML = `
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                </svg>
+                <span>${message}</span>
+            `;
             errorDiv.classList.remove('hidden');
         }
 
@@ -404,7 +615,7 @@
             const errorDiv = document.getElementById(`${fieldId}-error`);
             if (field) field.classList.remove('error');
             if (errorDiv) {
-                errorDiv.textContent = '';
+                errorDiv.innerHTML = '';
                 errorDiv.classList.add('hidden');
             }
         }
@@ -416,6 +627,7 @@
         // Form submission
         const form = document.getElementById('waitlist-form');
         const submitBtn = document.getElementById('submit-btn');
+        const submitText = document.getElementById('submit-text');
         const successContainer = document.getElementById('success-container');
 
         form.addEventListener('submit', async function(e) {
@@ -434,20 +646,20 @@
             let hasError = false;
             
             if (!name) {
-                showError('name', 'Name is required');
+                showError('name', 'Required');
                 hasError = true;
             }
             
             if (!email) {
-                showError('email', 'Email is required');
+                showError('email', 'Required');
                 hasError = true;
             } else if (!validateEmail(email)) {
-                showError('email', 'Please enter a valid email address');
+                showError('email', 'Invalid email');
                 hasError = true;
             }
             
             if (!rating) {
-                showError('rating', 'Please select a usefulness rating');
+                showError('rating', 'Please select your rating');
                 hasError = true;
             }
             
@@ -455,7 +667,7 @@
             
             // Disable button and show loading state
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting...';
+            submitText.textContent = 'Submitting...';
             
             try {
                 const response = await fetch('https://script.google.com/macros/s/AKfycbzRd2Q1uJGzshnbe1cOFmNHIdp_L3eXV6oGbVgpXi_dAkMcZTDxWGSwMkDpPmS_TyFt/exec', {
@@ -475,9 +687,25 @@
                 
                 // Show success message
                 successContainer.innerHTML = `
-                    <div class="success-message">
-                        <strong>Thank you for your interest!</strong><br>
-                        We've received your submission and will be in touch soon.
+                    <div class="success-message animate-slide-up">
+                        <div class="success-message-content">
+                            <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <strong class="block mb-1">Success!</strong>
+                                <span>We've received your submission and will be in touch soon.</span>
+                            </div>
+                        </div>
+                        <div class="success-footer">
+                            <p class="mb-2">Follow us on LinkedIn for platform updates. Tag @Packdez in your posts and we'll share them!</p>
+                            <a href="https://www.linkedin.com/company/packdez" target="_blank" rel="noopener noreferrer" class="linkedin-link">
+                                <svg class="linkedin-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                                Follow Packdez on LinkedIn
+                            </a>
+                        </div>
                     </div>
                 `;
                 
@@ -486,20 +714,27 @@
                 ratingOptions.forEach(opt => opt.classList.remove('active'));
                 
                 // Scroll to success message
-                successContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                setTimeout(() => {
+                    successContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
                 
             } catch (error) {
                 // Show error message
                 successContainer.innerHTML = `
-                    <div class="bg-red-50 border-2 border-red-500 text-red-700 p-4 rounded-lg mb-6">
-                        <strong>Submission failed.</strong><br>
-                        Please try again or contact us directly.
+                    <div class="bg-red-50 border-2 border-red-500 text-red-700 p-4 rounded-lg mb-6 flex items-start gap-3 animate-slide-up">
+                        <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <strong class="block mb-1">Submission failed</strong>
+                            <span>Please try again or contact us directly.</span>
+                        </div>
                     </div>
                 `;
             } finally {
                 // Re-enable button
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Interest';
+                submitText.textContent = 'Submit Interest';
             }
         });
 
