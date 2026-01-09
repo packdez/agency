@@ -1,2018 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Sheets Automation for Operations Teams | Packdez</title>
-    <meta name="description" content="We build automated operational systems in Google Sheets for growing teams. No templates. No bloat. Just reliable systems that work.">
-    <link rel="icon" type="image/png" sizes="512x512" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
-    <link rel="apple-touch-icon" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
-
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <style>
-        :root {
-            --background: 0 0% 100%;
-            --foreground: 220 20% 10%;
-            --primary: 146 55% 36%;
-            --primary-foreground: 0 0% 100%;
-            --muted: 220 14% 96%;
-            --muted-foreground: 220 9% 46%;
-            --border: 220 13% 91%;
-            --destructive: 0 84% 60%;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
-            scroll-behavior: smooth;
-            line-height: 1.6;
-            overflow-x: hidden; /* prevent horizontal scroll on mobile */
-        }
-        
-        .bg-primary { background-color: hsl(146 55% 36%); }
-        .text-primary { color: hsl(146 55% 36%); }
-        .border-primary { border-color: hsl(146 55% 36%); }
-        .bg-muted { background-color: hsl(220 14% 96%); }
-        .text-muted-foreground { color: hsl(220 9% 46%); }
-        .border-border { border-color: hsl(220 13% 91%); }
-        .text-destructive { color: hsl(0 84% 60%); }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            text-decoration: none;
-        }
-        
-        .btn-primary {
-            background-color: hsl(146 55% 36%);
-            color: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-primary:hover {
-            background-color: hsl(146 55% 32%);
-            box-shadow: 0 4px 12px rgba(46, 140, 78, 0.3);
-            transform: translateY(-1px);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid hsl(220 13% 91%);
-            color: hsl(220 20% 10%);
-        }
-        
-        .btn-outline:hover {
-            background-color: hsl(220 14% 96%);
-            border-color: hsl(146 55% 36%);
-        }
-        
-        .card {
-            background-color: white;
-            border: 1px solid hsl(220 13% 91%);
-            border-radius: 0.75rem;
-            padding: 2rem;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .card:hover {
-            border-color: hsl(146 55% 36% / 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transform: translateY(-2px);
-        }
-        
-        .card-flat {
-            background-color: white;
-            border: 1px solid hsl(220 13% 91%);
-            border-radius: 0.75rem;
-            padding: 2rem;
-        }
-        
-        .input, .textarea {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            border: 1px solid hsl(220 13% 91%);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            transition: all 0.2s;
-            font-family: inherit;
-            background-color: white;
-        }
-        
-        .textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .input:focus, .textarea:focus {
-            outline: none;
-            border-color: hsl(146 55% 36%);
-            box-shadow: 0 0 0 3px hsl(146 55% 36% / 0.1);
-        }
-        
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.25rem 0.75rem;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            border-radius: 0.375rem;
-            background-color: hsl(146 55% 36% / 0.1);
-            color: hsl(146 55% 36%);
-            border: 1px solid hsl(146 55% 36% / 0.2);
-        }
-
-            .nav-fixed {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid hsl(220 13% 91%);
-        }
-
-        
-        .video-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 100;
-            background-color: rgba(0, 0, 0, 0.9);
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            animation: fadeIn 0.2s ease;
-        }
-        
-        .video-modal.active { display: flex; }
-        
-        .video-container {
-            width: 100%;
-            max-width: 1200px;
-            aspect-ratio: 16/9;
-            background-color: black;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-      
-        
-        .toast {
-            position: fixed;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: hsl(146 55% 36%);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: none;
-        }
-        
-        .toast.active {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes scaleIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.6s ease forwards;
-        }
-        
-        .section-padding {
-            padding: 5rem 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .section-padding {
-                padding: 3rem 1rem;
-            }
-        }
-        
-        .metric {
-            font-size: 2rem;
-            font-weight: 800;
-            color: hsl(146 55% 36%);
-            line-height: 1.2;
-        }
-        
-        .problem-icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            color: hsl(0 84% 60%);
-            margin-bottom: 1rem;
-        }
-        
-        .check-icon {
-            width: 1.25rem;
-            height: 1.25rem;
-            color: hsl(146 55% 36%);
-            flex-shrink: 0;
-            margin-top: 0.125rem;
-        }
-        
-        .star-icon {
-            width: 1rem;
-            height: 1rem;
-            color: hsl(43 96% 56%);
-            fill: hsl(43 96% 56%);
-        }
-        
-
-       
-/* =============================
-   PRICING SECTION STYLES
-   ============================= */
-
-.pricing-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: clamp(64px, 8vw, 96px) 20px;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: clamp(32px, 6vw, 64px);
-}
-
-@media (max-width: 768px) {
-  .pricing-section {
-    grid-template-columns: 1fr;
-  }
-}
-
-.pricing-badge {
-  display: inline-block;
-  background: #2e8c4e;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 8px 14px;
-  border-radius: 999px;
-  margin-bottom: 20px;
-}
-
-.pricing-lead {
-  font-size: clamp(28px, 5vw, 46px);
-  font-weight: 800;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.pricing-sub {
-  font-size: clamp(15px, 3.5vw, 18px);
-  color: #475569;
-  max-width: 520px;
-  margin-bottom: 32px;
-}
-
-.pricing-list {
-  list-style: none;
-  margin-bottom: 40px;
-}
-
-.pricing-list li {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 16px;
-  font-size: 15px;
-}
-
-.pricing-check {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 2px solid #2e8c4e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  color: #2e8c4e;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.pricing-cta {
-  display: inline-block;
-  background: linear-gradient(180deg, #2e8c4e, #276f40);
-  color: #fff;
-  padding: 16px 28px;
-  border-radius: 14px;
-  font-weight: 700;
-  text-decoration: none;
-  box-shadow: 0 10px 30px rgba(46, 140, 78, 0.35);
-}
-
-/* =============================
-   PRICING SIDECARD
-   ============================= */
-
-.pricing-card {
-  background: linear-gradient(180deg, #ffffff, #f9fafb);
-  border-radius: 24px;
-  padding: clamp(24px, 5vw, 40px);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
-}
-
-.pricing-card h3 {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #475569;
-  margin-bottom: 16px;
-}
-
-.pricing-range {
-  font-size: clamp(22px, 4vw, 30px);
-  font-weight: 800;
-  margin-bottom: 16px;
-}
-
-.pricing-meta {
-  font-size: 14px;
-  color: #475569;
-  margin-bottom: 24px;
-}
-
-.pricing-card ul {
-  list-style: none;
-  margin-top: 16px;
-}
-
-.pricing-card li {
-  font-size: 15px;
-  margin-bottom: 10px;
-}
-
-.pricing-timeline {
-  margin-top: 28px;
-  font-size: 15px;
-  color: #475569;
-}
-
-/* =============================
-   FLOATING ROI PILL
-   ============================= */
-
-.roi-cta-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-}
-
-.roi-calc {
-  width: auto;          /* remove full-width */
-  min-width: 240px;     /* keeps it strong */
-  max-width: 100%;
-  text-align: center;
-  padding: 16px 28px;
-  border-radius: 999px;
-}
-
-
-#roi-pill {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #2e8c4e;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 20px 40px rgba(46, 140, 78, 0.45);
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-#roi-pill::after{
-      content:"ROI";
-      position:absolute;
-      bottom:-6px;
-      right:-6px;
-      background:#0f172a;
-      color:#fff;
-      font-size:10px;
-      font-weight:700;
-      padding:4px 6px;
-      border-radius:999px;
-      box-shadow:0 6px 16px rgba(15,23,42,.4);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting to Packdez</title>
+  <meta http-equiv="refresh" content="3;url=https://packdez.com">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-/* =============================
-   ROI OVERLAY + MODAL
-   ============================= */
-
-.roi-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(6px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 80;
-  padding: 24px;
-}
-
-.roi-overlay.active {
-  display: flex;
-}
-
-.roi-modal {
-  background: linear-gradient(180deg, #ffffff, #f8fafc);
-  width: 100%;
-  max-width: 500px;
-  border-radius: 20px;
-  padding: 28px;
-  position: relative;
-  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.4);
-}
-
-.roi-close {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  border: none;
-  background: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #64748b;
-}
-
-.roi-fields label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 18px;
-}
-
-.roi-fields input[type="range"] {
-  width: 100%;
-  margin-top: 10px;
-  accent-color: #2e8c4e;
-}
-
-.roi-values {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 24px;
-  text-align: center;
-}
-
-@media (max-width: 520px) {
-  .roi-values {
-    grid-template-columns: 1fr;
-  }
-}
-
-.roi-box {
-  background: linear-gradient(180deg, #ffffff, #f8fafc);
-  border-radius: 16px;
-  padding: 18px 12px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-}
-
-.roi-box strong {
-  display: block;
-  font-size: 22px;
-  color: #2e8c4e;
-}
-
-.roi-calc {
-  width: 100%;
-  margin-top: 22px;
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  background: #2e8c4e;
-  color: #fff;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-
-
-
-        /* Reviews Carousel */
-.reviews-carousel {
-  position: relative;
-  overflow: hidden;
-}
-
-.reviews-track {
-  display: flex;
-  gap: 24px;
-  width: max-content;
-  animation: reviewScroll 45s linear infinite;
-}
-
-.reviews-carousel:hover .reviews-track {
-  animation-play-state: paused;
-}
-
-/* Individual review width */
-.review-card {
-  min-width: 360px;
-  max-width: 360px;
-}
-
-/* Soft edge fade */
-.reviews-carousel::before,
-.reviews-carousel::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 80px;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.reviews-carousel::before {
-  left: 0;
-  background: linear-gradient(to right, white, transparent);
-}
-
-.reviews-carousel::after {
-  right: 0;
-  background: linear-gradient(to left, white, transparent);
-}
-
-/* Animation */
-@keyframes reviewScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-/* Mobile behavior */
-@media (max-width: 768px) {
-
-.reviews-carousel {
-    overflow: hidden;
-  }
-
-  /* Remove soft edge fades */
-  .reviews-carousel::before,
-  .reviews-carousel::after {
-    display: none;
-  }
-
-  /* Keep auto-scroll */
-  .reviews-track {
-    display: flex;
-    gap: 0;
-    width: max-content;
-    animation: reviewScroll 60s linear infinite;
-    overflow: visible;
-  }
-
-  /* One full card at a time */
-.review-card {
-    width: 90vw;
-    max-width: 90vw;
-    min-width: 90vw;
-    margin: 0 auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    box-sizing: border-box;
-  }
-
-.review-card p {
-    font-size: 0.95rem;
-    line-height: 1.55;
-    max-width: 34ch;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-}
-
-
-
-        /* =====================================================
-           MOBILE SIDEBAR MENU
-        ====================================================== */
-        .mobile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.55);
-            backdrop-filter: blur(6px);
-            z-index: 90;
-            display: none;
-        }
-
-        .mobile-overlay.active {
-            display: block;
-        }
-
-        .mobile-sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100%;
-            width: 85%;
-            max-width: 320px;
-            background: white;
-            z-index: 100;
-            padding: 24px;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mobile-sidebar.active {
-            transform: translateX(0);
-        }
-
-        .mobile-sidebar a {
-            padding: 14px 0;
-            font-size: 16px;
-            font-weight: 600;
-            border-bottom: 1px solid hsl(var(--border));
-        }
-
-      /* =====================================================
-   MOBILE SPACING OPTIMIZATION
-   ===================================================== */
-@media (max-width: 768px) {
-
-  /* Reduce vertical padding without collapsing sections */
-  .section-padding {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-
-  /* Cards: tighter but breathable */
-  .card,
-  .card-flat {
-    padding: 1.25rem;
-  }
-
-  /* Headings spacing */
-  h1 {
-    margin-bottom: 1rem;
-  }
-
-  h2 {
-    margin-bottom: 0.75rem;
-  }
-
-  /* Paragraph rhythm */
-  p {
-    margin-bottom: 0.75rem;
-  }
-}
-
-
-      /* =====================================================
-   MOBILE TAP TARGET IMPROVEMENTS
-   ===================================================== */
-@media (max-width: 768px) {
-
-  /* Buttons: larger tap area */
-  .btn,
-  .pricing-cta,
-  .roi-calc {
-    min-height: 48px;
-    padding: 0.875rem 1.25rem;
-    font-size: 1rem;
-  }
-
-  /* Mobile menu links */
-  .mobile-sidebar a {
-    padding: 16px 0;
-    font-size: 16px;
-  }
-
-  /* Form inputs */
-  .input,
-  .textarea {
-    min-height: 48px;
-    font-size: 16px; /* prevents iOS zoom */
-  }
-
-  /* Range sliders */
-  input[type="range"] {
-    height: 32px;
-  }
-}
-
-
-      /* =====================================================
-   MOBILE TYPOGRAPHY SCALE
-   ===================================================== */
-@media (max-width: 768px) {
-
-h1 {
-    font-size: clamp(1.2rem, 5.5vw, 1.3rem);
-    line-height: 1.25;
-  }
-
-
-  h3 {
-    font-size: 1.1rem;
-  }
-
-  p,
-  li,
-  span {
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .metric {
-    font-size: 1.1rem;
-  }
-}
-
-
-      /* =====================================================
-   MOBILE CTA OPTIMIZATION
-   ===================================================== */
-@media (max-width: 768px) {
-
-  /* Primary CTA section */
-  #audit .card-flat {
-    padding: 1.25rem;
-  }
-
-  #audit button {
-    position: sticky;
-    bottom: 12px;
-    z-index: 5;
-  }
-}
-
-
-      /* =====================================================
-   ROI CALCULATOR — MOBILE FIXES
-   ===================================================== */
-@media (max-width: 768px) {
-
-  .roi-overlay {
-    align-items: flex-start;
-    padding-top: 10vh;
-    padding-bottom: 10vh;
-  }
-
-  .roi-modal {
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 20px;
-  }
-
-  .roi-fields label {
-    font-size: 13px;
-    margin-bottom: 14px;
-  }
-
-  .roi-box strong {
-    font-size: 18px;
-  }
-
-  .roi-box span {
-    font-size: 14px;
-  }
-
-  .roi-values {
-    gap: 12px;
-  }
-
-  .roi-calc {
-    font-size: 15px;
-    padding: 14px;
-  }
-}
-
-
-
-        /* =====================================================
-   FIX: TOP BAR + MOBILE SIDEBAR VISIBILITY ONLY
-   ===================================================== */
-
-/* Hide desktop nav on mobile */
-@media (max-width: 768px) {
-  .desktop-only {
-    display: none !important;
-  }
-}
-
-/* Restore layout on mobile (undo negative margins) */
-@media (max-width: 768px) {
-  .nav-fixed a[style],
-  .nav-fixed .desktop-only[style] {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-   
-}
-
-
-
-    </style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff6b35 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 8s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .particle:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 7s;
+    }
+
+    .particle:nth-child(2) {
+      width: 60px;
+      height: 60px;
+      top: 70%;
+      left: 80%;
+      animation-delay: 1s;
+      animation-duration: 8s;
+    }
+
+    .particle:nth-child(3) {
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 5%;
+      animation-delay: 2s;
+      animation-duration: 9s;
+    }
+
+    .particle:nth-child(4) {
+      width: 70px;
+      height: 70px;
+      top: 20%;
+      left: 85%;
+      animation-delay: 1.5s;
+      animation-duration: 7.5s;
+    }
+
+    .particle:nth-child(5) {
+      width: 90px;
+      height: 90px;
+      top: 80%;
+      left: 15%;
+      animation-delay: 0.5s;
+      animation-duration: 8.5s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0.3;
+      }
+      25% {
+        transform: translateY(-30px) translateX(20px) rotate(90deg);
+        opacity: 0.5;
+      }
+      50% {
+        transform: translateY(-60px) translateX(-20px) rotate(180deg);
+        opacity: 0.3;
+      }
+      75% {
+        transform: translateY(-30px) translateX(20px) rotate(270deg);
+        opacity: 0.5;
+      }
+    }
+
+    /* Main container */
+    .redirect-container {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      padding: 60px 50px;
+      max-width: 550px;
+      width: 100%;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2), 
+                  0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+      text-align: center;
+      animation: containerFloat 3s ease-in-out infinite, fadeIn 0.8s ease-out;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes containerFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Logo container */
+    .logo-container {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 30px;
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 15px 35px rgba(255, 107, 53, 0.4);
+      animation: logoFloat 2.5s ease-in-out infinite, logoPulse 2s ease-in-out infinite;
+      position: relative;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(5deg);
+      }
+    }
+
+    @keyframes logoPulse {
+      0%, 100% {
+        box-shadow: 0 15px 35px rgba(255, 107, 53, 0.4);
+      }
+      50% {
+        box-shadow: 0 20px 45px rgba(255, 107, 53, 0.6);
+      }
+    }
+
+    .logo-container::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: linear-gradient(135deg, #ff6b35, #f7931e, #ff6b35);
+      border-radius: 32px;
+      opacity: 0.5;
+      filter: blur(10px);
+      z-index: -1;
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+      }
+    }
+
+    .logo-text {
+      font-size: 48px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: -2px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Title */
+    .title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+      animation: slideInDown 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Subtitle */
+    .subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 40px;
+      line-height: 1.6;
+      animation: slideInDown 0.8s ease-out 0.4s both;
+    }
+
+    /* Loading bar container */
+    .loading-container {
+      margin-bottom: 30px;
+      animation: slideInDown 0.8s ease-out 0.6s both;
+    }
+
+    .loading-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 107, 53, 0.15);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loading-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #ff6b35, #f7931e, #ff6b35);
+      background-size: 200% 100%;
+      border-radius: 999px;
+      animation: loadingProgress 3s ease-out forwards, shimmer 1.5s ease-in-out infinite;
+      box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+    }
+
+    @keyframes loadingProgress {
+      from {
+        width: 0%;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes shimmer {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    /* Spinner */
+    .spinner-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 25px;
+      animation: slideInDown 0.8s ease-out 0.8s both;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 107, 53, 0.2);
+      border-top-color: #ff6b35;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .spinner-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ff6b35;
+      letter-spacing: 0.5px;
+    }
+
+    /* Redirect link */
+    .redirect-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+      color: white;
+      text-decoration: none;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: slideInDown 0.8s ease-out 1s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .redirect-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s;
+    }
+
+    .redirect-link:hover::before {
+      left: 100%;
+    }
+
+    .redirect-link:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(255, 107, 53, 0.5);
+    }
+
+    .redirect-link:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+
+    .arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .redirect-link:hover .arrow {
+      transform: translateX(5px);
+    }
+
+    /* Footer text */
+    .footer-text {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #999;
+      animation: slideInDown 0.8s ease-out 1.2s both;
+    }
+
+    /* Responsive design */
+    @media (max-width: 640px) {
+      .redirect-container {
+        padding: 40px 30px;
+        border-radius: 24px;
+      }
+
+      .logo-container {
+        width: 100px;
+        height: 100px;
+        border-radius: 24px;
+        margin-bottom: 24px;
+      }
+
+      .logo-text {
+        font-size: 40px;
+      }
+
+      .title {
+        font-size: 26px;
+        margin-bottom: 12px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+        margin-bottom: 30px;
+      }
+
+      .loading-bar {
+        height: 6px;
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+      }
+
+      .spinner-text {
+        font-size: 14px;
+      }
+
+      .redirect-link {
+        padding: 14px 28px;
+        font-size: 15px;
+        border-radius: 14px;
+      }
+
+      .footer-text {
+        font-size: 13px;
+      }
+
+      .particle {
+        display: none;
+      }
+    }
+
+    @media (max-width: 400px) {
+      body {
+        padding: 15px;
+      }
+
+      .redirect-container {
+        padding: 30px 20px;
+        border-radius: 20px;
+      }
+
+      .logo-container {
+        width: 85px;
+        height: 85px;
+        border-radius: 20px;
+        margin-bottom: 20px;
+      }
+
+      .logo-text {
+        font-size: 34px;
+      }
+
+      .title {
+        font-size: 22px;
+      }
+
+      .subtitle {
+        font-size: 15px;
+      }
+
+      .redirect-link {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="toast" class="toast"></div>
-    
-     
-<!-- =====================================================
-     MOBILE NAV OVERLAY
-====================================================== -->
-<div id="mobile-overlay" class="mobile-overlay" onclick="closeMobileMenu()"></div>
+  <!-- Floating particles -->
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
 
-<!-- =====================================================
-     MOBILE SIDEBAR MENU
-====================================================== -->
-<aside id="mobile-menu" class="mobile-sidebar">
+  <!-- Main container -->
+  <div class="redirect-container">
+    <!-- Logo -->
+    <div class="logo-container">
+      <div class="logo-text">P</div>
+    </div>
 
-  <!-- Logo + close -->
-  <div class="flex items-center justify-between mb-6">
-    <a href="#" class="flex items-center gap-2" onclick="closeMobileMenu()">
-      <img
-        src="https://packdez.com/assets/logo/packdez-logo-512x512.png"
-        alt="Packdez"
-        class="h-8 w-8"
-      />
-      <span class="text-xl font-bold">Packdez</span>
+    <!-- Title -->
+    <h1 class="title">Welcome to Packdez</h1>
+
+    <!-- Subtitle -->
+    <p class="subtitle">
+      You're being redirected to our main website.<br>
+      Please wait a moment...
+    </p>
+
+    <!-- Loading bar -->
+    <div class="loading-container">
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+    </div>
+
+    <!-- Spinner -->
+    <div class="spinner-container">
+      <div class="spinner"></div>
+      <span class="spinner-text">Redirecting</span>
+    </div>
+
+    <!-- Manual redirect link -->
+    <a href="https://packdez.com" class="redirect-link">
+      Go Now
+      <span class="arrow">→</span>
     </a>
 
-    <button onclick="closeMobileMenu()" aria-label="Close menu" class="text-2xl font-bold">
-      ×
-    </button>
-  </div>
-
-  <!-- Nav links -->
-  <a href="#work" onclick="closeMobileMenu()">Work</a>
-  <a href="#pricing" onclick="closeMobileMenu()">Pricing</a>
-  <a href="#reviews" onclick="closeMobileMenu()">Reviews</a>
-  <a href="/v2/about" onclick="closeMobileMenu()">About</a>
-
-  <a href="#audit" onclick="closeMobileMenu()" class="mt-6 btn btn-primary">
-    Get Automation Plan
-  </a>
-
-</aside>
-
-
-<!-- =====================================================
-     FIXED NAVIGATION BAR
-====================================================== -->
-<nav class="nav-fixed">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="flex items-center justify-between h-16">           
-
-      <!-- Logo -->
-        <a href="https://packdez.com/v2" class="flex items-center gap-2" style="margin-left:-50px;">
-                    <img 
-                        src="https://packdez.com/assets/logo/packdez-logo-512x512.png" 
-                        alt="Packdez"
-                        class="h-8 w-8"
-                    />
-                    <span class="text-xl font-bold">Packdez</span>
-                </a>
-
-      <!-- Desktop links -->
-                <div class="desktop-only flex items-center gap-6" style="margin-right:-90px;">
-                    <a href="#work" class="text-sm font-medium text-muted-foreground hover:text-primary">Work</a>
-                    <a href="#reviews" class="text-sm font-medium text-muted-foreground hover:text-primary">Pricing</a>
-                    <a href="#pricing" class="text-sm font-medium text-muted-foreground hover:text-primary">Reviews</a>
-                    <a href="/v2/about" class="text-sm font-medium text-muted-foreground hover:text-primary">About</a>
-                    <a href="#audit" class="btn btn-primary ml-auto mr-10" style="padding: 0.5rem 1.25rem;">Get Free Audit</a>
-                </div>
-
-      <!-- Mobile hamburger -->
-        <button class="flex md:hidden" onclick="toggleMobileMenu()" aria-label="Open menu">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
-
-    </div>
-  </div>
-</nav>
-
-
-   
-    <!-- Hero Section -->
-    <section class="section-padding" style="padding-top: 10rem; padding-bottom: 6rem;">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="text-center fade-in">
-
-                <h1 class="text-[34px] md:text-6xl font-black mb-6 leading-tight tracking-[-0.02em]">
-                  Stop managing spreadsheets. Start running systems
-                </h1>
-
-                <p class="text-[17px] md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-[1.5]">
-                  We turn Google Sheets into reliable systems for teams done with manual work, broken formulas, and fragile automations.
-                </p>
-
-                
-                <a href="#audit" class="btn btn-primary text-lg">
-                    Get a free automation audit
-                </a>
-
-                <p class="text-sm text-muted-foreground mt-4">
-                    ⏰ In 24 hours. ❌ No obligation
-                </p>
-
-            </div>
-        </div>
-    </section>
-    
-    
-    <!-- Problem Awareness -->
-    <section class="section-padding bg-muted">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-              Your Sheets aren’t broken - your process is.
-            </h2>
-                <p class="text-[17px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-                  Google Sheets is powerful. Without structure and automation, it becomes a bottleneck.
-                </p>
-               
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="card-flat">
-                    <i data-lucide="copy" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Manual data entry</h3>
-                    <p class="text-muted-foreground">Data lives in Stripe, your CRM, email, and dashboards - and someone moves it by hand.</p>
-                </div>
-                
-                <div class="card-flat">
-                    <i data-lucide="alert-triangle" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Broken formulas & versions </h3>
-                    <p class="text-muted-foreground">A formula gets overwritten. The Sheet breaks. No one knows which version to trust.</p>
-                </div>
-                
-                <div class="card-flat">
-                    <i data-lucide="file-text" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Reports rebuilt every week</h3>
-                    <p class="text-muted-foreground">Every Friday, someone spends 3 hours pulling data to report - instead of automatic refresh.</p>
-                </div>
-                
-                <div class="card-flat">
-                    <i data-lucide="eye-off" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Delayed visibility</h3>
-                    <p class="text-muted-foreground">You only see what’s happening after the Sheet is updated - decisions are one step behind</p>
-                </div>
-                
-                <div class="card-flat">
-                    <i data-lucide="trending-down" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Breaks under growth</h3>
-                    <p class="text-muted-foreground">What works at 100 breaks at 1,000. Repetitive workflows collapse under growth.</p>
-                </div>
-                
-                <div class="card-flat">
-                    <i data-lucide="users" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Single person dependency</h3>
-                    <p class="text-muted-foreground">Only one person understands the spreadsheet. When they’re unavailable, work stalls</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- What We Do -->
-    <section class="section-padding">
-        <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-                What we build for growing teams
-            </h2>
-            <p class="text-[16px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-                Productivity and internal systems - built inside Google Sheets.
-            </p>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div style="width: 3rem; height: 3rem; background-color: hsl(146 55% 36% / 0.1); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i data-lucide="bar-chart-3" style="width: 1.5rem; height: 1.5rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2">Automated reporting</h3>
-                            <p class="text-muted-foreground mb-3">
-                                Live data pulled from your CRM automatically - always accurate, never rebuilt by hand.
-                            </p>
-                            <p class="text-sm font-medium">
-                                Result: 6 hours/week → 15 minutes/week
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div style="width: 3rem; height: 3rem; background-color: hsl(146 55% 36% / 0.1); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i data-lucide="repeat" style="width: 1.5rem; height: 1.5rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2">Automated operations</h3>
-                            <p class="text-muted-foreground mb-3"> 
-                                Order to fulfillment, lead, inventory tracking, and onboarding - manual steps become automatic.
-                            </p>
-                            <p class="text-sm font-medium">
-                                Outcome: 99.9% fewer errors · 10x faster processing
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div style="width: 3rem; height: 3rem; background-color: hsl(146 55% 36% / 0.1); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i data-lucide="file-check" style="width: 1.5rem; height: 1.5rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2">Internal tools in Sheets</h3>
-                            <p class="text-muted-foreground mb-3">
-                                Apps Script powered interfaces for internal workflows - built in Sheets, no external software.
-                            </p>
-                            <p class="text-sm font-medium">
-                                Result: Replace 2-3 SaaS tools
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div style="width: 3rem; height: 3rem; background-color: hsl(146 55% 36% / 0.1); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i data-lucide="zap" style="width: 1.5rem; height: 1.5rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2">Live integrations</h3>
-                            <p class="text-muted-foreground mb-3">
-                                Real time sync between Sheets and tools like Stripe, Slack, HubSpot, or any tool with an API. 
-                            </p>
-                            <p class="text-sm font-medium">
-                                Outcome: Real time data · Zero manual entry
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Proof / Work Examples -->
-    <section id="work" class="section-padding bg-muted">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-                Before → After. Measurable results.
-            </h2>
-            <p class="text-[16px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-                Case studies. Real impact.
-            </p>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card" style="padding: 0; overflow: hidden;">
-                    <div class="relative aspect-video cursor-pointer" onclick="openVideo('HsMaIpEOlF4')">
-                        <img 
-                            src="https://img.youtube.com/vi/HsMaIpEOlF4/maxresdefault.jpg"
-                            alt="Email CRM System"
-                            class="w-full h-full object-cover"
-                            style="transition: transform 0.3s;"
-                            onmouseover="this.style.transform='scale(1.05)'"
-                            onmouseout="this.style.transform='scale(1)'"
-                        />
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center">
-                                <i data-lucide="play" class="w-6 h-6 text-white" style="margin-left: 2px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 class="text-lg font-bold mb-2">Email web app</h3>
-                        <div class="space-y-2 text-sm">
-                            <div>
-                                <span class="font-semibold" style="color: hsl(0 84% 60%);">Before:</span>
-                                <span class="text-muted-foreground"> Campaign tracking across multiple tools</span>
-                            </div>
-                            <div>
-                                <span class="font-semibold">After:</span>
-                                <span class="text-muted-foreground"> In/Outbound Spreadsheet email tool</span>
-                            </div>
-                            <div class="pt-2 border-t border-border">
-                                <span class="font-bold">Result: </span>
-                                <span class="metric" style="font-size: 1.2rem;">$3,600/year saved</span>
-                                <span class="text-sm text-muted-foreground block">in team software costs</span>
-                            </div>
-                          
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card" style="padding: 0; overflow: hidden;">
-                    <div class="relative aspect-video cursor-pointer" onclick="openVideo('4fjE3eJ01T4')">
-                        <img 
-                            src="https://img.youtube.com/vi/4fjE3eJ01T4/maxresdefault.jpg"
-                            alt="Invoice System"
-                            class="w-full h-full object-cover"
-                            style="transition: transform 0.3s;"
-                            onmouseover="this.style.transform='scale(1.05)'"
-                            onmouseout="this.style.transform='scale(1)'"
-                        />
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center">
-                                <i data-lucide="play" class="w-6 h-6 text-white" style="margin-left: 2px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 class="text-lg font-bold mb-2">Invoice generator</h3>
-                        <div class="space-y-2 text-sm">
-                            <div>
-                                <span class="font-semibold" style="color: hsl(0 84% 60%);">Before:</span>
-                                <span class="text-muted-foreground"> 2 hours per invoice, manual prep</span>
-                            </div>
-                            <div>
-                                <span class="font-semibold">After:</span>
-                                <span class="text-muted-foreground"> One click PDF branded invoices</span>
-                            </div>
-                            <div class="pt-2 border-t border-border">
-                                <span class="font-bold">Result: </span>
-                                <span class="metric" style="font-size: 1.2rem;">2 min per invoice</span>
-                                <span class="text-sm text-muted-foreground block">(previously 2 hours)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card" style="padding: 0; overflow: hidden;">
-                    <div class="relative aspect-video cursor-pointer" onclick="openVideo('-svuBj0WpkE')">
-                        <img 
-                            src="https://img.youtube.com/vi/-svuBj0WpkE/maxresdefault.jpg"
-                            alt="Healthcare Dashboard"
-                            class="w-full h-full object-cover"
-                            style="transition: transform 0.3s;"
-                            onmouseover="this.style.transform='scale(1.05)'"
-                            onmouseout="this.style.transform='scale(1)'"
-                        />
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center">
-                                <i data-lucide="play" class="w-6 h-6 text-white" style="margin-left: 2px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 class="text-lg font-bold mb-2">Operations dashboard</h3>
-                        <div class="space-y-2 text-sm">
-                            <div>
-                                <span class="font-semibold" style="color: hsl(0 84% 60%);">Before:</span>
-                                <span class="text-muted-foreground"> Patient data scattered across 3 systems</span>
-                            </div>
-                            <div>
-                                <span class="font-semibold">After:</span>
-                                <span class="text-muted-foreground"> Unified real time dashboard refresh</span>
-                            </div>
-                            <div class="pt-2 border-t border-border">
-                                <span class="font-bold">Result: </span>
-                                <span class="metric" style="font-size: 1.2rem;">100% data accuracy</span>
-                                <span class="text-sm text-muted-foreground block">with instant visibility</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Reviews Section -->
-<section id="reviews" class="section-padding">
-  <div class="max-w-6xl mx-auto px-4">
-    
-    <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-      Proven results 
-    </h2>
-    <p class="text-[16px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-      Feedback from projects delivered to teams and founders.
+    <!-- Footer text -->
+    <p class="footer-text">
+      If you're not redirected automatically, click the button above
     </p>
-
-    <!-- Carousel Wrapper -->
-    <div class="reviews-carousel">
-      <div class="reviews-track">
-
-        <!-- Review 1 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “Communicative, offered good solutions to problems, and delivered exactly what was needed.”
-          </p>
-
-          <div class="flex items-center gap-3">
-
-            <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-
-              
-            <div>
-              <p class="font-bold text-sm">— Aloysius, Operations Manager</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review 2 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “Fast, detailed communication and very professional. He explored multiple approaches and delivered a solid solution. We’ll work with him again.”
-          </p>
-
-          <div class="flex items-center gap-3">
-              
-            <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-              
-            <div>
-              <p class="font-bold text-sm">— Liam, Marketing Director</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review 3 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “Raphael transformed our bookings system and made our operations significantly smoother. The automation removed manual steps and reduced errors immediately.”
-          </p>
-
-          <div class="flex items-center gap-3">
-
-             <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-              
-            <div>
-              <p class="font-bold text-sm">— Moe, Cleaning Business Owner</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review 4 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “Good knowledge of Google Sheets, Looker, Shopify, and reporting workflows. Communication was clear and effective throughout.”
-          </p>
-
-          <div class="flex items-center gap-3">
-              
-            <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-              
-            <div>
-              <p class="font-bold text-sm">— Shivam, Shopify Business Owner</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review 5 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “Communicative, offered good solutions to problems, and delivered exactly what was needed.”
-          </p>
-
-          <div class="flex items-center gap-3">
-              
-            <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-              
-            <div>
-              <p class="font-bold text-sm">— Tiffany, Soloprenuer</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review 6 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “I appreciated the effort put into the project. The final system worked exactly as intended.”
-          </p>
-
-          <div class="flex items-center gap-3">
-              
-            <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-              
-            <div>
-              <p class="font-bold text-sm">— Shaun, Founder/Business Owner</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-        
-    <!-- How It Works -->
-    <section id="process" class="section-padding bg-muted" style="padding-top:10rem; padding-bottom:10rem;">
-        <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-                A simple, predictable process
-            </h2>
-            <p class="text-[16px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-                Fixed timeline. Clear scope. No surprises.
-            </p>
-            
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="text-center">
-                    <div style="width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, hsl(146 55% 36%), hsl(146 65% 45%)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem; font-weight: 800;">
-                        1
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Discovery call</h3>
-                    <p class="text-sm text-muted-foreground">
-                        We map your workflow, what should (shouldn’t) be automated.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div style="width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, hsl(146 55% 36%), hsl(146 65% 45%)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem; font-weight: 800;">
-                        2
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Clear proposal</h3>
-                    <p class="text-sm text-muted-foreground">
-                        Fixed price, and a clear timeline - usually within 24 hours.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div style="width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, hsl(146 55% 36%), hsl(146 65% 45%)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem; font-weight: 800;">
-                        3
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Build & refine</h3>
-                    <p class="text-sm text-muted-foreground">
-                        You see progress early. We refine for your exact process.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div style="width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, hsl(146 55% 36%), hsl(146 65% 45%)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem; font-weight: 800;">
-                        4
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Launch & handover</h3>
-                    <p class="text-sm text-muted-foreground">
-                        Documentation and ownership transfer. No dependency on us.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Pricing Section -->
-
-<section class="pricing-section" id="pricing">
-  <!-- LEFT COLUMN -->
-  <div>
-    <div style="margin-bottom:18px;margin-top:90px;font-weight:700;color:#2e8c4e">
-      Starting from <strong>$200</strong>
-    </div>
-
-    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-left">
-      Automation that pays for itself
-    </h2>
-
-    <p class="pricing-sub">
-      Custom Google Sheet systems that remove manual work, reduce errors, and give your team a setup you can rely on.
-    </p>
-
-    <a href="#audit" class="pricing-cta">Get your automation plan</a>
   </div>
 
-  <!-- RIGHT COLUMN -->
-  <div class="pricing-card">
-    <h3>WHAT MOST TEAMS INVEST</h3>
-    <div class="pricing-range">$1,200 – $2,500</div>
-    <div class="pricing-meta">
-      Based on scope, integrations, and workflow complexity
-    </div>
+  <script>
+    // Automatic redirect after 3 seconds
+    setTimeout(function() {
+      window.location.href = 'https://packdez.com';
+    }, 3000);
 
-    <strong>Included in a typical build:</strong>
-  
-    <ul class="pricing-list">
-      <li><span>•</span> Automated workflows</li>
-      <li><span>•</span> Custom dashboards</li>
-      <li><span>•</span> Notifications</li>
-      <li><span>•</span> Data validation</li>
-    </ul>
-
-    <div class="pricing-timeline">
-      <strong>Timeline:</strong><br />
-      Most systems go live in 7 – 10 days. <br />Fixed scope. No retainers. No ongoing fees.
-    </div>
-  </div>
-</section>
-
-<!-- FLOATING ROI BUTTON -->
-<button id="roi-pill" aria-label="Open ROI calculator">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <rect x="4" y="2" width="16" height="20" rx="2"/>
-    <line x1="8" y1="6" x2="16" y2="6"/>
-    <line x1="8" y1="10" x2="8" y2="10"/>
-    <line x1="12" y1="10" x2="12" y2="10"/>
-    <line x1="16" y1="10" x2="16" y2="10"/>
-    <line x1="8" y1="14" x2="8" y2="14"/>
-    <line x1="12" y1="14" x2="12" y2="14"/>
-    <line x1="16" y1="14" x2="16" y2="14"/>
-    <line x1="8" y1="18" x2="16" y2="18"/>
-  </svg>
-</button>
-
-<!-- ROI MODAL -->
-<div id="roi-overlay" class="roi-overlay">
-  <div class="roi-modal">
-    <button class="roi-close" onclick="closeROI()">×</button>
-
-    <h3 class="font-bold text-lg pr-4">Estimate your automation impact</h3>
-    <p style="color:#475569;font-size:14px;margin-bottom:22px">
-      Adjust the sliders to see potential savings.
-    </p>
-
-    <div class="roi-fields">
-      <label>
-        Hours spent on the task per week
-        <strong><span id="hVal">6</span> hrs</strong>
-        <input type="range" id="hours" min="1" max="50" value="6" oninput="updateROI()" />
-      </label>
-
-      <label>
-        How many people touch this process
-        <strong><span id="pVal">3</span></strong>
-        <input type="range" id="people" min="1" max="20" value="3" oninput="updateROI()" />
-      </label>
-
-      <label>
-        How much are they paid hourly
-        <strong>$<span id="rVal">45</span></strong>
-        <input type="range" id="rate" min="5" max="120" value="45" oninput="updateROI()" />
-      </label>
-    </div>
-
-    <div class="roi-values">
-      <div class="roi-box">
-        <strong id="hrsSaved">18 hrs</strong>
-        <span style="font-size: 16px;">Time saved / week</span>
-      </div>
-      <div class="roi-box">
-        <strong id="monSaved">$3,240</strong>
-        <span style="font-size: 16px;">Cost saved / month</span>
-      </div>
-      <div class="roi-box">
-        <strong id="yrSaved">$42,120</strong>
-        <span style="font-size: 16px;">Cost saved / year</span>
-      </div>
-    </div>
-
-        <div class="roi-cta-wrap">
-          <a href="#audit" class="roi-calc" onclick="closeROI()">
-            Talk through this setup
-          </a>
-        </div>
-
-
-  </div>
-</div>
-
-            
-    
-    <!-- Why Packdez -->
-    <section class="section-padding bg-muted">
-        <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-               Why teams move forward
-            </h2>
-            <p class="text-[16px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-                By now, most teams know if this feels right. Here’s why they decide to proceed.
-            </p>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card-flat">
-                    <h3 class="text-lg font-bold mb-3">No new tools. No retraining.</h3>
-                    <p class="text-muted-foreground">
-                        We work inside Google Sheets because your team already uses it - no platform switch, no adoption friction.
-                </div>
-                
-                <div class="card-flat">
-                    <h3 class="text-lg font-bold mb-3">Built around your workflow.</h3>
-                    <p class="text-muted-foreground">
-                        Each system is designed around how your team already works, so it fits naturally into daily operations.
-                    </p>
-                </div>
-                
-                <div class="card-flat">
-                    <h3 class="text-lg font-bold mb-3">Designed to run reliably.</h3>
-                    <p class="text-muted-foreground">
-                        Clean logic, proper error handling, and no brittle shortcuts - so the system keeps working as things change.
-                    </p>
-                </div>
-                
-                <div class="card-flat">
-                    <h3 class="text-lg font-bold mb-3">Clear Cost. Clear timeline.</h3>
-                    <p class="text-muted-foreground">
-                        Fixed pricing, no scope creep, and delivery in 7 - 15 days - not months.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-
-    </section>
-    
-    <!-- Primary CTA -->
-    <section id="audit" class="section-padding">
-        <div class="max-w-3xl mx-auto px-4">
-            <div class="text-center mb-8">
-                <h2 class="text-[24px] md:text-4xl font-bold mb-4">
-                    If this is the kind of system your team needs, the next step is simple.
-                </h2>
-                <p class="text-[16px] text-muted-foreground">
-                    Get a clear automation plan for your workflow.
-                </p>
-            </div>
-            
-            <div class="card-flat max-w-2xl mx-auto">
-                <form onsubmit="handleSubmit(event)" class="space-y-5">
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <input type="text" id="name" placeholder="Your name *" class="input" required />
-                        <input type="email" id="email" placeholder="Work email *" class="input" required />
-                    </div>
-                    <input type="text" id="company" placeholder="Company name" class="input" />
-                    <textarea id="message" placeholder="Briefly describe your workflow, where manual work or errors slow things down *" class="textarea" required></textarea>
-                    <button type="submit" id="submit-btn" class="btn btn-primary w-full text-lg">
-                        Get my automation plan
-                    </button>
-                    <p class="text-sm text-muted-foreground text-center">
-                        No obligation. You’ll hear back in 24 hours.
-                    </p>
-                </form>
-            </div>
-        </div>
-    </section>
-    
-    <!-- FAQ -->
-    <section id="faq" class="section-padding bg-muted">
-        <div class="max-w-3xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-12 text-center">
-                Common questions.
-            </h2>
-            
-            <div class="space-y-4">
-                <div class="card-flat">
-                    <button onclick="toggleFaq(0)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">How long does it take?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-0" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-0" class="mt-3 text-muted-foreground" style="display: none;">
-                        Most projects are delivered in 7-10 days. You'll see a working prototype within 72 hours. We don't drag projects out.
-                    </div>
-                </div>
-                
-                <div class="card-flat">
-                    <button onclick="toggleFaq(1)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">What if I already have a Sheet?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-1" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-1" class="mt-3 text-muted-foreground" style="display: none;">
-                        We can work with your existing Sheets or build new ones. Most clients have Sheets that need automation added, not replacement.
-                    </div>
-                </div>
-                
-                <div class="card-flat">
-                    <button onclick="toggleFaq(2)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">What tools do you integrate with?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-2" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-2" class="mt-3 text-muted-foreground" style="display: none;">
-                        Zapier, Stripe, Slack, HubSpot, QuickBooks, Gmail, Calendar, and any tool with an API. If it has data, we can connect it.
-                    </div>
-                </div>
-                
-                <div class="card-flat">
-                    <button onclick="toggleFaq(3)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">How much does it cost?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-3" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-3" class="mt-3 text-muted-foreground" style="display: none;">
-                        Most projects range from $200 to $2,500 depending on complexity. Fixed price, quoted upfront. No hourly billing or surprise costs.
-                    </div>
-                </div>
-                
-                <div class="card-flat">
-                    <button onclick="toggleFaq(4)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">What happens after delivery?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-4" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-4" class="mt-3 text-muted-foreground" style="display: none;">
-                        You get full documentation, team training, and 30 days of support. After that, the system is yours. We offer optional maintenance packages if needed.
-                    </div>
-                </div>
-                
-                <div class="card-flat">
-                    <button onclick="toggleFaq(5)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">Is this secure?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-5" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-5" class="mt-3 text-muted-foreground" style="display: none;">
-                        All systems run in your Google Workspace with your permissions. We follow Google's security best practices. You control all access.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="py-12 border-t border-border px-4">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center gap-2 mb-3">
-                        <img 
-                            src="https://packdez.com/assets/logo/packdez-logo-512x512.png" 
-                            alt="Packdez"
-                            class="h-7 w-7"
-                        />
-                        <h3 class="text-lg font-bold">Packdez</h3>
-                    </div>
-                    <p class="text-sm text-muted-foreground mb-4">
-                        Stay connected
-                    </p>
-                    <div class="flex gap-3">
-                        <a href="https://x.com/packdezHQ" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-muted hover:bg-primary hover:text-green-500 rounded-full flex items-center justify-center transition-all">
-                            <i data-lucide="twitter" class="w-4 h-4"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/company/packdez/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-muted hover:bg-primary hover:text-green-500 rounded-full flex items-center justify-center transition-all">
-                            <i data-lucide="linkedin" class="w-4 h-4"></i>
-                        </a>
-                        <a href="https://youtube.com/@packdezhqz?si=EXj27rVMq27WlWQp" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-muted hover:bg-primary hover:text-green-500 rounded-full flex items-center justify-center transition-all">
-                            <i data-lucide="youtube" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-                </div>
-
-                
-                <div>
-                    <h4 class="font-bold mb-3 text-sm">What We Build</h4>
-                    <ul class="space-y-2 text-sm text-muted-foreground">
-                        <li>Automated reporting systems</li>
-                        <li>Operations automation</li>
-                        <li>Custom internal tools</li>
-                        <li>API integrations</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-3 text-sm">Contact</h4>
-                    <ul class="space-y-2 text-sm text-muted-foreground">
-                        <li>packdez.com@gmail.com</li>
-                        <li>Response within 24 hours</li>
-                        <li>Delivery in 7-15 days</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="pt-6 border-t border-border text-center text-sm text-muted-foreground">
-              <p>© <span id="year"></span> Packdez</p>
-            </div>
-
-        </div>
-    </footer>
-    
-    <!-- Video Modal -->
-    <div id="video-modal" class="video-modal" onclick="closeVideo()">
-        <div class="video-container" onclick="event.stopPropagation()">
-            <iframe id="video-iframe" src="" class="w-full h-full" allow="autoplay; picture-in-picture" allowfullscreen></iframe>
-        </div>
-    </div>
-    
-    <script>
-              
-      
-        // Video modal
-        function openVideo(videoId) {
-            const modal = document.getElementById('video-modal');
-            const iframe = document.getElementById('video-iframe');
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            modal.classList.add('active');
-        }
-        
-        function closeVideo() {
-            const modal = document.getElementById('video-modal');
-            const iframe = document.getElementById('video-iframe');
-            iframe.src = '';
-            modal.classList.remove('active');
-        }
-        
-        // FAQ toggle
-        function toggleFaq(index) {
-            const answer = document.getElementById(`faq-answer-${index}`);
-            const icon = document.getElementById(`faq-icon-${index}`);
-            
-            if (answer.style.display === 'none') {
-                answer.style.display = 'block';
-                icon.textContent = '−';
-            } else {
-                answer.style.display = 'none';
-                icon.textContent = '+';
-            }
-        }
-        
-        // Toast
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast active';
-            toast.style.backgroundColor = type === 'success' ? 'hsl(146 55% 36%)' : 'hsl(0 84% 60%)';
-            setTimeout(() => {
-                toast.classList.remove('active');
-            }, 3000);
-        }
-        
-        // Form submission
-        async function handleSubmit(event) {
-            event.preventDefault();
-            
-            const submitBtn = document.getElementById('submit-btn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                company: document.getElementById('company').value,
-                message: document.getElementById('message').value,
-                submittedAt: new Date().toISOString()
-            };
-            
-            const scriptBaseURL = "https://corsproxy.io/?" + encodeURIComponent(
-                "https://script.google.com/macros/s/AKfycbznvN_BiRWk1_GnLdRj4zzGnD0oGnq5d1LXpi2hBeBn1ZYzPp6IsMgigPbCiq0nr4Z4tA/exec"
-            );
-            
-            try {
-                const response = await fetch(scriptBaseURL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-                    body: new URLSearchParams(formData).toString(),
-                });
-                
-                if (response.ok) {
-                    showToast("Thanks. We'll contact you within 24 hours.", 'success');
-                    document.getElementById('name').value = '';
-                    document.getElementById('email').value = '';
-                    document.getElementById('company').value = '';
-                    document.getElementById('message').value = '';
-                } else {
-                    showToast('Something went wrong. Please try again.', 'error');
-                }
-            } catch (err) {
-                showToast('Network error. Please try again.', 'error');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Request Free Audit';
-            }
-        }
-        
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-
-
-        
-/* =============================
-   ROI CALCULATOR LOGIC
-   ============================= */
-
-const overlay = document.getElementById("roi-overlay");
-const pill = document.getElementById("roi-pill");
-
-pill.addEventListener("click", () => {
-  overlay.classList.add("active");
-  document.body.style.overflow = "hidden";
-});
-
-function closeROI() {
-  overlay.classList.remove("active");
-  document.body.style.overflow = "";
-}
-
-overlay.addEventListener("click", (e) => {
-  if (e.target === overlay) closeROI();
-});
-
-function updateROI() {
-  const h = +hours.value;
-  const p = +people.value;
-  const r = +rate.value;
-
-  hVal.textContent = h;
-  pVal.textContent = p;
-  rVal.textContent = r;
-
-  const hrs = h * p;
-  const weekly = hrs * r;
-  const monthly = weekly * 4;
-  const yearly = weekly * 52;
-
-  hrsSaved.textContent = `${hrs} hrs`;
-  monSaved.textContent = `$${monthly.toLocaleString()}`;
-  yrSaved.textContent = `$${yearly.toLocaleString()}`;
-}
-
-updateROI();
-
-
-
-/* =============================
-   update year in copywrite in the footer section
-   ============================= */
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-/* =============================
-   carousel of reviews section
-   ============================= */
-const track = document.querySelector(".reviews-track");
-if (track && !track.dataset.cloned) {
-  track.innerHTML += track.innerHTML;
-  track.dataset.cloned = "true";
-}
-
-
-
-/* =====================================================
-     MOBILE MENU SCRIPT
-====================================================== */
-    function toggleMobileMenu() {
-        document.getElementById('mobile-menu').classList.add('active');
-        document.getElementById('mobile-overlay').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeMobileMenu() {
-        document.getElementById('mobile-menu').classList.remove('active');
-        document.getElementById('mobile-overlay').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-      
-    lucide.createIcons();
-
-    </script>
+    // Add dots animation to "Redirecting" text
+    const spinnerText = document.querySelector('.spinner-text');
+    let dots = 0;
+    setInterval(() => {
+      dots = (dots + 1) % 4;
+      spinnerText.textContent = 'Redirecting' + '.'.repeat(dots);
+    }, 400);
+  </script>
 </body>
 </html>
