@@ -1716,11 +1716,16 @@ function shareToLinkedIn() {
       }
     }
 
-    function closeModal() {
-      if (confirm('Are you sure you want to close?')) {
-        window.close();
+          function closeModal() {
+        // If there is history, go back
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          // Fallback if no history exists
+          window.location.href = '/';
+        }
       }
-    }
+
 
     function showError(message) {
       document.getElementById('videoWrapper').innerHTML = `<div class="loading">${message}</div>`;
