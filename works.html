@@ -1716,13 +1716,22 @@ function shareToLinkedIn() {
       }
     }
 
+const PACKDEZ_ORIGIN = 'https://packdez.com';
+const previousPage = document.referrer;
+
 function closeModal() {
-  if (window.history.length > 1) {
-    window.history.back();
+  // If previous page exists AND is from packdez.com, go there
+  if (
+    previousPage &&
+    previousPage.startsWith(PACKDEZ_ORIGIN)
+  ) {
+    window.location.href = previousPage;
   } else {
-    window.location.href = '/';
+    // Fallback to homepage
+    window.location.href = PACKDEZ_ORIGIN;
   }
 }
+
 
 
 
