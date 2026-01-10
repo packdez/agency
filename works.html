@@ -16,27 +16,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
   <link rel="canonical" href="https://packdez.com/works" />
+  <meta name="robots" content="index,follow">
   <meta name="description" content="Case studies and automation systems delivered by Packdez. Explore real Google Sheets workflows, integrations, and operational systems built for scaling teams." />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Works | Packdez</title>
 
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Packdez Work & Case Studies",
-  "url": "https://packdez.com/works",
-  "about": {
-    "@type": "Service",
-    "name": "Google Sheets Automation & Internal Systems",
-    "provider": {
-      "@type": "Organization",
-      "@id": "https://packdez.com/#organization"
+      <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Packdez Work & Case Studies",
+      "url": "https://packdez.com/works",
+      "about": {
+        "@type": "Service",
+        "name": "Google Sheets Automation & Internal Systems",
+        "provider": {
+          "@type": "Organization",
+          "@id": "https://packdez.com/#organization"
+        }
+      }
     }
-  }
-}
-</script>
+    </script>
 
 
     <link rel="icon" type="image/png" sizes="512x512" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
@@ -981,6 +982,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </style>
 </head>
 <body>
+<noscript>
+  <iframe
+    src="https://www.googletagmanager.com/ns.html?id=GTM-5KLXPS5M"
+    height="0"
+    width="0"
+    style="display:none;visibility:hidden">
+  </iframe>
+</noscript>
 
   <main>
   <header style="display:none;">
@@ -1222,13 +1231,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
 function sendEvent(type, projectId, meta = {}) {
+  // Send to your backend buffer
   addToBuffer({
     project_id: projectId,
     type: type,
     ts: Date.now(),
     meta: meta
   });
+
+  // Send to Google Tag Manager / GA4
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({
+    event: 'works_interaction',
+    action: type,
+    project_id: projectId,
+    meta: meta
+  });
 }
+
 
 
     function syncBufferedEvents() {
