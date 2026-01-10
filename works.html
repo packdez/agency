@@ -1097,6 +1097,13 @@
     // ===== EVENT BUFFER =====
     const EVENT_BUFFER_KEY = 'event_buffer';
 
+    function formatCompactNumber(num) {
+      if (num < 1000) return num.toString();
+      if (num < 1_000_000) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+      if (num < 1_000_000_000) return (num / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+      return (num / 1_000_000_000).toFixed(1).replace(/\.0$/, '') + 'B';
+    }
+
     function getDeepLinkContext() {
      const params = new URLSearchParams(window.location.search);
 
@@ -1199,7 +1206,7 @@ function sendEvent(type, projectId, meta = {}) {
       const element = document.getElementById(elementId);
       if (element) {
         element.classList.add('updating');
-        element.textContent = newValue.toLocaleString();
+        element.textContent = formatCompactNumber(newValue);
         setTimeout(() => {
           element.classList.remove('updating');
         }, 400);
@@ -1483,27 +1490,46 @@ function shareToLinkedIn() {
 
         <!-- Stats -->
         <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-label">
-              <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-              </svg>
-              <span>Views</span>
-            </div>
-            <div class="stat-value" id="views">${(project.views || 0).toLocaleString()}</div>
-          </div>
+  <div class="stat-card">
+    <div class="stat-label">
+      <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7
+             -1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+      </svg>
+      <span>Views</span>
+    </div>
+    <div
+      class="stat-value"
+      id="views"
+      title="${(project.views || 0).toLocaleString()}"
+    >
+      ${formatCompactNumber(project.views || 0)}
+    </div>
+  </div>
 
-          <div class="stat-card">
-            <div class="stat-label">
-              <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-              </svg>
-              <span>Likes</span>
-            </div>
-            <div class="stat-value" id="likes">${(project.likes || 0).toLocaleString()}</div>
-          </div>
-        </div>
+  <div class="stat-card">
+    <div class="stat-label">
+      <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682
+             a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318
+             a4.5 4.5 0 00-6.364 0z"/>
+      </svg>
+      <span>Likes</span>
+    </div>
+    <div
+      class="stat-value"
+      id="likes"
+      title="${(project.likes || 0).toLocaleString()}"
+    >
+      ${formatCompactNumber(project.likes || 0)}
+    </div>
+  </div>
+</div>
+
 
         <!-- Like Button -->
         <button class="like-btn" id="likeBtn" onclick="likeProject()" ${isLiked ? 'disabled' : ''}>
