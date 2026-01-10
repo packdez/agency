@@ -1716,15 +1716,14 @@ function shareToLinkedIn() {
       }
     }
 
-          function closeModal() {
-        // If there is history, go back
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          // Fallback if no history exists
-          window.location.href = '/';
-        }
-      }
+function closeModal() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = '/';
+  }
+}
+
 
 
     function showError(message) {
