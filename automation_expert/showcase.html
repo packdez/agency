@@ -192,16 +192,22 @@
             display: block;
         }
 
-        .modal {
-            position: fixed;
-            inset: 16px;
-            background: white;
-            border-radius: 12px;
-            z-index: 1001;
-            display: none;
-            animation: slideUp 0.4s ease-out;
-            overflow: hidden;
-        }
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: white;
+    z-index: 1001;
+    display: none;
+    overflow: hidden;
+}
+
 
         .modal.active {
             display: flex;
