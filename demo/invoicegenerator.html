@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Live Sheet Embed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Optional SEO -->
+  <meta name="robots" content="index,follow" />
+  <meta name="description" content="Live data powered by Google Sheets." />
+
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 24px 20px;
+      text-align: center;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      font-size: 14px;
+      color: #475569;
+    }
+
+    main {
+      flex: 1;
+      padding: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Responsive iframe container */
+    .iframe-wrap {
+      position: relative;
+      width: 100%;
+      height: 80vh; /* adjusts height */
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    .iframe-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    footer {
+      padding: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    footer a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 18px;
+      }
+
+      .iframe-wrap {
+        height: 75vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Live Google Sheet</h1>
+    <p>Automatically updated · Powered by Google Sheets</p>
+  </header>
+
+  <main>
+    <div class="iframe-wrap">
+      <iframe
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSf2fbctRIMyBL1172wYodYwmef6xCzIhhuSSAJFTCjEW4gilXML9B3hFZ_dwCVk8KXT-JnrdTBZ34V/pubhtml?widget=true&headers=false"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </div>
+  </main>
+
+  <footer>
+    Data published via Google Sheets ·
+    <a href="https://docs.google.com/" target="_blank" rel="noopener noreferrer">
+      View source
+    </a>
+  </footer>
+
+</body>
+</html>
