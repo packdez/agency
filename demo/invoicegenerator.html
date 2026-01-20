@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+
   <title>PackDez Projects | Invoice Generator</title>
   <meta name="description" content="We build automated operational systems in Google Sheets for growing workflow operations. No templates. No bloat. Just reliable systems that work.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <link rel="icon" type="image/png" sizes="512x512" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
   <link rel="apple-touch-icon" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
@@ -17,59 +19,25 @@
     }
 
     .sheet-wrapper {
-      position: relative;
       width: 100%;
       height: 100vh;
-      overflow: hidden;
       background: white;
     }
 
     iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
       border: none;
-    }
-
-    /* 🔒 MENU BLOCKER */
-    .menu-blocker {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 72px; /* adjust if needed */
-      background: white;
-      z-index: 10;
-      pointer-events: all;
-    }
-
-    /* Optional subtle divider */
-    .menu-blocker::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: #e5e7eb;
     }
   </style>
 </head>
 <body>
 
   <div class="sheet-wrapper">
-
-    <!-- BLOCKER -->
-    <div class="menu-blocker"></div>
-
-    <!-- GOOGLE SHEET -->
     <iframe
       src="https://docs.google.com/spreadsheets/d/1Cj51TkpHB9DBQuxfFGmkxV5bVf1SUXsTHBML-x5X_0s/edit?usp=sharing"
       allowfullscreen
     ></iframe>
-
   </div>
 
 </body>
