@@ -251,9 +251,17 @@
     <small>
       No spam. Just the file and setup notes.
     </small>
-  </div>
+
+
+    <div id="successMessage" style="display:none; text-align:center;">
+  <h3 style="color:#2e8c4e; margin-bottom:8px;">✔ Sent!</h3>
+  <p style="color:#64748b; font-size:14px;">
+    Check your email — your copy is on the way.
+  </p>
 </div>
 
+  </div>
+</div>
 <script>
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxEYqt7qf50GUT5FBJUGtZtaHlIZvljYGpW0HQwu-7XZngwVBy_gKFAFvIKVXC8K_ZL/exec";
   const SECRET = "PDK-secretFORM-token";
@@ -263,66 +271,73 @@
     document.body.style.overflow = 'hidden';
   }
 
-  document.getElementById('modal').addEventListener('click', (e) => {
-    if (e.target.id === 'modal') {
-      closeModal();
-    }
-  });
-
   function closeModal() {
     document.getElementById('modal').classList.remove('active');
     document.body.style.overflow = '';
+    resetForm();
   }
 
-  // Handle form submission
+  document.getElementById('modal').addEventListener('click', (e) => {
+    if (e.target.id === 'modal') closeModal();
+  });
+
+  function resetForm() {
+    document.getElementById('nameInput').value = "";
+    document.getElementById('emailInput').value = "";
+    document.getElementById('submitBtn').disabled = false;
+    document.getElementById('submitBtn').textContent = "Send my copy";
+    document.getElementById('successMessage').style.display = "none";
+  }
+
   document.getElementById('submitBtn').addEventListener('click', async () => {
     const name = document.getElementById('nameInput').value.trim();
     const email = document.getElementById('emailInput').value.trim();
     const button = document.getElementById('submitBtn');
 
-    // --- BASIC VALIDATION ---
     if (!email) {
-      alert("Please enter your email.");
+      // inline validation instead of alert
+      document.getElementById('emailInput').focus();
       return;
     }
 
-    // Prevent double submissions
     button.disabled = true;
-    button.textContent = "Sending...";
+    button.textContent = "Sending…";
 
     try {
       const response = await fetch(WEB_APP_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           secret: SECRET,
           formType: "emailtool",
-          name: name,
-          email: email
+          name,
+          email
         })
       });
 
-      const result = await response.json();
+      const text = await response.text();
+      const result = text ? JSON.parse(text) : {};
 
       if (!result.success) {
         throw new Error(result.error || "Submission failed");
       }
 
-      // --- SUCCESS ---
+      // 🎉 SUCCESS UI
+      document.getElementById('successMessage').style.display = "block";
       button.textContent = "Sent ✔";
-      setTimeout(closeModal, 1200);
+
+      setTimeout(closeModal, 1600);
 
     } catch (err) {
-      console.error(err);
-      alert("Something went wrong. Please try again.");
+      console.error("Submission error:", err);
 
+      // graceful failure UI
       button.disabled = false;
-      button.textContent = "Send my copy";
+      button.textContent = "Try again";
     }
   });
 </script>
+
 
 
 </body>
