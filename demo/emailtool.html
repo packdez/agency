@@ -266,6 +266,16 @@
 }
 
 
+    .input-group input:invalid {
+  border-color: #ef4444;
+}
+
+.input-group input:invalid + .input-icon,
+.input-group input:invalid ~ .input-icon {
+  color: #ef4444;
+}
+
+
   </style>
 </head>
 <body>
@@ -320,8 +330,8 @@
         <circle cx="12" cy="7" r="4"/>
       </svg>
     </span>
-    <input type="text" id="nameInput" placeholder="Your name" />
-  </div>
+    <input type="text" id="nameInput" placeholder="Your name" required />
+    </div>
 
   <!-- Email field -->
   <div class="input-group">
@@ -370,6 +380,12 @@
     if (e.target.id === 'modal') closeModal();
   });
 
+  function isValidEmail(email) {
+  // Simple, reliable email regex (not overkill)
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+
   function resetForm() {
     document.getElementById('nameInput').value = "";
     document.getElementById('emailInput').value = "";
@@ -383,11 +399,27 @@
     const email = document.getElementById('emailInput').value.trim();
     const button = document.getElementById('submitBtn');
 
-    if (!email) {
-      // inline validation instead of alert
-      document.getElementById('emailInput').focus();
-      return;
-    }
+// --- VALIDATION ---
+if (!name) {
+  document.getElementById('nameInput').focus();
+  return;
+}
+
+if (!email) {
+  document.getElementById('emailInput').focus();
+  return;
+}
+
+if (!isValidEmail(email)) {
+  document.getElementById('emailInput').focus();
+  document.getElementById('emailInput').setCustomValidity("Invalid email");
+  document.getElementById('emailInput').reportValidity();
+  return;
+}
+
+// Clear any previous validity errors
+document.getElementById('emailInput').setCustomValidity("");
+
 
     button.disabled = true;
     button.textContent = "Sending…";
