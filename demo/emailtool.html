@@ -242,10 +242,11 @@
       Share your name and email and I’ll send you a personal copy you can use and adapt.
     </p>
 
-    <input type="text" placeholder="Your name" required>
-    <input type="email" placeholder="Your email" required>
+    <input type="text" id="nameInput" placeholder="Your name" required>
+    <input type="email" id="emailInput" placeholder="Your email" required>
 
-    <button>Send my copy</button>
+
+    <button id="submitBtn">Send my copy</button>
 
     <small>
       No spam. Just the file and setup notes.
@@ -254,6 +255,9 @@
 </div>
 
 <script>
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxEYqt7qf50GUT5FBJUGtZtaHlIZvljYGpW0HQwu-7XZngwVBy_gKFAFvIKVXC8K_ZL/exec";
+  const SECRET = "PDK-secretFORM-token";
+
   function openModal() {
     document.getElementById('modal').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -261,11 +265,65 @@
 
   document.getElementById('modal').addEventListener('click', (e) => {
     if (e.target.id === 'modal') {
-      e.target.classList.remove('active');
-      document.body.style.overflow = '';
+      closeModal();
+    }
+  });
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Handle form submission
+  document.getElementById('submitBtn').addEventListener('click', async () => {
+    const name = document.getElementById('nameInput').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    const button = document.getElementById('submitBtn');
+
+    // --- BASIC VALIDATION ---
+    if (!email) {
+      alert("Please enter your email.");
+      return;
+    }
+
+    // Prevent double submissions
+    button.disabled = true;
+    button.textContent = "Sending...";
+
+    try {
+      const response = await fetch(WEB_APP_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          secret: SECRET,
+          formType: "emailtool",
+          name: name,
+          email: email
+        })
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.error || "Submission failed");
+      }
+
+      // --- SUCCESS ---
+      button.textContent = "Sent ✔";
+      setTimeout(closeModal, 1200);
+
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Please try again.");
+
+      button.disabled = false;
+      button.textContent = "Send my copy";
     }
   });
 </script>
+
 
 </body>
 </html>
