@@ -1213,7 +1213,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           const projectId = urlParams.get('project');
           
           if (projectId) {
-            const index = projects.findIndex(p => p.id === projectId);
+           const index = projects.findIndex(
+                            p => String(p.id) === String(projectId)
+                          );
+
             if (index !== -1) {
               currentIndex = index;
             }
@@ -1536,7 +1539,7 @@ function shareToLinkedIn() {
 
     // Load and display current project
     function loadProject() {
-      const project = projects[currentIndex];
+      const project = projects[currentIndex];      
       if (!project) return;
 
       // Update video
@@ -1764,6 +1767,23 @@ function closeModal() {
       }
     });
 
+    window.addEventListener('popstate', () => {
+  const params = new URLSearchParams(window.location.search);
+  const projectId = params.get('project');
+
+  if (!projectId || !projects.length) return;
+
+  const index = projects.findIndex(
+    p => String(p.id) === String(projectId)
+  );
+
+  if (index !== -1 && index !== currentIndex) {
+    currentIndex = index;
+    loadProject();
+  }
+});
+
+    
     window.addEventListener('pagehide', syncBufferedEvents);
 
     // Initialize
