@@ -242,7 +242,7 @@
     </div>
 
     <h1 class="title">Welcome to Packdez</h1>
-    <p class="subtitle">You're being redirected to our main website.<br>Please wait a moment…</p>
+    <p class="subtitle">You're being redirected to the dashboard.<br>Please wait a moment…</p>
 
     <div class="loading-bar">
       <div class="loading-progress"></div>
