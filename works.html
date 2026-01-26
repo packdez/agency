@@ -1265,10 +1265,11 @@ function sendEvent(type, projectId, meta = {}) {
         user_agent: navigator.userAgent
       };
 
-      navigator.sendBeacon(
-        GOOGLE_SCRIPT_URL,
-        JSON.stringify(payload)
-      );
+navigator.sendBeacon(
+  GOOGLE_SCRIPT_URL,
+  new Blob([JSON.stringify(payload)], { type: 'application/json' })
+);
+
 
       clearBuffer();
     }
