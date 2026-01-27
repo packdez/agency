@@ -1155,6 +1155,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     // ===== EVENT BUFFER =====
     const EVENT_BUFFER_KEY = 'event_buffer';
 
+    const SESSION_VIEWS_KEY = 'session_views';
+
+function hasViewed(projectId) {
+  const viewed = JSON.parse(sessionStorage.getItem(SESSION_VIEWS_KEY) || '[]');
+  return viewed.includes(String(projectId));
+}
+
+function markViewed(projectId) {
+  const viewed = JSON.parse(sessionStorage.getItem(SESSION_VIEWS_KEY) || '[]');
+  viewed.push(String(projectId));
+  sessionStorage.setItem(SESSION_VIEWS_KEY, JSON.stringify(viewed));
+}
+
+    
     function formatCompactNumber(num) {
       if (num < 1000) return num.toString();
       if (num < 1_000_000) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
@@ -1182,23 +1196,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       localStorage.setItem(EVENT_BUFFER_KEY, JSON.stringify(buffer));
     }
 
-    function clearBuffer() {
-      localStorage.removeItem(EVENT_BUFFER_KEY);
-    }
+function markBufferPending() {
+  localStorage.setItem('buffer_pending', 'true');
+}
+
+function clearBufferSafely() {
+  localStorage.removeItem(EVENT_BUFFER_KEY);
+  localStorage.removeItem('buffer_pending');
+}
+
 
     // Generate user fingerprint
-    function generateFingerprint() {
-      const nav = navigator;
-      const screen = window.screen;
-      const guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        const r = Math.random() * 16 | 0;
-        const v = c === 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-      
-      const fingerprint = `${nav.userAgent}-${screen.width}x${screen.height}-${nav.language}-${guid}`;
-      return btoa(fingerprint).substring(0, 32);
-    }
+function getFingerprint() {
+  let fp = localStorage.getItem('user_fp');
+  if (!fp) {
+    fp = crypto.randomUUID();
+    localStorage.setItem('user_fp', fp);
+  }
+  return fp;
+}
+
 
     // Load projects from Google Sheets
     async function loadProjects() {
@@ -1265,13 +1282,13 @@ function sendEvent(type, projectId, meta = {}) {
         user_agent: navigator.userAgent
       };
 
+markBufferPending();
+
 navigator.sendBeacon(
   GOOGLE_SCRIPT_URL,
   new Blob([JSON.stringify(payload)], { type: 'application/json' })
 );
 
-
-      clearBuffer();
     }
 
     // Update stat value with animation
@@ -1644,14 +1661,19 @@ function shareToLinkedIn() {
 
       const deepLink = getDeepLinkContext();
 
-        sendEvent('view', project.id, {
-          ref: deepLink.ref,
-          is_deep_link: Boolean(deepLink.project)
-        });
+if (!hasViewed(project.id)) {
+  sendEvent('view', project.id, {
+    ref: deepLink.ref,
+    is_deep_link: Boolean(deepLink.project)
+  });
 
-      
-      projects[currentIndex].views = (projects[currentIndex].views || 0) + 1;
-      updateStatValue('views', projects[currentIndex].views);
+  markViewed(project.id);
+
+  // Optimistic UI only (NOT authoritative)
+  projects[currentIndex].views = (projects[currentIndex].views || 0) + 1;
+  updateStatValue('views', projects[currentIndex].views);
+}
+
 
       // Update dropdown active state
       populateDropdown();
@@ -1784,11 +1806,17 @@ function closeModal() {
   }
 });
 
+    window.addEventListener('load', () => {
+  if (localStorage.getItem('buffer_pending') === 'true') {
+    syncBufferedEvents();
+  }
+});
+
     
     window.addEventListener('pagehide', syncBufferedEvents);
 
     // Initialize
-    userFingerprint = generateFingerprint();
+    userFingerprint = getFingerprint();
     loadProjects();
   </script>
 </body>
