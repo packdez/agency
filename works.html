@@ -1164,7 +1164,10 @@ function hasViewed(projectId) {
 
 function markViewed(projectId) {
   const viewed = JSON.parse(sessionStorage.getItem(SESSION_VIEWS_KEY) || '[]');
+  if (!viewed.includes(String(projectId))) {
   viewed.push(String(projectId));
+}
+
   sessionStorage.setItem(SESSION_VIEWS_KEY, JSON.stringify(viewed));
 }
 
@@ -1193,6 +1196,8 @@ function markViewed(projectId) {
     function addToBuffer(event) {
       const buffer = getEventBuffer();
       buffer.push(event);
+if (buffer.length > 100) buffer.shift();
+
       localStorage.setItem(EVENT_BUFFER_KEY, JSON.stringify(buffer));
     }
 
@@ -1271,7 +1276,7 @@ function sendEvent(type, projectId, meta = {}) {
 
 
 
-    function syncBufferedEvents() {
+    async function syncBufferedEvents() {
       const events = getEventBuffer();
       if (!events.length) return;
 
@@ -1690,7 +1695,10 @@ if (!hasViewed(project.id)) {
       const project = projects[currentIndex];
       if (checkIfLiked(project.id)) return;
 
-      sendEvent('like', project.id);
+      sendEvent('like', project.id, {
+  source: 'button'
+});
+
 
       project.likes = (project.likes || 0) + 1;
       updateStatValue('likes', project.likes);
@@ -1757,9 +1765,7 @@ function closeModal() {
     window.location.href = PACKDEZ_ORIGIN;
   }
 }
-
-
-
+ 
 
     function showError(message) {
       document.getElementById('videoWrapper').innerHTML = `<div class="loading">${message}</div>`;
@@ -1806,11 +1812,13 @@ function closeModal() {
   }
 });
 
-    window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
   if (localStorage.getItem('buffer_pending') === 'true') {
-    syncBufferedEvents();
+    await syncBufferedEvents();
+    clearBufferSafely();
   }
 });
+
 
     
     window.addEventListener('pagehide', syncBufferedEvents);
