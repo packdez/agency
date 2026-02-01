@@ -980,27 +980,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
     }
 
-    /* Creator (YouTube-style) */
+    
+
+    /* Creator (attached to video, no background) */
 .creator-info {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 14px;
-  padding: 10px 14px;
-  background: #ffffff;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin-top: 10px;          /* tight to video */
   max-width: 700px;
   width: 100%;
 }
 
 .creator-avatar {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
   border-radius: 50%;
-  background: transparent;
+  background: transparent;  /* no white circle */
 }
 
 .creator-meta {
