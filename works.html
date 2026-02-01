@@ -1031,6 +1031,81 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 
 
+
+    /* Skeleton shimmer base */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 25%,
+    #f3f4f6 37%,
+    #e5e7eb 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+/* Video skeleton */
+.video-skeleton {
+  width: 100%;
+  max-width: 700px;
+}
+
+.skeleton-video {
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.skeleton-video,
+.skeleton-avatar,
+.skeleton-line {
+  composes: skeleton;
+}
+
+/* Creator skeleton */
+.skeleton-creator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.skeleton-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+
+.skeleton-lines {
+  flex: 1;
+}
+
+.skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.skeleton-line.short {
+  width: 40%;
+}
+
+
+
+    .video-container iframe {
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+    
   </style>
 </head>
 <body>
@@ -1115,7 +1190,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <!-- Video Section -->
         <div class="video-section">
           <div class="video-container" id="videoWrapper">
-            <div class="loading">Loading projects...</div>
+            <div class="video-skeleton" id="videoSkeleton">
+  <div class="skeleton-video"></div>
+
+  <div class="skeleton-creator">
+    <div class="skeleton-avatar"></div>
+    <div class="skeleton-lines">
+      <div class="skeleton-line short"></div>
+      <div class="skeleton-line"></div>
+    </div>
+  </div>
+</div>
+
           </div>
 
           <!-- Creator Info -->
@@ -1641,6 +1727,11 @@ function shareToLinkedIn() {
         ></iframe>
       `;
 
+
+      // ✅ Remove loading skeleton once video is ready
+      document.getElementById('videoSkeleton')?.remove();
+
+      
       // Update details
       const detailsSection = document.getElementById('detailsSection');
       const isLiked = checkIfLiked(project.id);
