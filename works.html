@@ -979,6 +979,58 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         flex-wrap: wrap;
       }
     }
+
+    /* Creator (YouTube-style) */
+.creator-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  width: 100%;
+}
+
+.creator-avatar {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.creator-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.creator-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.creator-sub {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+
+    @media (max-width: 480px) {
+  .creator-avatar {
+    width: 38px;
+    height: 38px;
+  }
+  .creator-name {
+    font-size: 13px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1065,6 +1117,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="video-container" id="videoWrapper">
             <div class="loading">Loading projects...</div>
           </div>
+
+          <!-- Creator Info -->
+          <div class="creator-info">
+            <img
+              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/Raphael_Levinders-removebg-preview.png"
+              alt="Raphael Levinders"
+              class="creator-avatar"
+            />
+            <div class="creator-meta">
+              <div class="creator-name">Raphael Levinders</div>
+              <div class="creator-sub">Creator</div>
+            </div>
+          </div>
+
         </div>
 
         <!-- Details Section -->
