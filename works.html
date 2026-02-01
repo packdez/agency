@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
   <!-- Google Tag Manager -->
 <script>
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -12,16 +11,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-5KLXPS5M');
 </script>
 <!-- End Google Tag Manager -->
-
-
-
   <link rel="canonical" href="https://packdez.com/works" />
   <meta name="robots" content="index,follow">
   <meta name="description" content="Case studies and automation systems delivered by Packdez. Explore real Google Sheets workflows, integrations, and operational systems built for scaling teams." />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects | Packdez</title>
-
       <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -38,11 +32,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
     }
     </script>
-
-
     <link rel="icon" type="image/png" sizes="512x512" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
     <link rel="apple-touch-icon" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
-
   
   <style>
     * {
@@ -50,7 +41,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       background: linear-gradient(135deg, #298e55 0%, #1a5d38 100%);
@@ -60,7 +50,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       justify-content: center;
       padding: 20px;
     }
-
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -72,7 +61,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       padding: 20px;
       z-index: 1000;
     }
-
+    .modal-container {
+      background: #ffffff;
+      width: 100%;
+      height: 100vh;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
     .modal-header {
       display: flex;
       align-items: center;
@@ -82,21 +90,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       flex-shrink: 0;
       gap: 12px;
     }
-
     .header-left {
       display: flex;
       align-items: center;
       gap: 8px;
       flex: 1;
     }
-
     .header-controls {
       display: flex;
       align-items: center;
       gap: 8px;
       flex-shrink: 0;
     }
-
     .btn {
       width: 40px;
       height: 40px;
@@ -110,32 +115,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       transition: all 0.2s;
       position: relative;
     }
-
     .btn:hover:not(:disabled) {
       background: #298e55;
       color: white;
       border-color: #298e55;
     }
-
     .btn:disabled {
       opacity: 0.3;
       cursor: not-allowed;
     }
-
     .btn-close:hover {
       background: #dc2626;
       color: white;
       border-color: #dc2626;
       transform: rotate(90deg);
     }
-
     /* Project Dropdown */
     .project-dropdown {
       position: relative;
       width: 100%;
       max-width: 280px;
     }
-
     .dropdown-btn {
       width: 100%;
       height: 40px;
@@ -152,18 +152,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       font-weight: 500;
       color: #111827;
     }
-
     .dropdown-btn:hover {
       background: #e5e7eb;
       border-color: #d1d5db;
     }
-
     .dropdown-btn.active {
       background: #298e55;
       color: white;
       border-color: #298e55;
     }
-
     .dropdown-menu {
       position: absolute;
       top: calc(100% + 8px);
@@ -179,16 +176,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       flex-direction: column;
       z-index: 1000;
     }
-
     .dropdown-menu.show {
       display: flex;
     }
-
     .dropdown-search {
       padding: 12px;
       border-bottom: 1px solid #e5e7eb;
     }
-
     .dropdown-search input {
       width: 100%;
       padding: 8px 12px;
@@ -198,29 +192,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       outline: none;
       transition: border-color 0.2s;
     }
-
     .dropdown-search input:focus {
       border-color: #298e55;
     }
-
     .dropdown-list {
       overflow-y: auto;
       max-height: 320px;
     }
-
     .dropdown-list::-webkit-scrollbar {
       width: 6px;
     }
-
     .dropdown-list::-webkit-scrollbar-track {
       background: transparent;
     }
-
     .dropdown-list::-webkit-scrollbar-thumb {
       background: #d1d5db;
       border-radius: 3px;
     }
-
     .dropdown-item {
       padding: 12px 16px;
       cursor: pointer;
@@ -229,45 +217,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       font-size: 14px;
       color: #374151;
     }
-
     .dropdown-item:hover {
       background: #f9fafb;
     }
-
     .dropdown-item.active {
       background: rgba(41, 142, 85, 0.1);
       color: #298e55;
       font-weight: 600;
     }
-
     .dropdown-item:last-child {
       border-bottom: none;
     }
-
     .dropdown-item-title {
       font-weight: 500;
       color: #111827;
       margin-bottom: 2px;
     }
-
     .dropdown-item.active .dropdown-item-title {
       color: #298e55;
     }
-
     .dropdown-item-category {
       font-size: 12px;
       color: #6b7280;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
-
     .no-results {
       padding: 20px;
       text-align: center;
       color: #6b7280;
       font-size: 14px;
     }
-
     /* Share Modal */
     .share-modal-overlay {
       position: fixed;
@@ -280,16 +260,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       z-index: 2000;
       animation: fadeIn 0.2s ease-out;
     }
-
     .share-modal-overlay.show {
       display: flex;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-
     @keyframes zoomIn {
       from {
         opacity: 0;
@@ -300,7 +277,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         transform: scale(1);
       }
     }
-
     .share-modal {
       background: white;
       border-radius: 16px;
@@ -310,7 +286,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       overflow: hidden;
       animation: zoomIn 0.2s ease-out;
     }
-
     .share-modal-header {
       display: flex;
       align-items: center;
@@ -318,13 +293,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       padding: 20px 24px;
       border-bottom: 1px solid #e5e7eb;
     }
-
     .share-modal-title {
       font-size: 20px;
       font-weight: 700;
       color: #111827;
     }
-
     .share-close-btn {
       width: 40px;
       height: 40px;
@@ -337,19 +310,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       cursor: pointer;
       transition: all 0.2s;
     }
-
     .share-close-btn:hover {
       background: #dc2626;
       color: white;
       transform: rotate(90deg);
     }
-
     .share-project-info {
       padding: 16px 24px;
       background: linear-gradient(to right, rgba(41, 142, 85, 0.1), rgba(26, 93, 56, 0.1));
       border-bottom: 1px solid #e5e7eb;
     }
-
     .share-project-category {
       font-size: 12px;
       font-weight: 600;
@@ -358,7 +328,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       color: #298e55;
       margin-bottom: 4px;
     }
-
     .share-project-title {
       font-size: 16px;
       font-weight: 600;
@@ -368,11 +337,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-
     .share-options {
       padding: 16px;
     }
-
     .share-option {
       width: 100%;
       display: flex;
@@ -387,41 +354,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       transition: all 0.2s;
       text-decoration: none;
     }
-
     .share-option:last-child {
       margin-bottom: 0;
     }
-
     .share-option:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-
     .share-option.linkedin:hover {
       border-color: #0077b5;
       background: rgba(0, 119, 181, 0.05);
     }
-
     .share-option.twitter:hover {
       border-color: #000000;
       background: rgba(0, 0, 0, 0.05);
     }
-
     .share-option.facebook:hover {
       border-color: #1877f2;
       background: rgba(24, 119, 242, 0.05);
     }
-
     .share-option.copy:hover {
       border-color: #298e55;
       background: rgba(41, 142, 85, 0.05);
     }
-
     .share-option.copied {
       border-color: #298e55;
       background: rgba(41, 142, 85, 0.05);
     }
-
     .share-icon-wrapper {
       width: 48px;
       height: 48px;
@@ -432,84 +391,65 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       flex-shrink: 0;
       transition: all 0.2s;
     }
-
     .share-option.linkedin .share-icon-wrapper {
       background: rgba(0, 119, 181, 0.1);
     }
-
     .share-option.linkedin:hover .share-icon-wrapper {
       background: #0077b5;
     }
-
     .share-option.twitter .share-icon-wrapper {
       background: rgba(0, 0, 0, 0.1);
     }
-
     .share-option.twitter:hover .share-icon-wrapper {
       background: #000000;
     }
-
     .share-option.facebook .share-icon-wrapper {
       background: rgba(24, 119, 242, 0.1);
     }
-
     .share-option.facebook:hover .share-icon-wrapper {
       background: #1877f2;
     }
-
     .share-option.copy .share-icon-wrapper {
       background: rgba(41, 142, 85, 0.1);
     }
-
     .share-option.copy:hover .share-icon-wrapper,
     .share-option.copied .share-icon-wrapper {
       background: #298e55;
     }
-
     .share-icon {
       width: 24px;
       height: 24px;
       transition: all 0.2s;
     }
-
     .share-option.linkedin .share-icon {
       color: #0077b5;
     }
-
     .share-option.linkedin:hover .share-icon {
       color: white;
     }
-
     .share-option.twitter .share-icon {
       color: #000000;
     }
-
     .share-option.twitter:hover .share-icon {
       color: white;
     }
-
     .share-option.facebook .share-icon {
       color: #1877f2;
     }
-
     .share-option.facebook:hover .share-icon {
       color: white;
     }
-
     .share-option.copy .share-icon {
       color: #298e55;
     }
-
     .share-option.copy:hover .share-icon,
     .share-option.copied .share-icon {
       color: white;
     }
-
     .share-option-content {
       flex: 1;
       min-width: 0;
     }
-
     .share-option-title {
       font-size: 16px;
       font-weight: 600;
@@ -519,24 +459,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
     .share-option.linkedin:hover .share-option-title {
       color: #0077b5;
     }
-
     .share-option.twitter:hover .share-option-title {
       color: #000000;
     }
-
     .share-option.facebook:hover .share-option-title {
       color: #1877f2;
     }
-
     .share-option.copy:hover .share-option-title,
     .share-option.copied .share-option-title {
       color: #298e55;
     }
-
     .share-option-subtitle {
       font-size: 14px;
       color: #6b7280;
@@ -544,14 +479,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
     .modal-body {
       flex: 1;
       display: grid;
       grid-template-columns: 1fr 420px;
       overflow: hidden;
     }
-
       .video-section {
   background: #eeeeee;
   display: flex;
@@ -559,8 +492,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   align-items: center;      /* center horizontally */
   padding: 24px;
 }
-
-
     .video-container {
       width: 100%;
       max-width: 700px;
@@ -571,7 +502,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
       margin-top: -10px;
     }
-
     .video-container iframe {
       position: absolute;
       top: 0;
@@ -579,31 +509,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       width: 100%;
       height: 100%;
     }
-
     .details-section {
       background: #fafafa;
       padding: 24px;
       overflow-y: auto;
       border-left: 1px solid #e5e7eb;
     }
-
     .details-section::-webkit-scrollbar {
       width: 6px;
     }
-
     .details-section::-webkit-scrollbar-track {
       background: transparent;
     }
-
     .details-section::-webkit-scrollbar-thumb {
       background: #d1d5db;
       border-radius: 3px;
     }
-
     .details-section::-webkit-scrollbar-thumb:hover {
       background: #9ca3af;
     }
-
     .category-badge {
       display: inline-block;
       padding: 6px 12px;
@@ -617,7 +541,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       margin-bottom: 12px;
       border: 1px solid rgba(41, 142, 85, 0.2);
     }
-
     .project-title {
       font-size: 24px;
       font-weight: 700;
@@ -625,14 +548,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       margin-bottom: 24px;
       line-height: 1.3;
     }
-
     .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin-bottom: 24px;
     }
-
     .stat-card {
       background: #ffffff;
       padding: 16px;
@@ -641,12 +562,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       transition: all 0.2s ease;
     }
-
     .stat-card:hover {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
       transform: translateY(-2px);
     }
-
     .stat-label {
       display: flex;
       align-items: center;
@@ -657,23 +576,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       margin-bottom: 8px;
       text-transform: uppercase;
     }
-
     .stat-value {
       font-size: 24px;
       font-weight: 900;
       color: #111827;
       transition: all 0.3s ease;
     }
-
     .stat-value.updating {
       animation: pulse 0.4s ease;
     }
-
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.08); color: #298e55; }
     }
-
     .like-btn {
       width: 100%;
       display: flex;
@@ -690,24 +605,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       background: #ffffff;
       color: #111827;
     }
-
     .like-btn:hover:not(:disabled) {
       border-color: #298e55;
       background: rgba(41, 142, 85, 0.05);
       color: #298e55;
     }
-
     .like-btn:disabled {
       background: #298e55;
       color: white;
       border-color: #298e55;
       cursor: not-allowed;
     }
-
     .like-btn svg.filled {
       fill: currentColor;
     }
-
     .info-section {
       background: #ffffff;
       padding: 18px;
@@ -717,16 +628,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       transition: all 0.2s ease;
     }
-
     .info-section:hover {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
       transform: translateY(-1px);
     }
-
     .info-section:last-child {
       margin-bottom: 0;
     }
-
     .info-label {
       font-size: 12px;
       font-weight: 700;
@@ -738,7 +646,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       align-items: center;
       gap: 6px;
     }
-
     .info-label::before {
       content: '';
       width: 3px;
@@ -746,23 +653,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       background: #298e55;
       border-radius: 2px;
     }
-
     .info-text {
       font-size: 14px;
       line-height: 1.6;
       color: #374151;
     }
-
     .icon {
       width: 20px;
       height: 20px;
     }
-
     .icon-sm {
       width: 16px;
       height: 16px;
     }
-
     .loading {
       display: flex;
       align-items: center;
@@ -770,11 +673,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       padding: 40px;
       color: #6b7280;
     }
-
     .project-link-wrapper {
       margin-top: 20px;
     }
-
     .project-link-btn {
       display: inline-flex;
       align-items: center;
@@ -789,179 +690,140 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       box-shadow: 0 4px 10px rgba(41, 142, 85, 0.25);
       transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
     }
-
     .project-link-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 6px 14px rgba(41, 142, 85, 0.35);
       opacity: 0.95;
     }
-
     .project-link-btn:active {
       transform: translateY(0);
       box-shadow: 0 3px 8px rgba(41, 142, 85, 0.25);
     }
-
     @media (max-width: 1024px) {
       .modal-body {
         grid-template-columns: 1fr;
       }
-
       .details-section {
         border-left: none;
         border-top: 1px solid #e5e7eb;
       }
-
       .video-section {
         padding: 16px;
       }
     }
-
     @media (max-width: 768px) {
       .modal-container {
         height: 90vh;
       }
-
       .project-title {
         font-size: 20px;
       }
-
       .modal-header {
         padding: 12px 16px;
       }
-
       .details-section {
         padding: 16px;
       }
-
       .btn {
         width: 36px;
         height: 36px;
       }
-
       .stat-value {
         font-size: 20px;
       }
-
       .project-dropdown {
         max-width: 130px;
         position: relative;
       }
-
       .dropdown-menu {
         max-width: calc(100vw - 32px);
         left: 0;
       }
-
       .dropdown-btn {
         font-size: 13px;
       }
-
       .share-modal-header {
         padding: 16px 20px;
       }
-
       .share-modal-title {
         font-size: 18px;
       }
-
       .share-close-btn {
         width: 36px;
         height: 36px;
       }
-
       .share-project-info {
         padding: 12px 20px;
       }
-
       .share-options {
         padding: 12px;
       }
-
       .share-option {
         padding: 12px;
         gap: 12px;
       }
-
       .share-icon-wrapper {
         width: 40px;
         height: 40px;
       }
-
       .share-icon {
         width: 20px;
         height: 20px;
       }
-
       .share-option-title {
         font-size: 14px;
       }
-
       .share-option-subtitle {
         font-size: 12px;
       }
     }
-
     @media (max-width: 480px) {
       body {
         padding: 10px;
       }
-
       .modal-overlay {
         padding: 10px;
       }
-
       .modal-container {
         height: 95vh;
       }
-
       .project-title {
         font-size: 18px;
         margin-bottom: 16px;
       }
-
       .stats-grid {
         gap: 8px;
         margin-bottom: 16px;
       }
-
       .stat-card {
         padding: 12px;
       }
-
       .stat-value {
         font-size: 18px;
       }
-
       .info-section {
         margin-bottom: 12px;
         padding: 14px;
       }
-
       .project-dropdown {
         max-width: 130px;
       }
-
       .dropdown-btn {
         font-size: 12px;
         padding: 0 8px;
       }
-
       .btn {
         width: 32px;
         height: 32px;
       }
-
       .share-modal-overlay {
         padding: 12px;
       }
-
       .header-left {
         flex-wrap: wrap;
       }
     }
-
     
-
     /* Creator (attached to video, no background) */
 .creator-info {
   display: flex;
@@ -971,7 +833,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   max-width: 700px;
   width: 100%;
 }
-
 .creator-avatar {
   width: 50px;
   height: 50px;
@@ -979,25 +840,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   border-radius: 50%;
   background: transparent;  /* no white circle */
 }
-
 .creator-meta {
   display: flex;
   flex-direction: column;
   line-height: 1.2;
 }
-
 .creator-name {
   font-size: 14px;
   font-weight: 700;
   color: #111827;
 }
-
 .creator-sub {
   font-size: 12px;
   color: #6b7280;
 }
-
-
     @media (max-width: 480px) {
   .creator-avatar {
     width: 36px;
@@ -1007,50 +863,95 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size: 13px;
   }
 }
-
-
-
+    /* Skeleton shimmer base */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 25%,
+    #f3f4f6 37%,
+    #e5e7eb 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+/* Video skeleton */
+.video-skeleton {
+  width: 100%;
+  max-width: 700px;
+}
+.skeleton-video {
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.skeleton-video,
+.skeleton-avatar,
+.skeleton-line {
+  composes: skeleton;
+}
 /* Creator skeleton */
 .skeleton-creator {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-
 .skeleton-avatar {
   width: 42px;
   height: 42px;
   border-radius: 50%;
 }
-
 .skeleton-lines {
   flex: 1;
 }
-
 .skeleton-line {
   height: 12px;
   border-radius: 6px;
   margin-bottom: 6px;
 }
-
 .skeleton-line.short {
   width: 40%;
 }
-
-
+    .video-container iframe {
+  animation: fadeIn 0.25s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+    /* ===== Branded Loading Motion ===== */
+.video-section.is-loading {
+  animation: brandFadeIn 0.35s ease-out;
+}
+@keyframes brandFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Skeleton breathing effect */
+.video-section.is-loading .video-skeleton {
+  animation: skeletonPulse 1.6s ease-in-out infinite;
+}
 @keyframes skeletonPulse {
   0% { opacity: 0.75; }
   50% { opacity: 1; }
   100% { opacity: 0.75; }
 }
-
 /* Smooth exit when content loads */
 .video-section.is-loaded .video-skeleton {
   opacity: 0;
   transform: translateY(-4px) scale(0.98);
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
-   
+    
   </style>
 </head>
 <body>
@@ -1062,7 +963,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     style="display:none;visibility:hidden">
   </iframe>
 </noscript>
-
   <main>
   <header style="display:none;">
     <h1>Automation Systems & Case Studies</h1>
@@ -1072,7 +972,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </p>
   </header>
 </main>
-
   
   <div class="modal-overlay">
     <div class="modal-container">
@@ -1101,7 +1000,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               </div>
             </div>
           </div>
-
           <!-- Share Button -->
           <button class="btn" id="shareBtn" onclick="toggleShareModal()" title="Share Project">
             <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1109,7 +1007,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </svg>
           </button>
         </div>
-
         <!-- Right: Controls -->
         <div class="header-controls">
           <button class="btn" id="prevBtn" onclick="previousProject()">
@@ -1129,17 +1026,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </button>
         </div>
       </div>
-
       <!-- Body -->
       <div class="modal-body">
-        
         <!-- Video Section -->
         <div class="video-section">
-          
-<div class="video-container" id="videoWrapper"></div>
-
-         </div>
-
+          <div class="video-container" id="videoWrapper">
+            <div class="video-skeleton" id="videoSkeleton">
+  <div class="skeleton-video"></div>
+  <div class="skeleton-creator">
+    <div class="skeleton-avatar"></div>
+    <div class="skeleton-lines">
+      <div class="skeleton-line short"></div>
+      <div class="skeleton-line"></div>
+    </div>
+  </div>
+</div>
+          </div>
           <!-- Creator Info -->
           <div class="creator-info">
             <img
@@ -1152,9 +1054,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <div class="creator-sub">Creator</div>
             </div>
           </div>
-
         </div>
-
         <!-- Details Section -->
         <div class="details-section" id="detailsSection">
           <div class="loading">Loading...</div>
@@ -1162,7 +1062,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
     </div>
   </div>
-
   <!-- Share Modal -->
   <div class="share-modal-overlay" id="shareModalOverlay" onclick="closeShareModalOnOverlay(event)">
     <div class="share-modal" onclick="event.stopPropagation()">
@@ -1174,12 +1073,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </svg>
         </button>
       </div>
-
       <div class="share-project-info">
         <div class="share-project-category" id="shareCategory">Category</div>
         <div class="share-project-title" id="shareTitle">Project Title</div>
       </div>
-
       <div class="share-options">
         <button class="share-option linkedin" onclick="shareToLinkedIn()">
           <div class="share-icon-wrapper">
@@ -1192,7 +1089,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="share-option-subtitle">Share with your professional network</div>
           </div>
         </button>
-
         <button class="share-option twitter" onclick="shareToTwitter()">
           <div class="share-icon-wrapper">
             <svg class="share-icon" fill="currentColor" viewBox="0 0 24 24">
@@ -1204,7 +1100,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="share-option-subtitle">Post to your followers</div>
           </div>
         </button>
-
         <button class="share-option facebook" onclick="shareToFacebook()">
           <div class="share-icon-wrapper">
             <svg class="share-icon" fill="currentColor" viewBox="0 0 24 24">
@@ -1216,7 +1111,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="share-option-subtitle">Share with friends and family</div>
           </div>
         </button>
-
         <button class="share-option copy" id="copyLinkBtn" onclick="copyProjectLink()">
           <div class="share-icon-wrapper">
             <svg class="share-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1231,7 +1125,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
     </div>
   </div>
-
   <script>
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhnvFEbtgvgXfV7hUr_WKtHRTtfR8RI9PZcUL-DhW9WCngld9N4HwQIxtZol4IY3eV/exec';
     const BASE_URL = window.location.origin + window.location.pathname;
@@ -1239,28 +1132,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     let projects = [];  
     let currentIndex = 0;
     let userFingerprint = '';
-
     // ===== EVENT BUFFER =====
     const EVENT_BUFFER_KEY = 'event_buffer';
-
     const SESSION_VIEWS_KEY = 'session_views';
-
 function hasViewed(projectId) {
   const viewed = JSON.parse(sessionStorage.getItem(SESSION_VIEWS_KEY) || '[]');
   return viewed.includes(String(projectId));
 }
-
-
+    function startProjectTransition() {
+  const videoSection = document.querySelector('.video-section');
+  videoSection.classList.add('is-loading');
+}
     
 function markViewed(projectId) {
   const viewed = JSON.parse(sessionStorage.getItem(SESSION_VIEWS_KEY) || '[]');
   if (!viewed.includes(String(projectId))) {
   viewed.push(String(projectId));
 }
-
   sessionStorage.setItem(SESSION_VIEWS_KEY, JSON.stringify(viewed));
 }
-
     
     function formatCompactNumber(num) {
       if (num < 1000) return num.toString();
@@ -1268,39 +1158,30 @@ function markViewed(projectId) {
       if (num < 1_000_000_000) return (num / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
       return (num / 1_000_000_000).toFixed(1).replace(/\.0$/, '') + 'B';
     }
-
     function getDeepLinkContext() {
      const params = new URLSearchParams(window.location.search);
-
       return {
         project: params.get('project'),
         ref: params.get('ref') || 'direct'
       };
     }
-
     
     function getEventBuffer() {
       return JSON.parse(localStorage.getItem(EVENT_BUFFER_KEY) || '[]');
     }
-
     function addToBuffer(event) {
       const buffer = getEventBuffer();
       buffer.push(event);
 if (buffer.length > 100) buffer.shift();
-
       localStorage.setItem(EVENT_BUFFER_KEY, JSON.stringify(buffer));
     }
-
 function markBufferPending() {
   localStorage.setItem('buffer_pending', 'true');
 }
-
 function clearBufferSafely() {
   localStorage.removeItem(EVENT_BUFFER_KEY);
   localStorage.removeItem('buffer_pending');
 }
-
-
     // Generate user fingerprint
 function getFingerprint() {
   let fp = localStorage.getItem('user_fp');
@@ -1310,8 +1191,6 @@ function getFingerprint() {
   }
   return fp;
 }
-
-
     // Load projects from Google Sheets
     async function loadProjects() {
       try {
@@ -1328,7 +1207,6 @@ function getFingerprint() {
            const index = projects.findIndex(
                             p => String(p.id) === String(projectId)
                           );
-
             if (index !== -1) {
               currentIndex = index;
             }
@@ -1344,7 +1222,6 @@ function getFingerprint() {
         showError('Failed to load projects');
       }
     }
-
 function sendEvent(type, projectId, meta = {}) {
   // Send to your backend buffer
   addToBuffer({
@@ -1353,7 +1230,6 @@ function sendEvent(type, projectId, meta = {}) {
     ts: Date.now(),
     meta: meta
   });
-
   // Send to Google Tag Manager / GA4
   window.dataLayer = window.dataLayer || [];
   dataLayer.push({
@@ -1363,29 +1239,21 @@ function sendEvent(type, projectId, meta = {}) {
     meta: meta
   });
 }
-
-
-
     async function syncBufferedEvents() {
       const events = getEventBuffer();
       if (!events.length) return;
-
       const payload = {
         action: 'sync',
         events: events,
         user_fingerprint: userFingerprint,
         user_agent: navigator.userAgent
       };
-
 markBufferPending();
-
 navigator.sendBeacon(
   GOOGLE_SCRIPT_URL,
   new Blob([JSON.stringify(payload)], { type: 'application/json' })
 );
-
     }
-
     // Update stat value with animation
     function updateStatValue(elementId, newValue) {
       const element = document.getElementById(elementId);
@@ -1397,36 +1265,26 @@ navigator.sendBeacon(
         }, 400);
       }
     }
-
     // Get current project URL
     function getCurrentProjectUrl() {
       const project = projects[currentIndex];
       if (!project) return BASE_URL;
       return `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
     }
-
     // Generate platform-specific share content
     function generateLinkedInPost() {
       const project = projects[currentIndex];
       const url = getCurrentProjectUrl();
       
       const post = `${project.title}
-
 ${project.description}
-
 Tools Used: ${project.tools}
-
 ${project.outcome}
-
 Watch the full case study: ${url}
-
 Live Project: ${project.projectLink}
-
 #${project.category.replace(/\s+/g, '')} #WebDevelopment #CaseStudy`;
-
       return post;
     }
-
     function generateTwitterPost() {
       const project = projects[currentIndex];
       const url = getCurrentProjectUrl();
@@ -1435,47 +1293,31 @@ Live Project: ${project.projectLink}
         : project.description;
       
       let post = `${project.title}
-
 ${shortDesc}
-
 Case study: ${url}
-
 #${project.category.replace(/\s+/g, '')}`;
-
       // Ensure under 280 characters
       if (post.length > 280) {
         const evenShorterDesc = project.description.substring(0, 80) + '...';
         post = `${project.title}
-
 ${evenShorterDesc}
-
 ${url}
-
 #${project.category.replace(/\s+/g, '')}`;
       }
-
       return post;
     }
-
     function generateFacebookPost() {
       const project = projects[currentIndex];
       const url = getCurrentProjectUrl();
       
       const post = `${project.title}
-
 ${project.description}
-
 ${project.outcome}
-
 🔗 Watch the full case study: ${url}
-
 🚀 Live Project: ${project.projectLink}
-
 #${project.category.replace(/\s+/g, '')} #WebDevelopment`;
-
       return post;
     }
-
     // Populate dropdown with projects
     function populateDropdown() {
       const dropdownList = document.getElementById('dropdownList');
@@ -1488,7 +1330,6 @@ ${project.outcome}
         </div>
       `).join('');
     }
-
     // Toggle dropdown
     function toggleDropdown() {
       const dropdown = document.getElementById('dropdownMenu');
@@ -1507,13 +1348,11 @@ ${project.outcome}
         document.getElementById('searchInput').focus();
       }
     }
-
     // Filter projects in dropdown
     function filterProjects() {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();
       const items = document.querySelectorAll('.dropdown-item');
       let hasResults = false;
-
       items.forEach(item => {
         const title = item.querySelector('.dropdown-item-title').textContent.toLowerCase();
         const category = item.querySelector('.dropdown-item-category').textContent.toLowerCase();
@@ -1525,7 +1364,6 @@ ${project.outcome}
           item.style.display = 'none';
         }
       });
-
       const dropdownList = document.getElementById('dropdownList');
       const existingNoResults = dropdownList.querySelector('.no-results');
       
@@ -1538,18 +1376,17 @@ ${project.outcome}
         existingNoResults.remove();
       }
     }
-
     // Select project from dropdown
-function selectProject(index) {
-  currentIndex = index;
-  loadProject();
-  toggleDropdown();
-
-  const project = projects[currentIndex];
-  const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
-  window.history.pushState({}, '', newUrl);
-}
-
+    function selectProject(index) {
+      currentIndex = index;
+      loadProject();
+      toggleDropdown();
+      
+      // Update URL without reload
+      const project = projects[currentIndex];
+      const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
+      window.history.pushState({}, '', newUrl);
+    }
     // Toggle share modal
     function toggleShareModal() {
       const overlay = document.getElementById('shareModalOverlay');
@@ -1567,7 +1404,6 @@ function selectProject(index) {
         openShareModal();
       }
     }
-
     function openShareModal() {
       const project = projects[currentIndex];
       const overlay = document.getElementById('shareModalOverlay');
@@ -1584,33 +1420,27 @@ function selectProject(index) {
       
       overlay.classList.add('show');
     }
-
     function closeShareModal() {
       const overlay = document.getElementById('shareModalOverlay');
       overlay.classList.remove('show');
     }
-
     function closeShareModalOnOverlay(event) {
       if (event.target === event.currentTarget) {
         closeShareModal();
       }
     }
-
     // Share to LinkedIn
 function shareToLinkedIn() {
   const url = getCurrentProjectUrl();
   const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
   window.open(shareUrl, '_blank', 'noopener,noreferrer');
 }
-
-
     // Share to Twitter/X
     function shareToTwitter() {
       const text = generateTwitterPost();
       const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
       window.open(shareUrl, '_blank', 'noopener,noreferrer');
     }
-
     // Share to Facebook
     function shareToFacebook() {
       const url = getCurrentProjectUrl();
@@ -1618,7 +1448,6 @@ function shareToLinkedIn() {
       const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(quote)}`;
       window.open(shareUrl, '_blank', 'noopener,noreferrer');
     }
-
     // Copy project link
     function copyProjectLink() {
       const url = getCurrentProjectUrl();
@@ -1637,7 +1466,6 @@ function shareToLinkedIn() {
         alert('Failed to copy link');
       });
     }
-
     // Close dropdowns when clicking outside
     document.addEventListener('click', function(e) {
       const dropdown = document.getElementById('dropdownMenu');
@@ -1648,12 +1476,14 @@ function shareToLinkedIn() {
         dropdownBtn.classList.remove('active');
       }
     });
-
     // Load and display current project
-    function loadProject() {     
+    function loadProject() {
+      const videoSection = document.querySelector('.video-section');
+      videoSection.classList.add('is-loading');
+      videoSection.classList.remove('is-loaded');
+      
       const project = projects[currentIndex];      
       if (!project) return;
-     
       // Update video
       const videoWrapper = document.getElementById('videoWrapper');
       videoWrapper.innerHTML = `
@@ -1663,6 +1493,13 @@ function shareToLinkedIn() {
           allowfullscreen
         ></iframe>
       `;
+// Smooth transition from skeleton → content
+const skeleton = document.getElementById('videoSkeleton');
+if (skeleton) {
+  videoSection.classList.add('is-loaded');
+  setTimeout(() => skeleton.remove(), 250);
+}
+videoSection.classList.remove('is-loading');
       
       // Update details
       const detailsSection = document.getElementById('detailsSection');
@@ -1671,7 +1508,6 @@ function shareToLinkedIn() {
       detailsSection.innerHTML = `
         <span class="category-badge">${project.category}</span>
         <h3 class="project-title">${project.title}</h3>
-
         <!-- Stats -->
         <div class="stats-grid">
   <div class="stat-card">
@@ -1693,7 +1529,6 @@ function shareToLinkedIn() {
       ${formatCompactNumber(project.views || 0)}
     </div>
   </div>
-
   <div class="stat-card">
     <div class="stat-label">
       <svg class="icon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1713,8 +1548,6 @@ function shareToLinkedIn() {
     </div>
   </div>
 </div>
-
-
         <!-- Like Button -->
         <button class="like-btn" id="likeBtn" onclick="likeProject()" ${isLiked ? 'disabled' : ''}>
           <svg class="icon ${isLiked ? 'filled' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1722,24 +1555,20 @@ function shareToLinkedIn() {
           </svg>
           <span>${isLiked ? 'Liked' : 'Like this project'}</span>
         </button>
-
         <!-- Description -->
         <div class="info-section">
           <div class="info-label">Description</div>
           <p class="info-text">${project.description}</p>
         </div>
-
         <!-- Tools -->
         <div class="info-section">
           <div class="info-label">Tools & Technologies</div>
           <p class="info-text">${project.tools}</p>
         </div>
-
         <!-- Outcome -->
         <div class="info-section">
           <div class="info-label">Business Impact</div>
           <p class="info-text">${project.outcome}</p>
-
           <div class="project-link-wrapper">
             <a
               href="${project.projectLink}"
@@ -1752,48 +1581,35 @@ function shareToLinkedIn() {
           </div>
         </div>
       `;
-
       const deepLink = getDeepLinkContext();
-
 if (!hasViewed(project.id)) {
   sendEvent('view', project.id, {
     ref: deepLink.ref,
     is_deep_link: Boolean(deepLink.project)
   });
-
   markViewed(project.id);
-
   // Optimistic UI only (NOT authoritative)
   projects[currentIndex].views = (projects[currentIndex].views || 0) + 1;
   updateStatValue('views', projects[currentIndex].views);
 }
-
-
       // Update dropdown active state
       populateDropdown();
       
       updateNavigationButtons();
     }
-
     // Check if user has liked this project
     function checkIfLiked(projectId) {
       return localStorage.getItem(`liked_${projectId}`) === 'true';
     }      
-
     function likeProject() {
       const project = projects[currentIndex];
       if (checkIfLiked(project.id)) return;
-
       sendEvent('like', project.id, {
   source: 'button'
 });
-
-
       project.likes = (project.likes || 0) + 1;
       updateStatValue('likes', project.likes);
-
       localStorage.setItem(`liked_${project.id}`, 'true');
-
       const likeBtn = document.getElementById('likeBtn');
       likeBtn.disabled = true;
       likeBtn.innerHTML = `
@@ -1808,41 +1624,35 @@ if (!hasViewed(project.id)) {
         <span>Liked</span>
       `;
     }
-
     // Navigation
     function updateNavigationButtons() {
       document.getElementById('prevBtn').disabled = currentIndex === 0;
       document.getElementById('nextBtn').disabled = currentIndex === projects.length - 1;
     }
-
-function previousProject() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    loadProject();
-
-    const project = projects[currentIndex];
-    const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
-    window.history.pushState({}, '', newUrl);
-  }
-}
-
-
-function nextProject() {
-  if (currentIndex < projects.length - 1) {
-    currentIndex++;
-    loadProject();
-
-    const project = projects[currentIndex];
-    const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
-    window.history.pushState({}, '', newUrl);
-  }
-}
-
-
-
+    function previousProject() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        loadProject();
+        
+        // Update URL
+        const project = projects[currentIndex];
+        const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
+        window.history.pushState({}, '', newUrl);
+      }
+    }
+    function nextProject() {
+      if (currentIndex < projects.length - 1) {
+        currentIndex++;
+        loadProject();
+        
+        // Update URL
+        const project = projects[currentIndex];
+        const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
+        window.history.pushState({}, '', newUrl);
+      }
+    }
 const PACKDEZ_ORIGIN = 'https://packdez.com';
 const previousPage = document.referrer;
-
 function closeModal() {
   // If previous page exists AND is from packdez.com, go there
   if (
@@ -1856,12 +1666,10 @@ function closeModal() {
   }
 }
  
-
     function showError(message) {
       document.getElementById('videoWrapper').innerHTML = `<div class="loading">${message}</div>`;
       document.getElementById('detailsSection').innerHTML = `<div class="loading">${message}</div>`;
     }
-
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -1879,40 +1687,31 @@ function closeModal() {
       if (e.key === 'ArrowLeft') previousProject();
       if (e.key === 'ArrowRight') nextProject();
     });
-
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {
         syncBufferedEvents();
       }
     });
-
     window.addEventListener('popstate', () => {
   const params = new URLSearchParams(window.location.search);
   const projectId = params.get('project');
-
   if (!projectId || !projects.length) return;
-
   const index = projects.findIndex(
     p => String(p.id) === String(projectId)
   );
-
   if (index !== -1 && index !== currentIndex) {
     currentIndex = index;
     loadProject();
   }
 });
-
 window.addEventListener('load', async () => {
   if (localStorage.getItem('buffer_pending') === 'true') {
     await syncBufferedEvents();
     clearBufferSafely();
   }
 });
-
-
     
     window.addEventListener('pagehide', syncBufferedEvents);
-
     // Initialize
     userFingerprint = getFingerprint();
     loadProjects();
