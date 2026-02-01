@@ -73,28 +73,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       z-index: 1000;
     }
 
-    .modal-container {
-      background: #ffffff;
-      width: 100%;
-      height: 100vh;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     .modal-header {
       display: flex;
       align-items: center;
@@ -1032,49 +1010,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-    /* Skeleton shimmer base */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.skeleton {
-  background: linear-gradient(
-    90deg,
-    #e5e7eb 25%,
-    #f3f4f6 37%,
-    #e5e7eb 63%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.4s ease infinite;
-}
-
-/* Video skeleton */
-.video-skeleton {
-  width: 100%;
-  max-width: 700px;
-}
-
-.skeleton-video {
-  aspect-ratio: 16 / 9;
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-
-.skeleton-video,
-.skeleton-avatar,
-.skeleton-line {
-  background: linear-gradient(
-    90deg,
-    #e5e7eb 25%,
-    #f3f4f6 37%,
-    #e5e7eb 63%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.4s ease infinite;
-}
-
-
 /* Creator skeleton */
 .skeleton-creator {
   display: flex;
@@ -1103,40 +1038,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 
 
-
-    .video-container iframe {
-  animation: fadeIn 0.25s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-
-
-    /* ===== Branded Loading Motion ===== */
-
-.video-section.is-loading {
-  animation: brandFadeIn 0.35s ease-out;
-}
-
-@keyframes brandFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Skeleton breathing effect */
-.video-section.is-loading .video-skeleton {
-  animation: skeletonPulse 1.6s ease-in-out infinite;
-}
-
 @keyframes skeletonPulse {
   0% { opacity: 0.75; }
   50% { opacity: 1; }
@@ -1149,16 +1050,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   transform: translateY(-4px) scale(0.98);
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
-
-
-    @media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
-    
+   
   </style>
 </head>
 <body>
@@ -1246,19 +1138,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           
 <div class="video-container" id="videoWrapper"></div>
 
-<div class="video-skeleton" id="videoSkeleton">
-  <div class="skeleton-video"></div>
-  <div class="skeleton-creator">
-    <div class="skeleton-avatar"></div>
-    <div class="skeleton-lines">
-      <div class="skeleton-line short"></div>
-      <div class="skeleton-line"></div>
-    </div>
-  </div>
-</div>
-
-
-          </div>
+         </div>
 
           <!-- Creator Info -->
           <div class="creator-info">
@@ -1370,11 +1250,6 @@ function hasViewed(projectId) {
   return viewed.includes(String(projectId));
 }
 
-
-    function startProjectTransition() {
-  const videoSection = document.querySelector('.video-section');
-  videoSection.classList.add('is-loading');
-}
 
     
 function markViewed(projectId) {
@@ -1666,7 +1541,6 @@ ${project.outcome}
 
     // Select project from dropdown
 function selectProject(index) {
-  startProjectTransition();
   currentIndex = index;
   loadProject();
   toggleDropdown();
@@ -1776,21 +1650,10 @@ function shareToLinkedIn() {
     });
 
     // Load and display current project
-    function loadProject() {
-      const videoSection = document.querySelector('.video-section');
-      videoSection.classList.add('is-loading');
-      videoSection.classList.remove('is-loaded');
-      
+    function loadProject() {     
       const project = projects[currentIndex];      
       if (!project) return;
-
-
-      const skeleton = document.getElementById('videoSkeleton');
-      if (skeleton) {
-        skeleton.style.display = 'block';
-      }
-
-      
+     
       // Update video
       const videoWrapper = document.getElementById('videoWrapper');
       videoWrapper.innerHTML = `
@@ -1800,22 +1663,6 @@ function shareToLinkedIn() {
           allowfullscreen
         ></iframe>
       `;
-
-
-// Smooth transition from skeleton → content
-const skeleton = document.getElementById('videoSkeleton');
-
-if (skeleton) {
-  videoSection.classList.add('is-loaded');
-  setTimeout(() => {
-      skeleton.style.display = 'none';
-    }, 250);
-
-}
-
-videoSection.classList.remove('is-loading');
-
-
       
       // Update details
       const detailsSection = document.getElementById('detailsSection');
@@ -1970,7 +1817,6 @@ if (!hasViewed(project.id)) {
 
 function previousProject() {
   if (currentIndex > 0) {
-    startProjectTransition();
     currentIndex--;
     loadProject();
 
@@ -1983,7 +1829,6 @@ function previousProject() {
 
 function nextProject() {
   if (currentIndex < projects.length - 1) {
-    startProjectTransition();
     currentIndex++;
     loadProject();
 
