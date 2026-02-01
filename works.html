@@ -1064,8 +1064,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .skeleton-video,
 .skeleton-avatar,
 .skeleton-line {
-  composes: skeleton;
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 25%,
+    #f3f4f6 37%,
+    #e5e7eb 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
 }
+
 
 /* Creator skeleton */
 .skeleton-creator {
@@ -1140,6 +1148,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   opacity: 0;
   transform: translateY(-4px) scale(0.98);
   transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+
+    @media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
     
@@ -1650,6 +1666,13 @@ ${project.outcome}
       currentIndex = index;
       loadProject();
       toggleDropdown();
+
+
+        if (currentIndex < projects.length - 1) {
+    startProjectTransition();
+    currentIndex++;
+    loadProject();
+  }
       
       // Update URL without reload
       const project = projects[currentIndex];
@@ -1765,6 +1788,13 @@ function shareToLinkedIn() {
       const project = projects[currentIndex];      
       if (!project) return;
 
+
+      const skeleton = document.getElementById('videoSkeleton');
+      if (skeleton) {
+        skeleton.style.display = 'block';
+      }
+
+      
       // Update video
       const videoWrapper = document.getElementById('videoWrapper');
       videoWrapper.innerHTML = `
@@ -1781,7 +1811,10 @@ const skeleton = document.getElementById('videoSkeleton');
 
 if (skeleton) {
   videoSection.classList.add('is-loaded');
-  setTimeout(() => skeleton.remove(), 250);
+  setTimeout(() => {
+      skeleton.style.display = 'none';
+    }, 250);
+
 }
 
 videoSection.classList.remove('is-loading');
@@ -1949,6 +1982,12 @@ if (!hasViewed(project.id)) {
         const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
         window.history.pushState({}, '', newUrl);
       }
+
+        if (currentIndex < projects.length - 1) {
+    startProjectTransition();
+    currentIndex++;
+    loadProject();
+  }
     }
 
     function nextProject() {
@@ -1961,6 +2000,12 @@ if (!hasViewed(project.id)) {
         const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
         window.history.pushState({}, '', newUrl);
       }
+
+        if (currentIndex < projects.length - 1) {
+    startProjectTransition();
+    currentIndex++;
+    loadProject();
+  }
     }
 
 const PACKDEZ_ORIGIN = 'https://packdez.com';
