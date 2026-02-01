@@ -1240,12 +1240,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       <!-- Body -->
       <div class="modal-body">
+        
         <!-- Video Section -->
         <div class="video-section">
-          <div class="video-container" id="videoWrapper">
-            <div class="video-skeleton" id="videoSkeleton">
-  <div class="skeleton-video"></div>
+          
+<div class="video-container" id="videoWrapper"></div>
 
+<div class="video-skeleton" id="videoSkeleton">
+  <div class="skeleton-video"></div>
   <div class="skeleton-creator">
     <div class="skeleton-avatar"></div>
     <div class="skeleton-lines">
@@ -1254,6 +1256,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </div>
 </div>
+
 
           </div>
 
@@ -1662,23 +1665,16 @@ ${project.outcome}
     }
 
     // Select project from dropdown
-    function selectProject(index) {
-      currentIndex = index;
-      loadProject();
-      toggleDropdown();
+function selectProject(index) {
+  startProjectTransition();
+  currentIndex = index;
+  loadProject();
+  toggleDropdown();
 
-
-        if (currentIndex < projects.length - 1) {
-    startProjectTransition();
-    currentIndex++;
-    loadProject();
-  }
-      
-      // Update URL without reload
-      const project = projects[currentIndex];
-      const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
-      window.history.pushState({}, '', newUrl);
-    }
+  const project = projects[currentIndex];
+  const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
+  window.history.pushState({}, '', newUrl);
+}
 
     // Toggle share modal
     function toggleShareModal() {
@@ -1972,41 +1968,32 @@ if (!hasViewed(project.id)) {
       document.getElementById('nextBtn').disabled = currentIndex === projects.length - 1;
     }
 
-    function previousProject() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        loadProject();
-        
-        // Update URL
-        const project = projects[currentIndex];
-        const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
-        window.history.pushState({}, '', newUrl);
-      }
+function previousProject() {
+  if (currentIndex > 0) {
+    startProjectTransition();
+    currentIndex--;
+    loadProject();
 
-        if (currentIndex < projects.length - 1) {
+    const project = projects[currentIndex];
+    const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
+    window.history.pushState({}, '', newUrl);
+  }
+}
+
+
+function nextProject() {
+  if (currentIndex < projects.length - 1) {
     startProjectTransition();
     currentIndex++;
     loadProject();
-  }
-    }
 
-    function nextProject() {
-      if (currentIndex < projects.length - 1) {
-        currentIndex++;
-        loadProject();
-        
-        // Update URL
-        const project = projects[currentIndex];
-        const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
-        window.history.pushState({}, '', newUrl);
-      }
-
-        if (currentIndex < projects.length - 1) {
-    startProjectTransition();
-    currentIndex++;
-    loadProject();
+    const project = projects[currentIndex];
+    const newUrl = `${BASE_URL}?project=${encodeURIComponent(project.id)}`;
+    window.history.pushState({}, '', newUrl);
   }
-    }
+}
+
+
 
 const PACKDEZ_ORIGIN = 'https://packdez.com';
 const previousPage = document.referrer;
