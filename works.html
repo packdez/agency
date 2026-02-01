@@ -1105,6 +1105,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   to { opacity: 1; }
 }
 
+
+
+    /* ===== Branded Loading Motion ===== */
+
+.video-section.is-loading {
+  animation: brandFadeIn 0.35s ease-out;
+}
+
+@keyframes brandFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Skeleton breathing effect */
+.video-section.is-loading .video-skeleton {
+  animation: skeletonPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes skeletonPulse {
+  0% { opacity: 0.75; }
+  50% { opacity: 1; }
+  100% { opacity: 0.75; }
+}
+
+/* Smooth exit when content loads */
+.video-section.is-loaded .video-skeleton {
+  opacity: 0;
+  transform: translateY(-4px) scale(0.98);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
     
   </style>
 </head>
@@ -1314,6 +1351,13 @@ function hasViewed(projectId) {
   return viewed.includes(String(projectId));
 }
 
+
+    function startProjectTransition() {
+  const videoSection = document.querySelector('.video-section');
+  videoSection.classList.add('is-loading');
+}
+
+    
 function markViewed(projectId) {
   const viewed = JSON.parse(sessionStorage.getItem(SESSION_VIEWS_KEY) || '[]');
   if (!viewed.includes(String(projectId))) {
@@ -1714,6 +1758,10 @@ function shareToLinkedIn() {
 
     // Load and display current project
     function loadProject() {
+      const videoSection = document.querySelector('.video-section');
+      videoSection.classList.add('is-loading');
+      videoSection.classList.remove('is-loaded');
+      
       const project = projects[currentIndex];      
       if (!project) return;
 
@@ -1728,8 +1776,16 @@ function shareToLinkedIn() {
       `;
 
 
-      // ✅ Remove loading skeleton once video is ready
-      document.getElementById('videoSkeleton')?.remove();
+// Smooth transition from skeleton → content
+const skeleton = document.getElementById('videoSkeleton');
+
+if (skeleton) {
+  videoSection.classList.add('is-loaded');
+  setTimeout(() => skeleton.remove(), 250);
+}
+
+videoSection.classList.remove('is-loading');
+
 
       
       // Update details
