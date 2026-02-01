@@ -574,13 +574,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       overflow: hidden;
     }
 
-    .video-section {
-      background: #eeeeee;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
+      .video-section {
+  background: #eeeeee;
+  display: flex;
+  flex-direction: column;   /* 🔑 stack vertically */
+  align-items: center;      /* center horizontally */
+  padding: 24px;
+}
+
 
     .video-container {
       width: 100%;
