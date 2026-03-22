@@ -2014,15 +2014,24 @@ h1 {
         }
         
         // Toast
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast active';
-            toast.style.backgroundColor = type === 'success' ? 'hsl(146 55% 36%)' : 'hsl(0 84% 60%)';
-            setTimeout(() => {
-                toast.classList.remove('active');
-            }, 3000);
-        }
+function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+  toast.style.backgroundColor = type === "success"
+    ? "hsl(146 55% 36%)"
+    : "hsl(0 84% 60%)";
+
+  // Reset animation by forcing reflow
+  toast.classList.remove("active");
+  void toast.offsetWidth;
+  toast.classList.add("active");
+
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(() => {
+    toast.classList.remove("active");
+  }, 4000);
+}
 
 
 
@@ -2035,21 +2044,23 @@ async function handleSubmit(e) {
   e.preventDefault();
 
   const button = document.getElementById("submit-btn");
+  const form = e.target;
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
+  const name    = document.getElementById("name").value.trim();
+  const email   = document.getElementById("email").value.trim();
   const company = document.getElementById("company").value.trim();
   const message = document.getElementById("message").value.trim();
 
   if (!name || !email || !message) return;
 
+  // Loading state
   button.disabled = true;
   button.textContent = "Sending...";
 
   try {
     const payload = {
       secret: SECRET,
-      formType: "audit",   // 👈 IMPORTANT
+      formType: "audit",
       name,
       email,
       company,
@@ -2058,26 +2069,26 @@ async function handleSubmit(e) {
 
     const res = await fetch(WEB_APP_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload)
     });
 
     const text = await res.text();
     const result = text ? JSON.parse(text) : {};
 
-    if (!result.success) {
-      throw new Error(result.error || "Failed");
-    }
+    if (!result.success) throw new Error(result.error || "Failed");
 
     // ✅ SUCCESS
-    button.textContent = "Sent ✔";
+    showToast("✔ Message sent! You'll hear back within 24 hours.", "success");
+    form.reset();
+    button.textContent = "Get my plan";
+    button.disabled = false;
 
   } catch (err) {
     console.error(err);
+    showToast("Something went wrong. Please try again.", "error");
+    button.textContent = "Get my plan";
     button.disabled = false;
-    button.textContent = "Try again";
   }
 }
       
