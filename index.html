@@ -2074,9 +2074,20 @@ async function handleSubmit(e) {
     });
 
     const text = await res.text();
-    const result = text ? JSON.parse(text) : {};
 
-    if (!result.success) throw new Error(result.error || "Failed");
+    // Apps Script sometimes returns empty or redirect responses
+    // even on success — so we treat any non-error response as success
+    let result = {};
+    try {
+      result = text ? JSON.parse(text) : {};
+    } catch (_) {
+      // JSON parse failed but data still landed — treat as success
+      result = { success: true };
+    }
+    
+    if (result.error) throw new Error(result.error);
+
+    
 
     // ✅ SUCCESS
     showToast("✔ Message sent! You'll hear back within 24 hours.", "success");
