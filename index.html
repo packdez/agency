@@ -1396,40 +1396,44 @@ h1 {
     <div class="reviews-carousel">
       <div class="reviews-track">
 
-        <!-- Review 1 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
+       <!-- Review 1 — Verified Trustpilot -->
+<div class="card-flat review-card" style="border: 1.5px solid hsl(146 55% 36% / 0.25); position: relative;">
 
-          <p class="font-bold text-sm">Clear communication. Reliable delivery.</p>
+  <!-- Trustpilot badge -->
+  <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 14px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a"><path d="M12 0L14.9 8.8H24L16.8 14.2L19.7 23L12 17.7L4.3 23L7.2 14.2L0 8.8H9.1Z"/></svg>
+    <span style="font-size: 12px; font-weight: 700; color: #00b67a;">Verified on Trustpilot</span>
+  </div>
 
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “Communicative, offered good solutions to problems, and delivered exactly what was needed.”
-          </p>
+  <div class="flex gap-1 mb-3">
+    <i data-lucide="star" class="star-icon"></i>
+    <i data-lucide="star" class="star-icon"></i>
+    <i data-lucide="star" class="star-icon"></i>
+    <i data-lucide="star" class="star-icon"></i>
+    <i data-lucide="star" class="star-icon"></i>
+  </div>
 
-          <div class="flex items-center gap-3">
+  <p class="font-bold text-sm mb-2">Top notch developer!</p>
 
-            <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
+  <p class="text-muted-foreground mb-6" style="line-height: 1.6;">
+    "Top notch developer and highly experienced! Highly recommend Raphael's development services!"
+  </p>
 
-              
-            <div>
-              <p class="font-bold text-sm">— Aloysius, Operations Manager</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
+  <div class="flex items-center gap-3">
+    <img
+      src="https://airglitz.com.au/wp-content/uploads/2024/03/airglitz-logo.png"
+      alt="Airglitz"
+      style="width: 36px; height: 36px; border-radius: 6px; object-fit: contain; border: 1px solid hsl(var(--border)); padding: 3px; background: white;"
+      onerror="this.style.display='none'"
+    />
+    <div>
+      <p class="font-bold text-sm">— Moe, Airglitz</p>
+      <p class="text-sm text-muted-foreground">airglitz.com.au · via Trustpilot · Feb 2026</p>
+    </div>
+  </div>
+</div>
 
+        
         <!-- Review 2 -->
         <div class="card-flat review-card">
           <div class="flex gap-1 mb-4">
@@ -1595,7 +1599,26 @@ h1 {
   </div>
 </section>
 
-        
+        <!-- Who Builds This -->
+<section class="section-padding">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="card-flat" style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
+      <img
+        src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
+        alt="Raphael Levinders"
+        style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid hsl(146 55% 36% / 0.2);"
+      />
+      <div>
+        <p style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: hsl(146 55% 36%); margin-bottom: 6px;">The person building your system</p>
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 10px;">Raphael Levinders</h3>
+        <p class="text-muted-foreground" style="font-size: 0.95rem; line-height: 1.65; max-width: 540px;">
+          I build operational systems in Google Sheets for growing teams. Every system I deliver is built by me directly — no outsourcing, no handoffs. I've worked with service businesses, e-commerce operators, and operations teams across Australia, the US, and the UK to remove the manual work that slows their teams down.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+      
     <!-- How It Works -->
     <section id="process" class="section-padding bg-muted" style="padding-top:10rem; padding-bottom:10rem;">
         <div class="max-w-5xl mx-auto px-4">
@@ -1811,36 +1834,48 @@ h1 {
 
     </section>
     
-    <!-- Primary CTA -->
-    <section id="audit" class="section-padding">
-        <div class="max-w-3xl mx-auto px-4">
-            <div class="text-center mb-8">
-                <h2 class="text-[24px] md:text-4xl font-bold mb-4">
-                    Request your automation plan
-                </h2>
-                <p class="text-[16px] text-muted-foreground">
-                    Get a clear plan for your workflow - with scope, timeline, and next steps.
-                </p>
-            </div>
-            
-            <div class="card-flat max-w-2xl mx-auto">
-                <form onsubmit="handleSubmit(event)" class="space-y-5">
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <input type="text" id="name" placeholder="Your name *" class="input" required />
-                        <input type="email" id="email" placeholder="Work email *" class="input" required />
-                    </div>
-                    <input type="text" id="company" placeholder="Company name" class="input" />
-                    <textarea id="message" placeholder="Briefly describe your workflow, where manual work or errors slow things down *" class="textarea" required></textarea>
-                    <button type="submit" id="submit-btn" class="btn btn-primary w-full text-lg">
-                        Get my plan
-                    </button>
-                    <p class="text-sm text-muted-foreground text-center">
-                        No obligation. You’ll hear back within 24 hours.
-                    </p>
-                </form>
-            </div>
-        </div>
-    </section>
+<!-- Primary CTA -->
+<section id="audit" class="section-padding">
+  <div class="max-w-3xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <h2 class="text-[24px] md:text-4xl font-bold mb-4">
+        Show me your Sheet — I'll tell you exactly what to fix
+      </h2>
+      <p class="text-[16px] text-muted-foreground max-w-xl mx-auto">
+        Free 20-minute call. No pitch. You'll leave with a clear picture of what's automatable and what it would cost.
+      </p>
+    </div>
+
+    <div class="card-flat max-w-xl mx-auto text-center">
+      <p style="font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: hsl(146 55% 36%); margin-bottom: 16px;">Book a free call</p>
+
+      
+        href="https://calendly.com/YOUR-LINK-HERE"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary text-lg w-full"
+        style="display: flex; justify-content: center;"
+      >
+        Pick a time that works →
+      </a>
+
+      <p class="text-sm text-muted-foreground mt-4">
+        20 minutes · No obligation · You'll hear back within 24 hours if you prefer email
+      </p>
+
+      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid hsl(var(--border)); display: flex; align-items: center; justify-content: center; gap: 10px;">
+        <img
+          src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
+          alt="Raphael"
+          style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;"
+        />
+        <p class="text-sm text-muted-foreground">
+          You'll be speaking directly with <strong>Raphael</strong> — the person who builds the system.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
     
     <!-- FAQ -->
     <section id="faq" class="section-padding bg-muted">
