@@ -1239,21 +1239,38 @@ function sendEvent(type, projectId, meta = {}) {
     meta: meta
   });
 }
+
+
     async function syncBufferedEvents() {
-      const events = getEventBuffer();
-      if (!events.length) return;
-      const payload = {
-        action: 'sync',
-        events: events,
-        user_fingerprint: userFingerprint,
-        user_agent: navigator.userAgent
-      };
-markBufferPending();
-navigator.sendBeacon(
-  GOOGLE_SCRIPT_URL,
-  new Blob([JSON.stringify(payload)], { type: 'application/json' })
-);
-    }
+  const events = getEventBuffer();
+  if (!events.length) return;
+
+  const payload = {
+    action: 'sync',
+    events: events,
+    user_fingerprint: userFingerprint,
+    user_agent: navigator.userAgent
+  };
+
+  // Clear buffer optimistically before sending
+  clearBufferSafely();
+
+  // Use fetch so we know if it succeeded; fall back to beacon on failure
+  try {
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      // Must be text/plain to avoid CORS preflight on GAS
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    });
+  } catch (e) {
+    // On failure, restore buffer and try beacon
+    localStorage.setItem(EVENT_BUFFER_KEY, JSON.stringify(events));
+    navigator.sendBeacon(GOOGLE_SCRIPT_URL, JSON.stringify(payload));
+  }
+}
+
+    
     // Update stat value with animation
     function updateStatValue(elementId, newValue) {
       const element = document.getElementById(elementId);
@@ -1588,9 +1605,12 @@ if (!hasViewed(project.id)) {
     is_deep_link: Boolean(deepLink.project)
   });
   markViewed(project.id);
-  // Optimistic UI only (NOT authoritative)
+  // Optimistic UI
   projects[currentIndex].views = (projects[currentIndex].views || 0) + 1;
   updateStatValue('views', projects[currentIndex].views);
+  
+  // ← ADD THIS: flush immediately, don't wait for tab close
+  syncBufferedEvents();
 }
       // Update dropdown active state
       populateDropdown();
@@ -1605,8 +1625,9 @@ if (!hasViewed(project.id)) {
       const project = projects[currentIndex];
       if (checkIfLiked(project.id)) return;
       sendEvent('like', project.id, {
-  source: 'button'
-});
+        source: 'button'
+      });
+      syncBufferedEvents();
       project.likes = (project.likes || 0) + 1;
       updateStatValue('likes', project.likes);
       localStorage.setItem(`liked_${project.id}`, 'true');
