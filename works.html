@@ -1057,7 +1057,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
         <!-- Details Section -->
         <div class="details-section" id="detailsSection">
-          <div class="loading">Loading, please wait - 30 seconds...</div>
+          <div class="loading">Loading...</div>
         </div>
       </div>
     </div>
@@ -1139,11 +1139,8 @@ function hasViewed(projectId) {
   const viewed = JSON.parse(sessionStorage.getItem(SESSION_VIEWS_KEY) || '[]');
   return viewed.includes(String(projectId));
 }
-    function startProjectTransition() {
-  const videoSection = document.querySelector('.video-section');
-  videoSection.classList.add('is-loading');
-}
-    
+
+     
 function markViewed(projectId) {
   const viewed = JSON.parse(sessionStorage.getItem(SESSION_VIEWS_KEY) || '[]');
   if (!viewed.includes(String(projectId))) {
@@ -1175,9 +1172,7 @@ function markViewed(projectId) {
 if (buffer.length > 100) buffer.shift();
       localStorage.setItem(EVENT_BUFFER_KEY, JSON.stringify(buffer));
     }
-function markBufferPending() {
-  localStorage.setItem('buffer_pending', 'true');
-}
+
 function clearBufferSafely() {
   localStorage.removeItem(EVENT_BUFFER_KEY);
   localStorage.removeItem('buffer_pending');
@@ -1725,14 +1720,10 @@ function closeModal() {
     loadProject();
   }
 });
+   
 window.addEventListener('load', async () => {
-  if (localStorage.getItem('buffer_pending') === 'true') {
-    await syncBufferedEvents();
-    clearBufferSafely();
-  }
+  await syncBufferedEvents();
 });
-    
-    window.addEventListener('pagehide', syncBufferedEvents);
     // Initialize
     userFingerprint = getFingerprint();
     loadProjects();
