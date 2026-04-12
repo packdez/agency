@@ -9,1725 +9,2092 @@
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-5KLXPS5M');</script>
-  <!-- End Google Tag Manager -->
 
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://packdez.com/#website","name":"Packdez","url":"https://packdez.com/","publisher":{"@id":"https://packdez.com/#organization"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://packdez.com/#organization","name":"Packdez","url":"https://packdez.com/","logo":{"@type":"ImageObject","url":"https://packdez.com/assets/logo/packdez-logo-512x512.png"},"sameAs":["https://www.linkedin.com/company/packdez/","https://x.com/packdezHQ","https://www.youtube.com/@packdezhq"]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How long does it take?","acceptedAnswer":{"@type":"Answer","text":"Most systems go live in 7–10 days. You'll see a working prototype within 72 hours."}},{"@type":"Question","name":"What if I already have a Sheet?","acceptedAnswer":{"@type":"Answer","text":"That's common. We work with existing Sheets and add automation where it's needed."}},{"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"Most projects range from $200 to $2,500 depending on scope. Fixed pricing, no surprises."}}]}</script>
 
+  <link rel="canonical" href="https://packdez.com/" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Packdez — Google Sheets & Apps Script Systems for Service Businesses</title>
+  <meta name="description" content="Raphael Levinders builds custom Google Sheets and Apps Script systems for service businesses — bookings, payments, reporting, and admin. No bloat. Built to last.">
+  <link rel="icon" type="image/png" sizes="512x512" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
+  <link rel="apple-touch-icon" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
+  <meta name="trustpilot-one-time-domain-verification-id" content="f949758c-d6c2-4443-a87d-a5154c0d78b2"/>
 
-      <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": "https://packdez.com/#website",
-      "name": "Packdez",
-      "url": "https://packdez.com/",
-      "publisher": {
-        "@id": "https://packdez.com/#organization"
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Calendly -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS
+    ============================================ */
+    :root {
+      --green:        #1e7a45;
+      --green-mid:    #247a46;
+      --green-light:  #e8f5ee;
+      --green-accent: #2ecc71;
+      --ink:          #0d1f14;
+      --ink-soft:     #3d5247;
+      --stone:        #f5f7f5;
+      --border:       #d8e5dc;
+      --white:        #ffffff;
+      --radius-sm:    6px;
+      --radius-md:    12px;
+      --radius-lg:    20px;
+      --shadow-sm:    0 1px 4px rgba(13,31,20,.07);
+      --shadow-md:    0 4px 20px rgba(13,31,20,.09);
+      --shadow-lg:    0 16px 48px rgba(13,31,20,.13);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+      --transition:   all .22s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================
+       TYPOGRAPHY
+    ============================================ */
+    .display {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      line-height: 1.1;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+
+    .display em {
+      font-style: italic;
+      color: var(--green);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.6rem);
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    .overline {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+
+    .lead {
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       LAYOUT UTILITIES
+    ============================================ */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: clamp(64px, 9vw, 112px) 0;
+    }
+
+    .section--stone { background: var(--stone); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+
+    @media (max-width: 900px) {
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================
+       COMPONENTS — BUTTON
+    ============================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: var(--font-body);
+      font-size: .95rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(30,122,69,.25);
+    }
+    .btn-primary:hover {
+      background: #175e34;
+      box-shadow: 0 6px 24px rgba(30,122,69,.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .btn-lg { padding: 17px 36px; font-size: 1rem; }
+    .btn-sm { padding: 10px 20px; font-size: .875rem; }
+
+    /* ============================================
+       COMPONENTS — CARD
+    ============================================ */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: var(--transition);
+    }
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: rgba(30,122,69,.2);
+      transform: translateY(-2px);
+    }
+
+    .card--flat {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+
+    /* ============================================
+       COMPONENTS — BADGE / PILL
+    ============================================ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      font-size: .78rem;
+      font-weight: 700;
+      border-radius: 999px;
+      background: var(--green-light);
+      color: var(--green);
+      border: 1px solid rgba(30,122,69,.15);
+    }
+
+    /* ============================================
+       NAVIGATION
+    ============================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .nav__inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .nav__logo img { width: 32px; height: 32px; }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav__links a {
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      transition: color .18s;
+    }
+    .nav__links a:hover { color: var(--green); }
+
+    .nav__cta { display: flex; align-items: center; gap: 12px; }
+
+    /* Mobile nav */
+    .nav__hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .mobile-overlay {
+      position: fixed; inset: 0;
+      background: rgba(13,31,20,.5);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: none;
+    }
+    .mobile-overlay.active { display: block; }
+
+    .mobile-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: min(88vw, 320px);
+      height: 100%;
+      background: var(--white);
+      z-index: 210;
+      padding: 28px 24px;
+      transform: translateX(100%);
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-drawer.active { transform: translateX(0); }
+
+    .mobile-drawer__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .mobile-drawer a {
+      display: block;
+      padding: 14px 0;
+      font-size: 1rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink);
+    }
+    .mobile-drawer a:hover { color: var(--green); }
+
+    @media (max-width: 768px) {
+      .nav__links, .nav__cta { display: none; }
+      .nav__hamburger { display: flex; }
+    }
+
+    /* ============================================
+       HERO
+    ============================================ */
+    .hero {
+      padding-top: 128px;
+      padding-bottom: 80px;
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(30,122,69,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .hero__eyebrow-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green-accent);
+      animation: pulse-dot 2s ease infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.4); }
+    }
+
+    .hero__title { margin-bottom: 20px; }
+
+    .hero__subtitle {
+      font-size: clamp(.95rem, 2vw, 1.1rem);
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .hero__trust {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero__trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+    }
+
+    .hero__trust-item svg {
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    /* Hero right — founder card */
+    .founder-card {
+      background: var(--stone);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: relative;
+    }
+
+    .founder-card__photo {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--white);
+      box-shadow: var(--shadow-md);
+      margin-bottom: 16px;
+    }
+
+    .founder-card__name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+    }
+
+    .founder-card__role {
+      font-size: .82rem;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
+    }
+
+    .founder-card__bio {
+      font-size: .9rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .founder-card__review {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .founder-card__stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 8px;
+    }
+
+    .founder-card__stars svg {
+      width: 14px; height: 14px;
+      color: #f59e0b;
+      fill: #f59e0b;
+    }
+
+    .founder-card__quote {
+      font-size: .85rem;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .founder-card__client {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .founder-card__client-logo {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      object-fit: contain;
+      border: 1px solid var(--border);
+      background: white;
+      padding: 2px;
+    }
+
+    .founder-card__client-name {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .founder-card__client-source {
+      font-size: .72rem;
+      color: var(--ink-soft);
+    }
+
+    .tp-verified {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .72rem;
+      font-weight: 700;
+      color: #00b67a;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 860px) {
+      .hero__inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
       }
-    }
-    </script>
-
-  
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": "https://packdez.com/#organization",
-  "name": "Packdez",
-  "url": "https://packdez.com/",
-  "logo": {
-    "@type": "ImageObject",
-    "url": "https://packdez.com/assets/logo/packdez-logo-512x512.png"
-  },
-  "sameAs": [
-    "https://www.linkedin.com/company/packdez/",
-    "https://x.com/packdezHQ",
-    "https://www.youtube.com/@packdezhq"
-  ]
-}
-</script>
-
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "name": "Google Sheets Automation & CRM Development",
-      "provider": {
-        "@type": "Organization",
-        "@id": "https://packdez.com/#organization"
-      },
-      "areaServed": "Worldwide",
-      "description": "Custom Google Sheets automation and CRM systems built for operations teams."
-    }
-    </script>
-
-
-    <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "How long does it take?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Most projects are delivered in 7–10 days. You'll see a working prototype within 72 hours. We don’t drag projects out."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What if I already have a Sheet?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "We can work with your existing Sheets or build new ones. Most clients already have Sheets that need automation added, not replacement."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What tools do you integrate with?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Zapier, Stripe, Slack, HubSpot, QuickBooks, Gmail, Google Calendar, and any tool with an API. If it has data, we can connect it."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "How much does it cost?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Most projects range from $200 to $2,500 depending on complexity. Pricing is fixed upfront with no hourly billing or surprise costs."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What happens after delivery?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "You receive documentation, team training, and 30 days of support. After that, the system is fully yours, with optional maintenance if needed."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Is this secure?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "All systems run inside your Google Workspace with your permissions. We follow Google security best practices, and you control all access."
-              }
-            }
-          ]
-        }
-    </script>
-
-
-    
-
-    <link rel="canonical" href="https://packdez.com/" />
-    <meta name="robots" content="index,follow" />
-    
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Packdez — Google Sheets Automation for Operations Teams</title>
-    <meta name="description" content="We build automated operational systems in Google Sheets for growing workflow operations. No templates. No bloat. Just reliable systems that work.">
-    <link rel="icon" type="image/png" sizes="512x512" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
-    <link rel="apple-touch-icon" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
-
-    <meta name="trustpilot-one-time-domain-verification-id" content="f949758c-d6c2-4443-a87d-a5154c0d78b2"/>
-
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <style>
-        :root {
-            --background: 0 0% 100%;
-            --foreground: 220 20% 10%;
-            --primary: 146 55% 36%;
-            --primary-foreground: 0 0% 100%;
-            --muted: 220 14% 96%;
-            --muted-foreground: 220 9% 46%;
-            --border: 220 13% 91%;
-            --destructive: 0 84% 60%;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
-            scroll-behavior: smooth;
-            line-height: 1.6;
-            overflow-x: hidden; /* prevent horizontal scroll on mobile */
-        }
-        
-        .bg-primary { background-color: hsl(146 55% 36%); }
-        .text-primary { color: hsl(146 55% 36%); }
-        .border-primary { border-color: hsl(146 55% 36%); }
-        .bg-muted { background-color: hsl(220 14% 96%); }
-        .text-muted-foreground { color: hsl(220 9% 46%); }
-        .border-border { border-color: hsl(220 13% 91%); }
-        .text-destructive { color: hsl(0 84% 60%); }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            text-decoration: none;
-        }
-        
-        .btn-primary {
-            background-color: hsl(146 55% 36%);
-            color: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-primary:hover {
-            background-color: hsl(146 55% 32%);
-            box-shadow: 0 4px 12px rgba(46, 140, 78, 0.3);
-            transform: translateY(-1px);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid hsl(220 13% 91%);
-            color: hsl(220 20% 10%);
-        }
-        
-        .btn-outline:hover {
-            background-color: hsl(220 14% 96%);
-            border-color: hsl(146 55% 36%);
-        }
-        
-        .card {
-            background-color: white;
-            border: 1px solid hsl(220 13% 91%);
-            border-radius: 0.75rem;
-            padding: 2rem;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .card:hover {
-            border-color: hsl(146 55% 36% / 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transform: translateY(-2px);
-        }
-        
-        .card-flat {
-            background-color: white;
-            border: 1px solid hsl(220 13% 91%);
-            border-radius: 0.75rem;
-            padding: 2rem;
-        }
-        
-        .input, .textarea {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            border: 1px solid hsl(220 13% 91%);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            transition: all 0.2s;
-            font-family: inherit;
-            background-color: white;
-        }
-        
-        .textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .input:focus, .textarea:focus {
-            outline: none;
-            border-color: hsl(146 55% 36%);
-            box-shadow: 0 0 0 3px hsl(146 55% 36% / 0.1);
-        }
-        
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.25rem 0.75rem;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            border-radius: 0.375rem;
-            background-color: hsl(146 55% 36% / 0.1);
-            color: hsl(146 55% 36%);
-            border: 1px solid hsl(146 55% 36% / 0.2);
-        }
-
-            .nav-fixed {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid hsl(220 13% 91%);
-        }
-
-        
-        .video-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 100;
-            background-color: rgba(0, 0, 0, 0.9);
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            animation: fadeIn 0.2s ease;
-        }
-        
-        .video-modal.active { display: flex; }
-        
-        .video-container {
-            width: 100%;
-            max-width: 1200px;
-            aspect-ratio: 16/9;
-            background-color: black;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-      
-        
-        .toast {
-            position: fixed;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: hsl(146 55% 36%);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: none;
-        }
-        
-        .toast.active {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes scaleIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.6s ease forwards;
-        }
-        
-        .section-padding {
-            padding: 5rem 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .section-padding {
-                padding: 3rem 1rem;
-            }
-        }
-        
-        .metric {
-            font-size: 2rem;
-            font-weight: 800;
-            color: hsl(146 55% 36%);
-            line-height: 1.2;
-        }
-        
-        .problem-icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            color: hsl(0 84% 60%);
-            margin-bottom: 1rem;
-        }
-        
-        .check-icon {
-            width: 1.25rem;
-            height: 1.25rem;
-            color: hsl(146 55% 36%);
-            flex-shrink: 0;
-            margin-top: 0.125rem;
-        }
-        
-        .star-icon {
-            width: 1rem;
-            height: 1rem;
-            color: hsl(43 96% 56%);
-            fill: hsl(43 96% 56%);
-        }
-        
-
-       
-/* =============================
-   PRICING SECTION STYLES
-   ============================= */
-
-.pricing-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: clamp(64px, 8vw, 96px) 20px;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: clamp(32px, 6vw, 64px);
-}
-
-@media (max-width: 768px) {
-  .pricing-section {
-    grid-template-columns: 1fr;
-  }
-}
-
-.pricing-badge {
-  display: inline-block;
-  background: #2e8c4e;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 8px 14px;
-  border-radius: 999px;
-  margin-bottom: 20px;
-}
-
-.pricing-lead {
-  font-size: clamp(28px, 5vw, 46px);
-  font-weight: 800;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.pricing-sub {
-  font-size: clamp(15px, 3.5vw, 18px);
-  color: #475569;
-  max-width: 520px;
-  margin-bottom: 32px;
-}
-
-.pricing-list {
-  list-style: none;
-  margin-bottom: 40px;
-}
-
-.pricing-list li {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 16px;
-  font-size: 15px;
-}
-
-.pricing-check {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 2px solid #2e8c4e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  color: #2e8c4e;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.pricing-cta {
-  display: inline-block;
-  background: linear-gradient(180deg, #2e8c4e, #276f40);
-  color: #fff;
-  padding: 16px 28px;
-  border-radius: 14px;
-  font-weight: 700;
-  text-decoration: none;
-  box-shadow: 0 10px 30px rgba(46, 140, 78, 0.35);
-}
-
-/* =============================
-   PRICING SIDECARD
-   ============================= */
-
-.pricing-card {
-  background: linear-gradient(180deg, #ffffff, #f9fafb);
-  border-radius: 24px;
-  padding: clamp(24px, 5vw, 40px);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
-}
-
-.pricing-card h3 {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #475569;
-  margin-bottom: 16px;
-}
-
-.pricing-range {
-  font-size: clamp(22px, 4vw, 30px);
-  font-weight: 800;
-  margin-bottom: 16px;
-}
-
-.pricing-meta {
-  font-size: 14px;
-  color: #475569;
-  margin-bottom: 24px;
-}
-
-.pricing-card ul {
-  list-style: none;
-  margin-top: 16px;
-}
-
-.pricing-card li {
-  font-size: 15px;
-  margin-bottom: 10px;
-}
-
-.pricing-timeline {
-  margin-top: 28px;
-  font-size: 15px;
-  color: #475569;
-}
-
-/* =============================
-   FLOATING ROI PILL
-   ============================= */
-
-.roi-cta-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-}
-
-.roi-calc {
-  width: auto;          /* remove full-width */
-  min-width: 240px;     /* keeps it strong */
-  max-width: 100%;
-  text-align: center;
-  padding: 16px 28px;
-  border-radius: 999px;
-}
-
-
-#roi-pill {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #2e8c4e;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 20px 40px rgba(46, 140, 78, 0.45);
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-#roi-pill::after{
-      content:"ROI";
-      position:absolute;
-      bottom:-6px;
-      right:-6px;
-      background:#0f172a;
-      color:#fff;
-      font-size:10px;
-      font-weight:700;
-      padding:4px 6px;
-      border-radius:999px;
-      box-shadow:0 6px 16px rgba(15,23,42,.4);
+      .hero { padding-top: 100px; padding-bottom: 60px; }
     }
 
-/* =============================
-   ROI OVERLAY + MODAL
-   ============================= */
-
-.roi-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(6px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 80;
-  padding: 24px;
-}
-
-.roi-overlay.active {
-  display: flex;
-}
-
-.roi-modal {
-  background: linear-gradient(180deg, #ffffff, #f8fafc);
-  width: 100%;
-  max-width: 500px;
-  border-radius: 20px;
-  padding: 28px;
-  position: relative;
-  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.4);
-}
-
-.roi-close {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  border: none;
-  background: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #64748b;
-}
-
-.roi-fields label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 18px;
-}
-
-.roi-fields input[type="range"] {
-  width: 100%;
-  margin-top: 10px;
-  accent-color: #2e8c4e;
-}
-
-.roi-values {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 24px;
-  text-align: center;
-}
-
-@media (max-width: 520px) {
-  .roi-values {
-    grid-template-columns: 1fr;
-  }
-}
-
-.roi-box {
-  background: linear-gradient(180deg, #ffffff, #f8fafc);
-  border-radius: 16px;
-  padding: 18px 12px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-}
-
-.roi-box strong {
-  display: block;
-  font-size: 22px;
-  color: #2e8c4e;
-}
-
-.roi-calc {
-  width: 100%;
-  margin-top: 22px;
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  background: #2e8c4e;
-  color: #fff;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-
-
-
-        /* Reviews Carousel */
-.reviews-carousel {
-  position: relative;
-  overflow: hidden;
-}
-
-.reviews-track {
-  display: flex;
-  gap: 24px;
-  width: max-content;
-  animation: reviewScroll 45s linear infinite;
-}
-
-.reviews-carousel:hover .reviews-track {
-  animation-play-state: paused;
-}
-
-/* Individual review width */
-.review-card {
-  min-width: 360px;
-  max-width: 360px;
-}
-
-/* Soft edge fade */
-.reviews-carousel::before,
-.reviews-carousel::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 80px;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.reviews-carousel::before {
-  left: 0;
-  background: linear-gradient(to right, white, transparent);
-}
-
-.reviews-carousel::after {
-  right: 0;
-  background: linear-gradient(to left, white, transparent);
-}
-
-/* Animation */
-@keyframes reviewScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-/* Mobile behavior */
-@media (max-width: 768px) {
-
-.reviews-carousel {
-    overflow: hidden;
-  }
-
-  /* Remove soft edge fades */
-  .reviews-carousel::before,
-  .reviews-carousel::after {
-    display: none;
-  }
-
-  /* Keep auto-scroll */
-  .reviews-track {
-    display: flex;
-    gap: 0;
-    width: max-content;
-    animation: reviewScroll 60s linear infinite;
-    overflow: visible;
-  }
-
-  /* One full card at a time */
-.review-card {
-    width: 90vw;
-    max-width: 90vw;
-    min-width: 90vw;
-    margin: 0 auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    box-sizing: border-box;
-  }
-
-.review-card p {
-    font-size: 0.95rem;
-    line-height: 1.55;
-    max-width: 34ch;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-}
-
-
-
-        /* =====================================================
-           MOBILE SIDEBAR MENU
-        ====================================================== */
-        .mobile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.55);
-            backdrop-filter: blur(6px);
-            z-index: 90;
-            display: none;
-        }
-
-        .mobile-overlay.active {
-            display: block;
-        }
-
-        .mobile-sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100%;
-            width: 85%;
-            max-width: 320px;
-            background: white;
-            z-index: 100;
-            padding: 24px;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mobile-sidebar.active {
-            transform: translateX(0);
-        }
-
-        .mobile-sidebar a {
-            padding: 14px 0;
-            font-size: 16px;
-            font-weight: 600;
-            border-bottom: 1px solid hsl(var(--border));
-        }
-
-      /* =====================================================
-   MOBILE SPACING OPTIMIZATION
-   ===================================================== */
-@media (max-width: 768px) {
-
-  /* Reduce vertical padding without collapsing sections */
-  .section-padding {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-
-  /* Cards: tighter but breathable */
-  .card,
-  .card-flat {
-    padding: 1.25rem;
-  }
-
-  /* Headings spacing */
-  h1 {
-    margin-bottom: 1rem;
-  }
-
-  h2 {
-    margin-bottom: 0.75rem;
-  }
-
-  /* Paragraph rhythm */
-  p {
-    margin-bottom: 0.75rem;
-  }
-}
-
-
-      /* =====================================================
-   MOBILE TAP TARGET IMPROVEMENTS
-   ===================================================== */
-@media (max-width: 768px) {
-
-  /* Buttons: larger tap area */
-  .btn,
-  .pricing-cta,
-  .roi-calc {
-    min-height: 48px;
-    padding: 0.875rem 1.25rem;
-    font-size: 1rem;
-  }
-
-  /* Mobile menu links */
-  .mobile-sidebar a {
-    padding: 16px 0;
-    font-size: 16px;
-  }
-
-  /* Form inputs */
-  .input,
-  .textarea {
-    min-height: 48px;
-    font-size: 16px; /* prevents iOS zoom */
-  }
-
-  /* Range sliders */
-  input[type="range"] {
-    height: 32px;
-  }
-}
-
-
-      /* =====================================================
-   MOBILE TYPOGRAPHY SCALE
-   ===================================================== */
-@media (max-width: 768px) {
-
-h1 {
-    font-size: clamp(1.2rem, 5.5vw, 1.3rem);
-    line-height: 1.25;
-  }
-
-
-  h3 {
-    font-size: 1.1rem;
-  }
-
-  p,
-  li,
-  span {
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .metric {
-    font-size: 1.1rem;
-  }
-}
-
-
-      /* =====================================================
-   MOBILE CTA OPTIMIZATION
-   ===================================================== */
-@media (max-width: 768px) {
-
-  /* Primary CTA section */
-  #audit .card-flat {
-    padding: 1.25rem;
-  }
-
-  #audit button {
-    position: sticky;
-    bottom: 12px;
-    z-index: 5;
-  }
-}
-
-
-      /* =====================================================
-   ROI CALCULATOR — MOBILE FIXES
-   ===================================================== */
-@media (max-width: 768px) {
-
-  .roi-overlay {
-    align-items: flex-start;
-    padding-top: 10vh;
-    padding-bottom: 10vh;
-  }
-
-  .roi-modal {
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 20px;
-  }
-
-  .roi-fields label {
-    font-size: 13px;
-    margin-bottom: 14px;
-  }
-
-  .roi-box strong {
-    font-size: 18px;
-  }
-
-  .roi-box span {
-    font-size: 14px;
-  }
-
-  .roi-values {
-    gap: 12px;
-  }
-
-  .roi-calc {
-    font-size: 15px;
-    padding: 14px;
-  }
-}
-
-
-
-        /* =====================================================
-   FIX: TOP BAR + MOBILE SIDEBAR VISIBILITY ONLY
-   ===================================================== */
-
-/* Hide desktop nav on mobile */
-@media (max-width: 768px) {
-  .desktop-only {
-    display: none !important;
-  }
-}
-
-/* Restore layout on mobile (undo negative margins) */
-@media (max-width: 768px) {
-  .nav-fixed a[style],
-  .nav-fixed .desktop-only[style] {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-   
-}
-
-
-
-    </style>
+    /* ============================================
+       SOCIAL PROOF BAR
+    ============================================ */
+    .proof-bar {
+      background: var(--green);
+      padding: 14px 0;
+      overflow: hidden;
+    }
+
+    .proof-bar__track {
+      display: flex;
+      gap: 48px;
+      width: max-content;
+      animation: marquee 30s linear infinite;
+      align-items: center;
+    }
+
+    .proof-bar__item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.9);
+      white-space: nowrap;
+    }
+
+    .proof-bar__item svg {
+      color: rgba(255,255,255,.6);
+      flex-shrink: 0;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ============================================
+       PROBLEM SECTION
+    ============================================ */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .problem-item {
+      padding: 24px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .problem-item__icon {
+      width: 36px; height: 36px;
+      color: #dc2626;
+      margin-bottom: 12px;
+    }
+
+    .problem-item h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .problem-item p {
+      font-size: .875rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    @media (max-width: 860px) { .problem-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) { .problem-grid { grid-template-columns: 1fr; } }
+
+    /* ============================================
+       WORK / CASE STUDIES
+    ============================================ */
+    .work-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .work-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+      border-color: rgba(30,122,69,.2);
+    }
+
+    .work-card__thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .work-card__thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .work-card:hover .work-card__thumb img { transform: scale(1.04); }
+
+    .work-card__play {
+      position: absolute;
+      inset: 0;
+      background: rgba(13,31,20,.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .work-card__play-btn {
+      width: 52px; height: 52px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(30,122,69,.5);
+      transition: transform .2s;
+    }
+    .work-card:hover .work-card__play-btn { transform: scale(1.1); }
+
+    .work-card__body { padding: 24px; }
+
+    .work-card__label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .work-card__title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .work-card__before-after {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: .85rem;
+      margin-bottom: 16px;
+    }
+
+    .work-card__before span:first-child { color: #dc2626; font-weight: 700; }
+    .work-card__after span:first-child { color: var(--green); font-weight: 700; }
+    .work-card__before span:last-child,
+    .work-card__after span:last-child { color: var(--ink-soft); }
+
+    .work-card__result {
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .work-card__metric {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .work-card__metric-label {
+      font-size: .8rem;
+      color: var(--ink-soft);
+    }
+
+    .works-cta {
+      text-align: center;
+      margin-top: 44px;
+    }
+
+    /* ============================================
+       SERVICES / WHAT WE BUILD
+    ============================================ */
+    .service-card {
+      padding: 28px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      transition: var(--transition);
+    }
+    .service-card:hover {
+      border-color: var(--green);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .service-card__icon {
+      width: 44px; height: 44px;
+      background: var(--green-light);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--green);
+    }
+
+    .service-card__icon svg { width: 22px; height: 22px; }
+
+    .service-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      font-size: .875rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .service-card__outcome {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    /* ============================================
+       REVIEWS CAROUSEL
+    ============================================ */
+    .reviews-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reviews-wrap::before,
+    .reviews-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 100px; height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .reviews-wrap::before { left: 0; background: linear-gradient(to right, var(--stone), transparent); }
+    .reviews-wrap::after  { right: 0; background: linear-gradient(to left, var(--stone), transparent); }
+
+    .reviews-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: reviewScroll 48s linear infinite;
+    }
+    .reviews-wrap:hover .reviews-track { animation-play-state: paused; }
+
+    @keyframes reviewScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .review-card {
+      min-width: 340px;
+      max-width: 340px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .review-card--featured {
+      border-color: rgba(30,122,69,.3);
+      background: var(--green-light);
+    }
+
+    .review-card__stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 10px;
+    }
+
+    .review-card__stars svg {
+      width: 14px; height: 14px;
+      color: #f59e0b;
+      fill: #f59e0b;
+    }
+
+    .review-card__headline {
+      font-size: .9rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .review-card__body {
+      font-size: .875rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .review-card__author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .review-card__author-logo {
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      object-fit: contain;
+      border: 1px solid var(--border);
+      background: white;
+      padding: 2px;
+      flex-shrink: 0;
+    }
+
+    .review-card__author-name {
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .review-card__author-source {
+      font-size: .75rem;
+      color: var(--ink-soft);
+    }
+
+    .tp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .72rem;
+      font-weight: 700;
+      color: #00b67a;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .reviews-wrap::before,
+      .reviews-wrap::after { display: none; }
+      .review-card { min-width: 85vw; max-width: 85vw; }
+    }
+
+    /* ============================================
+       PROCESS
+    ============================================ */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(12.5% + 14px);
+      right: calc(12.5% + 14px);
+      height: 2px;
+      background: linear-gradient(to right, var(--green-light), var(--green), var(--green-light));
+    }
+
+    .process-step {
+      text-align: center;
+      padding: 0 16px;
+      position: relative;
+    }
+
+    .process-step__num {
+      width: 56px; height: 56px;
+      background: var(--green);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 0 6px var(--stone);
+    }
+
+    .process-step h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .process-step p {
+      font-size: .83rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    @media (max-width: 640px) {
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .process-steps::before { display: none; }
+      .process-step__num { box-shadow: none; }
+    }
+
+    /* ============================================
+       PRICING
+    ============================================ */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .pricing-left__start {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    .pricing-left__heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .pricing-left__sub {
+      font-size: .95rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .pricing-right {
+      background: linear-gradient(160deg, #fff 0%, var(--stone) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .pricing-right__label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+
+    .pricing-right__range {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      margin-bottom: 8px;
+    }
+
+    .pricing-right__meta {
+      font-size: .85rem;
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+    }
+
+    .pricing-right__list {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .pricing-right__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .875rem;
+      margin-bottom: 10px;
+      color: var(--ink-soft);
+    }
+
+    .pricing-right__list li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .pricing-right__timeline {
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: .85rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================
+       ROI PILL + MODAL
+    ============================================ */
+    #roi-pill {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--green);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(30,122,69,.45);
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    #roi-pill:hover { transform: scale(1.08); }
+
+    #roi-pill::after {
+      content: "ROI";
+      position: absolute;
+      bottom: -6px; right: -6px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 3px 6px;
+      border-radius: 999px;
+    }
+
+    .roi-overlay {
+      position: fixed; inset: 0;
+      background: rgba(13,31,20,.6);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 80;
+      padding: 24px;
+    }
+    .roi-overlay.active { display: flex; }
+
+    .roi-modal {
+      background: var(--white);
+      width: 100%;
+      max-width: 480px;
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .roi-close {
+      position: absolute;
+      top: 16px; right: 20px;
+      background: none; border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--ink-soft);
+    }
+
+    .roi-fields label {
+      display: block;
+      font-size: .875rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: var(--ink);
+    }
+
+    .roi-fields input[type="range"] {
+      width: 100%;
+      margin-top: 8px;
+      accent-color: var(--green);
+    }
+
+    .roi-values {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .roi-box {
+      background: var(--stone);
+      border-radius: var(--radius-md);
+      padding: 16px 10px;
+      text-align: center;
+    }
+
+    .roi-box strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--green);
+      margin-bottom: 4px;
+    }
+
+    .roi-box span {
+      font-size: .75rem;
+      color: var(--ink-soft);
+    }
+
+    .roi-cta {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      background: var(--green);
+      color: white;
+      font-weight: 700;
+      font-size: .95rem;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .roi-cta:hover { background: #175e34; }
+
+    @media (max-width: 520px) {
+      .roi-values { grid-template-columns: 1fr; }
+      .roi-modal { padding: 24px 20px; }
+    }
+
+    /* ============================================
+       WHY US
+    ============================================ */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .why-item {
+      padding: 24px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .why-item__icon {
+      width: 32px; height: 32px;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    .why-item h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .why-item p {
+      font-size: .875rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 540px) { .why-grid { grid-template-columns: 1fr; } }
+
+    /* ============================================
+       CALENDLY CTA SECTION
+    ============================================ */
+    .cta-section {
+      background: var(--stone);
+    }
+
+    .cta-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .cta-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .cta-header p {
+      max-width: 520px;
+      margin: 12px auto 0;
+    }
+
+    .calendly-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .cta-founder-strip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .cta-founder-strip img {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+    }
+
+    .cta-founder-strip p {
+      font-size: .875rem;
+      color: var(--ink-soft);
+    }
+
+    /* ============================================
+       FAQ
+    ============================================ */
+    .faq-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .faq-item__trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      gap: 16px;
+    }
+
+    .faq-item__trigger span:first-child {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .faq-item__icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--green-light);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: transform .2s;
+    }
+
+    .faq-item.open .faq-item__icon { transform: rotate(45deg); }
+
+    .faq-item__answer {
+      padding: 0 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s ease;
+    }
+
+    .faq-item.open .faq-item__answer {
+      max-height: 200px;
+      padding: 0 24px 20px;
+    }
+
+    .faq-item__answer p {
+      font-size: .9rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.7);
+      padding: 64px 0 32px;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer__brand { }
+
+    .footer__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .footer__logo img { width: 28px; height: 28px; }
+    .footer__logo span { font-weight: 700; color: white; font-size: 1rem; }
+
+    .footer__tagline {
+      font-size: .875rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      max-width: 240px;
+    }
+
+    .footer__socials {
+      display: flex;
+      gap: 10px;
+    }
+
+    .footer__social-link {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.6);
+      transition: var(--transition);
+    }
+    .footer__social-link:hover {
+      background: var(--green);
+      color: white;
+    }
+
+    .footer__col h4 {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 16px;
+    }
+
+    .footer__col ul { list-style: none; }
+    .footer__col li { margin-bottom: 10px; }
+    .footer__col a {
+      font-size: .875rem;
+      color: rgba(255,255,255,.6);
+      transition: color .18s;
+    }
+    .footer__col a:hover { color: white; }
+
+    .footer__bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: .8rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer__grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer__bottom { flex-direction: column; text-align: center; }
+    }
+
+    /* ============================================
+       VIDEO MODAL
+    ============================================ */
+    .video-modal {
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 300;
+      background: rgba(0,0,0,.92);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: fadeIn .2s ease;
+    }
+    .video-modal.active { display: flex; }
+
+    .video-modal__inner {
+      width: 100%;
+      max-width: 1100px;
+      aspect-ratio: 16/9;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      animation: scaleIn .3s ease;
+    }
+
+    .video-modal__inner iframe { width: 100%; height: 100%; }
+
+    /* ============================================
+       TOAST
+    ============================================ */
+    .toast {
+      position: fixed;
+      top: 80px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--green);
+      color: white;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-size: .9rem;
+      font-weight: 600;
+      z-index: 500;
+      display: none;
+      box-shadow: var(--shadow-lg);
+    }
+    .toast.active { display: block; animation: slideDown .3s ease; }
+
+    /* ============================================
+       ANIMATIONS
+    ============================================ */
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes scaleIn { from{transform:scale(.95);opacity:0} to{transform:scale(1);opacity:1} }
+    @keyframes slideDown {
+      from{opacity:0;transform:translateX(-50%) translateY(-14px)}
+      to{opacity:1;transform:translateX(-50%) translateY(0)}
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================
+       MOBILE TWEAKS
+    ============================================ */
+    @media (max-width: 768px) {
+      .section { padding: clamp(48px,8vw,72px) 0; }
+      .btn-lg { padding: 15px 28px; }
+      .process-steps::before { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .hero__actions { flex-direction: column; align-items: stretch; }
+      .hero__actions .btn { text-align: center; }
+    }
+  </style>
 </head>
 <body>
-    <main>
 
-        
-    <div id="toast" class="toast"></div>
-    
-     
-<!-- =====================================================
-     MOBILE NAV OVERLAY
-====================================================== -->
+<div id="toast" class="toast"></div>
+
+<!-- Mobile overlay & drawer -->
 <div id="mobile-overlay" class="mobile-overlay" onclick="closeMobileMenu()"></div>
-
-<!-- =====================================================
-     MOBILE SIDEBAR MENU
-====================================================== -->
-<aside id="mobile-menu" class="mobile-sidebar">
-
-  <!-- Logo + close -->
-  <div class="flex items-center justify-between mb-6">
-    <a href="#" class="flex items-center gap-2" onclick="closeMobileMenu()">
-      <img
-        src="https://packdez.com/assets/logo/packdez-logo-512x512.png"
-        alt="Packdez"
-        class="h-8 w-8"
-      />
-      <span class="text-xl font-bold">Packdez</span>
+<aside id="mobile-drawer" class="mobile-drawer">
+  <div class="mobile-drawer__head">
+    <a href="https://packdez.com/" class="nav__logo" onclick="closeMobileMenu()">
+      <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez">
+      <span>Packdez</span>
     </a>
-
-    <button onclick="closeMobileMenu()" aria-label="Close menu" class="text-2xl font-bold">
-      ×
-    </button>
+    <button onclick="closeMobileMenu()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--ink)">×</button>
   </div>
-
-  <!-- Nav links -->
   <a href="/works" onclick="closeMobileMenu()">Projects</a>
+  <a href="#services" onclick="closeMobileMenu()">What We Build</a>
   <a href="#pricing" onclick="closeMobileMenu()">Pricing</a>
   <a href="#reviews" onclick="closeMobileMenu()">Reviews</a>
   <a href="/about" onclick="closeMobileMenu()">About</a>
-
-  <a href="#audit" onclick="closeMobileMenu()" class="mt-6 btn btn-primary">
-    Get your plan
-  </a>
-
+  <a href="#book" onclick="closeMobileMenu()" class="btn btn-primary" style="margin-top:24px;text-align:center;">Book a free call</a>
 </aside>
 
-
-<!-- =====================================================
-     FIXED NAVIGATION BAR
-====================================================== -->
-<nav class="nav-fixed">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="flex items-center justify-between h-16">           
-
-      <!-- Logo -->
-        <a href="https://packdez.com/" class="flex items-center gap-2">
-                    <img 
-                        src="https://packdez.com/assets/logo/packdez-logo-512x512.png" 
-                        loading="lazy"
-                        alt="Packdez"
-                        class="h-8 w-8"
-                    />
-                    <span class="text-xl font-bold">Packdez</span>
-                </a>
-
-      <!-- Desktop links -->
-                <div class="desktop-only flex items-center gap-6" style="margin-right:-90px;">
-                    <a href="/works" class="text-sm font-medium text-muted-foreground hover:text-primary">Projects</a>
-                    <a href="#pricing" class="text-sm font-medium text-muted-foreground hover:text-primary">Pricing</a>
-                    <a href="#reviews" class="text-sm font-medium text-muted-foreground hover:text-primary">Reviews</a>
-                    <a href="/about" class="text-sm font-medium text-muted-foreground hover:text-primary">About</a>
-                    <a href="#audit" class="btn btn-primary ml-auto mr-10" style="padding: 0.5rem 1.25rem;">Get your plan</a>
-                </div>
-
-      <!-- Mobile hamburger -->
-        <button class="flex md:hidden" onclick="toggleMobileMenu()" aria-label="Open menu">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
-
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="https://packdez.com/" class="nav__logo">
+      <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez">
+      <span>Packdez</span>
+    </a>
+    <div class="nav__links">
+      <a href="/works">Projects</a>
+      <a href="#services">What We Build</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#reviews">Reviews</a>
+      <a href="/about">About</a>
     </div>
+    <div class="nav__cta">
+      <a href="#book" class="btn btn-primary btn-sm">Book a free call</a>
+    </div>
+    <button class="nav__hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
   </div>
 </nav>
 
+<!-- ============================================
+     HERO
+============================================ -->
+<section class="hero">
+  <div class="hero__inner">
 
-   
-    <!-- Hero Section -->
-    <section class="section-padding" style="padding-top: 10rem; padding-bottom: 6rem;">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="text-center fade-in">
-
-                <h1 class="text-[34px] md:text-6xl font-black mb-6 leading-tight tracking-[-0.02em]">
-                  From spreadsheets <br> to reliable systems
-                </h1>
-
-                <p class="text-[17px] md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-[1.5]">
-                We clean up and automate Google Sheets so growing teams reduce manual work and don’t depend on one person - without changing tools.
-                </p>
-
-                
-                <a href="#audit" class="btn btn-primary text-lg">
-                    Get your automation plan
-                </a>
-
-                <p class="text-sm text-muted-foreground mt-4">
-                    ⏰ Clear scope in 24 hours · ❌ No obligation
-                </p>
-
-            </div>
-        </div>
-    </section>
-    
-    
-    <!-- Problem Awareness -->
-    <section class="section-padding bg-muted">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-              Your spreadsheets work - until they don’t
-            </h2>
-                <p class="text-[17px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-                  Google Sheets is powerful. Without structure, it quietly becomes a bottleneck.
-                </p>
-               
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="card-flat">
-                    <i data-lucide="copy" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Manual data entry</h3>
-                    <p class="text-muted-foreground">Data lives in Stripe, your CRM, and email - someone moves it by hand.</p>
-                </div>
-                
-                <div class="card-flat">
-                    <i data-lucide="alert-triangle" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Broken formulas & versions</h3>
-                    <p class="text-muted-foreground">A formula changes. Copies multiply. No one trusts the numbers.</p>
-                </div>
-                
-                <div class="card-flat">
-                    <i data-lucide="file-text" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Reports rebuilt every week</h3>
-                    <p class="text-muted-foreground">The same reports are rebuilt again and again instead of updating automatically.</p>
-                </div>
-                
-                <div class="card-flat">
-                    <i data-lucide="eye-off" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Always behind</h3>
-                    <p class="text-muted-foreground">You see what happened after the Sheet is updated - not in real time.</p>
-                </div>
-                
-                <div class="card-flat">
-                    <i data-lucide="trending-down" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Breaks under growth</h3>
-                    <p class="text-muted-foreground">What worked at 100 rows breaks at 1,000.</p>
-                </div>
-                
-                <div class="card-flat">
-                    <i data-lucide="users" class="problem-icon"></i>
-                    <h3 class="text-lg font-bold mb-2">Single person dependency</h3>
-                    <p class="text-muted-foreground">Only one person understands the Sheet. When they’re out, work stalls.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- What We Do -->
-    <section class="section-padding">
-        <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-                What we build for growing teams
-            </h2>
-            <p class="text-[16px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-                Practical internal systems - built inside Google Sheets.
-            </p>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div style="width: 3rem; height: 3rem; background-color: hsl(146 55% 36% / 0.1); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i data-lucide="bar-chart-3" style="width: 1.5rem; height: 1.5rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2">Automated reporting</h3>
-                            <p class="text-muted-foreground mb-3">
-                                Live data pulls automatically from your tools - no rebuilding reports by hand.
-                            </p>
-                            <p class="text-sm font-medium">
-                                Result: 6 hours/week → 15 minutes/week
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div style="width: 3rem; height: 3rem; background-color: hsl(146 55% 36% / 0.1); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i data-lucide="repeat" style="width: 1.5rem; height: 1.5rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2">Automated operations</h3>
-                            <p class="text-muted-foreground mb-3"> 
-                                Leads, orders, inventory, and onboarding run automatically instead of manually.
-                            </p>
-                            <p class="text-sm font-medium">
-                                Outcome: Fewer errors · Faster processing
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div style="width: 3rem; height: 3rem; background-color: hsl(146 55% 36% / 0.1); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i data-lucide="file-check" style="width: 1.5rem; height: 1.5rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2">Internal tools in Sheets</h3>
-                            <p class="text-muted-foreground mb-3">
-                                Custom Apps Script tools for internal workflows - built directly into Sheets.
-                            </p>
-                            <p class="text-sm font-medium">
-                                Result: Fewer tools to manage
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div style="width: 3rem; height: 3rem; background-color: hsl(146 55% 36% / 0.1); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i data-lucide="zap" style="width: 1.5rem; height: 1.5rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold mb-2">Live integrations</h3>
-                            <p class="text-muted-foreground mb-3">
-                                Real time sync between Sheets and tools like Stripe, Slack, or your CRM.
-                            </p>
-                            <p class="text-sm font-medium">
-                                Outcome: Always up to date data
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Proof / Work Examples -->
-    <section id="work" class="section-padding bg-muted">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-                Before → After. Measurable results.
-            </h2>
-            <p class="text-[16px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-                Real systems. Real operational impact.
-            </p>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card" style="padding: 0; overflow: hidden;">
-                    <div class="relative aspect-video cursor-pointer" onclick="openVideo('HsMaIpEOlF4')">
-                        <img 
-                            src="https://img.youtube.com/vi/HsMaIpEOlF4/maxresdefault.jpg"
-                            loading="lazy"
-                            alt="Email CRM System"
-                            class="w-full h-full object-cover"
-                            style="transition: transform 0.3s;"
-                            onmouseover="this.style.transform='scale(1.05)'"
-                            onmouseout="this.style.transform='scale(1)'"
-                        />
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center">
-                                <i data-lucide="play" class="w-6 h-6 text-white" style="margin-left: 2px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 class="text-lg font-bold mb-2">Email web app</h3>
-                        <div class="space-y-2 text-sm">
-                            <div>
-                                <span class="font-semibold" style="color: hsl(0 84% 60%);">Before:</span>
-                                <span class="text-muted-foreground"> Campaign tracking across multiple tools.</span>
-                            </div>
-                            <div>
-                                <span class="font-semibold">After:</span>
-                                <span class="text-muted-foreground"> A single in/outbound email system.</span>
-                            </div>
-                            <div class="pt-2 border-t border-border">
-                                <span class="font-bold">Result: </span>
-                                <span class="metric" style="font-size: 1.2rem;">$3,600/year saved</span>
-                                <span class="text-sm text-muted-foreground block">Software costs removed.</span>
-                            </div>
-                          
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card" style="padding: 0; overflow: hidden;">
-                    <div class="relative aspect-video cursor-pointer" onclick="openVideo('4fjE3eJ01T4')">
-                        <img 
-                            src="https://img.youtube.com/vi/4fjE3eJ01T4/maxresdefault.jpg"
-                            loading="lazy"
-                            alt="Invoice System"
-                            class="w-full h-full object-cover"
-                            style="transition: transform 0.3s;"
-                            onmouseover="this.style.transform='scale(1.05)'"
-                            onmouseout="this.style.transform='scale(1)'"
-                        />
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center">
-                                <i data-lucide="play" class="w-6 h-6 text-white" style="margin-left: 2px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 class="text-lg font-bold mb-2">Invoice generator</h3>
-                        <div class="space-y-2 text-sm">
-                            <div>
-                                <span class="font-semibold" style="color: hsl(0 84% 60%);">Before:</span>
-                                <span class="text-muted-foreground">Each invoice took 2 hours to prepare.</span>
-                            </div>
-                            <div>
-                                <span class="font-semibold">After:</span>
-                                <span class="text-muted-foreground"> One click, branded PDF invoices.</span>
-                            </div>
-                            <div class="pt-2 border-t border-border">
-                                <span class="font-bold">Result: </span>
-                                <span class="metric" style="font-size: 1.2rem;">2 minutes per invoice</span>
-                                <span class="text-sm text-muted-foreground block">Previously ~2 hours.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card" style="padding: 0; overflow: hidden;">
-                    <div class="relative aspect-video cursor-pointer" onclick="openVideo('-svuBj0WpkE')">
-                        <img 
-                            src="https://img.youtube.com/vi/-svuBj0WpkE/maxresdefault.jpg"
-                            loading="lazy"
-                            alt="Healthcare Dashboard"
-                            class="w-full h-full object-cover"
-                            style="transition: transform 0.3s;"
-                            onmouseover="this.style.transform='scale(1.05)'"
-                            onmouseout="this.style.transform='scale(1)'"
-                        />
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                            <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center">
-                                <i data-lucide="play" class="w-6 h-6 text-white" style="margin-left: 2px;"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="padding: 1.5rem;">
-                        <h3 class="text-lg font-bold mb-2">Operations dashboard</h3>
-                        <div class="space-y-2 text-sm">
-                            <div>
-                                <span class="font-semibold" style="color: hsl(0 84% 60%);">Before:</span>
-                                <span class="text-muted-foreground"> Patient data across three systems.</span>
-                            </div>
-                            <div>
-                                <span class="font-semibold">After:</span>
-                                <span class="text-muted-foreground"> One real time Looker Studio dashboard.</span>
-                            </div>
-                            <div class="pt-2 border-t border-border">
-                                <span class="font-bold">Result: </span>
-                                <span class="metric" style="font-size: 1.2rem;">100% data accuracy</span>
-                                <span class="text-sm text-muted-foreground block">Instant visibility</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Reviews Section -->
-<section id="reviews" class="section-padding">
-  <div class="max-w-6xl mx-auto px-4">
-    
-    <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-      Proven results 
-    </h2>
-    <p class="text-[16px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-      Feedback from founders and operations teams.
-    </p>
-
-    <!-- Carousel Wrapper -->
-    <div class="reviews-carousel">
-      <div class="reviews-track">
-
-       <!-- Review 1 — Verified Trustpilot -->
-<div class="card-flat review-card" style="border: 1.5px solid hsl(146 55% 36% / 0.25); position: relative;">
-
-  <!-- Trustpilot badge -->
-  <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 14px;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="#00b67a"><path d="M12 0L14.9 8.8H24L16.8 14.2L19.7 23L12 17.7L4.3 23L7.2 14.2L0 8.8H9.1Z"/></svg>
-    <span style="font-size: 12px; font-weight: 700; color: #00b67a;">Verified on Trustpilot</span>
-  </div>
-
-  <div class="flex gap-1 mb-3">
-    <i data-lucide="star" class="star-icon"></i>
-    <i data-lucide="star" class="star-icon"></i>
-    <i data-lucide="star" class="star-icon"></i>
-    <i data-lucide="star" class="star-icon"></i>
-    <i data-lucide="star" class="star-icon"></i>
-  </div>
-
-  <p class="font-bold text-sm mb-2">Top notch developer!</p>
-
-  <p class="text-muted-foreground mb-6" style="line-height: 1.6;">
-    "Top notch developer and highly experienced! Highly recommend Raphael's development services!"
-  </p>
-
-  <div class="flex items-center gap-3">
-    <img
-      src="https://airglitz.com.au/wp-content/uploads/2024/03/airglitz-logo.png"
-      alt="Airglitz"
-      style="width: 36px; height: 36px; border-radius: 6px; object-fit: contain; border: 1px solid hsl(var(--border)); padding: 3px; background: white;"
-      onerror="this.style.display='none'"
-    />
+    <!-- Left -->
     <div>
-      <p class="font-bold text-sm">— Moe, Airglitz</p>
-      <p class="text-sm text-muted-foreground">airglitz.com.au · via Trustpilot · Feb 2026</p>
+      <div class="hero__eyebrow">
+        <div class="hero__eyebrow-dot"></div>
+        <span class="overline">Google Sheets · Apps Script · Internal Tools</span>
+      </div>
+
+      <h1 class="display hero__title">
+        Stop rebuilding<br>the same reports.<br>
+        <em>Automate it once.</em>
+      </h1>
+
+      <p class="hero__subtitle">
+        I build custom Google Sheets systems for small service businesses — bookings, payments, admin, and reporting — that run themselves. No new software. No subscriptions. Just reliable systems your team can actually use.
+      </p>
+
+      <div class="hero__actions">
+        <a href="#book" class="btn btn-primary btn-lg">Book a free 20-min call</a>
+        <a href="/works" class="btn btn-ghost btn-lg">See real projects →</a>
+      </div>
+
+      <div class="hero__trust">
+        <div class="hero__trust-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          No obligation
+        </div>
+        <div class="hero__trust-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Scope in 24 hrs
+        </div>
+        <div class="hero__trust-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Live in 7–10 days
+        </div>
+      </div>
+    </div>
+
+    <!-- Right — founder card -->
+    <div class="founder-card fade-up">
+      <img
+        src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
+        alt="Raphael Levinders"
+        class="founder-card__photo"
+        onerror="this.style.display='none'"
+      />
+      <div class="founder-card__name">Raphael Levinders</div>
+      <div class="founder-card__role">Builder · Google Sheets & Apps Script Specialist</div>
+      <p class="founder-card__bio">
+        Every system is built by me directly — no outsourcing, no handoffs. I've helped service businesses, cleaning companies, and e-commerce operators remove the manual work that slows their teams down.
+      </p>
+
+      <!-- Trustpilot review inline -->
+      <div class="founder-card__review">
+        <div class="tp-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#00b67a"><path d="M12 0L14.9 8.8H24L16.8 14.2L19.7 23L12 17.7L4.3 23L7.2 14.2L0 8.8H9.1Z"/></svg>
+          Verified Trustpilot review
+        </div>
+        <div class="founder-card__stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="founder-card__quote">"Top notch developer and highly experienced! Highly recommend Raphael's development services!"</p>
+        <div class="founder-card__client">
+          <img
+            src="https://airglitz.com.au/wp-content/uploads/2024/03/airglitz-logo.png"
+            alt="Airglitz"
+            class="founder-card__client-logo"
+            onerror="this.style.display='none'"
+          />
+          <div>
+            <div class="founder-card__client-name">Moe · Airglitz</div>
+            <div class="founder-card__client-source">airglitz.com.au · Feb 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================
+     SOCIAL PROOF BAR
+============================================ -->
+<div class="proof-bar" aria-hidden="true">
+  <div class="proof-bar__track">
+    <!-- original set -->
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Bookings & scheduling automation
+    </div>
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Stripe & Square reconciliation
+    </div>
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Invoice generation in 2 minutes
+    </div>
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Operations dashboards & analytics
+    </div>
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Email CRM inside Google Sheets
+    </div>
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Delivered in 7–10 days · Fixed price
+    </div>
+    <!-- duplicate for seamless loop -->
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Bookings & scheduling automation
+    </div>
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Stripe & Square reconciliation
+    </div>
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Invoice generation in 2 minutes
+    </div>
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Operations dashboards & analytics
+    </div>
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Email CRM inside Google Sheets
+    </div>
+    <div class="proof-bar__item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Delivered in 7–10 days · Fixed price
     </div>
   </div>
 </div>
 
-        
-        <!-- Review 2 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-          <p class="font-bold text-sm">Thoughtful approach. Strong execution.</p>
+<!-- ============================================
+     PROBLEM SECTION
+============================================ -->
+<section class="section section--stone">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;" class="fade-up">
+      <span class="overline">Sound familiar?</span>
+      <h2 class="section-title" style="margin-top:10px;">Your Sheet works — until it doesn't</h2>
+      <p class="lead" style="margin-top:12px;max-width:520px;margin-left:auto;margin-right:auto;">
+        Google Sheets is powerful. Without structure and automation, it quietly becomes a liability.
+      </p>
+    </div>
 
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “Fast, detailed communication and very professional. He explored multiple approaches and delivered a solid solution. We’ll work with him again.”
-          </p>
-
-          <div class="flex items-center gap-3">
-              
-            <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-              
-            <div>
-              <p class="font-bold text-sm">— Liam, Marketing Director</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review 3 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-          <p class="font-bold text-sm">Immediate operational improvement.</p>
-
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “Raphael transformed our bookings system and made our operations significantly smoother. The automation removed manual steps and reduced errors immediately.”
-          </p>
-
-          <div class="flex items-center gap-3">
-
-             <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-              
-            <div>
-              <p class="font-bold text-sm">— Moe, Cleaning Business Owner</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review 4 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-          <p class="font-bold text-sm">Strong technical judgment.</p>
-
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “Good knowledge of Google Sheets, Looker, Shopify, and reporting workflows. Communication was clear and effective throughout.”
-          </p>
-
-          <div class="flex items-center gap-3">
-              
-            <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-              
-            <div>
-              <p class="font-bold text-sm">— Shivam, Shopify Business Owner</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review 5 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-          <p class="font-bold text-sm">Exactly what was needed.</p>
-
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “Communicative, offered good solutions to problems, and delivered exactly what was needed.”
-          </p>
-
-          <div class="flex items-center gap-3">
-              
-            <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-              
-            <div>
-              <p class="font-bold text-sm">— Tiffany, Soloprenuer</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review 6 -->
-        <div class="card-flat review-card">
-          <div class="flex gap-1 mb-4">
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-            <i data-lucide="star" class="star-icon"></i>
-          </div>
-          <p class="font-bold text-sm">Worked as intended. No surprises.</p>
-
-          <p class="text-muted-foreground mb-6" style="line-height:1.6;">
-            “I appreciated the effort put into the project. The final system worked exactly as intended.”
-          </p>
-
-          <div class="flex items-center gap-3">
-              
-            <!-- commented out photos until direct clients of Packdez
-            <img
-              src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/logo/packdez-logo-512x512.png"
-              alt="Sarah Chen"
-              class="w-10 h-10 rounded-full object-cover border border-border"
-            />
-             -->
-              
-            <div>
-              <p class="font-bold text-sm">— Shaun, Founder/Business Owner</p>
-              <p class="text-sm text-muted-foreground">via Upwork</p>
-            </div>
-          </div>
-        </div>
-
+    <div class="problem-grid">
+      <div class="problem-item fade-up">
+        <svg class="problem-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="8" width="8" height="8"/><rect x="4" y="4" width="8" height="8"/></svg>
+        <h3>Manual data entry, every day</h3>
+        <p>Data sits in Stripe, your booking app, and email — someone copies it by hand, every single day.</p>
+      </div>
+      <div class="problem-item fade-up">
+        <svg class="problem-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <h3>Broken formulas & version chaos</h3>
+        <p>One wrong edit. Three copies of the same file. Nobody knows which numbers to trust anymore.</p>
+      </div>
+      <div class="problem-item fade-up">
+        <svg class="problem-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <h3>Reports rebuilt every week</h3>
+        <p>The same report gets rebuilt from scratch every Monday instead of updating itself automatically.</p>
+      </div>
+      <div class="problem-item fade-up">
+        <svg class="problem-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <h3>One-person dependency</h3>
+        <p>Only one person understands how the Sheet works. When they're out, everything stalls.</p>
+      </div>
+      <div class="problem-item fade-up">
+        <svg class="problem-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <h3>Breaks under growth</h3>
+        <p>What worked at 50 bookings a month breaks at 300. The system doesn't scale with you.</p>
+      </div>
+      <div class="problem-item fade-up">
+        <svg class="problem-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <h3>Always a step behind</h3>
+        <p>You see what happened yesterday, not right now. Decisions get made on stale data.</p>
       </div>
     </div>
   </div>
 </section>
 
-        <!-- Who Builds This -->
-<section class="section-padding">
-  <div class="max-w-4xl mx-auto px-4">
-    <div class="card-flat" style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
-      <img
-        src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
-        alt="Raphael Levinders"
-        style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid hsl(146 55% 36% / 0.2);"
-      />
-      <div>
-        <p style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: hsl(146 55% 36%); margin-bottom: 6px;">The person building your system</p>
-        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 10px;">Raphael Levinders</h3>
-        <p class="text-muted-foreground" style="font-size: 0.95rem; line-height: 1.65; max-width: 540px;">
-          I build operational systems in Google Sheets for growing teams. Every system I deliver is built by me directly — no outsourcing, no handoffs. I've worked with service businesses, e-commerce operators, and operations teams across Australia, the US, and the UK to remove the manual work that slows their teams down.
+<!-- ============================================
+     CASE STUDIES
+============================================ -->
+<section id="work" class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;" class="fade-up">
+      <span class="overline">Real projects · Real outcomes</span>
+      <h2 class="section-title" style="margin-top:10px;">Before → After. In numbers.</h2>
+      <p class="lead" style="margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;">
+        Every project starts with a workflow that costs time or money. Here's what happens after.
+      </p>
+    </div>
+
+    <div class="grid-3">
+
+      <div class="work-card fade-up">
+        <div class="work-card__thumb" onclick="openVideo('ykFwXvWZ6lc')">
+          <img src="https://img.youtube.com/vi/ykFwXvWZ6lc/maxresdefault.jpg" loading="lazy" alt="Cleaning Admin System">
+          <div class="work-card__play">
+            <div class="work-card__play-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="work-card__body">
+          <div class="work-card__label">Cleaning Business · Admin System</div>
+          <div class="work-card__title">Cleaning & Airbnb Admin Management</div>
+          <div class="work-card__before-after">
+            <div class="work-card__before"><span>Before:</span> <span>Job scheduling, staff & payments tracked across 3+ tools.</span></div>
+            <div class="work-card__after"><span>After:</span> <span>One dashboard — scheduling, onboarding, payments.</span></div>
+          </div>
+          <div class="work-card__result">
+            <div class="work-card__metric">Zero subscriptions</div>
+            <div class="work-card__metric-label">replaced with one system</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card fade-up">
+        <div class="work-card__thumb" onclick="openVideo('4fjE3eJ01T4')">
+          <img src="https://img.youtube.com/vi/4fjE3eJ01T4/maxresdefault.jpg" loading="lazy" alt="Payments Reconciliation">
+          <div class="work-card__play">
+            <div class="work-card__play-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="work-card__body">
+          <div class="work-card__label">Payments · Reconciliation & Payslips</div>
+          <div class="work-card__title">Stripe & Square Payments System</div>
+          <div class="work-card__before-after">
+            <div class="work-card__before"><span>Before:</span> <span>Manual reconciliation across two platforms. Hours of weekly admin.</span></div>
+            <div class="work-card__after"><span>After:</span> <span>Auto-pulled transactions, fees calculated, payslips generated.</span></div>
+          </div>
+          <div class="work-card__result">
+            <div class="work-card__metric">2 min</div>
+            <div class="work-card__metric-label">vs. 2+ hours weekly</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card fade-up">
+        <div class="work-card__thumb" onclick="openVideo('HsMaIpEOlF4')">
+          <img src="https://img.youtube.com/vi/HsMaIpEOlF4/maxresdefault.jpg" loading="lazy" alt="Email CRM">
+          <div class="work-card__play">
+            <div class="work-card__play-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="work-card__body">
+          <div class="work-card__label">Communication · CRM & Inbox</div>
+          <div class="work-card__title">Unified Email CRM in Google Sheets</div>
+          <div class="work-card__before-after">
+            <div class="work-card__before"><span>Before:</span> <span>Customer emails tracked across multiple tools. Conversations lost.</span></div>
+            <div class="work-card__after"><span>After:</span> <span>Threaded inbox, contact context, and replies — all inside Sheets.</span></div>
+          </div>
+          <div class="work-card__result">
+            <div class="work-card__metric">$3,600/yr</div>
+            <div class="work-card__metric-label">software costs removed</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="works-cta fade-up">
+      <a href="/works" class="btn btn-ghost">See all 11 projects with full walkthroughs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SERVICES
+============================================ -->
+<section id="services" class="section section--stone">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;" class="fade-up">
+      <span class="overline">What I build</span>
+      <h2 class="section-title" style="margin-top:10px;">Systems that do the work for you</h2>
+      <p class="lead" style="margin-top:12px;max-width:500px;margin-left:auto;margin-right:auto;">
+        Built inside Google Sheets and Apps Script — no new tools, no training overhead, no subscriptions.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="service-card fade-up">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Bookings & Scheduling</h3>
+        <p>Job assignments, staff availability, and client bookings managed automatically — no back-and-forth.</p>
+        <div class="service-card__outcome">→ Less admin, fewer no-shows</div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <h3>Payments & Invoicing</h3>
+        <p>Pull Stripe or Square transactions, calculate fees, generate PDF invoices and payslips automatically.</p>
+        <div class="service-card__outcome">→ 2 hours of admin → 2 minutes</div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+        </div>
+        <h3>Automated Reporting</h3>
+        <p>Live reports that update themselves — weekly summaries, KPI dashboards, and data pulls without manual work.</p>
+        <div class="service-card__outcome">→ Reports that run themselves</div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Staff & Operations Admin</h3>
+        <p>Onboarding, shift tracking, performance records, and internal comms — managed in one place.</p>
+        <div class="service-card__outcome">→ One system, any team size</div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Looker Studio Dashboards</h3>
+        <p>Live analytics dashboards connected to your Sheets, Stripe, Shopify, or any data source — for you or your clients.</p>
+        <div class="service-card__outcome">→ Decisions from real data</div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <h3>API & Tool Integrations</h3>
+        <p>Connect Sheets to Stripe, Gmail, Slack, Square, HubSpot, or any tool with an API — data flows automatically.</p>
+        <div class="service-card__outcome">→ Everything in sync</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     REVIEWS
+============================================ -->
+<section id="reviews" class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;" class="fade-up">
+      <span class="overline">Client feedback</span>
+      <h2 class="section-title" style="margin-top:10px;">What clients say</h2>
+      <p class="lead" style="margin-top:12px;max-width:440px;margin-left:auto;margin-right:auto;">
+        From Upwork and Trustpilot — real clients, real projects.
+      </p>
+    </div>
+  </div>
+
+  <div class="reviews-wrap">
+    <div class="reviews-track">
+
+      <!-- Featured — Trustpilot verified -->
+      <div class="review-card review-card--featured">
+        <div class="tp-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#00b67a"><path d="M12 0L14.9 8.8H24L16.8 14.2L19.7 23L12 17.7L4.3 23L7.2 14.2L0 8.8H9.1Z"/></svg>
+          Verified on Trustpilot
+        </div>
+        <div class="review-card__stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="review-card__headline">Top notch developer!</div>
+        <p class="review-card__body">"Top notch developer and highly experienced! Highly recommend Raphael's development services!"</p>
+        <div class="review-card__author">
+          <img src="https://airglitz.com.au/wp-content/uploads/2024/03/airglitz-logo.png" alt="Airglitz" class="review-card__author-logo" onerror="this.style.display='none'">
+          <div>
+            <div class="review-card__author-name">Moe · Airglitz</div>
+            <div class="review-card__author-source">airglitz.com.au · Feb 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="review-card__headline">Immediate operational improvement.</div>
+        <p class="review-card__body">"Raphael transformed our bookings system and made our operations significantly smoother. The automation removed manual steps and reduced errors immediately."</p>
+        <div class="review-card__author">
+          <div>
+            <div class="review-card__author-name">Moe · Cleaning Business Owner</div>
+            <div class="review-card__author-source">via Upwork</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="review-card__headline">Thoughtful approach. Strong execution.</div>
+        <p class="review-card__body">"Fast, detailed communication and very professional. He explored multiple approaches and delivered a solid solution. We'll work with him again."</p>
+        <div class="review-card__author">
+          <div>
+            <div class="review-card__author-name">Liam · Marketing Director</div>
+            <div class="review-card__author-source">via Upwork</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="review-card__headline">Strong technical judgment.</div>
+        <p class="review-card__body">"Good knowledge of Google Sheets, Looker, Shopify, and reporting workflows. Communication was clear and effective throughout."</p>
+        <div class="review-card__author">
+          <div>
+            <div class="review-card__author-name">Shivam · Shopify Business Owner</div>
+            <div class="review-card__author-source">via Upwork</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="review-card__headline">Worked as intended. No surprises.</div>
+        <p class="review-card__body">"I appreciated the effort put into the project. The final system worked exactly as intended and the handover was clean."</p>
+        <div class="review-card__author">
+          <div>
+            <div class="review-card__author-name">Shaun · Founder</div>
+            <div class="review-card__author-source">via Upwork</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="review-card__headline">Exactly what was needed.</div>
+        <p class="review-card__body">"Communicative, offered good solutions to problems, and delivered exactly what was needed. Straightforward to work with."</p>
+        <div class="review-card__author">
+          <div>
+            <div class="review-card__author-name">Tiffany · Solopreneur</div>
+            <div class="review-card__author-source">via Upwork</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PROCESS
+============================================ -->
+<section id="process" class="section section--stone">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:64px;" class="fade-up">
+      <span class="overline">How it works</span>
+      <h2 class="section-title" style="margin-top:10px;">Simple. Predictable. No surprises.</h2>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step fade-up">
+        <div class="process-step__num">1</div>
+        <h3>Free call</h3>
+        <p>You show me your workflow. I tell you exactly what I'd automate and what it would cost.</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-step__num">2</div>
+        <h3>Clear scope</h3>
+        <p>Fixed price, defined deliverables, exact timeline. Nothing vague, nothing open-ended.</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-step__num">3</div>
+        <h3>Build & refine</h3>
+        <p>I build the system. You review it. We refine until it fits your workflow exactly.</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-step__num">4</div>
+        <h3>Handover</h3>
+        <p>Full documentation, walkthrough recording, and 30 days of support. It's yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PRICING
+============================================ -->
+<section id="pricing" class="section">
+  <div class="container">
+    <div class="pricing-grid">
+      <div class="fade-up">
+        <span class="overline">Pricing</span>
+        <div class="pricing-left__start" style="margin-top:10px;">Starting from <strong>$200</strong></div>
+        <h2 class="pricing-left__heading">Automation that pays for itself — fast.</h2>
+        <p class="pricing-left__sub">
+          Fixed pricing. No retainers. No hourly billing. You know the cost before we start, and I deliver in days — not months.
         </p>
+        <a href="#book" class="btn btn-primary btn-lg">Get a free scope call</a>
+      </div>
+
+      <div class="pricing-right fade-up">
+        <div class="pricing-right__label">What most projects cost</div>
+        <div class="pricing-right__range">$500 – $2,500</div>
+        <div class="pricing-right__meta">Based on workflow complexity and integrations needed</div>
+        <strong style="font-size:.85rem;">What's included:</strong>
+        <ul class="pricing-right__list">
+          <li>Full system build — no templates</li>
+          <li>API integrations (Stripe, Gmail, Slack, etc.)</li>
+          <li>Custom dashboards and reporting</li>
+          <li>Notifications, validation & error handling</li>
+          <li>Documentation and walkthrough recording</li>
+          <li>30 days post-delivery support</li>
+        </ul>
+        <div class="pricing-right__timeline">
+          <strong>Timeline:</strong> Most systems go live in 7–10 days.<br>
+          Fixed scope. No retainers. No ongoing fees.
+        </div>
       </div>
     </div>
   </div>
 </section>
-      
-    <!-- How It Works -->
-    <section id="process" class="section-padding bg-muted" style="padding-top:10rem; padding-bottom:10rem;">
-        <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-                A simple, predictable process
-            </h2>
-            <p class="text-[16px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-                Clear scope. Fixed timeline. No surprises.
-            </p>
-            
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="text-center">
-                    <div style="width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, hsl(146 55% 36%), hsl(146 65% 45%)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem; font-weight: 800;">
-                        1
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Discovery call</h3>
-                    <p class="text-sm text-muted-foreground">
-                        We review your workflow and discuss your requirements.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div style="width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, hsl(146 55% 36%), hsl(146 65% 45%)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem; font-weight: 800;">
-                        2
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Clear proposal</h3>
-                    <p class="text-sm text-muted-foreground">
-                      You get a fixed scope, clear deliverables, and timeline.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div style="width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, hsl(146 55% 36%), hsl(146 65% 45%)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem; font-weight: 800;">
-                        3
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Build & refine</h3>
-                    <p class="text-sm text-muted-foreground">
-                        We build the system and refine it around your workflow.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div style="width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg, hsl(146 55% 36%), hsl(146 65% 45%)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 1.5rem; font-weight: 800;">
-                        4
-                    </div>
-                    <h3 class="text-lg font-bold mb-2">Launch & handover</h3>
-                    <p class="text-sm text-muted-foreground">
-                      Documentation, walkthroughs, and full ownership transfer.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Pricing Section -->
 
-<section class="pricing-section" id="pricing">
-  <!-- LEFT COLUMN -->
-  <div>
-    <div style="margin-bottom:18px;margin-top:90px;font-weight:700;color:#2e8c4e">
-      Starting from <strong>$200</strong>
-    </div>
-
-    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-left">
-      Automation that pays for itself
-    </h2>
-
-    <p class="pricing-sub">
-      Custom Google Sheets systems that remove manual work and reduce errors - built to fit your workflow.
-    </p>
-
-    <a href="#audit" class="pricing-cta">Get your plan</a>
-  </div>
-
-  <!-- RIGHT COLUMN -->
-  <div class="pricing-card">
-    <h3>WHAT MOST TEAMS INVEST</h3>
-    <div class="pricing-range">$1,200 – $2,500</div>
-    <div class="pricing-meta">
-      Based on scope, integrations, and workflow complexity
-    </div>
-
-    <strong>Included in a typical build:</strong>
-  
-    <ul class="pricing-list">
-      <li><span>•</span> Automated workflows</li>
-      <li><span>•</span> Custom dashboards</li>
-      <li><span>•</span> Notifications & alerts</li>
-      <li><span>•</span> Data validation & checks</li>
-    </ul>
-
-    <div class="pricing-timeline">
-      <strong>Timeline:</strong><br />
-      Most systems go live in 7 – 10 days. <br />Fixed scope. No retainers. No ongoing fees.
-    </div>
-  </div>
-</section>
-
-<!-- FLOATING ROI BUTTON -->
+<!-- FLOATING ROI PILL -->
 <button id="roi-pill" aria-label="Open ROI calculator">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <rect x="4" y="2" width="16" height="20" rx="2"/>
     <line x1="8" y1="6" x2="16" y2="6"/>
-    <line x1="8" y1="10" x2="8" y2="10"/>
-    <line x1="12" y1="10" x2="12" y2="10"/>
-    <line x1="16" y1="10" x2="16" y2="10"/>
-    <line x1="8" y1="14" x2="8" y2="14"/>
-    <line x1="12" y1="14" x2="12" y2="14"/>
-    <line x1="16" y1="14" x2="16" y2="14"/>
+    <line x1="8" y1="10" x2="16" y2="10"/>
+    <line x1="8" y1="14" x2="16" y2="14"/>
     <line x1="8" y1="18" x2="16" y2="18"/>
   </svg>
 </button>
@@ -1736,501 +2103,356 @@ h1 {
 <div id="roi-overlay" class="roi-overlay">
   <div class="roi-modal">
     <button class="roi-close" onclick="closeROI()">×</button>
-
-    <h3 class="font-bold text-lg pr-4">Is automation worth it ?</h3>
-    <p style="color:#475569;font-size:14px;margin-bottom:22px">
-      Adjust values to pressure test the numbers.
-    </p>
+    <h3 style="font-family:var(--font-display);font-size:1.3rem;margin-bottom:6px;">Is automation worth it?</h3>
+    <p style="font-size:.85rem;color:var(--ink-soft);margin-bottom:22px;">Adjust to estimate your situation.</p>
 
     <div class="roi-fields">
       <label>
-        Hours spent on this task per week
-        <strong><span id="hVal">12</span> hrs</strong>
-        <input type="range" id="hours" min="1" max="50" value="12" oninput="updateROI()" />
+        Hours spent on this task per week &nbsp;<strong><span id="hVal">12</span> hrs</strong>
+        <input type="range" id="hours" min="1" max="50" value="12" oninput="updateROI()">
       </label>
-
       <label>
-        How many people are involved in this process
-        <strong><span id="pVal">5</span></strong>
-        <input type="range" id="people" min="1" max="20" value="5" oninput="updateROI()" />
+        People involved &nbsp;<strong><span id="pVal">3</span></strong>
+        <input type="range" id="people" min="1" max="20" value="3" oninput="updateROI()">
       </label>
-
       <label>
-        Average hourly cost per person
-        <strong>$<span id="rVal">8</span></strong>
-        <input type="range" id="rate" min="5" max="120" value="8" oninput="updateROI()" />
+        Average hourly cost per person &nbsp;<strong>$<span id="rVal">15</span></strong>
+        <input type="range" id="rate" min="5" max="120" value="15" oninput="updateROI()">
       </label>
     </div>
 
     <div class="roi-values">
       <div class="roi-box">
-        <strong id="hrsSaved">18 hrs</strong>
-        <span style="font-size: 15px;">Hours freed / week</span>
+        <strong id="hrsSaved">—</strong>
+        <span>Hours freed/week</span>
       </div>
       <div class="roi-box">
-        <strong id="monSaved">$3,240</strong>
-        <span style="font-size: 15px;">Cost impact / month</span>
+        <strong id="monSaved">—</strong>
+        <span>Cost impact/month</span>
       </div>
       <div class="roi-box">
-        <strong id="yrSaved">$42,120</strong>
-        <span style="font-size: 15px;">Cost impact / year</span>
+        <strong id="yrSaved">—</strong>
+        <span>Cost impact/year</span>
       </div>
     </div>
 
-        <div class="roi-cta-wrap">
-          <a href="#audit" class="roi-calc" onclick="closeROI()">
-            Review this workflow together
-            <br>
-            <p style="color:#14181f;font-size:13px;">
-              Directional estimates only.
-            </p>
-          </a>
-        </div>
+    <a href="#book" class="roi-cta" onclick="closeROI()">
+      Let's review this workflow together →
+    </a>
+    <p style="font-size:.72rem;color:var(--ink-soft);text-align:center;margin-top:8px;">Directional estimate only.</p>
   </div>
 </div>
 
-            
-    
-    <!-- Why Packdez -->
-    <section class="section-padding bg-muted">
-        <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-4 text-center">
-               Why teams move forward
-            </h2>
-            <p class="text-[16px] text-muted-foreground mb-12 text-center max-w-2xl mx-auto">
-                By this point, most teams know if this feels right. Here’s why they proceed.
-            </p>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card-flat">
-                    <h3 class="text-lg font-bold mb-3">No new tools</h3>
-                    <p class="text-muted-foreground">
-                      Everything is built inside Google Sheets - no platform switch, no retraining, no adoption friction.
-                </div>
-                
-                <div class="card-flat">
-                    <h3 class="text-lg font-bold mb-3">Fits your workflow</h3>
-                    <p class="text-muted-foreground">
-                        Each system is designed around how your team already works, not a generic template.
-                    </p>
-                </div>
-                
-                <div class="card-flat">
-                    <h3 class="text-lg font-bold mb-3">Built to last</h3>
-                    <p class="text-muted-foreground">
-                        Clean logic, validation, and error handling - no fragile shortcuts that break later.
-                    </p>
-                </div>
-                
-                <div class="card-flat">
-                    <h3 class="text-lg font-bold mb-3">Clear cost & timeline</h3>
-                    <p class="text-muted-foreground">
-                        Fixed pricing and delivery in days, not months - no scope creep or surprises.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-
-    </section>
-    
-<!-- Primary CTA -->
-<section id="audit" class="section-padding">
-  <div class="max-w-3xl mx-auto px-4">
-    <div class="text-center mb-10">
-      <h2 class="text-[24px] md:text-4xl font-bold mb-4">
-        Show me your Sheet — I'll tell you exactly what to fix
-      </h2>
-      <p class="text-[16px] text-muted-foreground max-w-xl mx-auto">
-        Free 20-minute call. No pitch. You'll leave with a clear picture of what's automatable and what it would cost.
-      </p>
+<!-- ============================================
+     WHY ME
+============================================ -->
+<section class="section section--stone">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;" class="fade-up">
+      <span class="overline">Why it works</span>
+      <h2 class="section-title" style="margin-top:10px;">What makes this different</h2>
     </div>
-
-    <div class="card-flat max-w-xl mx-auto text-center">
-      <p style="font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: hsl(146 55% 36%); margin-bottom: 16px;">Book a free call</p>
-
-      
-        href="https://calendly.com/YOUR-LINK-HERE"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn btn-primary text-lg w-full"
-        style="display: flex; justify-content: center;"
-      >
-        Pick a time that works →
-      </a>
-
-      <p class="text-sm text-muted-foreground mt-4">
-        20 minutes · No obligation · You'll hear back within 24 hours if you prefer email
-      </p>
-
-      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid hsl(var(--border)); display: flex; align-items: center; justify-content: center; gap: 10px;">
-        <img
-          src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
-          alt="Raphael"
-          style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;"
-        />
-        <p class="text-sm text-muted-foreground">
-          You'll be speaking directly with <strong>Raphael</strong> — the person who builds the system.
-        </p>
+    <div class="why-grid">
+      <div class="why-item fade-up">
+        <svg class="why-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <h3>You speak directly to the builder</h3>
+        <p>No account managers, no project coordinators. Every call, every message, every line of code — it's me.</p>
+      </div>
+      <div class="why-item fade-up">
+        <svg class="why-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <h3>No new tools to learn</h3>
+        <p>Everything lives inside Google Sheets — your team is already there. Zero onboarding, zero adoption risk.</p>
+      </div>
+      <div class="why-item fade-up">
+        <svg class="why-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        <h3>Fixed price, no surprises</h3>
+        <p>You know exactly what it costs before we start. No hourly billing, no scope creep, no invoice shock.</p>
+      </div>
+      <div class="why-item fade-up">
+        <svg class="why-item__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <h3>Built to last, not patch</h3>
+        <p>Clean logic, error handling, and validation. Systems that scale with you — not ones that break at 300 rows.</p>
       </div>
     </div>
   </div>
 </section>
-    
-    <!-- FAQ -->
-    <section id="faq" class="section-padding bg-muted">
-        <div class="max-w-3xl mx-auto px-4">
-            <h2 class="text-[24px] md:text-4xl font-bold mb-12 text-center">
-                Common questions.
-            </h2>
-            
-            <div class="space-y-4">
-                <div class="card-flat">
-                    <button onclick="toggleFaq(0)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">How long does it take?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-0" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-0" class="mt-3 text-muted-foreground" style="display: none;">
-                        You’ll usually see a working prototype within 72 hours.
-                    </div>
-                </div>
-                
-                <div class="card-flat">
-                    <button onclick="toggleFaq(1)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">What if I already have a Sheet?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-1" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-1" class="mt-3 text-muted-foreground" style="display: none;">
-                        That’s common. <br>
-                        We usually work with existing Sheets and add structure and automation where it’s needed.
-                    </div>
-                </div>
-                
-                <div class="card-flat">
-                    <button onclick="toggleFaq(2)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">What tools do you integrate with?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-2" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-2" class="mt-3 text-muted-foreground" style="display: none;">
-                        Stripe, Slack, HubSpot, QuickBooks, Gmail, GHL - and any tool with an API. <br> If it has data, it can usually connect
-                    </div>
-                </div>
-                
-                <div class="card-flat">
-                    <button onclick="toggleFaq(3)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">How much does it cost?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-3" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-3" class="mt-3 text-muted-foreground" style="display: none;">
-                        Most projects range from $200 to $2,500, depending on scope. <br> Pricing is fixed upfront. No hourly billing or surprises.
-                    </div>
-                </div>
-                
-                <div class="card-flat">
-                    <button onclick="toggleFaq(4)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">What happens after delivery?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-4" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-4" class="mt-3 text-muted-foreground" style="display: none;">
-                      You get documentation, walkthroughs, and 30 days of support. <br>
-                      After that, the system is fully yours. Optional maintenance if needed.
-                    </div>
-                </div>
-                
-                <div class="card-flat">
-                    <button onclick="toggleFaq(5)" class="w-full flex items-start justify-between text-left">
-                        <span class="font-bold text-lg pr-4">Is this secure?</span>
-                        <span class="text-primary text-xl font-bold" id="faq-icon-5" style="flex-shrink: 0;">+</span>
-                    </button>
-                    <div id="faq-answer-5" class="mt-3 text-muted-foreground" style="display: none;">
-                      Yes. Everything runs inside your Google Workspace.<br>
-                      You control access and permissions. We follow Google’s security best practices.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="py-12 border-t border-border px-4">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center gap-2 mb-3">
-                        <img 
-                            src="https://packdez.com/assets/logo/packdez-logo-512x512.png" 
-                            loading="lazy"
-                            alt="Packdez"
-                            class="h-7 w-7"
-                        />
-                        <h3 class="text-lg font-bold">Packdez</h3>
-                    </div>
-                    <p class="text-sm text-muted-foreground mb-4">
-                        Stay connected
-                    </p>
-                    <div class="flex gap-3">
-                        <a href="https://x.com/packdezHQ" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-muted hover:bg-primary hover:text-green-500 rounded-full flex items-center justify-center transition-all">
-                            <i data-lucide="twitter" class="w-4 h-4"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/company/packdez/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-muted hover:bg-primary hover:text-green-500 rounded-full flex items-center justify-center transition-all">
-                            <i data-lucide="linkedin" class="w-4 h-4"></i>
-                        </a>
-                        <a href="https://youtube.com/@packdezhqz?si=EXj27rVMq27WlWQp" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-muted hover:bg-primary hover:text-green-500 rounded-full flex items-center justify-center transition-all">
-                            <i data-lucide="youtube" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-                </div>
 
-                
-                <div>
-                    <h4 class="font-bold mb-3 text-sm">What We Build</h4>
-                    <ul class="space-y-2 text-sm text-muted-foreground">
-                        <li>Automated reporting systems</li>
-                        <li>Operations automation</li>
-                        <li>Custom internal tools</li>
-                        <li>API integrations</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-3 text-sm">Contact</h4>
-                    <ul class="space-y-2 text-sm text-muted-foreground">
-                        <li>packdez.com@gmail.com</li>
-                        <li>Response within 24 hours</li>
-                        <li>Delivery in 7-15 days</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="pt-6 border-t border-border text-center text-sm text-muted-foreground">
-              <p>© <span id="year"></span> Packdez</p>
-            </div>
+<!-- ============================================
+     BOOK — CALENDLY
+============================================ -->
+<section id="book" class="section cta-section">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-header fade-up">
+        <span class="overline">Book a free call</span>
+        <h2 class="section-title" style="margin-top:10px;">
+          Show me your Sheet.<br>I'll tell you exactly what to fix.
+        </h2>
+        <p class="lead" style="margin-top:12px;max-width:520px;margin-left:auto;margin-right:auto;">
+          Free 20-minute call. No pitch. You'll leave knowing what's automatable, what it costs, and whether it makes sense to move forward.
+        </p>
+      </div>
 
-        </div>
-    </footer>
-    
-    <!-- Video Modal -->
-    <div id="video-modal" class="video-modal" onclick="closeVideo()">
-        <div class="video-container" onclick="event.stopPropagation()">
-            <iframe id="video-iframe" src="" class="w-full h-full" allow="autoplay; picture-in-picture" allowfullscreen></iframe>
-        </div>
+      <div class="calendly-wrap fade-up">
+        <!-- Calendly inline widget -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/packdez-com" style="min-width:320px;height:700px;"></div>
+      </div>
+
+      <div class="cta-founder-strip fade-up">
+        <img
+          src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
+          alt="Raphael"
+          onerror="this.style.display='none'"
+        />
+        <p>You'll be speaking directly with <strong>Raphael</strong> — the person who builds the system.</p>
+      </div>
     </div>
-    
-    <script>
-              
-      
-        // Video modal
-        function openVideo(videoId) {
-            const modal = document.getElementById('video-modal');
-            const iframe = document.getElementById('video-iframe');
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            modal.classList.add('active');
-        }
-        
-        function closeVideo() {
-            const modal = document.getElementById('video-modal');
-            const iframe = document.getElementById('video-iframe');
-            iframe.src = '';
-            modal.classList.remove('active');
-        }
-        
-        // FAQ toggle
-        function toggleFaq(index) {
-            const answer = document.getElementById(`faq-answer-${index}`);
-            const icon = document.getElementById(`faq-icon-${index}`);
-            
-            if (answer.style.display === 'none') {
-                answer.style.display = 'block';
-                icon.textContent = '−';
-            } else {
-                answer.style.display = 'none';
-                icon.textContent = '+';
-            }
-        }
-        
-        // Toast
-function showToast(message, type = "success") {
-  const toast = document.getElementById("toast");
+  </div>
+</section>
 
-  toast.textContent = message;
-  toast.style.backgroundColor = type === "success"
-    ? "hsl(146 55% 36%)"
-    : "hsl(0 84% 60%)";
+<!-- ============================================
+     FAQ
+============================================ -->
+<section id="faq" class="section">
+  <div class="container" style="max-width:720px;">
+    <div style="text-align:center;margin-bottom:48px;" class="fade-up">
+      <h2 class="section-title">Common questions</h2>
+    </div>
 
-  // Reset animation by forcing reflow
-  toast.classList.remove("active");
-  void toast.offsetWidth;
-  toast.classList.add("active");
+    <div class="fade-up">
+      <div class="faq-item">
+        <button class="faq-item__trigger" onclick="toggleFaq(this)">
+          <span>How long does it take?</span>
+          <div class="faq-item__icon">+</div>
+        </button>
+        <div class="faq-item__answer">
+          <p>Most systems go live in 7–10 days. You'll usually see a working prototype within 72 hours of kickoff.</p>
+        </div>
+      </div>
 
-  clearTimeout(toast._hideTimer);
-  toast._hideTimer = setTimeout(() => {
-    toast.classList.remove("active");
-  }, 4000);
-}
+      <div class="faq-item">
+        <button class="faq-item__trigger" onclick="toggleFaq(this)">
+          <span>What if I already have a Sheet?</span>
+          <div class="faq-item__icon">+</div>
+        </button>
+        <div class="faq-item__answer">
+          <p>That's the most common starting point. I work with your existing Sheet and add automation where it's needed — no rebuilding from scratch unless it's the better option.</p>
+        </div>
+      </div>
 
+      <div class="faq-item">
+        <button class="faq-item__trigger" onclick="toggleFaq(this)">
+          <span>What tools do you integrate with?</span>
+          <div class="faq-item__icon">+</div>
+        </button>
+        <div class="faq-item__answer">
+          <p>Stripe, Square, Gmail, Slack, HubSpot, GoHighLevel, QuickBooks, Shopify — and any tool with an API. If it has data, it can connect.</p>
+        </div>
+      </div>
 
+      <div class="faq-item">
+        <button class="faq-item__trigger" onclick="toggleFaq(this)">
+          <span>How much does it cost?</span>
+          <div class="faq-item__icon">+</div>
+        </button>
+        <div class="faq-item__answer">
+          <p>Most projects range from $200 to $2,500 depending on scope. Pricing is fixed upfront — no hourly billing, no retainers, no surprises.</p>
+        </div>
+      </div>
 
-      
-        // Form submission
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxEYqt7qf50GUT5FBJUGtZtaHlIZvljYGpW0HQwu-7XZngwVBy_gKFAFvIKVXC8K_ZL/exec";
-const SECRET = "PDK-secretFORM-token";
+      <div class="faq-item">
+        <button class="faq-item__trigger" onclick="toggleFaq(this)">
+          <span>What happens after delivery?</span>
+          <div class="faq-item__icon">+</div>
+        </button>
+        <div class="faq-item__answer">
+          <p>You get full documentation, a walkthrough recording, and 30 days of support. After that, the system is fully yours — no ongoing dependency on me.</p>
+        </div>
+      </div>
 
-async function handleSubmit(e) {
-  e.preventDefault();
+      <div class="faq-item">
+        <button class="faq-item__trigger" onclick="toggleFaq(this)">
+          <span>Is my data safe?</span>
+          <div class="faq-item__icon">+</div>
+        </button>
+        <div class="faq-item__answer">
+          <p>Everything runs inside your own Google Workspace. You control all access and permissions. I follow Google's security best practices and never retain access after handover.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  const button = document.getElementById("submit-btn");
-  const form = e.target;
+<!-- ============================================
+     FOOTER
+============================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez">
+          <span>Packdez</span>
+        </div>
+        <p class="footer__tagline">Custom Google Sheets and Apps Script systems for service businesses that want to stop doing things by hand.</p>
+        <div class="footer__socials">
+          <a href="https://x.com/packdezHQ" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="X / Twitter">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/packdez/" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://youtube.com/@packdezhq" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+          </a>
+        </div>
+      </div>
 
-  const name    = document.getElementById("name").value.trim();
-  const email   = document.getElementById("email").value.trim();
-  const company = document.getElementById("company").value.trim();
-  const message = document.getElementById("message").value.trim();
+      <div class="footer__col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Bookings & Scheduling</a></li>
+          <li><a href="#services">Payments & Invoicing</a></li>
+          <li><a href="#services">Automated Reporting</a></li>
+          <li><a href="#services">Looker Studio Dashboards</a></li>
+          <li><a href="#services">API Integrations</a></li>
+        </ul>
+      </div>
 
-  if (!name || !email || !message) return;
+      <div class="footer__col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/works">Projects</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="#book">Book a call</a></li>
+          <li><a href="mailto:packdez.com@gmail.com">packdez.com@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
 
-  // Loading state
-  button.disabled = true;
-  button.textContent = "Sending...";
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> Packdez</span>
+      <span>Response within 24 hours · Systems delivered in 7–10 days</span>
+    </div>
+  </div>
+</footer>
 
-  try {
-    const payload = {
-      secret: SECRET,
-      formType: "audit",
-      name,
-      email,
-      company,
-      message
-    };
+<!-- Video Modal -->
+<div id="video-modal" class="video-modal" onclick="closeVideo()">
+  <div class="video-modal__inner" onclick="event.stopPropagation()">
+    <iframe id="video-iframe" src="" allow="autoplay; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
 
-    const res = await fetch(WEB_APP_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload)
-    });
-
-    const text = await res.text();
-
-    // Apps Script sometimes returns empty or redirect responses
-    // even on success — so we treat any non-error response as success
-    let result = {};
-    try {
-      result = text ? JSON.parse(text) : {};
-    } catch (_) {
-      // JSON parse failed but data still landed — treat as success
-      result = { success: true };
-    }
-    
-    if (result.error) throw new Error(result.error);
-
-    
-
-    // ✅ SUCCESS
-    showToast("✔ Message sent! You'll hear back within 24 hours.", "success");
-    form.reset();
-    button.textContent = "Get my plan";
-    button.disabled = false;
-
-  } catch (err) {
-    console.error(err);
-    showToast("✔ Message sent! You'll hear back within 24 hours.", "error");
-    button.textContent = "Get my plan";
-    button.disabled = false;
+<script>
+  /* ——— Mobile menu ——— */
+  function toggleMobileMenu() {
+    document.getElementById('mobile-drawer').classList.add('active');
+    document.getElementById('mobile-overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
-}
-      
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+  function closeMobileMenu() {
+    document.getElementById('mobile-drawer').classList.remove('active');
+    document.getElementById('mobile-overlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
 
+  /* ——— Video modal ——— */
+  function openVideo(id) {
+    document.getElementById('video-iframe').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+    document.getElementById('video-modal').classList.add('active');
+  }
+  function closeVideo() {
+    document.getElementById('video-iframe').src = '';
+    document.getElementById('video-modal').classList.remove('active');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
 
+  /* ——— FAQ ——— */
+  function toggleFaq(trigger) {
+    const item = trigger.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
 
-        
-/* =============================
-   ROI CALCULATOR LOGIC
-   ============================= */
+  /* ——— ROI Calculator ——— */
+  const roiOverlay = document.getElementById('roi-overlay');
+  document.getElementById('roi-pill').addEventListener('click', () => {
+    roiOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+  function closeROI() {
+    roiOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  roiOverlay.addEventListener('click', e => { if (e.target === roiOverlay) closeROI(); });
 
-const overlay = document.getElementById("roi-overlay");
-const pill = document.getElementById("roi-pill");
+  function updateROI() {
+    const h = +document.getElementById('hours').value;
+    const p = +document.getElementById('people').value;
+    const r = +document.getElementById('rate').value;
+    document.getElementById('hVal').textContent = h;
+    document.getElementById('pVal').textContent = p;
+    document.getElementById('rVal').textContent = r;
+    const hrs = h * p;
+    const monthly = hrs * r * 4;
+    const yearly = hrs * r * 52;
+    document.getElementById('hrsSaved').textContent = `${hrs} hrs`;
+    document.getElementById('monSaved').textContent = `$${monthly.toLocaleString()}`;
+    document.getElementById('yrSaved').textContent = `$${yearly.toLocaleString()}`;
+  }
+  updateROI();
 
-pill.addEventListener("click", () => {
-  overlay.classList.add("active");
-  document.body.style.overflow = "hidden";
-});
+  /* ——— Toast ——— */
+  function showToast(msg, type='success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.background = type === 'success' ? 'var(--green)' : '#dc2626';
+    t.classList.remove('active');
+    void t.offsetWidth;
+    t.classList.add('active');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('active'), 4000);
+  }
 
-function closeROI() {
-  overlay.classList.remove("active");
-  document.body.style.overflow = "";
-}
-
-overlay.addEventListener("click", (e) => {
-  if (e.target === overlay) closeROI();
-});
-
-function updateROI() {
-  const h = +hours.value;
-  const p = +people.value;
-  const r = +rate.value;
-
-  hVal.textContent = h;
-  pVal.textContent = p;
-  rVal.textContent = r;
-
-  const hrs = h * p;
-  const weekly = hrs * r;
-  const monthly = weekly * 4;
-  const yearly = weekly * 52;
-
-  hrsSaved.textContent = `${hrs} hrs`;
-  monSaved.textContent = `$${monthly.toLocaleString()}`;
-  yrSaved.textContent = `$${yearly.toLocaleString()}`;
-}
-
-updateROI();
-
-
-
-/* =============================
-   update year in copywrite in the footer section
-   ============================= */
+  /* ——— Footer year ——— */
   document.getElementById('year').textContent = new Date().getFullYear();
 
-/* =============================
-   carousel of reviews section
-   ============================= */
-const track = document.querySelector(".reviews-track");
-if (track && !track.dataset.cloned) {
-  track.innerHTML += track.innerHTML;
-  track.dataset.cloned = "true";
-}
+  /* ——— Reviews carousel clone ——— */
+  const track = document.querySelector('.reviews-track');
+  if (track && !track.dataset.cloned) {
+    track.innerHTML += track.innerHTML;
+    track.dataset.cloned = 'true';
+  }
 
+  /* ——— Scroll-triggered fade-up ——— */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
 
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-/* =====================================================
-     MOBILE MENU SCRIPT
-====================================================== */
-    function toggleMobileMenu() {
-        document.getElementById('mobile-menu').classList.add('active');
-        document.getElementById('mobile-overlay').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+  /* ——— Smooth scroll ——— */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        closeMobileMenu();
+      }
+    });
+  });
 
-    function closeMobileMenu() {
-        document.getElementById('mobile-menu').classList.remove('active');
-        document.getElementById('mobile-overlay').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-      
-    lucide.createIcons();
+  /* ——— Lucide icons ——— */
+  lucide.createIcons();
+</script>
 
-    </script>
-
-  </main>      
 </body>
 </html>
