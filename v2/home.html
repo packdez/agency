@@ -1214,6 +1214,40 @@ em.accent-dark{font-style:italic;color:var(--g600)}
     .modal-img { animation: imgZoom 0.7s ease both; }
     .modal-hidden { display: none; }
 
+/* Modal overlay wrappers */
+[id^="modal-"] {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px;
+}
+[id^="modal-"]:not(.modal-hidden) {
+  display: flex;
+}
+@media (min-width: 640px) {
+  [id^="modal-"] {
+    align-items: center;
+  }
+}
+
+/* Modal panel positioning */
+.modal-panel {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Modal backdrop fills entire screen */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+}
+
     /* No scroll when modal open */
     body.modal-open { overflow: hidden; }
 
