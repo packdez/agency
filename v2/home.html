@@ -1173,6 +1173,57 @@ em.accent-dark{font-style:italic;color:var(--g600)}
 @media(max-width:800px){
   [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important}
 }
+
+
+
+
+
+
+    /* Animations */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(40px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes backdropIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes imgZoom { from { transform: scale(1.06); } to { transform: scale(1); } }
+
+    .fade-in-up { animation: fadeInUp 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+    .fade-in-up-1 { animation-delay: 0.05s; }
+    .fade-in-up-2 { animation-delay: 0.12s; }
+    .fade-in-up-3 { animation-delay: 0.2s; }
+
+    .card { animation: fadeInUp 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+    .card-0 { animation-delay: 0.0s; }
+    .card-1 { animation-delay: 0.12s; }
+    .card-2 { animation-delay: 0.24s; }
+
+    /* Card hover */
+    .industry-card { transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease; }
+    .industry-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(34,197,94,0.06); }
+    .industry-card:hover .shimmer { opacity: 1; }
+    .industry-card:hover .card-glow { opacity: 1; }
+    .industry-card:hover .arrow-btn { transform: scale(1.1) rotate(12deg); }
+    .industry-card:hover .card-img { transform: scale(1.05); }
+    .industry-card:hover .platform-logo { filter: grayscale(0) opacity(1); }
+
+    /* Greyed logos default */
+    .platform-logo { filter: grayscale(1) opacity(0.4); transition: filter 0.3s ease; }
+
+    /* Modal */
+    .modal-backdrop { animation: backdropIn 0.25s ease both; }
+    .modal-panel { animation: modalIn 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+    .modal-img { animation: imgZoom 0.7s ease both; }
+    .modal-hidden { display: none; }
+
+    /* No scroll when modal open */
+    body.modal-open { overflow: hidden; }
+
+    /* Grid bg */
+    .grid-bg {
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+   
 </style>
 </head>
 <body>
@@ -1537,65 +1588,350 @@ em.accent-dark{font-style:italic;color:var(--g600)}
 <div id="solutions"></div>
 
 
+<!-- ═══════════════════════════════════════════════════
+     INDUSTRY SELECTOR SECTION
+     IMAGE DIMENSIONS: Replace hero images at 1344×756px (16:9, 2× for retina)
+     Card preview images same — 1344×756px cropped to top portion
+     ═══════════════════════════════════════════════════ -->
 
+<section id="industries" class="relative min-h-screen overflow-hidden py-24" style="background:#080a0f;">
 
-<section class="section section--darker" style="padding:clamp(60px,8vw,100px) 0 0">
-  <div class="container">
-    <div style="text-align:center;max-width:560px;margin:0 auto 48px">
-      <span class="eyebrow reveal">Built for your type of business</span>
-      <h2 class="display-h2 reveal d1" style="color:var(--text1);margin-top:14px">
-        Pick your industry.<br><em class="accent">Same system, your workflow.</em>
+  <!-- Ambient orbs -->
+  <div class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="absolute rounded-full" style="top:-160px;left:25%;width:500px;height:500px;background:radial-gradient(circle,rgba(34,197,94,0.05),transparent 70%);"></div>
+    <div class="absolute rounded-full" style="top:50%;right:0;width:400px;height:400px;transform:translateY(-50%);background:radial-gradient(circle,rgba(139,92,246,0.04),transparent 70%);"></div>
+    <div class="absolute rounded-full" style="bottom:0;left:0;width:300px;height:300px;background:radial-gradient(circle,rgba(244,63,94,0.04),transparent 70%);"></div>
+    <div class="grid-bg absolute inset-0 opacity-100"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-5xl px-5" style="max-width:64rem;">
+
+    <!-- Header -->
+    <div class="mx-auto mb-16 text-center" style="max-width:42rem;">
+
+      <div class="fade-in-up fade-in-up-1 mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-1.5" style="border-color:rgba(34,197,94,0.2);background:rgba(34,197,94,0.06);">
+        <span class="h-1.5 w-1.5 rounded-full" style="background:#22c55e;animation:pulse-dot 2s ease infinite;"></span>
+        <span style="font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#22c55e;">Built for your business</span>
+      </div>
+
+      <h2 class="fade-in-up fade-in-up-2 mt-0" style="font-size:clamp(1.875rem,5vw,3rem);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-0.02em;">
+        Pick your industry.<br>
+        <span style="background:linear-gradient(90deg,#22c55e,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">See your system.</span>
       </h2>
+
+      <p class="fade-in-up fade-in-up-3 mt-5" style="font-size:1rem;color:rgba(255,255,255,0.4);line-height:1.6;">
+        Click your industry to see exactly what your custom system looks like — features, integrations, and all.
+      </p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px" class="reveal">
+    <!-- Cards Grid -->
+    <div class="grid gap-4" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
 
-      <div style="background:var(--surface1);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 24px;transition:border-color .25s" onmouseover="this.style.borderColor='rgba(34,197,94,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:36px;height:36px;border-radius:var(--r-sm);background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g400)" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <!-- ── CARD 1: Airbnb ── -->
+      <div class="industry-card card card-0 relative cursor-pointer overflow-hidden rounded-2xl border" style="background:#0f1117;border-color:rgba(255,255,255,0.06);"
+           onclick="openModal('airbnb')">
+        <div class="shimmer absolute top-0 left-0 right-0 h-0.5 opacity-60" style="background:linear-gradient(90deg,#f43f5e,#fb923c);transition:opacity 0.3s;"></div>
+        <div class="card-glow pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-32 w-64 rounded-full opacity-0" style="background:radial-gradient(circle,rgba(244,63,94,0.15),transparent 70%);transition:opacity 0.5s;blur:24px;"></div>
+        <!-- Preview image -->
+        <div class="relative overflow-hidden" style="height:160px;">
+          <img class="card-img h-full w-full object-cover object-top" style="transition:transform 0.7s ease;" 
+               src="https://media.base44.com/images/public/69ddd72f76e22b7add723f2b/f28809042_generated_image.png" alt="Airbnb System" />
+          <div class="absolute inset-0" style="background:linear-gradient(to bottom,transparent 30%,#0f1117);"></div>
         </div>
-        <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:8px">Airbnb / Short-Term Rentals</div>
-        <p style="font-size:.83rem;color:var(--text2);line-height:1.6;margin-bottom:14px">Booking ops, cleaning crew scheduling, property tracking, Airbnb data dashboards, automated guest comms — all in one system.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Booking ops</span>
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Crew scheduling</span>
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Revenue tracking</span>
+        <!-- Body -->
+        <div class="relative p-5 pt-4">
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div>
+              <h3 style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:2px;line-height:1.3;">Airbnb & Short-Term Rentals</h3>
+              <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);">Your full property ops system</p>
+            </div>
+            <div class="arrow-btn flex-shrink-0 flex items-center justify-center rounded-full" style="width:32px;height:32px;background:linear-gradient(135deg,#f43f5e,#fb923c);transition:transform 0.3s ease;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </div>
+          <!-- Platform logos -->
+          <div class="flex items-center gap-2 mb-4">
+            <!-- Airbnb -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:18px;height:18px;" viewBox="0 0 24 24" fill="#FF5A5F"><path d="M12.005 2C8.838 2 6.25 4.507 6.25 7.588c0 1.458.572 2.784 1.5 3.774L12.005 22l4.254-10.638A5.522 5.522 0 0017.76 7.588C17.76 4.507 15.172 2 12.005 2zm0 7.647a2.064 2.064 0 110-4.128 2.064 2.064 0 010 4.128z"/></svg>
+            </div>
+            <!-- Booking.com -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:18px;height:18px;" viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#003580"/><text x="5" y="28" font-size="18" font-weight="900" fill="white" font-family="Arial">B.</text></svg>
+            </div>
+            <!-- VRBO text badge -->
+            <div class="flex items-center justify-center rounded-lg px-2" style="height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <span class="platform-logo" style="font-size:10px;font-weight:900;color:#1B6FBE;letter-spacing:-0.02em;">vrbo</span>
+            </div>
+            <!-- Guesty -->
+            <div class="flex items-center justify-center rounded-lg px-2" style="height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <span class="platform-logo" style="font-size:10px;font-weight:700;color:#6C63FF;">Guesty</span>
+            </div>
+            <!-- Zapier -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="#FF4A00"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.001 4.5c.828 0 1.5.672 1.5 1.5v3.621l3.13-1.807a1.5 1.5 0 011.5 2.598L15 12l3.131 1.588a1.5 1.5 0 01-1.5 2.598L13.5 14.38V18a1.5 1.5 0 01-3 0v-3.621l-3.13 1.807a1.5 1.5 0 01-1.5-2.598L9 12 5.87 10.412a1.5 1.5 0 011.5-2.598L10.5 9.62V6a1.5 1.5 0 011.501-1.5z"/></svg>
+            </div>
+          </div>
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-1.5">
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.03em;">Booking Ops</span>
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.03em;">Crew Scheduling</span>
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.03em;">Revenue Tracking</span>
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.03em;">Guest Comms</span>
+          </div>
         </div>
       </div>
 
-      <div style="background:var(--surface1);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 24px;transition:border-color .25s" onmouseover="this.style.borderColor='rgba(34,197,94,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:36px;height:36px;border-radius:var(--r-sm);background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g400)" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/></svg>
+      <!-- ── CARD 2: E-commerce ── -->
+      <div class="industry-card card card-1 relative cursor-pointer overflow-hidden rounded-2xl border" style="background:#0f1117;border-color:rgba(255,255,255,0.06);"
+           onclick="openModal('ecom')">
+        <div class="shimmer absolute top-0 left-0 right-0 h-0.5 opacity-60" style="background:linear-gradient(90deg,#8b5cf6,#3b82f6);transition:opacity 0.3s;"></div>
+        <div class="card-glow pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-32 w-64 rounded-full opacity-0" style="background:radial-gradient(circle,rgba(139,92,246,0.15),transparent 70%);transition:opacity 0.5s;"></div>
+        <div class="relative overflow-hidden" style="height:160px;">
+          <img class="card-img h-full w-full object-cover object-top" style="transition:transform 0.7s ease;"
+               src="https://media.base44.com/images/public/69ddd72f76e22b7add723f2b/88754ef4e_generated_image.png" alt="E-commerce System" />
+          <div class="absolute inset-0" style="background:linear-gradient(to bottom,transparent 30%,#0f1117);"></div>
         </div>
-        <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:8px">E-commerce (Shopify / Amazon / eBay)</div>
-        <p style="font-size:.83rem;color:var(--text2);line-height:1.6;margin-bottom:14px">Orders, inventory, ad spend, and profit — unified across every platform into one live dashboard. Stop switching tabs to understand your business.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Shopify</span>
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Amazon / eBay</span>
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">TikTok Shop</span>
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Meta Ads</span>
+        <div class="relative p-5 pt-4">
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div>
+              <h3 style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:2px;line-height:1.3;">E-commerce & Online Retail</h3>
+              <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);">Unified multi-channel command centre</p>
+            </div>
+            <div class="arrow-btn flex-shrink-0 flex items-center justify-center rounded-full" style="width:32px;height:32px;background:linear-gradient(135deg,#8b5cf6,#3b82f6);transition:transform 0.3s ease;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 mb-4">
+            <!-- Shopify -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="#96BF48"><path d="M15.337 2.102a.405.405 0 00-.366-.35c-.154-.013-3.4-.064-3.4-.064s-2.254-2.188-2.493-2.427c-.24-.239-.706-.166-.888-.112l-1.215.376A7.553 7.553 0 006.38 0C5.028 0 4.18.85 3.505 2.189c-.182.364-.335.765-.463 1.19L1.41 3.9C.6 4.153 0 4.91 0 5.76V21.6C0 22.924 1.076 24 2.4 24h14.4a.4.4 0 00.4-.4V2.42a.4.4 0 00-.063-.318z"/></svg>
+            </div>
+            <!-- Amazon -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="#FF9900"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.32 17.32 0 01-4.423.583c-2.933 0-5.62-.636-8.06-1.906-1.084-.572-2.054-1.26-2.908-2.063-.19-.182-.22-.39-.096-.583z"/></svg>
+            </div>
+            <!-- TikTok -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.85a8.18 8.18 0 004.79 1.53V6.93a4.85 4.85 0 01-1.02-.24z" fill="#EE1D52"/></svg>
+            </div>
+            <!-- Meta -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:16px;height:16px;" viewBox="0 0 24 24"><path d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.136 1.417.4 2.053.276.665.783 1.348 1.547 1.348.284 0 .51-.05.752-.162.51-.24 1.02-.838 1.766-2.19.63-1.15 1.23-2.59 1.73-4.09.502-1.498.864-2.85.864-3.697 0-.388-.065-.72-.225-.99-.16-.268-.43-.435-.79-.435-.5 0-.904.178-1.14.49a2.27 2.27 0 00-.404 1.366c0 .406.09.836.275 1.245.19.408.444.715.75.715.19 0 .35-.06.5-.2.12-.11.23-.28.23-.494a.7.7 0 00-.078-.31.47.47 0 00-.22-.213c-.096-.05-.134-.018-.134.1 0 .064.023.16.07.27.05.107.112.2.18.25a.55.55 0 00-.326.12.58.58 0 00-.19.43c0 .37.253.67.628.67.44 0 .778-.194 1.02-.54.245-.35.373-.83.373-1.37 0-.69-.175-1.26-.516-1.66-.34-.4-.837-.62-1.453-.62zm10.17 0c-.617 0-1.113.22-1.454.62-.34.4-.516.97-.516 1.66 0 .54.128 1.02.373 1.37.243.346.58.54 1.02.54.375 0 .627-.3.627-.67a.58.58 0 00-.19-.43.55.55 0 00-.325-.12c.068-.05.13-.143.18-.25.047-.11.07-.206.07-.27 0-.118-.038-.15-.134-.1a.47.47 0 00-.22.213.7.7 0 00-.078.31c0 .214.11.383.23.494.15.14.31.2.5.2.306 0 .56-.307.75-.715.186-.41.275-.84.275-1.245 0-.545-.14-1.02-.403-1.366-.237-.312-.64-.49-1.14-.49-.36 0-.63.167-.79.436-.16.27-.225.6-.225.99 0 .846.362 2.198.864 3.697.5 1.5 1.1 2.94 1.73 4.09.746 1.352 1.256 1.95 1.766 2.19.242.112.468.162.752.162.764 0 1.27-.683 1.547-1.348.264-.636.4-1.347.4-2.053 0-2.566-.704-5.24-2.044-7.306-1.188-1.833-2.903-3.113-4.87-3.113zM12 4.872c-1.678 0-3.023 1.602-3.717 4.073-.353 1.258-.54 2.613-.54 3.882 0 1.33.222 2.512.638 3.35.32.646.823 1.153 1.618 1.153.4 0 .74-.1 1.02-.302.42-.3.71-.786.92-1.378.21.592.5 1.078.92 1.378.28.202.62.302 1.02.302.795 0 1.298-.507 1.618-1.153.416-.838.638-2.02.638-3.35 0-1.27-.187-2.624-.54-3.882C15.023 6.474 13.678 4.872 12 4.872z" fill="#0081FB"/></svg>
+            </div>
+            <!-- eBay -->
+            <div class="flex items-center justify-center rounded-lg px-2" style="height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <span class="platform-logo" style="font-size:11px;font-weight:900;"><span style="color:#E53238">e</span><span style="color:#0064D2">b</span><span style="color:#F5AF02">a</span><span style="color:#86B817">y</span></span>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);">Shopify</span>
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);">Amazon</span>
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);">TikTok Shop</span>
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);">Meta Ads</span>
+          </div>
         </div>
       </div>
 
-      <div style="background:var(--surface1);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 24px;transition:border-color .25s" onmouseover="this.style.borderColor='rgba(34,197,94,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
-        <div style="width:36px;height:36px;border-radius:var(--r-sm);background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g400)" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+      <!-- ── CARD 3: Service Ops ── -->
+      <div class="industry-card card card-2 relative cursor-pointer overflow-hidden rounded-2xl border" style="background:#0f1117;border-color:rgba(255,255,255,0.06);"
+           onclick="openModal('service')">
+        <div class="shimmer absolute top-0 left-0 right-0 h-0.5 opacity-60" style="background:linear-gradient(90deg,#10b981,#2dd4bf);transition:opacity 0.3s;"></div>
+        <div class="card-glow pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 h-32 w-64 rounded-full opacity-0" style="background:radial-gradient(circle,rgba(16,185,129,0.15),transparent 70%);transition:opacity 0.5s;"></div>
+        <div class="relative overflow-hidden" style="height:160px;">
+          <img class="card-img h-full w-full object-cover object-top" style="transition:transform 0.7s ease;"
+               src="https://media.base44.com/images/public/69ddd72f76e22b7add723f2b/6e8fa97c6_generated_image.png" alt="Service Ops System" />
+          <div class="absolute inset-0" style="background:linear-gradient(to bottom,transparent 30%,#0f1117);"></div>
         </div>
-        <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:8px">Service Businesses &amp; Internal Ops</div>
-        <p style="font-size:.83rem;color:var(--text2);line-height:1.6;margin-bottom:14px">Cleaning companies, couriers, B2B services — staff tracking, payment reconciliation, payslips, client CRM, and operations dashboards.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Staff ops</span>
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Payslips</span>
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Client tracking</span>
-          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Reporting</span>
+        <div class="relative p-5 pt-4">
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div>
+              <h3 style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:2px;line-height:1.3;">Service Businesses & Ops</h3>
+              <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);">End-to-end operations system</p>
+            </div>
+            <div class="arrow-btn flex-shrink-0 flex items-center justify-center rounded-full" style="width:32px;height:32px;background:linear-gradient(135deg,#10b981,#2dd4bf);transition:transform 0.3s ease;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 mb-4">
+            <!-- QuickBooks -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:18px;height:18px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#2CA01C"/><text x="6" y="16" font-size="8" font-weight="900" fill="white" font-family="Arial">QB</text></svg>
+            </div>
+            <!-- Xero -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:18px;height:18px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#13B5EA"/><text x="4" y="15.5" font-size="7" font-weight="700" fill="white" font-family="Arial">xero</text></svg>
+            </div>
+            <!-- Slack -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:15px;height:15px;" viewBox="0 0 24 24" fill="none"><path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.527 2.527 0 012.521 2.522v2.52H8.834zM8.834 6.313a2.527 2.527 0 012.521 2.521 2.527 2.527 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.527 2.527 0 01-2.522 2.521h-2.522V8.834zM17.688 8.834a2.527 2.527 0 01-2.523 2.521 2.526 2.526 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.165 0a2.528 2.528 0 012.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.165 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 01-2.52-2.523 2.526 2.526 0 012.52-2.52h6.313A2.527 2.527 0 0124 15.165a2.528 2.528 0 01-2.522 2.523h-6.313z" fill="#E01E5A"/></svg>
+            </div>
+            <!-- Notion -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:15px;height:15px;" viewBox="0 0 24 24"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466l1.823 1.447zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933l3.222-.187z" fill="#000"/></svg>
+            </div>
+            <!-- HubSpot -->
+            <div class="flex items-center justify-center rounded-lg p-1" style="width:28px;height:28px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);">
+              <svg class="platform-logo" style="width:15px;height:15px;" viewBox="0 0 24 24" fill="#FF7A59"><path d="M22.175 9.84a3.984 3.984 0 00-1.89-1.056V6.667a1.62 1.62 0 10-1.64 0v2.117a4.012 4.012 0 00-2.343 6.204l-2.9 2.9a1.347 1.347 0 00-1.652.166 1.36 1.36 0 000 1.92 1.36 1.36 0 001.92 0 1.347 1.347 0 00.166-1.652l2.9-2.9a4.006 4.006 0 005.44-5.582zm-1.463 3.702a2.162 2.162 0 11-3.059-3.059 2.162 2.162 0 013.059 3.059z"/></svg>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);">Staff Ops</span>
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);">Payslips</span>
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);">CRM</span>
+            <span style="border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);">Reporting</span>
+          </div>
         </div>
       </div>
 
-    </div>
+    </div><!-- /grid -->
 
-    <p class="reveal" style="text-align:center;font-size:.82rem;color:var(--text3);padding-bottom:clamp(60px,8vw,100px)">Not in one of these? <a href="#book" style="color:var(--g400);text-decoration:underline;text-underline-offset:3px">Book a call anyway</a> — if your business has a workflow, it can be systemized.</p>
+    <!-- Footer note -->
+    <p class="mt-12 text-center" style="font-size:0.875rem;color:rgba(255,255,255,0.25);">
+      Not in one of these?
+      <a href="#book" style="color:rgba(34,197,94,0.7);text-decoration:underline;text-underline-offset:4px;transition:color 0.2s;"
+         onmouseover="this.style.color='#22c55e'" onmouseout="this.style.color='rgba(34,197,94,0.7)'">Book a call anyway</a>
+      — if your business has a workflow, it can be systemised.
+    </p>
+
   </div>
 </section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     MODALS
+     ═══════════════════════════════════════════════════ -->
+
+<!-- Modal: Airbnb -->
+<div id="modal-airbnb" class="modal-hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4" style="background:rgba(0,0,0,0);">
+  <div class="modal-backdrop absolute inset-0" style="background:rgba(0,0,0,0.8);backdrop-filter:blur(12px);" onclick="closeModal('airbnb')"></div>
+  <div class="modal-panel relative z-10 w-full overflow-hidden flex flex-col" style="max-width:42rem;border-radius:24px 24px 0 0;background:#0f1117;border:1px solid rgba(255,255,255,0.08);box-shadow:0 0 80px rgba(0,0,0,0.8);">
+    <div class="absolute top-0 left-0 right-0" style="height:2px;background:linear-gradient(90deg,#f43f5e,#fb923c);"></div>
+    <div class="flex justify-center pt-3 pb-0" style="display:flex;" id="handle-airbnb"></div>
+    <button onclick="closeModal('airbnb')" class="absolute z-20 flex items-center justify-center rounded-full" style="right:16px;top:16px;width:36px;height:36px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border:none;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <!-- Image: Replace with 1344×756px (16:9) for best quality -->
+    <div class="relative overflow-hidden" style="height:160px;flex-shrink:0;">
+      <img class="modal-img w-full h-full object-cover object-top" src="https://media.base44.com/images/public/69ddd72f76e22b7add723f2b/f28809042_generated_image.png" alt="Airbnb System"/>
+      <div class="absolute inset-0" style="background:linear-gradient(to top,#0f1117 0%,rgba(15,17,23,0.2) 50%,transparent 100%);"></div>
+      <div class="absolute" style="top:12px;left:16px;">
+        <div style="display:inline-flex;align-items:center;gap:6px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.5);padding:5px 12px;backdrop-filter:blur(8px);">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#22c55e"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span style="font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#22c55e;">Live System</span>
+        </div>
+      </div>
+    </div>
+    <div class="px-5 pt-3 pb-5" style="padding:12px 20px 20px;">
+      <h2 style="font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:2px;">Airbnb & Short-Term Rentals</h2>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-bottom:12px;">Your full property ops system</p>
+      <p style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:8px;">What's included</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Automated booking sync</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Cleaning crew scheduling</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Property performance dashboard</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Revenue & expense tracking</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Automated guest messaging</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Multi-property overview</span></div>
+      </div>
+      <p style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:8px;">Integrations</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="#FF5A5F"><path d="M12.005 2C8.838 2 6.25 4.507 6.25 7.588c0 1.458.572 2.784 1.5 3.774L12.005 22l4.254-10.638A5.522 5.522 0 0017.76 7.588C17.76 4.507 15.172 2 12.005 2zm0 7.647a2.064 2.064 0 110-4.128 2.064 2.064 0 010 4.128z"/></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">Airbnb</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 40 40"><rect width="40" height="40" rx="6" fill="#003580"/><text x="5" y="28" font-size="18" font-weight="900" fill="white" font-family="Arial">B.</text></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">Booking.com</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><span style="font-size:11px;font-weight:900;color:#1B6FBE;">vrbo</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><span style="font-size:11px;font-weight:700;color:#6C63FF;">Guesty</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="#FF4A00"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.001 4.5c.828 0 1.5.672 1.5 1.5v3.621l3.13-1.807a1.5 1.5 0 011.5 2.598L15 12l3.131 1.588a1.5 1.5 0 01-1.5 2.598L13.5 14.38V18a1.5 1.5 0 01-3 0v-3.621l-3.13 1.807a1.5 1.5 0 01-1.5-2.598L9 12 5.87 10.412a1.5 1.5 0 011.5-2.598L10.5 9.62V6a1.5 1.5 0 011.501-1.5z"/></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">Zapier</span></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="#book" onclick="closeModal('airbnb')" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;background:linear-gradient(90deg,#f43f5e,#fb923c);padding:12px 16px;font-size:0.875rem;font-weight:700;color:#fff;text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">Book a free call <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <button onclick="closeModal('airbnb')" style="flex:1;min-width:140px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);padding:12px 16px;font-size:0.875rem;font-weight:600;color:rgba(255,255,255,0.6);cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">Back to industries</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: E-commerce -->
+<div id="modal-ecom" class="modal-hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4" style="background:rgba(0,0,0,0);">
+  <div class="modal-backdrop absolute inset-0" style="background:rgba(0,0,0,0.8);backdrop-filter:blur(12px);" onclick="closeModal('ecom')"></div>
+  <div class="modal-panel relative z-10 w-full overflow-hidden flex flex-col" style="max-width:42rem;border-radius:24px 24px 0 0;background:#0f1117;border:1px solid rgba(255,255,255,0.08);box-shadow:0 0 80px rgba(0,0,0,0.8);">
+    <div class="absolute top-0 left-0 right-0" style="height:2px;background:linear-gradient(90deg,#8b5cf6,#3b82f6);"></div>
+    <button onclick="closeModal('ecom')" class="absolute z-20 flex items-center justify-center rounded-full" style="right:16px;top:16px;width:36px;height:36px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border:none;cursor:pointer;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="relative overflow-hidden" style="height:160px;flex-shrink:0;">
+      <img class="modal-img w-full h-full object-cover object-top" src="https://media.base44.com/images/public/69ddd72f76e22b7add723f2b/88754ef4e_generated_image.png" alt="E-commerce System"/>
+      <div class="absolute inset-0" style="background:linear-gradient(to top,#0f1117 0%,rgba(15,17,23,0.2) 50%,transparent 100%);"></div>
+      <div class="absolute" style="top:12px;left:16px;"><div style="display:inline-flex;align-items:center;gap:6px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.5);padding:5px 12px;backdrop-filter:blur(8px);"><svg width="10" height="10" viewBox="0 0 24 24" fill="#22c55e"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span style="font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#22c55e;">Live System</span></div></div>
+    </div>
+    <div style="padding:12px 20px 20px;">
+      <h2 style="font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:2px;">E-commerce & Online Retail</h2>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-bottom:12px;">Unified multi-channel command centre</p>
+      <p style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:8px;">What's included</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Unified order management</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Real-time inventory sync</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Ad spend & ROAS tracking</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Profit & loss dashboards</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Multi-channel analytics</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Automated restock alerts</span></div>
+      </div>
+      <p style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:8px;">Integrations</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="#96BF48"><path d="M15.337 2.102a.405.405 0 00-.366-.35c-.154-.013-3.4-.064-3.4-.064s-2.254-2.188-2.493-2.427c-.24-.239-.706-.166-.888-.112l-1.215.376A7.553 7.553 0 006.38 0C5.028 0 4.18.85 3.505 2.189c-.182.364-.335.765-.463 1.19L1.41 3.9C.6 4.153 0 4.91 0 5.76V21.6C0 22.924 1.076 24 2.4 24h14.4a.4.4 0 00.4-.4V2.42a.4.4 0 00-.063-.318z"/></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">Shopify</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="#FF9900"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.32 17.32 0 01-4.423.583c-2.933 0-5.62-.636-8.06-1.906-1.084-.572-2.054-1.26-2.908-2.063-.19-.182-.22-.39-.096-.583z"/></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">Amazon</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.77 0 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 100 12.63 6.34 6.34 0 006.33-6.34V8.85a8.18 8.18 0 004.79 1.53V6.93a4.85 4.85 0 01-1.81-.24z" fill="#EE1D52"/></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">TikTok Shop</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M12 4.872c-1.678 0-3.023 1.602-3.717 4.073C7.93 10.203 7.743 11.558 7.743 12.827c0 1.33.222 2.512.638 3.35.32.646.823 1.153 1.618 1.153.4 0 .74-.1 1.02-.302.42-.3.71-.786.92-1.378.21.592.5 1.078.92 1.378.28.202.62.302 1.02.302.795 0 1.298-.507 1.618-1.153.416-.838.638-2.02.638-3.35 0-1.27-.187-2.624-.54-3.882C15.023 6.474 13.678 4.872 12 4.872z" fill="#0081FB"/></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">Meta Ads</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><span style="font-size:12px;font-weight:900;"><span style="color:#E53238">e</span><span style="color:#0064D2">b</span><span style="color:#F5AF02">a</span><span style="color:#86B817">y</span></span></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="#book" onclick="closeModal('ecom')" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;background:linear-gradient(90deg,#8b5cf6,#3b82f6);padding:12px 16px;font-size:0.875rem;font-weight:700;color:#fff;text-decoration:none;" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">Book a free call <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <button onclick="closeModal('ecom')" style="flex:1;min-width:140px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);padding:12px 16px;font-size:0.875rem;font-weight:600;color:rgba(255,255,255,0.6);cursor:pointer;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">Back to industries</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Service Ops -->
+<div id="modal-service" class="modal-hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4" style="background:rgba(0,0,0,0);">
+  <div class="modal-backdrop absolute inset-0" style="background:rgba(0,0,0,0.8);backdrop-filter:blur(12px);" onclick="closeModal('service')"></div>
+  <div class="modal-panel relative z-10 w-full overflow-hidden flex flex-col" style="max-width:42rem;border-radius:24px 24px 0 0;background:#0f1117;border:1px solid rgba(255,255,255,0.08);box-shadow:0 0 80px rgba(0,0,0,0.8);">
+    <div class="absolute top-0 left-0 right-0" style="height:2px;background:linear-gradient(90deg,#10b981,#2dd4bf);"></div>
+    <button onclick="closeModal('service')" class="absolute z-20 flex items-center justify-center rounded-full" style="right:16px;top:16px;width:36px;height:36px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border:none;cursor:pointer;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="relative overflow-hidden" style="height:160px;flex-shrink:0;">
+      <img class="modal-img w-full h-full object-cover object-top" src="https://media.base44.com/images/public/69ddd72f76e22b7add723f2b/6e8fa97c6_generated_image.png" alt="Service Ops System"/>
+      <div class="absolute inset-0" style="background:linear-gradient(to top,#0f1117 0%,rgba(15,17,23,0.2) 50%,transparent 100%);"></div>
+      <div class="absolute" style="top:12px;left:16px;"><div style="display:inline-flex;align-items:center;gap:6px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.5);padding:5px 12px;backdrop-filter:blur(8px);"><svg width="10" height="10" viewBox="0 0 24 24" fill="#22c55e"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span style="font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#22c55e;">Live System</span></div></div>
+    </div>
+    <div style="padding:12px 20px 20px;">
+      <h2 style="font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:2px;">Service Businesses & Ops</h2>
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-bottom:12px;">End-to-end operations system</p>
+      <p style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:8px;">What's included</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Staff scheduling & tracking</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Automated payslip generation</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Client CRM & pipeline</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Job assignment workflow</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Performance dashboards</span></div>
+        <div style="display:flex;align-items:center;gap:8px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05);padding:8px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#22c55e"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span style="font-size:11px;color:rgba(255,255,255,0.7);">Invoice & payment tracking</span></div>
+      </div>
+      <p style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:8px;">Integrations</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#2CA01C"/><text x="6" y="16" font-size="7" font-weight="900" fill="white" font-family="Arial">QB</text></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">QuickBooks</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#13B5EA"/><text x="4" y="15.5" font-size="7" font-weight="700" fill="white" font-family="Arial">xero</text></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">Xero</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none"><path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.527 2.527 0 012.521 2.522v2.52H8.834zM15.165 18.956a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.165 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zM18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.527 2.527 0 01-2.522 2.521h-2.522V8.834z" fill="#E01E5A"/></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">Slack</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466l1.823 1.447zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933z" fill="#000"/></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">Notion</span></div>
+        <div style="display:flex;align-items:center;gap:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:6px 10px;"><svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="#FF7A59"><path d="M22.175 9.84a3.984 3.984 0 00-1.89-1.056V6.667a1.62 1.62 0 10-1.64 0v2.117a4.012 4.012 0 00-2.343 6.204l-2.9 2.9a1.347 1.347 0 00-1.652.166 1.36 1.36 0 000 1.92 1.36 1.36 0 001.92 0 1.347 1.347 0 00.166-1.652l2.9-2.9a4.006 4.006 0 005.44-5.582z"/></svg><span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);">HubSpot</span></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="#book" onclick="closeModal('service')" style="flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;background:linear-gradient(90deg,#10b981,#2dd4bf);padding:12px 16px;font-size:0.875rem;font-weight:700;color:#fff;text-decoration:none;" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">Book a free call <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <button onclick="closeModal('service')" style="flex:1;min-width:140px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);padding:12px 16px;font-size:0.875rem;font-weight:600;color:rgba(255,255,255,0.6);cursor:pointer;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.04)'">Back to industries</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
    
 <!-- ============================================================
@@ -2549,6 +2885,43 @@ em.accent-dark{font-style:italic;color:var(--g600)}
 
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
+
+
+<script>
+  function openModal(id) {
+    const modal = document.getElementById('modal-' + id);
+    modal.classList.remove('modal-hidden');
+    document.body.classList.add('modal-open');
+    // re-trigger animation
+    const panel = modal.querySelector('.modal-panel');
+    panel.style.animation = 'none';
+    panel.offsetHeight;
+    panel.style.animation = '';
+  }
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.add('modal-hidden');
+    document.body.classList.remove('modal-open');
+  }
+  // ESC key closes any open modal
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      ['airbnb','ecom','service'].forEach(closeModal);
+    }
+  });
+
+  // Desktop: center modal; Mobile: bottom sheet
+  function updateModalRounding() {
+    const isDesktop = window.innerWidth >= 640;
+    document.querySelectorAll('.modal-panel').forEach(function(el) {
+      el.style.borderRadius = isDesktop ? '24px' : '24px 24px 0 0';
+      el.style.marginBottom = isDesktop ? '' : '0';
+    });
+  }
+  updateModalRounding();
+  window.addEventListener('resize', updateModalRounding);
+</script>
+
+   
 <script>
 /* ——— Nav scroll ——— */
 window.addEventListener('scroll',()=>{
