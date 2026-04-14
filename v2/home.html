@@ -1167,6 +1167,12 @@ em.accent-dark{font-style:italic;color:var(--g600)}
 }
 .result-tag-num{font-family:var(--serif);font-size:1.6rem;color:var(--g600);line-height:1}
 .result-tag-text{font-size:.8rem;color:var(--ink2);line-height:1.4}
+@media(max-width:700px){
+  [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr!important}
+}
+@media(max-width:800px){
+  [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important}
+}
 </style>
 </head>
 <body>
@@ -1386,6 +1392,55 @@ em.accent-dark{font-style:italic;color:var(--g600)}
   </div>
 </div>
 
+
+<section class="section section--light" style="padding:clamp(60px,8vw,100px) 0">
+  <div class="container">
+    <div style="text-align:center;max-width:640px;margin:0 auto 56px">
+      <span class="eyebrow eyebrow--dark reveal">What you actually get</span>
+      <h2 class="display-h2 reveal d1" style="color:var(--ink);margin-top:14px;margin-bottom:16px">
+        Not a spreadsheet.<br>A system that <em class="accent-dark">runs your business.</em>
+      </h2>
+      <p class="reveal d2" style="font-size:.95rem;color:var(--ink2);line-height:1.75">Your team never opens a spreadsheet. They interact with a purpose-built interface — forms, dashboards, automated emails, status trackers. Google Sheets runs silently in the background as the database. What they see and use is a tool built exactly for how your business works.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line2);border-radius:var(--r-xl);overflow:hidden;margin-bottom:48px">
+
+      <div class="reveal d1" style="background:var(--white);padding:32px 28px;position:relative">
+        <div style="width:40px;height:40px;border-radius:var(--r-sm);background:rgba(22,163,74,.08);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <h3 style="font-size:.9rem;font-weight:700;margin-bottom:8px;color:var(--ink)">A real interface, not a spreadsheet</h3>
+        <p style="font-size:.82rem;color:var(--ink2);line-height:1.65">Your team books jobs, tracks clients, and views reports through a custom UI. Google Sheets is the invisible engine — they never see it.</p>
+      </div>
+
+      <div class="reveal d2" style="background:var(--white);padding:32px 28px;position:relative">
+        <div style="width:40px;height:40px;border-radius:var(--r-sm);background:rgba(22,163,74,.08);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 style="font-size:.9rem;font-weight:700;margin-bottom:8px;color:var(--ink)">Connected to every tool you already use</h3>
+        <p style="font-size:.82rem;color:var(--ink2);line-height:1.65">Stripe, Square, Shopify, Gmail, Amazon, TikTok Shop, Airbnb — if it has data, it connects. One place for everything, updated automatically.</p>
+      </div>
+
+      <div class="reveal d3" style="background:var(--white);padding:32px 28px;position:relative">
+        <div style="width:40px;height:40px;border-radius:var(--r-sm);background:rgba(22,163,74,.08);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 style="font-size:.9rem;font-weight:700;margin-bottom:8px;color:var(--ink)">You own it. No subscriptions, ever.</h3>
+        <p style="font-size:.82rem;color:var(--ink2);line-height:1.65">No SaaS fees. No retainers. No dependency on me after handover. Full documentation and walkthrough video included. It's yours, completely.</p>
+      </div>
+
+    </div>
+
+    <div class="reveal" style="background:linear-gradient(135deg,var(--g800),var(--g900));border-radius:var(--r-xl);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
+      <div style="position:relative;z-index:1">
+        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2.2vw,1.6rem);font-weight:300;color:var(--text1);line-height:1.4;margin-bottom:8px">If 2 people spend 3 hrs/week on manual tasks at $15/hr —<br>that's <em style="color:var(--g300);font-style:italic">$4,680 per year.</em> This system costs $800.</p>
+        <p style="font-size:.8rem;color:var(--text3)">Most projects pay for themselves within 6–8 weeks.</p>
+      </div>
+      <a href="#book" class="btn btn-primary btn-lg" style="flex-shrink:0">See if it makes sense for you →</a>
+    </div>
+  </div>
+</section>
+
 <!-- ============================================================
      TICKER
 ============================================================ -->
@@ -1481,6 +1536,68 @@ em.accent-dark{font-style:italic;color:var(--g600)}
 
 <div id="solutions"></div>
 
+
+
+
+<section class="section section--darker" style="padding:clamp(60px,8vw,100px) 0 0">
+  <div class="container">
+    <div style="text-align:center;max-width:560px;margin:0 auto 48px">
+      <span class="eyebrow reveal">Built for your type of business</span>
+      <h2 class="display-h2 reveal d1" style="color:var(--text1);margin-top:14px">
+        Pick your industry.<br><em class="accent">Same system, your workflow.</em>
+      </h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px" class="reveal">
+
+      <div style="background:var(--surface1);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 24px;transition:border-color .25s" onmouseover="this.style.borderColor='rgba(34,197,94,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;border-radius:var(--r-sm);background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g400)" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:8px">Airbnb / Short-Term Rentals</div>
+        <p style="font-size:.83rem;color:var(--text2);line-height:1.6;margin-bottom:14px">Booking ops, cleaning crew scheduling, property tracking, Airbnb data dashboards, automated guest comms — all in one system.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Booking ops</span>
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Crew scheduling</span>
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Revenue tracking</span>
+        </div>
+      </div>
+
+      <div style="background:var(--surface1);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 24px;transition:border-color .25s" onmouseover="this.style.borderColor='rgba(34,197,94,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;border-radius:var(--r-sm);background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g400)" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/></svg>
+        </div>
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:8px">E-commerce (Shopify / Amazon / TikTok Shop)</div>
+        <p style="font-size:.83rem;color:var(--text2);line-height:1.6;margin-bottom:14px">Orders, inventory, ad spend, and profit — unified across every platform into one live dashboard. Stop switching tabs to understand your business.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Shopify</span>
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Amazon / eBay</span>
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">TikTok Shop</span>
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Meta Ads</span>
+        </div>
+      </div>
+
+      <div style="background:var(--surface1);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 24px;transition:border-color .25s" onmouseover="this.style.borderColor='rgba(34,197,94,.35)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)'">
+        <div style="width:36px;height:36px;border-radius:var(--r-sm);background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g400)" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        </div>
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:8px">Service Businesses &amp; Internal Ops</div>
+        <p style="font-size:.83rem;color:var(--text2);line-height:1.6;margin-bottom:14px">Cleaning companies, couriers, B2B services — staff tracking, payment reconciliation, payslips, client CRM, and operations dashboards.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Staff ops</span>
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Payslips</span>
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Client tracking</span>
+          <span style="font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(34,197,94,.08);color:var(--g300);border:1px solid rgba(34,197,94,.18)">Reporting</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="reveal" style="text-align:center;font-size:.82rem;color:var(--text3);padding-bottom:clamp(60px,8vw,100px)">Not in one of these? <a href="#book" style="color:var(--g400);text-decoration:underline;text-underline-offset:3px">Book a call anyway</a> — if your business has a workflow, it can be systemized.</p>
+  </div>
+</section>
+
+   
 <!-- ============================================================
      PROJECT 1: BOOKING & ADMIN SYSTEM
 ============================================================ -->
@@ -2291,6 +2408,24 @@ em.accent-dark{font-style:italic;color:var(--g600)}
       <h2>Common questions</h2>
     </div>
     <div class="reveal d1">
+      <div class="faq-item">
+  <button class="faq-trigger" onclick="toggleFaq(this)">
+    <span>What exactly do you build — is this just a spreadsheet?</span>
+    <div class="faq-icon">+</div>
+  </button>
+  <div class="faq-answer">
+    <p>No. Your team will never open a spreadsheet. I build custom internal systems — booking managers, payment dashboards, client tracking tools, operations hubs, live reporting dashboards — where Google Sheets is the invisible database running in the background. What your team sees and interacts with is a purpose-built interface: forms, dashboards, automated emails, status trackers. It looks and feels like custom software. It costs a fraction of the price.</p>
+  </div>
+</div>
+<div class="faq-item">
+  <button class="faq-trigger" onclick="toggleFaq(this)">
+    <span>Who is this for? Do I need to be technical?</span>
+    <div class="faq-icon">+</div>
+  </button>
+  <div class="faq-answer">
+    <p>No technical knowledge required. This is built for founders and operators of service businesses — Airbnb managers, cleaning companies, e-commerce sellers, couriers, B2B service providers — who are growing fast enough that manual processes are becoming a real cost. If you can describe your workflow to me in plain English, I can build a system for it. Most clients are not technical at all.</p>
+  </div>
+</div>
       <div class="faq-item">
         <button class="faq-trigger" onclick="toggleFaq(this)"><span>How long does it take?</span><div class="faq-icon">+</div></button>
         <div class="faq-answer"><p>Most systems go live in 7–10 days. You'll usually see a working prototype within 72 hours of kickoff.</p></div>
