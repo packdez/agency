@@ -732,6 +732,10 @@ em.accent-dark{font-style:italic;color:var(--g600)}
 .tp-link:hover {
   opacity: 0.7; /* subtle feedback */
 }
+
+@media(max-width:480px){
+  .calendly-inline-widget{ height:1000px !important; }
+}
 </style>
 </head>
 <body>
@@ -834,7 +838,7 @@ em.accent-dark{font-style:italic;color:var(--g600)}
         </div>
         <p class="hcard-quote">"Top notch developer and highly experienced! Highly recommend Raphael's development services!"</p>
         <div class="hcard-reviewer">
-          <img src="https://raw.githubusercontent.com/Levinders/airglitz/refs/heads/main/logo_airglitz.png" alt="Airglitz" class="hcard-reviewer-logo" onerror="this.style.display='none'">
+          <img src="https://airglitz.com.au/image/logonew.svg" alt="Airglitz" class="hcard-reviewer-logo" onerror="this.style.display='none'">
           <div>
             <div class="hcard-reviewer-name">Moe · Airglitz</div>
             <div class="hcard-reviewer-from">airglitz.com.au · Feb 2026</div>
@@ -1013,7 +1017,7 @@ em.accent-dark{font-style:italic;color:var(--g600)}
   </div>
 </section>
 
-<div id="solutions"></div>
+<div id="solutions" style="position:relative;top:-80px"></div>
 
 <!-- ═══ INDUSTRY SELECTOR ═══ -->
 <section id="industries" class="section--darker">
@@ -1559,7 +1563,7 @@ em.accent-dark{font-style:italic;color:var(--g600)}
       <p>Free 20 minutes. Bring your messiest process — bookings, payments, reporting, whatever's costing you the most time. You'll leave knowing exactly what a system would look like, what it costs, and whether it makes sense. No pitch. No pressure.</p>
     </div>
     <div class="book-wrap reveal d1">
-      <div class="calendly-inline-widget" data-url="https://calendly.com/packdez-com" style="min-width:280px;height:680px;"></div>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/packdez-com" style="min-width:280px; height:700px;"></div>
     </div>
     <div class="book-founder reveal d2">
       <img src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true" alt="Raphael" onerror="this.style.display='none'">
@@ -1835,17 +1839,6 @@ function calcROI(){
   document.getElementById('yrSaved').textContent='$'+yr.toLocaleString()
 }
 calcROI()
-
-/* Hero ROI widget */
-function heroROI(){
-  var h=+document.getElementById('hero-hours').value
-  var r=+document.getElementById('hero-rate').value
-  document.getElementById('hero-h-out').textContent=h+' hrs'
-  document.getElementById('hero-r-out').textContent='$'+r
-  var yr=Math.round(h*r*52)
-  document.getElementById('hero-yr').textContent='$'+yr.toLocaleString()
-}
-heroROI()
 
 /* Scroll reveal */
 var revObs=new IntersectionObserver(function(entries){
