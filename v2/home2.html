@@ -774,6 +774,31 @@ em.accent-dark{font-style:italic;color:var(--g600)}
 @media(max-width:480px){
   .calendly-inline-widget{ height:1000px !important; }
 }
+
+.wyg-banner {
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+@media(min-width:640px) {
+  .wyg-banner {
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+  }
+}
+
+.wyg-banner a {
+  width: 100%;
+  justify-content: center;
+}
+
+@media(min-width:640px) {
+  .wyg-banner a {
+    width: auto;
+  }
+}
 </style>
 </head>
 <body>
@@ -953,7 +978,7 @@ em.accent-dark{font-style:italic;color:var(--g600)}
       <div class="wyg-cell reveal d1">
         <div class="wyg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
         <h3>A real interface, not a spreadsheet</h3>
-        <p>Easily track leads, and views reports through a custom UI. Sheets is the invisible engine — they never see it.</p>
+        <p>Easily track leads, and view reports through a custom UI. Sheets is the invisible engine — they never see it.</p>
       </div>
       <div class="wyg-cell reveal d2">
         <div class="wyg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
@@ -968,7 +993,7 @@ em.accent-dark{font-style:italic;color:var(--g600)}
     </div>
     <div class="wyg-banner reveal">
       <div>
-        <p>If 2 people spend 3 hrs/week on manual tasks at $15/hr —<br>that's <em style="color:var(--g300);font-style:italic">$4,680 per year.</em> This system costs $800.</p>
+        <p>No columns. No rows. No formulas to break<br>that's <em style="color:var(--g300);font-style:italic">$4,680 per year.</em> This system costs $800.</p>
         <div class="wyg-banner-sub">Most projects pay for themselves within 6–8 weeks.</div>
       </div>
       <a href="#book" class="btn btn-primary btn-lg" style="flex-shrink:0">See if it makes sense →</a>
