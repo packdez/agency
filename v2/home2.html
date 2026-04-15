@@ -270,24 +270,6 @@ em.accent-dark{font-style:italic;color:var(--g600)}
   100% { transform: translateX(-50%); }
 }
 
-
-
-/* ============================================================
-   TICKER — Dual row counter-scroll
-============================================================ */
-.ticker{padding:28px 0;overflow:hidden;position:relative;z-index:1;background:transparent;display:flex;flex-direction:column;gap:12px}
-.ticker::before,.ticker::after{content:'';position:absolute;top:0;width:140px;height:100%;z-index:2;pointer-events:none}
-.ticker::before{left:0;background:linear-gradient(to right,var(--g950) 0%,transparent 100%)}
-.ticker::after{right:0;background:linear-gradient(to left,var(--g950) 0%,transparent 100%)}
-.ticker__row{display:flex;gap:0;width:max-content}
-.ticker__row--fwd{animation:tickerFwd 36s linear infinite}
-.ticker__row--rev{animation:tickerRev 42s linear infinite}
-.ticker:hover .ticker__row{animation-play-state:paused}
-.ticker__item{display:inline-flex;align-items:center;gap:9px;padding:8px 20px;margin:0 5px;font-size:.78rem;font-weight:600;color:var(--t2);white-space:nowrap;border-radius:999px;border:1px solid var(--bd);background:var(--sf1);backdrop-filter:blur(6px);transition:border-color .2s,color .2s}
-.ticker__item:hover{border-color:var(--bdg);color:var(--t1)}
-.ticker__item-dot{width:5px;height:5px;border-radius:50%;background:var(--g400);flex-shrink:0}
-@keyframes tickerFwd{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes tickerRev{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
    
 
 /* ============================================================
@@ -1008,41 +990,6 @@ em.accent-dark{font-style:italic;color:var(--g600)}
   </div>
 </section>
 
-<!-- ═══ TICKER ═══ -->
-<div class="ticker" aria-hidden="true">
-  <!-- Row 1: left → right -->
-  <div class="ticker__row ticker__row--fwd">
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Your team uses an interface — not a spreadsheet</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Stripe, Square, Shopify — all connected</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Payslips generated and emailed automatically</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Live dashboards update in real time</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>7–10 days · Fixed price · You own it forever</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>No subscriptions. No agencies. No ongoing fees.</div>
-    <!-- duplicate for seamless loop -->
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Your team uses an interface — not a spreadsheet</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Stripe, Square, Shopify — all connected</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Payslips generated and emailed automatically</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Live dashboards update in real time</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>7–10 days · Fixed price · You own it forever</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>No subscriptions. No agencies. No ongoing fees.</div>
-  </div>
-  <!-- Row 2: right → left (reverse) -->
-  <div class="ticker__row ticker__row--rev">
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Working prototype in 72 hours</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Google Sheets runs silently — your team never sees it</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Full docs + walkthrough video included</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>You own it forever — no lock-in</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Most projects pay back in 6–8 weeks</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Talk directly to the person building it</div>
-    <!-- duplicate for seamless loop -->
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Working prototype in 72 hours</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Google Sheets runs silently — your team never sees it</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Full docs + walkthrough video included</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>You own it forever — no lock-in</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Most projects pay back in 6–8 weeks</div>
-    <div class="ticker__item"><span class="ticker__item-dot"></span>Talk directly to the person building it</div>
-  </div>
-</div>
 
 <!-- ═══ PAIN ═══ -->
 <section class="section section--light">
