@@ -177,7 +177,46 @@ em.accent-dark{font-style:italic;color:var(--g600)}
 .hcard-stat:last-child{border-right:none}
 .hcard-stat-num{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--g300);line-height:1;margin-bottom:3px;display:block}
 .hcard-stat-label{font-size:.66rem;color:var(--t3);line-height:1.3}
-
+.hcard-stats {
+  padding: 14px 20px;
+  border-top: 1px solid var(--bd);
+}
+.hcard-trusted {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hcard-avatars {
+  display: flex;
+  align-items: center;
+}
+.hcard-mini-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--g900);
+  margin-left: -8px;
+  flex-shrink: 0;
+}
+.hcard-mini-avatar:first-child {
+  margin-left: 0;
+}
+.hcard-trusted-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.hcard-trusted-label {
+  font-size: .68rem;
+  color: var(--t3);
+  font-weight: 500;
+}
+.hcard-trusted-num {
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--t1);
+}
 @media(max-width:960px){.hero__content{grid-template-columns:1fr;gap:36px;padding-top:90px}}
 @media(max-width:480px){.hero__actions{flex-direction:column;align-items:stretch}.hero-roi{max-width:100%}}
 
@@ -822,8 +861,18 @@ em.accent-dark{font-style:italic;color:var(--g600)}
         </div>
       </div>
       <div class="hcard-stats">
-        <div class="hcard-stat"><span class="hcard-stat-num">12+</span><span class="hcard-stat-label">Live projects shipped</span></div>
-      </div>
+  <div class="hcard-trusted">
+    <div class="hcard-avatars">
+      <img src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true" alt="Client 1" class="hcard-mini-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'28\' height=\'28\'%3E%3Ccircle cx=\'14\' cy=\'14\' r=\'14\' fill=\'%230a1c0f\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2322c55e\' font-size=\'10\'%3EM%3C/text%3E%3C/svg%3E'">
+      <img src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true" alt="Client 2" class="hcard-mini-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'28\' height=\'28\'%3E%3Ccircle cx=\'14\' cy=\'14\' r=\'14\' fill=\'%23103320\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2322c55e\' font-size=\'10\'%3EL%3C/text%3E%3C/svg%3E'">
+      <img src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true" alt="Client 3" class="hcard-mini-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'28\' height=\'28\'%3E%3Ccircle cx=\'14\' cy=\'14\' r=\'14\' fill=\'%23176633\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23fff\' font-size=\'10\'%3ES%3C/text%3E%3C/svg%3E'">
+    </div>
+    <div class="hcard-trusted-text">
+      <span class="hcard-trusted-label">Trusted by</span>
+      <span class="hcard-trusted-num">12+ clients</span>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </section>
