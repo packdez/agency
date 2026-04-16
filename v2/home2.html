@@ -1278,7 +1278,11 @@ em.accent-dark{font-style:italic;color:var(--g600)}
 
        <div class="proj-slider-wrap reveal-right">
         <div style="border-radius:var(--rxl);overflow:hidden;aspect-ratio:4/3;background:#000;box-shadow:0 0 0 1px rgba(255,255,255,.07),var(--shxl);width:100%">
-          <iframe src="https://www.youtube.com/embed/ykFwXvWZ6lc?autoplay=1&mute=1&start=9&controls=0&loop=1&playlist=ykFwXvWZ6lc&modestbranding=1&rel=0&playsinline=1" style="width:100%;height:100%;border:none;display:block;pointer-events:none" allow="autoplay; encrypted-media" allowfullscreen ></iframe>
+          <iframe id="p1-video"
+                 src="https://www.youtube.com/embed/ykFwXvWZ6lc?mute=1&start=9&controls=0&loop=1&playlist=ykFwXvWZ6lc&modestbranding=1&rel=0&playsinline=1"
+                 style="width:100%;height:100%;border:none;display:block;pointer-events:none"
+                 allow="autoplay; encrypted-media"
+                 allowfullscreen></iframe>
         </div>
       </div>
        
@@ -1796,6 +1800,22 @@ function toggleFaq(btn){
   if(!isOpen) item.classList.add('open')
 }
 
+
+/* Scroll-triggered video autoplay */
+var p1Vid = document.getElementById('p1-video');
+var p1VidSrc = 'https://www.youtube.com/embed/ykFwXvWZ6lc?autoplay=1&mute=1&start=9&controls=0&loop=1&playlist=ykFwXvWZ6lc&modestbranding=1&rel=0&playsinline=1';
+var p1Played = false;
+var p1Obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting && !p1Played) {
+      p1Vid.src = p1VidSrc;
+      p1Played = true;
+      p1Obs.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+p1Obs.observe(p1Vid);
+   
 /* ROI pill modal */
 var roiOv=document.getElementById('roi-overlay')
 document.getElementById('roi-pill').addEventListener('click',function(){
