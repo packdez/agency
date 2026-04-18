@@ -1252,134 +1252,6 @@ ul{list-style:none}
   margin:0;border:none;
 }
 
-/* ============================================================
-   WYG FEATURE CARDS (Replit/Zite style)
-============================================================ */
-.wyg-feat-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-  margin-bottom:40px;
-}
-.wyg-feat-card{
-  border-radius:var(--rxl);
-  overflow:hidden;
-  border:1px solid var(--line);
-  display:flex;
-  flex-direction:column;
-  background:var(--white);
-  transition:transform .25s var(--eout), box-shadow .25s;
-}
-.wyg-feat-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 16px 48px rgba(0,0,0,.08);
-}
-.wyg-feat-visual{
-  flex:1;
-  min-height:240px;
-  padding:28px 24px 0;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  overflow:hidden;
-  position:relative;
-}
-.wyg-feat-text{
-  padding:22px 22px 24px;
-}
-.wyg-feat-text h3{
-  font-size:.95rem;
-  font-weight:700;
-  color:var(--ink);
-  margin-bottom:6px;
-}
-.wyg-feat-text p{
-  font-size:.81rem;
-  color:var(--ink2);
-  line-height:1.65;
-}
-
-/* ── Card 1: Interface mockup ── */
-.wf-screen{
-  width:100%;
-  background:#fff;
-  border:1px solid #e2e8f0;
-  border-bottom:none;
-  border-radius:10px 10px 0 0;
-  overflow:hidden;
-  box-shadow:0 -4px 24px rgba(0,0,0,.07);
-}
-.wf-chrome{
-  background:#f8fafc;
-  border-bottom:1px solid #e2e8f0;
-  padding:8px 10px;
-  display:flex;
-  align-items:center;
-  gap:5px;
-}
-.wf-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
-.wf-url{flex:1;background:#fff;border:1px solid #e2e8f0;border-radius:4px;padding:3px 8px;font-size:.62rem;color:#64748b;margin-left:6px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.wf-kpi-row{display:flex;gap:6px;padding:12px 10px 8px}
-.wf-kpi{flex:1;background:#f8fafc;border-radius:7px;padding:8px 9px;border-top:2px solid}
-.wf-kpi-num{font-size:.88rem;font-weight:700;line-height:1}
-.wf-kpi-lbl{font-size:.58rem;color:#64748b;margin-top:2px}
-.wf-rows{padding:0 10px 10px;display:flex;flex-direction:column;gap:5px}
-.wf-row{display:flex;align-items:center;gap:7px;background:#f8fafc;border-radius:7px;padding:7px 9px;font-size:.72rem;color:#334155}
-.wf-badge{font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:999px;flex-shrink:0}
-
-/* ── Card 2: Integrations ── */
-.wf-int-wrap{
-  width:100%;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-bottom:none;
-  border-radius:10px 10px 0 0;
-  padding:16px 14px 0;
-  box-shadow:0 -4px 24px rgba(0,0,0,.07);
-}
-.wf-int-card{
-  background:#fff;
-  border:1px solid #e8edf3;
-  border-radius:9px;
-  padding:9px 11px;
-  display:flex;
-  align-items:center;
-  gap:9px;
-  margin-bottom:7px;
-  font-size:.78rem;
-}
-.wf-int-logo{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.wf-int-name{flex:1;font-weight:600;color:#1e293b}
-.wf-int-pill{font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#dcfce7;color:#16a34a;flex-shrink:0}
-.wf-int-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:dotPulse 2s ease infinite;flex-shrink:0}
-
-/* ── Card 3: Ownership ── */
-.wf-own-wrap{
-  width:100%;
-  background:#fff;
-  border:1px solid #e2e8f0;
-  border-bottom:none;
-  border-radius:10px 10px 0 0;
-  padding:16px 14px 0;
-  box-shadow:0 -4px 24px rgba(0,0,0,.07);
-}
-.wf-own-row{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:9px 0;
-  border-bottom:1px solid #f1f5f9;
-  font-size:.78rem;
-}
-.wf-own-row:last-child{border-bottom:none}
-.wf-own-icon{width:28px;height:28px;border-radius:7px;background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.wf-own-label{flex:1;font-weight:600;color:#1e293b}
-.wf-own-sub{font-size:.65rem;color:#64748b}
-.wf-own-check{width:18px;height:18px;border-radius:50%;background:#dcfce7;color:#16a34a;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;flex-shrink:0}
-.wf-own-footer{background:linear-gradient(135deg,#16a34a,#22c55e);border-radius:8px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center;margin:10px 0 0}
-
-@media(max-width:860px){.wyg-feat-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:540px){.wyg-feat-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1557,165 +1429,269 @@ ul{list-style:none}
 
 
 
-<!-- ============================================================
-     PAIN SECTION
-============================================================ -->
-<section class="section pain">
-   <div class="wyg-feat-grid">
 
-  <!-- Card 1: Real Interface -->
-  <div class="wyg-feat-card reveal d1">
-    <div class="wyg-feat-visual" style="background:#f0fdf4">
-      <div class="wf-screen">
-        <div class="wf-chrome">
-          <span class="wf-dot" style="background:#ff5f57"></span>
-          <span class="wf-dot" style="background:#febc2e"></span>
-          <span class="wf-dot" style="background:#28c840"></span>
-          <div class="wf-url">app.yourbusiness.com/orders</div>
-        </div>
-        <div class="wf-kpi-row">
-          <div class="wf-kpi" style="border-color:#22c55e">
-            <div class="wf-kpi-num" style="color:#16a34a">£4,820</div>
-            <div class="wf-kpi-lbl">Today's revenue</div>
-          </div>
-          <div class="wf-kpi" style="border-color:#3b82f6">
-            <div class="wf-kpi-num" style="color:#2563eb">38</div>
-            <div class="wf-kpi-lbl">Orders</div>
-          </div>
-          <div class="wf-kpi" style="border-color:#f59e0b">
-            <div class="wf-kpi-num" style="color:#d97706">3</div>
-            <div class="wf-kpi-lbl">Pending</div>
-          </div>
-        </div>
-        <div class="wf-rows">
-          <div class="wf-row">
-            <span class="wf-badge" style="background:#dcfce7;color:#16a34a">Shipped</span>
-            Order #1042 · Sarah K.
-          </div>
-          <div class="wf-row">
-            <span class="wf-badge" style="background:#fef9c3;color:#ca8a04">Packing</span>
-            Order #1041 · James R.
-          </div>
-          <div class="wf-row">
-            <span class="wf-badge" style="background:#dbeafe;color:#2563eb">New</span>
-            Order #1040 · Maria L.
-          </div>
-        </div>
-      </div>
+
+<section class="section" style="background:var(--white);padding-top:clamp(60px,8vw,100px);padding-bottom:clamp(60px,8vw,100px)">
+  <section class="section pain">
+     <div class="container">
+    <div style="text-align:center;max-width:580px;margin:0 auto clamp(40px,5vw,56px)" class="reveal">
+      <span class="eyebrow">What you actually get</span>
+      <h2 style="font-family:var(--serif);font-size:clamp(1.9rem,4vw,2.9rem);font-weight:300;line-height:1.1;margin-top:12px">
+        Not a spreadsheet.<br>A system that <em style="font-style:italic;color:var(--g600)">runs your business.</em>
+      </h2>
     </div>
-    <div class="wyg-feat-text">
-      <h3>A real interface, not a spreadsheet</h3>
-      <p>Your team sees a clean dashboard. Google Sheets runs silently in the background — they never touch it.</p>
+    <div class="reveal d1" style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+      <svg width="100%" viewBox="0 0 1180 360" ... > 
+
+
+<svg width="100%" viewBox="0 0 1180 360" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Packdez — what you actually get</title>
+<desc>Three feature cards: a real dashboard interface, connected integrations, and full ownership handover</desc>
+<defs>
+  <clipPath id="c1"><rect x="0" y="0" width="360" height="340" rx="20"/></clipPath>
+  <clipPath id="c2"><rect x="400" y="0" width="360" height="340" rx="20"/></clipPath>
+  <clipPath id="c3"><rect x="800" y="0" width="360" height="340" rx="20"/></clipPath>
+  <filter id="soft" x="-10%" y="-10%" width="120%" height="130%">
+    <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="0.07"/>
+  </filter>
+  <filter id="softsm" x="-20%" y="-20%" width="140%" height="160%">
+    <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.06"/>
+  </filter>
+</defs>
+
+<!-- ══════════════════════════════════
+     CARD 1 — Real Interface
+══════════════════════════════════ -->
+<g filter="url(#soft)">
+  <rect x="0" y="0" width="360" height="340" rx="20" fill="#ffffff"/>
+</g>
+<!-- green top zone -->
+<rect x="0" y="0" width="360" height="210" rx="20" fill="#f0fdf4"/>
+<rect x="0" y="190" width="360" height="20" fill="#f0fdf4"/>
+
+<!-- browser window -->
+<g filter="url(#softsm)">
+  <rect x="22" y="18" width="316" height="174" rx="10" fill="#ffffff"/>
+</g>
+<!-- chrome bar -->
+<rect x="22" y="18" width="316" height="26" rx="10" fill="#f1f5f9"/>
+<rect x="22" y="36" width="316" height="8" fill="#f1f5f9"/>
+<!-- traffic lights -->
+<circle cx="38" cy="31" r="4.5" fill="#ff5f57"/>
+<circle cx="52" cy="31" r="4.5" fill="#febc2e"/>
+<circle cx="66" cy="31" r="4.5" fill="#28c840"/>
+<!-- url bar -->
+<rect x="80" y="23" width="200" height="16" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.75"/>
+<text x="180" y="34" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" fill="#94a3b8">app.yourbusiness.com/dashboard</text>
+
+<!-- sidebar -->
+<rect x="22" y="44" width="56" height="148" fill="#fafafa" stroke="#f1f5f9" stroke-width="0.5"/>
+<!-- nav items -->
+<rect x="26" y="48" width="48" height="18" rx="5" fill="#dcfce7"/>
+<text x="50" y="60" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#15803d" font-weight="700">Orders</text>
+<text x="50" y="78" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Reports</text>
+<text x="50" y="93" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Inventory</text>
+<text x="50" y="108" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Staff</text>
+<text x="50" y="123" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Settings</text>
+
+<!-- main panel -->
+<!-- KPI row -->
+<rect x="84" y="48" width="72" height="36" rx="7" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="0.75"/>
+<text x="120" y="62" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#15803d" font-weight="700">£4,820</text>
+<text x="120" y="76" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#86efac">Revenue today</text>
+
+<rect x="162" y="48" width="60" height="36" rx="7" fill="#eff6ff" stroke="#bfdbfe" stroke-width="0.75"/>
+<text x="192" y="62" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#1d4ed8" font-weight="700">38</text>
+<text x="192" y="76" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#93c5fd">Orders</text>
+
+<rect x="228" y="48" width="60" height="36" rx="7" fill="#fffbeb" stroke="#fde68a" stroke-width="0.75"/>
+<text x="258" y="62" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#b45309" font-weight="700">3</text>
+<text x="258" y="76" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#fbbf24">Pending</text>
+
+<rect x="294" y="48" width="40" height="36" rx="7" fill="#fdf4ff" stroke="#e9d5ff" stroke-width="0.75"/>
+<text x="314" y="62" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#7e22ce" font-weight="700">96%</text>
+<text x="314" y="76" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#c4b5fd">Fulfil rate</text>
+
+<!-- table header -->
+<text x="85" y="98" font-family="-apple-system,sans-serif" font-size="7" fill="#94a3b8" font-weight="700" letter-spacing="0.8">RECENT ORDERS</text>
+<line x1="84" y1="101" x2="334" y2="101" stroke="#f1f5f9" stroke-width="0.75"/>
+
+<!-- order row 1 -->
+<rect x="84" y="104" width="250" height="20" rx="5" fill="#f8fafc"/>
+<rect x="88" y="108" width="34" height="12" rx="3" fill="#dcfce7"/>
+<text x="105" y="117" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#15803d" font-weight="700">Shipped</text>
+<text x="136" y="117" font-family="-apple-system,sans-serif" font-size="8" fill="#334155">#1042</text>
+<text x="165" y="117" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Sarah K.</text>
+<text x="290" y="117" text-anchor="end" font-family="-apple-system,sans-serif" font-size="8" fill="#334155" font-weight="600">£142.00</text>
+<text x="332" y="117" text-anchor="end" font-family="-apple-system,sans-serif" font-size="7" fill="#94a3b8">2m ago</text>
+
+<!-- order row 2 -->
+<rect x="84" y="127" width="250" height="20" rx="5" fill="#ffffff"/>
+<rect x="88" y="131" width="34" height="12" rx="3" fill="#fef9c3"/>
+<text x="105" y="140" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#a16207" font-weight="700">Packing</text>
+<text x="136" y="140" font-family="-apple-system,sans-serif" font-size="8" fill="#334155">#1041</text>
+<text x="165" y="140" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">James R.</text>
+<text x="290" y="140" text-anchor="end" font-family="-apple-system,sans-serif" font-size="8" fill="#334155" font-weight="600">£89.50</text>
+<text x="332" y="140" text-anchor="end" font-family="-apple-system,sans-serif" font-size="7" fill="#94a3b8">18m ago</text>
+
+<!-- order row 3 -->
+<rect x="84" y="150" width="250" height="20" rx="5" fill="#f8fafc"/>
+<rect x="88" y="154" width="22" height="12" rx="3" fill="#dbeafe"/>
+<text x="99" y="163" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#1d4ed8" font-weight="700">New</text>
+<text x="136" y="163" font-family="-apple-system,sans-serif" font-size="8" fill="#334155">#1040</text>
+<text x="165" y="163" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Maria L.</text>
+<text x="290" y="163" text-anchor="end" font-family="-apple-system,sans-serif" font-size="8" fill="#334155" font-weight="600">£215.00</text>
+<text x="332" y="163" text-anchor="end" font-family="-apple-system,sans-serif" font-size="7" fill="#94a3b8">1h ago</text>
+
+<!-- card text -->
+<text x="22" y="232" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">A real interface,</text>
+<text x="22" y="253" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">not a spreadsheet</text>
+<text x="22" y="275" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060" font-weight="400">Your team sees a purpose-built dashboard.</text>
+<text x="22" y="292" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">Google Sheets runs silently in the background</text>
+<text x="22" y="309" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">— they never touch it.</text>
+
+<!-- ══════════════════════════════════
+     CARD 2 — Integrations
+══════════════════════════════════ -->
+<g filter="url(#soft)">
+  <rect x="400" y="0" width="360" height="340" rx="20" fill="#ffffff"/>
+</g>
+<rect x="400" y="0" width="360" height="210" rx="20" fill="#f8fafc"/>
+<rect x="400" y="190" width="360" height="20" fill="#f8fafc"/>
+
+<!-- Shopify -->
+<g filter="url(#softsm)">
+  <rect x="422" y="18" width="316" height="38" rx="10" fill="#ffffff"/>
+</g>
+<rect x="430" y="27" width="22" height="22" rx="6" fill="#96BF48"/>
+<!-- shopify S -->
+<text x="441" y="42" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#ffffff" font-weight="700">S</text>
+<text x="460" y="38" font-family="-apple-system,sans-serif" font-size="11" fill="#1e293b" font-weight="700">Shopify</text>
+<text x="460" y="51" font-family="-apple-system,sans-serif" font-size="8.5" fill="#94a3b8">Orders, inventory, products</text>
+<rect x="642" y="27" width="52" height="18" rx="9" fill="#dcfce7"/>
+<text x="668" y="39" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#15803d" font-weight="700">Connected</text>
+<circle cx="704" cy="36" r="4" fill="#22c55e"/>
+
+<!-- Amazon -->
+<g filter="url(#softsm)">
+  <rect x="422" y="64" width="316" height="38" rx="10" fill="#ffffff"/>
+</g>
+<rect x="430" y="73" width="22" height="22" rx="6" fill="#FF9900"/>
+<text x="441" y="88" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#ffffff" font-weight="700">A</text>
+<text x="460" y="84" font-family="-apple-system,sans-serif" font-size="11" fill="#1e293b" font-weight="700">Amazon UK</text>
+<text x="460" y="97" font-family="-apple-system,sans-serif" font-size="8.5" fill="#94a3b8">FBA, listings, sales data</text>
+<rect x="642" y="73" width="52" height="18" rx="9" fill="#dcfce7"/>
+<text x="668" y="85" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#15803d" font-weight="700">Connected</text>
+<circle cx="704" cy="82" r="4" fill="#22c55e"/>
+
+<!-- Stripe -->
+<g filter="url(#softsm)">
+  <rect x="422" y="110" width="316" height="38" rx="10" fill="#ffffff"/>
+</g>
+<rect x="430" y="119" width="22" height="22" rx="6" fill="#635bff"/>
+<text x="441" y="134" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#ffffff" font-weight="700">$</text>
+<text x="460" y="130" font-family="-apple-system,sans-serif" font-size="11" fill="#1e293b" font-weight="700">Stripe</text>
+<text x="460" y="143" font-family="-apple-system,sans-serif" font-size="8.5" fill="#94a3b8">Payments, invoices, refunds</text>
+<rect x="642" y="119" width="52" height="18" rx="9" fill="#dcfce7"/>
+<text x="668" y="131" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#15803d" font-weight="700">Connected</text>
+<circle cx="704" cy="128" r="4" fill="#22c55e"/>
+
+<!-- Gmail -->
+<g filter="url(#softsm)">
+  <rect x="422" y="156" width="316" height="38" rx="10" fill="#ffffff"/>
+</g>
+<rect x="430" y="165" width="22" height="22" rx="6" fill="#EA4335"/>
+<text x="441" y="180" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#ffffff" font-weight="700">@</text>
+<text x="460" y="176" font-family="-apple-system,sans-serif" font-size="11" fill="#1e293b" font-weight="700">Gmail</text>
+<text x="460" y="189" font-family="-apple-system,sans-serif" font-size="8.5" fill="#94a3b8">Automated emails, threads</text>
+<rect x="642" y="165" width="52" height="18" rx="9" fill="#dcfce7"/>
+<text x="668" y="177" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#15803d" font-weight="700">Connected</text>
+<circle cx="704" cy="174" r="4" fill="#22c55e"/>
+
+<!-- add more row -->
+<rect x="422" y="202" width="316" height="34" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="0.5"/>
+<text x="580" y="222" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="#94a3b8">+ Connect another tool   (100+ available)</text>
+
+<!-- card text -->
+<text x="422" y="232" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">Connected to every tool</text>
+<text x="422" y="253" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">you already use</text>
+<text x="422" y="275" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">Stripe, Amazon, Shopify, Gmail — if it has</text>
+<text x="422" y="292" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">data, it connects. No copy-paste between</text>
+<text x="422" y="309" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">platforms, ever again.</text>
+
+<!-- ══════════════════════════════════
+     CARD 3 — You Own It
+══════════════════════════════════ -->
+<g filter="url(#soft)">
+  <rect x="810" y="0" width="360" height="340" rx="20" fill="#ffffff"/>
+</g>
+<rect x="810" y="0" width="360" height="210" rx="20" fill="#f0fdf4"/>
+<rect x="810" y="190" width="360" height="20" fill="#f0fdf4"/>
+
+<!-- handover pack header -->
+<rect x="822" y="18" width="316" height="28" rx="0" fill="none"/>
+<text x="822" y="33" font-family="-apple-system,sans-serif" font-size="9" fill="#94a3b8" font-weight="700" letter-spacing="0.8">HANDOVER PACK · YOUR SYSTEM</text>
+<line x1="822" y1="38" x2="1138" y2="38" stroke="#d1fae5" stroke-width="0.75"/>
+
+<!-- doc item -->
+<g filter="url(#softsm)">
+  <rect x="822" y="44" width="316" height="36" rx="9" fill="#ffffff"/>
+</g>
+<rect x="830" y="52" width="20" height="20" rx="5" fill="#dcfce7"/>
+<text x="840" y="65" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#15803d">≡</text>
+<text x="858" y="62" font-family="-apple-system,sans-serif" font-size="10.5" fill="#0f172a" font-weight="700">Full documentation</text>
+<text x="858" y="74" font-family="-apple-system,sans-serif" font-size="8.5" fill="#64748b">Step-by-step admin guide, all modules</text>
+<rect x="1098" y="52" width="18" height="18" rx="9" fill="#dcfce7"/>
+<text x="1107" y="64" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#15803d" font-weight="700">✓</text>
+
+<!-- video item -->
+<g filter="url(#softsm)">
+  <rect x="822" y="86" width="316" height="36" rx="9" fill="#ffffff"/>
+</g>
+<rect x="830" y="94" width="20" height="20" rx="5" fill="#dcfce7"/>
+<text x="840" y="107" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="#15803d">▶</text>
+<text x="858" y="104" font-family="-apple-system,sans-serif" font-size="10.5" fill="#0f172a" font-weight="700">Walkthrough video</text>
+<text x="858" y="116" font-family="-apple-system,sans-serif" font-size="8.5" fill="#64748b">Full recorded handover, screen-by-screen</text>
+<rect x="1098" y="94" width="18" height="18" rx="9" fill="#dcfce7"/>
+<text x="1107" y="106" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#15803d" font-weight="700">✓</text>
+
+<!-- ownership item -->
+<g filter="url(#softsm)">
+  <rect x="822" y="128" width="316" height="36" rx="9" fill="#ffffff"/>
+</g>
+<rect x="830" y="136" width="20" height="20" rx="5" fill="#dcfce7"/>
+<text x="840" y="149" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#15803d">⊙</text>
+<text x="858" y="146" font-family="-apple-system,sans-serif" font-size="10.5" fill="#0f172a" font-weight="700">You own everything</text>
+<text x="858" y="158" font-family="-apple-system,sans-serif" font-size="8.5" fill="#64748b">Full Google Workspace access, no lock-in</text>
+<rect x="1098" y="136" width="18" height="18" rx="9" fill="#dcfce7"/>
+<text x="1107" y="148" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#15803d" font-weight="700">✓</text>
+
+<!-- no subscriptions — green bar -->
+<rect x="822" y="170" width="316" height="34" rx="9" fill="#16a34a"/>
+<text x="862" y="187" font-family="-apple-system,sans-serif" font-size="11" fill="#ffffff" font-weight="700">$0 / month after delivery</text>
+<rect x="1042" y="177" width="66" height="18" rx="9" fill="rgba(255,255,255,0.15)"/>
+<text x="1075" y="189" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8.5" fill="#bbf7d0" font-weight="700">Forever ✓</text>
+
+<!-- card text -->
+<text x="822" y="232" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">You own it.</text>
+<text x="822" y="253" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">No subscriptions, ever.</text>
+<text x="822" y="275" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">No SaaS fees. No retainers. Full docs and</text>
+<text x="822" y="292" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">a walkthrough recording included. The</text>
+<text x="822" y="309" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">system is completely yours.</text>
+
+</svg>
+
+         
+      
+      </svg>
     </div>
   </div>
+</section>
 
-  <!-- Card 2: Integrations -->
-  <div class="wyg-feat-card reveal d2">
-    <div class="wyg-feat-visual" style="background:#f8fafc">
-      <div class="wf-int-wrap">
-        <div class="wf-int-card">
-          <div class="wf-int-logo" style="background:#96BF48">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M15.337 2.102a.405.405 0 00-.366-.35c-.154-.013-3.4-.064-3.4-.064s-2.254-2.188-2.493-2.427c-.24-.239-.706-.166-.888-.112l-1.215.376A7.553 7.553 0 006.38 0C5.028 0 4.18.85 3.505 2.189L1.41 3.9C.6 4.153 0 4.91 0 5.76V21.6C0 22.924 1.076 24 2.4 24h14.4a.4.4 0 00.4-.4V2.42a.4.4 0 00-.063-.318z"/></svg>
-          </div>
-          <span class="wf-int-name">Shopify</span>
-          <span class="wf-int-pill">Connected</span>
-          <span class="wf-int-dot"></span>
-        </div>
-        <div class="wf-int-card">
-          <div class="wf-int-logo" style="background:#FF9900">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.32 17.32 0 01-4.423.583c-2.933 0-5.62-.636-8.06-1.906-1.084-.572-2.054-1.26-2.908-2.063-.19-.182-.22-.39-.096-.583z"/></svg>
-          </div>
-          <span class="wf-int-name">Amazon</span>
-          <span class="wf-int-pill">Connected</span>
-          <span class="wf-int-dot"></span>
-        </div>
-        <div class="wf-int-card">
-          <div class="wf-int-logo" style="background:#635bff">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>
-          </div>
-          <span class="wf-int-name">Stripe</span>
-          <span class="wf-int-pill">Connected</span>
-          <span class="wf-int-dot"></span>
-        </div>
-        <div class="wf-int-card">
-          <div class="wf-int-logo" style="background:#EA4335">
-            <svg width="14" height="14" viewBox="0 0 24 18" fill="white"><path d="M0 2L12 10L24 2V16a2 2 0 01-2 2H2a2 2 0 01-2-2V2z"/><path d="M0 2a2 2 0 012-2h20a2 2 0 012 2L12 10 0 2z" fill="#FBBC05"/></svg>
-          </div>
-          <span class="wf-int-name">Gmail</span>
-          <span class="wf-int-pill">Connected</span>
-          <span class="wf-int-dot"></span>
-        </div>
-        <div class="wf-int-card" style="opacity:.4">
-          <div class="wf-int-logo" style="background:#e2e8f0">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </div>
-          <span class="wf-int-name" style="color:#94a3b8;font-weight:400">Add integration…</span>
-        </div>
-      </div>
-    </div>
-    <div class="wyg-feat-text">
-      <h3>Connected to every tool you already use</h3>
-      <p>Stripe, Amazon, Shopify, Gmail — if it has data, it connects. No copy-paste between platforms.</p>
-    </div>
-  </div>
 
-  <!-- Card 3: You own it -->
-  <div class="wyg-feat-card reveal d3">
-    <div class="wyg-feat-visual" style="background:#f0fdf4">
-      <div class="wf-own-wrap">
-        <div class="wf-own-row">
-          <div class="wf-own-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          </div>
-          <div style="flex:1">
-            <div class="wf-own-label">Full documentation</div>
-            <div class="wf-own-sub">Step-by-step admin guide</div>
-          </div>
-          <div class="wf-own-check">✓</div>
-        </div>
-        <div class="wf-own-row">
-          <div class="wf-own-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-          </div>
-          <div style="flex:1">
-            <div class="wf-own-label">Walkthrough video</div>
-            <div class="wf-own-sub">Full recorded handover</div>
-          </div>
-          <div class="wf-own-check">✓</div>
-        </div>
-        <div class="wf-own-row">
-          <div class="wf-own-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-          </div>
-          <div style="flex:1">
-            <div class="wf-own-label">You own everything</div>
-            <div class="wf-own-sub">Full Google Workspace access</div>
-          </div>
-          <div class="wf-own-check">✓</div>
-        </div>
-        <div class="wf-own-row">
-          <div class="wf-own-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
-          </div>
-          <div style="flex:1">
-            <div class="wf-own-label">No subscriptions</div>
-            <div class="wf-own-sub">Zero SaaS fees, ever</div>
-          </div>
-          <div class="wf-own-check">✓</div>
-        </div>
-        <div class="wf-own-footer">
-          <span style="font-size:.78rem;font-weight:700;color:#fff">$0 / month after delivery</span>
-          <span style="font-size:.72rem;color:rgba(255,255,255,.8)">Forever ✓</span>
-        </div>
-      </div>
-    </div>
-    <div class="wyg-feat-text">
-      <h3>You own it. No subscriptions, ever.</h3>
-      <p>No SaaS fees. No retainers. Full documentation and walkthrough video. It's completely yours.</p>
-    </div>
-  </div>
 
-</div>
+
+   
 
 
 
