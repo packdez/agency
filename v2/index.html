@@ -1252,6 +1252,9 @@ ul{list-style:none}
   margin:0;border:none;
 }
 
+@media(max-width:760px){
+  .what-you-get-grid{grid-template-columns:1fr !important}
+}
 </style>
 </head>
 <body>
@@ -1433,261 +1436,119 @@ ul{list-style:none}
 
 <section class="section" style="background:var(--white);padding-top:clamp(60px,8vw,100px);padding-bottom:clamp(60px,8vw,100px)">
   <section class="section pain">
-     <div class="container">
-    <div style="text-align:center;max-width:580px;margin:0 auto clamp(40px,5vw,56px)" class="reveal">
-      <span class="eyebrow">What you actually get</span>
-      <h2 style="font-family:var(--serif);font-size:clamp(1.9rem,4vw,2.9rem);font-weight:300;line-height:1.1;margin-top:12px">
-        Not a spreadsheet.<br>A system that <em style="font-style:italic;color:var(--g600)">runs your business.</em>
-      </h2>
-    </div>
-    <div class="reveal d1" style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-      <svg width="100%" viewBox="0 0 1180 360" ... > 
+    <div class="container">
 
+      <div style="text-align:center;max-width:580px;margin:0 auto clamp(40px,5vw,56px)" class="reveal">
+        <span class="eyebrow">What you actually get</span>
+        <h2 style="font-family:var(--serif);font-size:clamp(1.9rem,4vw,2.9rem);font-weight:300;line-height:1.1;margin-top:12px">
+          Not a spreadsheet.<br>A system that <em style="font-style:italic;color:var(--g600)">runs your business.</em>
+        </h2>
+      </div>
 
-<svg width="100%" viewBox="0 0 1180 360" role="img" xmlns="http://www.w3.org/2000/svg">
-<title>Packdez — what you actually get</title>
-<desc>Three feature cards: a real dashboard interface, connected integrations, and full ownership handover</desc>
-<defs>
-  <clipPath id="c1"><rect x="0" y="0" width="360" height="340" rx="20"/></clipPath>
-  <clipPath id="c2"><rect x="400" y="0" width="360" height="340" rx="20"/></clipPath>
-  <clipPath id="c3"><rect x="800" y="0" width="360" height="340" rx="20"/></clipPath>
-  <filter id="soft" x="-10%" y="-10%" width="120%" height="130%">
-    <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="0.07"/>
-  </filter>
-  <filter id="softsm" x="-20%" y="-20%" width="140%" height="160%">
-    <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.06"/>
-  </filter>
-</defs>
+      <!-- 3-card grid -->
+     <div class="wygrid reveal d1" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
 
-<!-- ══════════════════════════════════
-     CARD 1 — Real Interface
-══════════════════════════════════ -->
-<g filter="url(#soft)">
-  <rect x="0" y="0" width="360" height="340" rx="20" fill="#ffffff"/>
-</g>
-<!-- green top zone -->
-<rect x="0" y="0" width="360" height="210" rx="20" fill="#f0fdf4"/>
-<rect x="0" y="190" width="360" height="20" fill="#f0fdf4"/>
+        <!-- Card 1: Real Interface -->
+        <div style="background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;transition:box-shadow .25s,transform .25s" onmouseenter="this.style.boxShadow='var(--shadow-lg)';this.style.transform='translateY(-4px)'" onmouseleave="this.style.boxShadow='none';this.style.transform='translateY(0)'">
+          <!-- Visual area -->
+          <div style="background:#f0fdf4;padding:28px 28px 0;min-height:220px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden">
+            <img
+              src="https://img.youtube.com/vi/ykFwXvWZ6lc/maxresdefault.jpg"
+              alt="Packdez dashboard interface"
+              style="width:100%;max-width:320px;border-radius:10px 10px 0 0;box-shadow:0 8px 32px rgba(8,21,14,.12);display:block"
+              onerror="this.outerHTML='<div style=\'width:100%;max-width:320px;border-radius:10px 10px 0 0;background:var(--white);border:1px solid var(--line);border-bottom:none;padding:16px;font-size:.75rem;color:var(--ink3);text-align:center\'><div style=\'background:#f1f5f9;border-radius:8px;padding:12px;margin-bottom:8px\'><div style=\'display:flex;gap:6px;margin-bottom:10px\'><div style=\'width:10px;height:10px;border-radius:50%;background:#ff5f57\'></div><div style=\'width:10px;height:10px;border-radius:50%;background:#febc2e\'></div><div style=\'width:10px;height:10px;border-radius:50%;background:#28c840\'></div></div><div style=\'background:#dcfce7;border-radius:4px;padding:4px 8px;display:inline-block;font-size:.7rem;font-weight:700;color:#15803d;margin-bottom:8px\'>Orders</div><div style=\'font-family:var(--serif);font-size:1.4rem;font-weight:700;color:#15803d\'>£4,820</div><div style=\'font-size:.65rem;color:#86efac\'>Revenue today</div></div></div>'"
+            >
+          </div>
+          <!-- Text -->
+          <div style="padding:24px 28px 28px">
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px">A real interface, not a spreadsheet</h3>
+            <p style="font-size:.86rem;color:var(--ink2);line-height:1.65">Your team sees a purpose-built dashboard. Google Sheets runs silently in the background — they never touch it.</p>
+          </div>
+        </div>
 
-<!-- browser window -->
-<g filter="url(#softsm)">
-  <rect x="22" y="18" width="316" height="174" rx="10" fill="#ffffff"/>
-</g>
-<!-- chrome bar -->
-<rect x="22" y="18" width="316" height="26" rx="10" fill="#f1f5f9"/>
-<rect x="22" y="36" width="316" height="8" fill="#f1f5f9"/>
-<!-- traffic lights -->
-<circle cx="38" cy="31" r="4.5" fill="#ff5f57"/>
-<circle cx="52" cy="31" r="4.5" fill="#febc2e"/>
-<circle cx="66" cy="31" r="4.5" fill="#28c840"/>
-<!-- url bar -->
-<rect x="80" y="23" width="200" height="16" rx="4" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.75"/>
-<text x="180" y="34" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="8.5" fill="#94a3b8">app.yourbusiness.com/dashboard</text>
+        <!-- Card 2: Connected Tools -->
+        <div style="background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;transition:box-shadow .25s,transform .25s" onmouseenter="this.style.boxShadow='var(--shadow-lg)';this.style.transform='translateY(-4px)'" onmouseleave="this.style.boxShadow='none';this.style.transform='translateY(0)'">
+          <!-- Visual area -->
+          <div style="background:#f8fafc;padding:28px 28px 0;min-height:220px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden">
+            <div style="width:100%;max-width:320px;border-radius:10px 10px 0 0;background:var(--white);border:1px solid var(--line);border-bottom:none;overflow:hidden;box-shadow:0 8px 32px rgba(8,21,14,.08)">
+              <!-- Shopify row -->
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line2)">
+                <div style="width:30px;height:30px;border-radius:7px;background:#96BF48;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#fff;flex-shrink:0">S</div>
+                <div style="flex:1"><div style="font-size:.83rem;font-weight:700;color:var(--ink)">Shopify</div><div style="font-size:.7rem;color:var(--ink3)">Orders, inventory</div></div>
+                <span style="background:#dcfce7;color:#15803d;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:999px">Connected</span>
+              </div>
+              <!-- Amazon row -->
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line2)">
+                <div style="width:30px;height:30px;border-radius:7px;background:#FF9900;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#fff;flex-shrink:0">A</div>
+                <div style="flex:1"><div style="font-size:.83rem;font-weight:700;color:var(--ink)">Amazon UK</div><div style="font-size:.7rem;color:var(--ink3)">FBA, sales data</div></div>
+                <span style="background:#dcfce7;color:#15803d;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:999px">Connected</span>
+              </div>
+              <!-- Stripe row -->
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line2)">
+                <div style="width:30px;height:30px;border-radius:7px;background:#635bff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#fff;flex-shrink:0">$</div>
+                <div style="flex:1"><div style="font-size:.83rem;font-weight:700;color:var(--ink)">Stripe</div><div style="font-size:.7rem;color:var(--ink3)">Payments, invoices</div></div>
+                <span style="background:#dcfce7;color:#15803d;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:999px">Connected</span>
+              </div>
+              <!-- Gmail row -->
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 16px">
+                <div style="width:30px;height:30px;border-radius:7px;background:#EA4335;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#fff;flex-shrink:0">@</div>
+                <div style="flex:1"><div style="font-size:.83rem;font-weight:700;color:var(--ink)">Gmail</div><div style="font-size:.7rem;color:var(--ink3)">Automated emails</div></div>
+                <span style="background:#dcfce7;color:#15803d;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:999px">Connected</span>
+              </div>
+            </div>
+          </div>
+          <!-- Text -->
+          <div style="padding:24px 28px 28px">
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px">Connected to every tool you already use</h3>
+            <p style="font-size:.86rem;color:var(--ink2);line-height:1.65">Stripe, Amazon, Shopify, Gmail — if it has data, it connects. No copy-paste between platforms, ever again.</p>
+          </div>
+        </div>
 
-<!-- sidebar -->
-<rect x="22" y="44" width="56" height="148" fill="#fafafa" stroke="#f1f5f9" stroke-width="0.5"/>
-<!-- nav items -->
-<rect x="26" y="48" width="48" height="18" rx="5" fill="#dcfce7"/>
-<text x="50" y="60" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#15803d" font-weight="700">Orders</text>
-<text x="50" y="78" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Reports</text>
-<text x="50" y="93" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Inventory</text>
-<text x="50" y="108" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Staff</text>
-<text x="50" y="123" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Settings</text>
+        <!-- Card 3: You Own It -->
+        <div style="background:var(--white);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;transition:box-shadow .25s,transform .25s" onmouseenter="this.style.boxShadow='var(--shadow-lg)';this.style.transform='translateY(-4px)'" onmouseleave="this.style.boxShadow='none';this.style.transform='translateY(0)'">
+          <!-- Visual area -->
+          <div style="background:#f0fdf4;padding:28px 28px 0;min-height:220px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden">
+            <div style="width:100%;max-width:320px;border-radius:10px 10px 0 0;background:var(--white);border:1px solid var(--line);border-bottom:none;overflow:hidden;box-shadow:0 8px 32px rgba(8,21,14,.08)">
+              <!-- Header bar -->
+              <div style="background:var(--g50);padding:10px 14px;border-bottom:1px solid var(--line2)">
+                <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)">Handover Pack · Your System</div>
+              </div>
+              <!-- Doc item -->
+              <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--line2)">
+                <div style="width:28px;height:28px;border-radius:6px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem">≡</div>
+                <div style="flex:1"><div style="font-size:.81rem;font-weight:700;color:var(--ink)">Full documentation</div><div style="font-size:.68rem;color:var(--ink3)">Step-by-step admin guide</div></div>
+                <div style="width:18px;height:18px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#15803d;font-weight:800">✓</div>
+              </div>
+              <!-- Video item -->
+              <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--line2)">
+                <div style="width:28px;height:28px;border-radius:6px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75rem">▶</div>
+                <div style="flex:1"><div style="font-size:.81rem;font-weight:700;color:var(--ink)">Walkthrough video</div><div style="font-size:.68rem;color:var(--ink3)">Full recorded handover</div></div>
+                <div style="width:18px;height:18px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#15803d;font-weight:800">✓</div>
+              </div>
+              <!-- Ownership item -->
+              <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--line2)">
+                <div style="width:28px;height:28px;border-radius:6px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem">⊙</div>
+                <div style="flex:1"><div style="font-size:.81rem;font-weight:700;color:var(--ink)">You own everything</div><div style="font-size:.68rem;color:var(--ink3)">Full Workspace access, no lock-in</div></div>
+                <div style="width:18px;height:18px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#15803d;font-weight:800">✓</div>
+              </div>
+              <!-- Green bar -->
+              <div style="background:#16a34a;padding:11px 14px;display:flex;align-items:center;justify-content:space-between">
+                <span style="font-size:.83rem;font-weight:700;color:#fff">$0 / month after delivery</span>
+                <span style="background:rgba(255,255,255,.15);color:#bbf7d0;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:999px">Forever ✓</span>
+              </div>
+            </div>
+          </div>
+          <!-- Text -->
+          <div style="padding:24px 28px 28px">
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px">You own it. No subscriptions, ever.</h3>
+            <p style="font-size:.86rem;color:var(--ink2);line-height:1.65">No SaaS fees. No retainers. Full docs and a walkthrough recording included. The system is completely yours.</p>
+          </div>
+        </div>
 
-<!-- main panel -->
-<!-- KPI row -->
-<rect x="84" y="48" width="72" height="36" rx="7" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="0.75"/>
-<text x="120" y="62" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#15803d" font-weight="700">£4,820</text>
-<text x="120" y="76" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#86efac">Revenue today</text>
+      </div><!-- end 3-card grid -->
 
-<rect x="162" y="48" width="60" height="36" rx="7" fill="#eff6ff" stroke="#bfdbfe" stroke-width="0.75"/>
-<text x="192" y="62" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#1d4ed8" font-weight="700">38</text>
-<text x="192" y="76" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#93c5fd">Orders</text>
-
-<rect x="228" y="48" width="60" height="36" rx="7" fill="#fffbeb" stroke="#fde68a" stroke-width="0.75"/>
-<text x="258" y="62" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#b45309" font-weight="700">3</text>
-<text x="258" y="76" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#fbbf24">Pending</text>
-
-<rect x="294" y="48" width="40" height="36" rx="7" fill="#fdf4ff" stroke="#e9d5ff" stroke-width="0.75"/>
-<text x="314" y="62" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" fill="#7e22ce" font-weight="700">96%</text>
-<text x="314" y="76" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#c4b5fd">Fulfil rate</text>
-
-<!-- table header -->
-<text x="85" y="98" font-family="-apple-system,sans-serif" font-size="7" fill="#94a3b8" font-weight="700" letter-spacing="0.8">RECENT ORDERS</text>
-<line x1="84" y1="101" x2="334" y2="101" stroke="#f1f5f9" stroke-width="0.75"/>
-
-<!-- order row 1 -->
-<rect x="84" y="104" width="250" height="20" rx="5" fill="#f8fafc"/>
-<rect x="88" y="108" width="34" height="12" rx="3" fill="#dcfce7"/>
-<text x="105" y="117" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#15803d" font-weight="700">Shipped</text>
-<text x="136" y="117" font-family="-apple-system,sans-serif" font-size="8" fill="#334155">#1042</text>
-<text x="165" y="117" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Sarah K.</text>
-<text x="290" y="117" text-anchor="end" font-family="-apple-system,sans-serif" font-size="8" fill="#334155" font-weight="600">£142.00</text>
-<text x="332" y="117" text-anchor="end" font-family="-apple-system,sans-serif" font-size="7" fill="#94a3b8">2m ago</text>
-
-<!-- order row 2 -->
-<rect x="84" y="127" width="250" height="20" rx="5" fill="#ffffff"/>
-<rect x="88" y="131" width="34" height="12" rx="3" fill="#fef9c3"/>
-<text x="105" y="140" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#a16207" font-weight="700">Packing</text>
-<text x="136" y="140" font-family="-apple-system,sans-serif" font-size="8" fill="#334155">#1041</text>
-<text x="165" y="140" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">James R.</text>
-<text x="290" y="140" text-anchor="end" font-family="-apple-system,sans-serif" font-size="8" fill="#334155" font-weight="600">£89.50</text>
-<text x="332" y="140" text-anchor="end" font-family="-apple-system,sans-serif" font-size="7" fill="#94a3b8">18m ago</text>
-
-<!-- order row 3 -->
-<rect x="84" y="150" width="250" height="20" rx="5" fill="#f8fafc"/>
-<rect x="88" y="154" width="22" height="12" rx="3" fill="#dbeafe"/>
-<text x="99" y="163" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="7" fill="#1d4ed8" font-weight="700">New</text>
-<text x="136" y="163" font-family="-apple-system,sans-serif" font-size="8" fill="#334155">#1040</text>
-<text x="165" y="163" font-family="-apple-system,sans-serif" font-size="8" fill="#94a3b8">Maria L.</text>
-<text x="290" y="163" text-anchor="end" font-family="-apple-system,sans-serif" font-size="8" fill="#334155" font-weight="600">£215.00</text>
-<text x="332" y="163" text-anchor="end" font-family="-apple-system,sans-serif" font-size="7" fill="#94a3b8">1h ago</text>
-
-<!-- card text -->
-<text x="22" y="232" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">A real interface,</text>
-<text x="22" y="253" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">not a spreadsheet</text>
-<text x="22" y="275" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060" font-weight="400">Your team sees a purpose-built dashboard.</text>
-<text x="22" y="292" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">Google Sheets runs silently in the background</text>
-<text x="22" y="309" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">— they never touch it.</text>
-
-<!-- ══════════════════════════════════
-     CARD 2 — Integrations
-══════════════════════════════════ -->
-<g filter="url(#soft)">
-  <rect x="400" y="0" width="360" height="340" rx="20" fill="#ffffff"/>
-</g>
-<rect x="400" y="0" width="360" height="210" rx="20" fill="#f8fafc"/>
-<rect x="400" y="190" width="360" height="20" fill="#f8fafc"/>
-
-<!-- Shopify -->
-<g filter="url(#softsm)">
-  <rect x="422" y="18" width="316" height="38" rx="10" fill="#ffffff"/>
-</g>
-<rect x="430" y="27" width="22" height="22" rx="6" fill="#96BF48"/>
-<!-- shopify S -->
-<text x="441" y="42" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#ffffff" font-weight="700">S</text>
-<text x="460" y="38" font-family="-apple-system,sans-serif" font-size="11" fill="#1e293b" font-weight="700">Shopify</text>
-<text x="460" y="51" font-family="-apple-system,sans-serif" font-size="8.5" fill="#94a3b8">Orders, inventory, products</text>
-<rect x="642" y="27" width="52" height="18" rx="9" fill="#dcfce7"/>
-<text x="668" y="39" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#15803d" font-weight="700">Connected</text>
-<circle cx="704" cy="36" r="4" fill="#22c55e"/>
-
-<!-- Amazon -->
-<g filter="url(#softsm)">
-  <rect x="422" y="64" width="316" height="38" rx="10" fill="#ffffff"/>
-</g>
-<rect x="430" y="73" width="22" height="22" rx="6" fill="#FF9900"/>
-<text x="441" y="88" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#ffffff" font-weight="700">A</text>
-<text x="460" y="84" font-family="-apple-system,sans-serif" font-size="11" fill="#1e293b" font-weight="700">Amazon UK</text>
-<text x="460" y="97" font-family="-apple-system,sans-serif" font-size="8.5" fill="#94a3b8">FBA, listings, sales data</text>
-<rect x="642" y="73" width="52" height="18" rx="9" fill="#dcfce7"/>
-<text x="668" y="85" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#15803d" font-weight="700">Connected</text>
-<circle cx="704" cy="82" r="4" fill="#22c55e"/>
-
-<!-- Stripe -->
-<g filter="url(#softsm)">
-  <rect x="422" y="110" width="316" height="38" rx="10" fill="#ffffff"/>
-</g>
-<rect x="430" y="119" width="22" height="22" rx="6" fill="#635bff"/>
-<text x="441" y="134" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#ffffff" font-weight="700">$</text>
-<text x="460" y="130" font-family="-apple-system,sans-serif" font-size="11" fill="#1e293b" font-weight="700">Stripe</text>
-<text x="460" y="143" font-family="-apple-system,sans-serif" font-size="8.5" fill="#94a3b8">Payments, invoices, refunds</text>
-<rect x="642" y="119" width="52" height="18" rx="9" fill="#dcfce7"/>
-<text x="668" y="131" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#15803d" font-weight="700">Connected</text>
-<circle cx="704" cy="128" r="4" fill="#22c55e"/>
-
-<!-- Gmail -->
-<g filter="url(#softsm)">
-  <rect x="422" y="156" width="316" height="38" rx="10" fill="#ffffff"/>
-</g>
-<rect x="430" y="165" width="22" height="22" rx="6" fill="#EA4335"/>
-<text x="441" y="180" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#ffffff" font-weight="700">@</text>
-<text x="460" y="176" font-family="-apple-system,sans-serif" font-size="11" fill="#1e293b" font-weight="700">Gmail</text>
-<text x="460" y="189" font-family="-apple-system,sans-serif" font-size="8.5" fill="#94a3b8">Automated emails, threads</text>
-<rect x="642" y="165" width="52" height="18" rx="9" fill="#dcfce7"/>
-<text x="668" y="177" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8" fill="#15803d" font-weight="700">Connected</text>
-<circle cx="704" cy="174" r="4" fill="#22c55e"/>
-
-<!-- add more row -->
-<rect x="422" y="202" width="316" height="34" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="0.5"/>
-<text x="580" y="222" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="#94a3b8">+ Connect another tool   (100+ available)</text>
-
-<!-- card text -->
-<text x="422" y="232" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">Connected to every tool</text>
-<text x="422" y="253" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">you already use</text>
-<text x="422" y="275" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">Stripe, Amazon, Shopify, Gmail — if it has</text>
-<text x="422" y="292" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">data, it connects. No copy-paste between</text>
-<text x="422" y="309" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">platforms, ever again.</text>
-
-<!-- ══════════════════════════════════
-     CARD 3 — You Own It
-══════════════════════════════════ -->
-<g filter="url(#soft)">
-  <rect x="810" y="0" width="360" height="340" rx="20" fill="#ffffff"/>
-</g>
-<rect x="810" y="0" width="360" height="210" rx="20" fill="#f0fdf4"/>
-<rect x="810" y="190" width="360" height="20" fill="#f0fdf4"/>
-
-<!-- handover pack header -->
-<rect x="822" y="18" width="316" height="28" rx="0" fill="none"/>
-<text x="822" y="33" font-family="-apple-system,sans-serif" font-size="9" fill="#94a3b8" font-weight="700" letter-spacing="0.8">HANDOVER PACK · YOUR SYSTEM</text>
-<line x1="822" y1="38" x2="1138" y2="38" stroke="#d1fae5" stroke-width="0.75"/>
-
-<!-- doc item -->
-<g filter="url(#softsm)">
-  <rect x="822" y="44" width="316" height="36" rx="9" fill="#ffffff"/>
-</g>
-<rect x="830" y="52" width="20" height="20" rx="5" fill="#dcfce7"/>
-<text x="840" y="65" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#15803d">≡</text>
-<text x="858" y="62" font-family="-apple-system,sans-serif" font-size="10.5" fill="#0f172a" font-weight="700">Full documentation</text>
-<text x="858" y="74" font-family="-apple-system,sans-serif" font-size="8.5" fill="#64748b">Step-by-step admin guide, all modules</text>
-<rect x="1098" y="52" width="18" height="18" rx="9" fill="#dcfce7"/>
-<text x="1107" y="64" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#15803d" font-weight="700">✓</text>
-
-<!-- video item -->
-<g filter="url(#softsm)">
-  <rect x="822" y="86" width="316" height="36" rx="9" fill="#ffffff"/>
-</g>
-<rect x="830" y="94" width="20" height="20" rx="5" fill="#dcfce7"/>
-<text x="840" y="107" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" fill="#15803d">▶</text>
-<text x="858" y="104" font-family="-apple-system,sans-serif" font-size="10.5" fill="#0f172a" font-weight="700">Walkthrough video</text>
-<text x="858" y="116" font-family="-apple-system,sans-serif" font-size="8.5" fill="#64748b">Full recorded handover, screen-by-screen</text>
-<rect x="1098" y="94" width="18" height="18" rx="9" fill="#dcfce7"/>
-<text x="1107" y="106" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#15803d" font-weight="700">✓</text>
-
-<!-- ownership item -->
-<g filter="url(#softsm)">
-  <rect x="822" y="128" width="316" height="36" rx="9" fill="#ffffff"/>
-</g>
-<rect x="830" y="136" width="20" height="20" rx="5" fill="#dcfce7"/>
-<text x="840" y="149" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#15803d">⊙</text>
-<text x="858" y="146" font-family="-apple-system,sans-serif" font-size="10.5" fill="#0f172a" font-weight="700">You own everything</text>
-<text x="858" y="158" font-family="-apple-system,sans-serif" font-size="8.5" fill="#64748b">Full Google Workspace access, no lock-in</text>
-<rect x="1098" y="136" width="18" height="18" rx="9" fill="#dcfce7"/>
-<text x="1107" y="148" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="#15803d" font-weight="700">✓</text>
-
-<!-- no subscriptions — green bar -->
-<rect x="822" y="170" width="316" height="34" rx="9" fill="#16a34a"/>
-<text x="862" y="187" font-family="-apple-system,sans-serif" font-size="11" fill="#ffffff" font-weight="700">$0 / month after delivery</text>
-<rect x="1042" y="177" width="66" height="18" rx="9" fill="rgba(255,255,255,0.15)"/>
-<text x="1075" y="189" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="8.5" fill="#bbf7d0" font-weight="700">Forever ✓</text>
-
-<!-- card text -->
-<text x="822" y="232" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">You own it.</text>
-<text x="822" y="253" font-family="-apple-system,BlinkMacSystemFont,Georgia,sans-serif" font-size="17" fill="#080f0b" font-weight="700">No subscriptions, ever.</text>
-<text x="822" y="275" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">No SaaS fees. No retainers. Full docs and</text>
-<text x="822" y="292" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">a walkthrough recording included. The</text>
-<text x="822" y="309" font-family="-apple-system,sans-serif" font-size="12" fill="#4a7060">system is completely yours.</text>
-
-</svg>
-
-         
-      
-      </svg>
     </div>
   </div>
-</section>
-
 
 
 
