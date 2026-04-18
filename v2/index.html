@@ -1251,6 +1251,135 @@ ul{list-style:none}
   height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);
   margin:0;border:none;
 }
+
+/* ============================================================
+   WYG FEATURE CARDS (Replit/Zite style)
+============================================================ */
+.wyg-feat-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-bottom:40px;
+}
+.wyg-feat-card{
+  border-radius:var(--rxl);
+  overflow:hidden;
+  border:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  background:var(--white);
+  transition:transform .25s var(--eout), box-shadow .25s;
+}
+.wyg-feat-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,0,0,.08);
+}
+.wyg-feat-visual{
+  flex:1;
+  min-height:240px;
+  padding:28px 24px 0;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+.wyg-feat-text{
+  padding:22px 22px 24px;
+}
+.wyg-feat-text h3{
+  font-size:.95rem;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+.wyg-feat-text p{
+  font-size:.81rem;
+  color:var(--ink2);
+  line-height:1.65;
+}
+
+/* ── Card 1: Interface mockup ── */
+.wf-screen{
+  width:100%;
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-bottom:none;
+  border-radius:10px 10px 0 0;
+  overflow:hidden;
+  box-shadow:0 -4px 24px rgba(0,0,0,.07);
+}
+.wf-chrome{
+  background:#f8fafc;
+  border-bottom:1px solid #e2e8f0;
+  padding:8px 10px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.wf-dot{width:7px;height:7px;border-radius:50%;display:inline-block;flex-shrink:0}
+.wf-url{flex:1;background:#fff;border:1px solid #e2e8f0;border-radius:4px;padding:3px 8px;font-size:.62rem;color:#64748b;margin-left:6px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.wf-kpi-row{display:flex;gap:6px;padding:12px 10px 8px}
+.wf-kpi{flex:1;background:#f8fafc;border-radius:7px;padding:8px 9px;border-top:2px solid}
+.wf-kpi-num{font-size:.88rem;font-weight:700;line-height:1}
+.wf-kpi-lbl{font-size:.58rem;color:#64748b;margin-top:2px}
+.wf-rows{padding:0 10px 10px;display:flex;flex-direction:column;gap:5px}
+.wf-row{display:flex;align-items:center;gap:7px;background:#f8fafc;border-radius:7px;padding:7px 9px;font-size:.72rem;color:#334155}
+.wf-badge{font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:999px;flex-shrink:0}
+
+/* ── Card 2: Integrations ── */
+.wf-int-wrap{
+  width:100%;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-bottom:none;
+  border-radius:10px 10px 0 0;
+  padding:16px 14px 0;
+  box-shadow:0 -4px 24px rgba(0,0,0,.07);
+}
+.wf-int-card{
+  background:#fff;
+  border:1px solid #e8edf3;
+  border-radius:9px;
+  padding:9px 11px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:7px;
+  font-size:.78rem;
+}
+.wf-int-logo{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wf-int-name{flex:1;font-weight:600;color:#1e293b}
+.wf-int-pill{font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#dcfce7;color:#16a34a;flex-shrink:0}
+.wf-int-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:dotPulse 2s ease infinite;flex-shrink:0}
+
+/* ── Card 3: Ownership ── */
+.wf-own-wrap{
+  width:100%;
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-bottom:none;
+  border-radius:10px 10px 0 0;
+  padding:16px 14px 0;
+  box-shadow:0 -4px 24px rgba(0,0,0,.07);
+}
+.wf-own-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 0;
+  border-bottom:1px solid #f1f5f9;
+  font-size:.78rem;
+}
+.wf-own-row:last-child{border-bottom:none}
+.wf-own-icon{width:28px;height:28px;border-radius:7px;background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wf-own-label{flex:1;font-weight:600;color:#1e293b}
+.wf-own-sub{font-size:.65rem;color:#64748b}
+.wf-own-check{width:18px;height:18px;border-radius:50%;background:#dcfce7;color:#16a34a;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;flex-shrink:0}
+.wf-own-footer{background:linear-gradient(135deg,#16a34a,#22c55e);border-radius:8px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center;margin:10px 0 0}
+
+@media(max-width:860px){.wyg-feat-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.wyg-feat-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1426,10 +1555,171 @@ ul{list-style:none}
   </div>
 </div>
 
+
+
 <!-- ============================================================
      PAIN SECTION
 ============================================================ -->
 <section class="section pain">
+   <div class="wyg-feat-grid">
+
+  <!-- Card 1: Real Interface -->
+  <div class="wyg-feat-card reveal d1">
+    <div class="wyg-feat-visual" style="background:#f0fdf4">
+      <div class="wf-screen">
+        <div class="wf-chrome">
+          <span class="wf-dot" style="background:#ff5f57"></span>
+          <span class="wf-dot" style="background:#febc2e"></span>
+          <span class="wf-dot" style="background:#28c840"></span>
+          <div class="wf-url">app.yourbusiness.com/orders</div>
+        </div>
+        <div class="wf-kpi-row">
+          <div class="wf-kpi" style="border-color:#22c55e">
+            <div class="wf-kpi-num" style="color:#16a34a">£4,820</div>
+            <div class="wf-kpi-lbl">Today's revenue</div>
+          </div>
+          <div class="wf-kpi" style="border-color:#3b82f6">
+            <div class="wf-kpi-num" style="color:#2563eb">38</div>
+            <div class="wf-kpi-lbl">Orders</div>
+          </div>
+          <div class="wf-kpi" style="border-color:#f59e0b">
+            <div class="wf-kpi-num" style="color:#d97706">3</div>
+            <div class="wf-kpi-lbl">Pending</div>
+          </div>
+        </div>
+        <div class="wf-rows">
+          <div class="wf-row">
+            <span class="wf-badge" style="background:#dcfce7;color:#16a34a">Shipped</span>
+            Order #1042 · Sarah K.
+          </div>
+          <div class="wf-row">
+            <span class="wf-badge" style="background:#fef9c3;color:#ca8a04">Packing</span>
+            Order #1041 · James R.
+          </div>
+          <div class="wf-row">
+            <span class="wf-badge" style="background:#dbeafe;color:#2563eb">New</span>
+            Order #1040 · Maria L.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wyg-feat-text">
+      <h3>A real interface, not a spreadsheet</h3>
+      <p>Your team sees a clean dashboard. Google Sheets runs silently in the background — they never touch it.</p>
+    </div>
+  </div>
+
+  <!-- Card 2: Integrations -->
+  <div class="wyg-feat-card reveal d2">
+    <div class="wyg-feat-visual" style="background:#f8fafc">
+      <div class="wf-int-wrap">
+        <div class="wf-int-card">
+          <div class="wf-int-logo" style="background:#96BF48">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M15.337 2.102a.405.405 0 00-.366-.35c-.154-.013-3.4-.064-3.4-.064s-2.254-2.188-2.493-2.427c-.24-.239-.706-.166-.888-.112l-1.215.376A7.553 7.553 0 006.38 0C5.028 0 4.18.85 3.505 2.189L1.41 3.9C.6 4.153 0 4.91 0 5.76V21.6C0 22.924 1.076 24 2.4 24h14.4a.4.4 0 00.4-.4V2.42a.4.4 0 00-.063-.318z"/></svg>
+          </div>
+          <span class="wf-int-name">Shopify</span>
+          <span class="wf-int-pill">Connected</span>
+          <span class="wf-int-dot"></span>
+        </div>
+        <div class="wf-int-card">
+          <div class="wf-int-logo" style="background:#FF9900">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.32 17.32 0 01-4.423.583c-2.933 0-5.62-.636-8.06-1.906-1.084-.572-2.054-1.26-2.908-2.063-.19-.182-.22-.39-.096-.583z"/></svg>
+          </div>
+          <span class="wf-int-name">Amazon</span>
+          <span class="wf-int-pill">Connected</span>
+          <span class="wf-int-dot"></span>
+        </div>
+        <div class="wf-int-card">
+          <div class="wf-int-logo" style="background:#635bff">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>
+          </div>
+          <span class="wf-int-name">Stripe</span>
+          <span class="wf-int-pill">Connected</span>
+          <span class="wf-int-dot"></span>
+        </div>
+        <div class="wf-int-card">
+          <div class="wf-int-logo" style="background:#EA4335">
+            <svg width="14" height="14" viewBox="0 0 24 18" fill="white"><path d="M0 2L12 10L24 2V16a2 2 0 01-2 2H2a2 2 0 01-2-2V2z"/><path d="M0 2a2 2 0 012-2h20a2 2 0 012 2L12 10 0 2z" fill="#FBBC05"/></svg>
+          </div>
+          <span class="wf-int-name">Gmail</span>
+          <span class="wf-int-pill">Connected</span>
+          <span class="wf-int-dot"></span>
+        </div>
+        <div class="wf-int-card" style="opacity:.4">
+          <div class="wf-int-logo" style="background:#e2e8f0">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <span class="wf-int-name" style="color:#94a3b8;font-weight:400">Add integration…</span>
+        </div>
+      </div>
+    </div>
+    <div class="wyg-feat-text">
+      <h3>Connected to every tool you already use</h3>
+      <p>Stripe, Amazon, Shopify, Gmail — if it has data, it connects. No copy-paste between platforms.</p>
+    </div>
+  </div>
+
+  <!-- Card 3: You own it -->
+  <div class="wyg-feat-card reveal d3">
+    <div class="wyg-feat-visual" style="background:#f0fdf4">
+      <div class="wf-own-wrap">
+        <div class="wf-own-row">
+          <div class="wf-own-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div style="flex:1">
+            <div class="wf-own-label">Full documentation</div>
+            <div class="wf-own-sub">Step-by-step admin guide</div>
+          </div>
+          <div class="wf-own-check">✓</div>
+        </div>
+        <div class="wf-own-row">
+          <div class="wf-own-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <div style="flex:1">
+            <div class="wf-own-label">Walkthrough video</div>
+            <div class="wf-own-sub">Full recorded handover</div>
+          </div>
+          <div class="wf-own-check">✓</div>
+        </div>
+        <div class="wf-own-row">
+          <div class="wf-own-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <div style="flex:1">
+            <div class="wf-own-label">You own everything</div>
+            <div class="wf-own-sub">Full Google Workspace access</div>
+          </div>
+          <div class="wf-own-check">✓</div>
+        </div>
+        <div class="wf-own-row">
+          <div class="wf-own-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          </div>
+          <div style="flex:1">
+            <div class="wf-own-label">No subscriptions</div>
+            <div class="wf-own-sub">Zero SaaS fees, ever</div>
+          </div>
+          <div class="wf-own-check">✓</div>
+        </div>
+        <div class="wf-own-footer">
+          <span style="font-size:.78rem;font-weight:700;color:#fff">$0 / month after delivery</span>
+          <span style="font-size:.72rem;color:rgba(255,255,255,.8)">Forever ✓</span>
+        </div>
+      </div>
+    </div>
+    <div class="wyg-feat-text">
+      <h3>You own it. No subscriptions, ever.</h3>
+      <p>No SaaS fees. No retainers. Full documentation and walkthrough video. It's completely yours.</p>
+    </div>
+  </div>
+
+</div>
+
+
+
+   
   <div class="container">
     <div class="pain__head">
       <div class="pain__head-left">
