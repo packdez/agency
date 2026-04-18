@@ -1,1 +1,521 @@
-<p>contact me</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Packdez</title>
+<meta name="description" content="Get in touch with Packdez. Tell us about your workflow and we'll tell you exactly what to build.">
+<link rel="canonical" href="https://packdez.com/contact" />
+<meta name="robots" content="index,follow" />
+<link rel="icon" type="image/png" sizes="512x512" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
+<link rel="apple-touch-icon" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+============================================================ */
+:root{
+  --g950:#030c06;--g900:#061009;--g800:#0a1c0f;--g700:#103320;--g600:#176633;
+  --g500:#1e9947;--g400:#22c55e;--g300:#4ade80;--g200:#86efac;--g100:#bbf7d0;--g50:#f0fdf4;
+  --ink:#080f0b;--ink2:#1a3324;--ink3:#4a7060;--line:#d1fae5;--line2:#ecfdf5;
+  --white:#fff;--cream:#f8fef9;--stone:#f0fdf4;
+  --sf1:rgba(255,255,255,.03);--sf2:rgba(255,255,255,.06);
+  --bd:rgba(255,255,255,.08);--bdg:rgba(34,197,94,.25);
+  --t1:#edfaf3;--t2:rgba(237,250,243,.68);--t3:rgba(237,250,243,.42);
+  --serif:'Fraunces',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+  --eout:cubic-bezier(.16,1,.3,1);--ease:cubic-bezier(.22,.68,0,1.2);
+  --rsm:8px;--rmd:14px;--rlg:20px;--rxl:28px;--r2xl:40px;
+  --shmd:0 8px 32px rgba(0,0,0,.35);--shlg:0 24px 64px rgba(0,0,0,.5);
+  --shxl:0 40px 100px rgba(0,0,0,.6);
+}
+
+/* ============================================================
+   RESET
+============================================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{font-family:var(--sans);background:var(--g950);color:var(--t1);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;width:100%}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--sans);cursor:pointer;border:none;background:none}
+
+/* ============================================================
+   LAYOUT
+============================================================ */
+.container{max-width:1160px;margin:0 auto;padding:0 20px}
+.container--narrow{max-width:760px;margin:0 auto;padding:0 20px}
+
+/* ============================================================
+   TYPOGRAPHY
+============================================================ */
+.eyebrow{display:block;font-size:.69rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g400);margin-bottom:14px}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 26px;font-size:.9rem;font-weight:600;border-radius:var(--rlg);border:none;cursor:pointer;transition:all .22s var(--eout);white-space:nowrap;text-decoration:none;position:relative}
+.btn-primary{background:var(--g500);color:#fff;box-shadow:0 2px 0 var(--g700),0 4px 24px rgba(30,153,71,.35)}
+.btn-primary:hover{background:var(--g600);transform:translateY(-2px)}
+.btn-ghost{background:var(--sf1);color:var(--t2);border:1.5px solid var(--bd);backdrop-filter:blur(8px)}
+.btn-ghost:hover{background:var(--sf2);border-color:var(--bdg);color:var(--t1)}
+.btn-lg{padding:15px 28px;font-size:.95rem}
+.btn svg{flex-shrink:0;transition:transform .2s}
+.btn:hover .btn-arrow{transform:translateX(3px)}
+
+/* ============================================================
+   NAV
+============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;transition:all .3s var(--eout)}
+.nav.scrolled{background:rgba(3,12,6,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);padding:10px 0}
+.nav__inner{max-width:1160px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav__logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:.95rem;color:var(--t1)}
+.nav__logo img{width:28px;height:28px;border-radius:6px}
+.nav__links{display:flex;align-items:center;gap:2px}
+.nav__links a{font-size:.84rem;font-weight:500;color:var(--t3);padding:7px 12px;border-radius:var(--rsm);transition:all .18s}
+.nav__links a:hover,.nav__links a.active{color:var(--t1);background:var(--sf1)}
+.nav__right{display:flex;align-items:center;gap:10px}
+.nav__hamburger{display:none;color:var(--t1);padding:4px;align-items:center}
+
+/* Mobile drawer */
+.mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.mob-overlay.open{opacity:1;pointer-events:all}
+.mob-drawer{position:fixed;top:0;right:0;height:100%;width:min(88vw,300px);background:var(--g900);border-left:1px solid var(--bd);z-index:201;padding:24px 20px;transform:translateX(105%);transition:transform .35s var(--eout);display:flex;flex-direction:column;gap:2px}
+.mob-drawer.open{transform:translateX(0)}
+.mob-drawer__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.mob-drawer a.mob-link{display:block;padding:14px 0;font-size:.95rem;font-weight:600;border-bottom:1px solid var(--bd);color:var(--t2);transition:color .18s}
+.mob-drawer a.mob-link:hover{color:var(--t1)}
+@media(max-width:860px){.nav__links,.nav__right{display:none}.nav__hamburger{display:flex}}
+
+/* ============================================================
+   PAGE HERO
+============================================================ */
+.page-hero{position:relative;padding:clamp(120px,16vw,180px) 0 clamp(60px,8vw,100px);overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;pointer-events:none}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px}
+.page-hero-glow{position:absolute;top:-200px;right:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.07),transparent 70%);pointer-events:none}
+.page-hero__inner{position:relative;z-index:1;max-width:680px}
+.page-hero h1{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4rem);font-weight:300;line-height:1.05;letter-spacing:-.025em;margin-bottom:18px;color:var(--t1)}
+.page-hero h1 em{font-style:italic;color:var(--g300)}
+.page-hero p{font-size:clamp(.9rem,1.4vw,1.05rem);color:var(--t2);line-height:1.75;max-width:520px}
+
+/* ============================================================
+   REALITY STRIP — "What you actually get" callout
+============================================================ */
+.reality-strip{background:rgba(34,197,94,.05);border-top:1px solid rgba(34,197,94,.12);border-bottom:1px solid rgba(34,197,94,.12);padding:clamp(36px,5vw,56px) 0}
+.reality-strip__inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center;max-width:1000px;margin:0 auto;padding:0 20px}
+.reality-strip__label{font-size:.67rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g400);margin-bottom:14px}
+.reality-strip__q{font-family:var(--serif);font-size:clamp(1rem,2vw,1.35rem);font-weight:300;color:var(--t2);line-height:1.4;margin-bottom:6px;font-style:italic}
+.reality-strip__answer{font-size:.88rem;color:var(--t2);line-height:1.8}
+.reality-strip__answer strong{color:var(--t1);font-weight:600}
+.reality-strip__items{display:flex;flex-direction:column;gap:12px}
+.reality-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--rmd)}
+.reality-item-icon{width:28px;height:28px;border-radius:var(--rsm);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--g400);margin-top:1px}
+.reality-item-text{font-size:.82rem;color:var(--t2);line-height:1.55}
+.reality-item-text strong{display:block;color:var(--t1);font-weight:600;margin-bottom:2px}
+@media(max-width:720px){.reality-strip__inner{grid-template-columns:1fr}}
+
+/* ============================================================
+   CONTACT SECTION
+============================================================ */
+.contact-section{padding:clamp(60px,8vw,100px) 0}
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(40px,7vw,80px);align-items:start}
+.contact-sidebar{}
+.contact-sidebar h2{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,2rem);font-weight:300;line-height:1.2;margin-bottom:14px;color:var(--t1)}
+.contact-sidebar h2 em{font-style:italic;color:var(--g300)}
+.contact-sidebar p{font-size:.88rem;color:var(--t2);line-height:1.75;margin-bottom:28px}
+.contact-links{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.contact-link-item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--sf1);border:1px solid var(--bd);border-radius:var(--rmd);transition:border-color .2s,background .2s;text-decoration:none;color:inherit}
+.contact-link-item:hover{border-color:var(--bdg);background:var(--sf2)}
+.contact-link-icon{width:34px;height:34px;border-radius:var(--rsm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-link-body{}
+.contact-link-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:2px}
+.contact-link-value{font-size:.86rem;font-weight:600;color:var(--t1)}
+.contact-callout{background:linear-gradient(135deg,var(--g800),var(--g900));border:1px solid var(--bd);border-radius:var(--rxl);padding:22px 24px}
+.contact-callout p{font-size:.82rem;color:var(--t2);line-height:1.7}
+.contact-callout strong{color:var(--g300)}
+
+/* Form */
+.contact-form-wrap{background:rgba(255,255,255,.02);border:1px solid var(--bd);border-radius:var(--rxl);padding:clamp(28px,4vw,44px)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:.76rem;font-weight:600;color:var(--t2);margin-bottom:7px;letter-spacing:.02em}
+.form-group input,
+.form-group select,
+.form-group textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--rmd);padding:12px 14px;font-size:.88rem;color:var(--t1);font-family:var(--sans);outline:none;transition:border-color .2s,background .2s;resize:none}
+.form-group input::placeholder,
+.form-group textarea::placeholder{color:var(--t3)}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{border-color:rgba(34,197,94,.4);background:rgba(255,255,255,.06)}
+.form-group select{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(237,250,243,.42)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.form-group select option{background:var(--g900);color:var(--t1)}
+.form-submit{width:100%;padding:15px;background:var(--g500);color:#fff;font-family:var(--sans);font-size:.92rem;font-weight:700;border:none;border-radius:var(--rmd);cursor:pointer;transition:background .2s,transform .2s;display:flex;align-items:center;justify-content:center;gap:9px}
+.form-submit:hover{background:var(--g600);transform:translateY(-2px)}
+.form-note{font-size:.72rem;color:var(--t3);text-align:center;margin-top:12px;line-height:1.5}
+.form-success{display:none;text-align:center;padding:40px 20px}
+.form-success-icon{width:56px;height:56px;border-radius:50%;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:var(--g400)}
+.form-success h3{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--t1);margin-bottom:10px}
+.form-success p{font-size:.86rem;color:var(--t2);line-height:1.7}
+@media(max-width:860px){.contact-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.form-row{grid-template-columns:1fr}}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.footer{background:var(--g950);color:var(--t3);padding:clamp(52px,8vw,80px) 0 28px;border-top:1px solid var(--bd)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-logo{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.footer-logo img{width:26px;height:26px;border-radius:6px}
+.footer-logo span{font-weight:700;color:var(--t1);font-size:.92rem}
+.footer-tagline{font-size:.79rem;line-height:1.7;margin-bottom:20px;max-width:230px}
+.footer-socials{display:flex;gap:7px}
+.fsoc{width:34px;height:34px;border-radius:50%;background:var(--sf1);display:flex;align-items:center;justify-content:center;color:var(--t3);transition:all .2s}
+.fsoc:hover{background:var(--g600);color:#fff}
+.footer-col h4{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:16px;opacity:.6}
+.footer-col li{margin-bottom:9px}
+.footer-col a{font-size:.79rem;color:var(--t3);transition:color .18s}
+.footer-col a:hover{color:var(--t1)}
+.footer-bottom{padding-top:20px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.74rem}
+@media(max-width:720px){.footer-grid{grid-template-columns:1fr;gap:28px}.footer-bottom{flex-direction:column;text-align:center}}
+
+/* ============================================================
+   REVEAL
+============================================================ */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--eout),transform .7s var(--eout)}
+.reveal.vis{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-24px);transition:opacity .7s var(--eout),transform .7s var(--eout)}
+.reveal-left.vis{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(24px);transition:opacity .7s var(--eout),transform .7s var(--eout)}
+.reveal-right.vis{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+</style>
+</head>
+<body>
+
+<!-- Mobile drawer -->
+<div id="mob-overlay" class="mob-overlay" onclick="closeMob()"></div>
+<aside id="mob-drawer" class="mob-drawer">
+  <div class="mob-drawer__head">
+    <a href="https://packdez.com/" class="nav__logo" onclick="closeMob()">
+      <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez" width="28" height="28">
+      <span style="font-weight:700;color:var(--t1)">Packdez</span>
+    </a>
+    <button onclick="closeMob()" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--t2);padding:4px">✕</button>
+  </div>
+  <a href="/projects" class="mob-link" onclick="closeMob()">Projects</a>
+  <a href="https://packdez.com/#pricing" class="mob-link" onclick="closeMob()">Pricing</a>
+  <a href="https://packdez.com/#reviews" class="mob-link" onclick="closeMob()">Reviews</a>
+  <a href="/about" class="mob-link" onclick="closeMob()">About</a>
+  <a href="https://packdez.com/#book" class="btn btn-primary" style="margin-top:20px;width:100%;justify-content:center" onclick="closeMob()">Book a free call</a>
+</aside>
+
+<!-- NAV -->
+<nav class="nav" id="main-nav">
+  <div class="nav__inner">
+    <a href="https://packdez.com/" class="nav__logo">
+      <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez" width="28" height="28">
+      <span>Packdez</span>
+    </a>
+    <div class="nav__links">
+      <a href="/projects">Projects</a>
+      <a href="https://packdez.com/#pricing">Pricing</a>
+      <a href="https://packdez.com/#reviews">Reviews</a>
+      <a href="/about">About</a>
+      <a href="/contact" class="active">Contact</a>
+    </div>
+    <div class="nav__right">
+      <a href="https://packdez.com/#book" class="btn btn-primary" style="padding:8px 18px;font-size:.82rem;border-radius:var(--rlg)">Book a free call ↗</a>
+    </div>
+    <button class="nav__hamburger" onclick="openMob()" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg">
+    <div class="page-hero-grid"></div>
+    <div class="page-hero-glow"></div>
+  </div>
+  <div class="container">
+    <div class="page-hero__inner reveal">
+      <span class="eyebrow">Get in touch</span>
+      <h1>Tell me about your <em>workflow.</em></h1>
+      <p>Describe what's slowing you down — bookings, payments, reporting, admin — and I'll reply within 24 hours with a straight answer on what's possible and what it would cost.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REALITY STRIP — What you actually get (improved FAQ answer) -->
+<div class="reality-strip">
+  <div class="reality-strip__inner">
+    <div class="reveal-left">
+      <div class="reality-strip__label">Common question</div>
+      <p class="reality-strip__q">"Is this just a spreadsheet with a fancy coat of paint?"</p>
+      <p class="reality-strip__answer">
+        <strong>No. Your team will never open a spreadsheet.</strong><br><br>
+        Google Sheets is the silent database — it stores the data. What your team actually uses is a <strong>purpose-built interface</strong>: custom forms, live dashboards, automated emails, and status trackers that look and feel like real software.<br><br>
+        It costs a fraction of building custom software — because Sheets handles all the storage and logic. What I build is the <strong>layer your team interacts with every day.</strong>
+      </p>
+    </div>
+    <div class="reality-strip__items reveal-right">
+      <div class="reality-item">
+        <div class="reality-item-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        </div>
+        <div class="reality-item-text">
+          <strong>Booking managers & scheduling tools</strong>
+          Custom forms and calendars your team actually uses — not raw rows in a sheet.
+        </div>
+      </div>
+      <div class="reality-item">
+        <div class="reality-item-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="reality-item-text">
+          <strong>Live reporting dashboards</strong>
+          Data updates itself. No one needs to pull, clean, or rebuild reports manually.
+        </div>
+      </div>
+      <div class="reality-item">
+        <div class="reality-item-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="reality-item-text">
+          <strong>Automated emails & notifications</strong>
+          Confirmations, alerts, follow-ups — triggered automatically from your workflow.
+        </div>
+      </div>
+      <div class="reality-item">
+        <div class="reality-item-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="reality-item-text">
+          <strong>Client tracking & CRM pipeline</strong>
+          Full communication history and status — no $300/month SaaS subscription required.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Sidebar -->
+      <div class="reveal-left">
+        <h2>Let's figure out<br><em>what to build.</em></h2>
+        <p>Fill in the form and I'll come back to you with an honest take — what's possible, what it would look like, and roughly what it would cost. No sales pitch.</p>
+
+        <div class="contact-links">
+          <a href="mailto:hello@packdez.com" class="contact-link-item">
+            <div class="contact-link-icon" style="background:rgba(234,67,53,.1)">
+              <svg width="16" height="16" viewBox="0 0 24 18" fill="none">
+                <path d="M0 2L12 10L24 2V16a2 2 0 01-2 2H2a2 2 0 01-2-2V2z" fill="#EA4335"/>
+                <path d="M0 2a2 2 0 012-2h20a2 2 0 012 2L12 10 0 2z" fill="#FBBC05"/>
+              </svg>
+            </div>
+            <div class="contact-link-body">
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-value">hello@packdez.com</div>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/company/packdez/" target="_blank" rel="noopener" class="contact-link-item">
+            <div class="contact-link-icon" style="background:rgba(10,102,194,.12)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </div>
+            <div class="contact-link-body">
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-value">linkedin.com/company/packdez</div>
+            </div>
+          </a>
+          <a href="https://packdez.com/#book" class="contact-link-item">
+            <div class="contact-link-icon" style="background:rgba(34,197,94,.1)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--g400)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="contact-link-body">
+              <div class="contact-link-label">Free call</div>
+              <div class="contact-link-value">Book a 20-min scoping call</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="contact-callout">
+          <p>I respond within <strong>24 hours</strong> on weekdays. For urgent scoping, <strong>book a call directly</strong> — it's free and takes 20 minutes. Most people leave knowing exactly what to build and what it costs.</p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="reveal-right">
+        <div class="contact-form-wrap">
+          <form id="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First name</label>
+                <input type="text" id="fname" name="fname" placeholder="Your name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="you@company.com" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="business">Business type</label>
+              <select id="business" name="business" required>
+                <option value="" disabled selected>Select your business type</option>
+                <option>Airbnb / Short-Term Rentals</option>
+                <option>E-commerce / Online Retail</option>
+                <option>Service Business (cleaning, trades, etc.)</option>
+                <option>B2B / Professional Services</option>
+                <option>Logistics / Courier</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="problem">What's the workflow that's costing you the most time?</label>
+              <textarea id="problem" name="problem" rows="4" placeholder="e.g. I have 3 spreadsheets for bookings, payments, and staff — someone updates them manually every day…" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="budget">Rough budget in mind?</label>
+              <select id="budget" name="budget">
+                <option value="" disabled selected>Select a range (optional)</option>
+                <option>Under $500</option>
+                <option>$500 – $1,000</option>
+                <option>$1,000 – $2,500</option>
+                <option>$2,500+</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <button type="submit" class="form-submit">
+              Send message
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <p class="form-note">No spam. No pitch. Just a straight reply from Raphael.</p>
+          </form>
+
+          <div class="form-success" id="form-success">
+            <div class="form-success-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>Message sent.</h3>
+            <p>Thanks — I'll read through and reply within 24 hours. If it's urgent, feel free to <a href="https://packdez.com/#book" style="color:var(--g300);text-decoration:underline;text-underline-offset:3px">book a call directly.</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez" width="26" height="26">
+          <span>Packdez</span>
+        </div>
+        <p class="footer-tagline">Custom internal systems for service businesses that want to stop doing things manually.</p>
+        <div class="footer-socials">
+          <a href="https://x.com/packdezHQ" target="_blank" rel="noopener" class="fsoc" aria-label="X">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/packdez/" target="_blank" rel="noopener" class="fsoc" aria-label="LinkedIn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://youtube.com/@packdezhq" target="_blank" rel="noopener" class="fsoc" aria-label="YouTube">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Projects Delivered</h4>
+        <ul>
+          <li><a href="https://packdez.com/#solutions">Bookings &amp; Scheduling</a></li>
+          <li><a href="https://packdez.com/#solutions">Payments &amp; Invoicing</a></li>
+          <li><a href="https://packdez.com/#solutions">Reporting &amp; Dashboards</a></li>
+          <li><a href="https://packdez.com/#solutions">CRM &amp; Communication</a></li>
+          <li><a href="https://packdez.com/#solutions">API Integrations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/projects">All Projects</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="https://packdez.com/#book">Book a free call</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Packdez</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Nav scroll */
+window.addEventListener('scroll',function(){
+  document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>30)
+},{passive:true})
+
+/* Mobile menu */
+function openMob(){
+  document.getElementById('mob-drawer').classList.add('open')
+  document.getElementById('mob-overlay').classList.add('open')
+  document.body.style.overflow='hidden'
+}
+function closeMob(){
+  document.getElementById('mob-drawer').classList.remove('open')
+  document.getElementById('mob-overlay').classList.remove('open')
+  document.body.style.overflow=''
+}
+
+/* Footer year */
+document.getElementById('year').textContent=new Date().getFullYear()
+
+/* Scroll reveal */
+var revObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('vis');revObs.unobserve(e.target)}
+  })
+},{threshold:.1,rootMargin:'0px 0px -40px 0px'})
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el){revObs.observe(el)})
+
+/* Form submit — sends via mailto with prefilled content */
+function handleSubmit(e){
+  e.preventDefault()
+  var fname = document.getElementById('fname').value
+  var email = document.getElementById('email').value
+  var business = document.getElementById('business').value
+  var problem = document.getElementById('problem').value
+  var budget = document.getElementById('budget').value || 'Not specified'
+
+  var subject = encodeURIComponent('Contact form — ' + fname + ' (' + business + ')')
+  var body = encodeURIComponent(
+    'Name: ' + fname + '\n' +
+    'Email: ' + email + '\n' +
+    'Business type: ' + business + '\n' +
+    'Budget: ' + budget + '\n\n' +
+    'Workflow / problem:\n' + problem
+  )
+
+  // Open mailto
+  window.location.href = 'mailto:hello@packdez.com?subject=' + subject + '&body=' + body
+
+  // Show success state after short delay
+  setTimeout(function(){
+    document.getElementById('contact-form').style.display = 'none'
+    document.getElementById('form-success').style.display = 'block'
+  }, 800)
+}
+</script>
+</body>
+</html>
