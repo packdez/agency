@@ -807,6 +807,10 @@ em.accent-dark{font-style:italic;color:var(--g600)}
     width: auto;
   }
 }
+
+@media(max-width:760px){
+  .what-you-get-grid{grid-template-columns:1fr !important}
+}
 </style>
 </head>
 <body>
@@ -973,36 +977,75 @@ em.accent-dark{font-style:italic;color:var(--g600)}
    
 
 <!-- ═══ WHAT YOU ACTUALLY GET ═══ -->
-<section class="section section--light">
+<section class="section" style="background:var(--white);padding-top:clamp(60px,8vw,100px);padding-bottom:clamp(60px,8vw,100px)">
   <div class="container">
-    <div style="text-align:center;max-width:600px;margin:0 auto clamp(36px,5vw,52px)">
-      <span class="eyebrow eyebrow--dark reveal">What you actually get</span>
-      <h2 class="display-h2 reveal d1" style="color:var(--ink);margin-top:12px;margin-bottom:14px">Not a spreadsheet.<br>A system that <em class="accent-dark">runs your business.</em></h2>
-      <p class="reveal d2" style="font-size:.92rem;color:var(--ink2);line-height:1.75">Your team never opens a spreadsheet. They interact with a purpose-built interface. Google Sheets runs silently in the background.</p>
+    <div style="text-align:center;max-width:580px;margin:0 auto clamp(40px,5vw,56px)" class="reveal">
+      <span class="eyebrow">What you actually get</span>
+      <h2 style="font-family:var(--serif);font-size:clamp(1.9rem,4vw,2.9rem);font-weight:300;line-height:1.1;margin-top:12px">
+        Not a spreadsheet.<br>A system that <em style="font-style:italic;color:var(--g600)">runs your business.</em>
+      </h2>
     </div>
-    <div class="wyg-grid">
-      <div class="wyg-cell reveal d1">
-        <div class="wyg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
-        <h3>A real interface, not a spreadsheet</h3>
-        <p>Easily track leads, and view reports through a custom UI. Sheets is the invisible engine — they never see it.</p>
+
+    <div class="what-you-get-grid reveal d1" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch">
+
+      <!-- CARD 1 — Real Interface -->
+      <div style="background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column">
+        <div style="background:#f0fdf4;padding:18px;height:260px;overflow:hidden">
+            <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:var(--shadow-sm);position:relative">
+            <div style="background:#f1f5f9;padding:8px 12px;display:flex;align-items:center;gap:6px">
+              <div style="display:flex;gap:4px"><div style="width:9px;height:9px;border-radius:50%;background:#ff5f57"></div><div style="width:9px;height:9px;border-radius:50%;background:#febc2e"></div><div style="width:9px;height:9px;border-radius:50%;background:#28c840"></div></div>
+              <div style="flex:1;background:#fff;border:1px solid #e2e8f0;border-radius:4px;padding:3px 8px;font-size:.68rem;color:#94a3b8;text-align:center">app.yourbusiness.com/dashboard</div>
+            </div>
+            <img src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/mitUI.png" alt="Dashboard interface" style="width:140%;max-width:none;display:block;object-fit:cover;object-position:left top">
+          </div>
+        </div>
+        <div style="padding:22px 24px 26px">
+          <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:700;line-height:1.3;margin-bottom:10px">A real interface,<br>not a spreadsheet</h3>
+          <p style="font-size:.85rem;color:var(--ink2);line-height:1.6">Easily track leads, and view reports through a custom UI. Sheets is the invisible engine.</p>
+        </div>
       </div>
-      <div class="wyg-cell reveal d2">
-        <div class="wyg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <h3>Connected to every tool you already use</h3>
-        <p>Stripe, Square, Shopify, Gmail, Amazon, Airbnb — if it has data, it connects.</p>
+
+      <!-- CARD 2 — Integrations -->
+      <div style="background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column">
+        <div style="background:#f8fafc;padding:18px;height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+          <img src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/appsConnect.png" alt="Connected apps" style="width:100%;border-radius:10px;display:block">
+        </div>
+        <div style="padding:22px 24px 26px">
+          <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:700;line-height:1.3;margin-bottom:10px">Connected to every tool<br>you already use</h3>
+          <p style="font-size:.85rem;color:var(--ink2);line-height:1.6">Stripe, Square, Shopify, Gmail, Amazon, Airbnb — if it has data, it connects.</p>
+        </div>
       </div>
-      <div class="wyg-cell reveal d3">
-        <div class="wyg-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>You own it. No subscriptions, ever.</h3>
-        <p>No SaaS fees. No retainers. Full documentation and walkthrough video. It's yours completely.</p>
+
+      <!-- CARD 3 — You Own It -->
+      <div style="background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);display:flex;flex-direction:column">
+        <div style="background:#f0fdf4;padding:18px;height:260px;overflow:hidden">
+          <div style="background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--line2)">
+            <div style="background:var(--g50);padding:10px 14px;border-bottom:1px solid var(--line2)">
+              <div style="font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)">Handover Pack · Your System</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:11px;padding:10px 14px;border-bottom:1px solid var(--line2)">
+              <div style="width:26px;height:26px;border-radius:6px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.8rem">≡</div>
+              <div style="flex:1"><div style="font-size:.76rem;font-weight:700;color:var(--ink)">Full documentation</div><div style="font-size:.64rem;color:var(--ink3)">Step-by-step admin guide</div></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#15803d;font-weight:800">✓</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:11px;padding:10px 14px;border-bottom:1px solid var(--line2)">
+              <div style="width:26px;height:26px;border-radius:6px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem">▶</div>
+              <div style="flex:1"><div style="font-size:.76rem;font-weight:700;color:var(--ink)">Walkthrough video</div><div style="font-size:.64rem;color:var(--ink3)">Full recorded handover</div></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#15803d;font-weight:800">✓</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:11px;padding:10px 14px">
+              <div style="width:26px;height:26px;border-radius:6px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.8rem">⊙</div>
+              <div style="flex:1"><div style="font-size:.76rem;font-weight:700;color:var(--ink)">You own everything</div><div style="font-size:.64rem;color:var(--ink3)">Full Workspace access, no lock-in</div></div>
+              <div style="width:16px;height:16px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#15803d;font-weight:800">✓</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:22px 24px 26px">
+          <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:700;line-height:1.3;margin-bottom:10px">You own it.<br>No subscriptions, ever.</h3>
+          <p style="font-size:.85rem;color:var(--ink2);line-height:1.6">No SaaS fees. No retainers. Full documentation and walkthrough video. It's yours completely.</p>
+        </div>
       </div>
-    </div>
-    <div class="pain__cta reveal">
-      <div>
-        <p>No rows. No columns. No formulas to break<br>Your process shouldn’t feel like <em style="color:var(--g300);font-style:italic">a spreadsheet.</em></p>
-        <div class="wyg-banner-sub">Most systems pay for themselves within 6–8 weeks.</div>
-      </div>
-      <a href="#book" class="btn btn-primary btn-lg" style="flex-shrink:0">See if it makes sense →</a>
+
     </div>
   </div>
 </section>
