@@ -105,9 +105,9 @@
 
     /* Featured thumbnail image */
     .c-thumb{width:100%;position:relative;overflow:hidden;background:var(--g0);flex-shrink:0;}
-    .pcard:nth-child(5n+1) .c-thumb{height:200px;}
-    .pcard:nth-child(5n+2) .c-thumb,.pcard:nth-child(5n+3) .c-thumb{height:155px;}
-    .pcard:nth-child(5n+4) .c-thumb,.pcard:nth-child(5n+5) .c-thumb,.pcard:nth-child(5n) .c-thumb{height:130px;}
+    .pcard:nth-child(5n+1) .c-thumb{height:140px;}
+    .pcard:nth-child(5n+2) .c-thumb,.pcard:nth-child(5n+3) .c-thumb{height:110px;}
+    .pcard:nth-child(5n+4) .c-thumb,.pcard:nth-child(5n+5) .c-thumb,.pcard:nth-child(5n) .c-thumb{height:95px;}
     .c-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.16,1,.3,1);}
     .pcard:hover .c-thumb img{transform:scale(1.04);}
     .c-thumb-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(12,31,20,.45) 100%);pointer-events:none;}
@@ -684,6 +684,9 @@ function openPanel(gi){
 
 function closePanel(){
   panelOpen=false;
+  // Stop the iframe video by blanking its src then restoring it
+  const iframe=document.querySelector('#detailInner iframe');
+  if(iframe){iframe.src='';}
   document.getElementById('overlayBg').classList.remove('show');
   document.getElementById('detailPanel').classList.remove('show');
   document.body.style.overflow='';
@@ -740,15 +743,7 @@ function renderPanel(){
       <div class="dl-creator">
         <img src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/Raphael_Levinders-removebg-preview.png" alt="Raphael Levinders">
         <div><div class="dc-name">Raphael Levinders</div><div class="dc-role">Internal &amp; Productivity Systems · Analyst</div></div>
-      </div>
-      <div class="dl-outcome">
-        <div class="sec-label">Business Impact</div>
-        <p class="sec-text">${proj.outcome||''}</p>
-        <a href="${proj.projectLink}" target="_blank" rel="noopener noreferrer" class="live-btn">
-          View Live Project
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-        </a>
-      </div>
+      </div>      
     </div>
     <div class="dr">
       <div class="dr-inner">
