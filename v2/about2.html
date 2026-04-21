@@ -195,29 +195,6 @@ ul,ol{list-style:none}
 .delivery-cta{padding:4px 20px 20px}
 @media(max-width:900px){.how-inner{grid-template-columns:1fr;gap:36px}.how-right{position:static}}
 
-/* ============================================================
-   SECTION 03 — CLIENT FEEDBACK  (stone — same as homepage reviews)
-============================================================ */
-.feedback-section{background:var(--stone);color:var(--ink);padding:clamp(64px,10vw,120px) 0}
-.feedback-section .block-num{font-family:var(--serif);font-size:clamp(4rem,8vw,6.5rem);font-weight:300;line-height:1;color:rgba(22,163,74,.1);user-select:none}
-.feedback-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:48px}
-.feedback-head-left h2{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.4rem);font-weight:300;line-height:1.12;color:var(--ink);margin-top:8px}
-.feedback-head-left h2 em{font-style:italic;color:var(--g600)}
-.feedback-head-right{font-size:.88rem;color:var(--ink2);line-height:1.8;padding-left:24px;border-left:2px solid var(--line)}
-.feedback-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.fb-card{background:var(--white);border:1px solid var(--line);border-radius:var(--rlg);padding:24px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
-.fb-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g500),var(--g300));transform:scaleX(0);transform-origin:left;transition:transform .3s}
-.fb-card:hover{border-color:rgba(22,163,74,.25);box-shadow:var(--sh-light)}
-.fb-card:hover::after{transform:scaleX(1)}
-.fb-stars{display:flex;gap:3px}
-.fb-stars svg{width:11px;height:11px;fill:#f59e0b}
-.fb-quote{font-size:.85rem;font-style:italic;color:var(--ink2);line-height:1.7;flex:1}
-.fb-author{font-size:.78rem;font-weight:700;color:var(--ink)}
-.fb-from{font-size:.68rem;color:var(--ink3)}
-.tags-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
-.ind-tag-pill{display:inline-flex;align-items:center;padding:5px 13px;background:var(--white);border:1px solid var(--line);border-radius:999px;font-size:.74rem;font-weight:600;color:var(--ink2);transition:all .2s}
-.ind-tag-pill:hover{border-color:var(--g400);color:var(--g600);background:var(--g50)}
-@media(max-width:760px){.feedback-head{grid-template-columns:1fr;gap:20px}.feedback-head-right{padding-left:0;border-left:none;border-top:2px solid var(--line);padding-top:16px}.feedback-grid{grid-template-columns:1fr}}
 
 /* ============================================================
    SECTION 04 — WHO  (dark — same as homepage p1-section)
@@ -446,9 +423,9 @@ ul,ol{list-style:none}
     <div class="how-inner">
       <div class="how-left">
         <div class="block-num reveal">02</div>
-        <span class="eyebrow eyebrow--dark reveal d1">How Packdez works</span>
-        <h2 class="reveal d1">A repeatable process for<br><em>designing, building,</em><br>and delivering automation.</h2>
-        <p class="reveal d2">Every project follows the same disciplined approach — from the first call through to final handover.</p>
+        <span class="eyebrow eyebrow--dark reveal d1">How it works</span>
+        <h2 class="reveal d1">A <em>simple process</em> for kicking off projects <br>and building every system.</h2>
+        <p class="reveal d2">Each project follows the same approach - from understanding your workflow to delivering your system.</p>
         <div class="how-accordion reveal d3">
           <div class="how-item active" id="hi-0">
             <div class="how-header" onclick="toggleHow(0)">
@@ -456,15 +433,15 @@ ul,ol{list-style:none}
               <h3>Built around your workflow</h3>
               <svg class="how-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="how-body"><p>Every system is custom — designed around how your team actually operates, not how generic software dictates. No templates, no one-size-fits-all shortcuts.</p></div>
+            <div class="how-body"><p>Every system is custom - designed around how your team actually operates - just a setup that reflect your process.</p></div>
           </div>
           <div class="how-item" id="hi-1">
             <div class="how-header" onclick="toggleHow(1)">
               <div class="how-num">2</div>
-              <h3>Designed for reliability</h3>
+              <h3>Designed for scalability</h3>
               <svg class="how-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="how-body"><p>Clean logic, proper error handling, no fragile shortcuts. Systems are built to keep working as your business changes — without becoming a maintenance burden.</p></div>
+            <div class="how-body"><p>Clean logic, proper error handling, no fragile shortcuts. It is built to keep working as your business grows.</p></div>
           </div>
           <div class="how-item" id="hi-2">
             <div class="how-header" onclick="toggleHow(2)">
@@ -472,15 +449,15 @@ ul,ol{list-style:none}
               <h3>Documented and transferable</h3>
               <svg class="how-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="how-body"><p>Full documentation and a recorded walkthrough included at delivery. Your team owns the system entirely — no ongoing dependency on Packdez after handover.</p></div>
+            <div class="how-body"><p>Full documentation and a recorded walkthrough included at delivery. Your team owns the system entirely - no compulsory dependency.</p></div>
           </div>
           <div class="how-item" id="hi-3">
             <div class="how-header" onclick="toggleHow(3)">
               <div class="how-num">4</div>
-              <h3>Fixed scope and pricing</h3>
+              <h3>Scoped before we start</h3>
               <svg class="how-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
-            <div class="how-body"><p>Clear pricing upfront. Delivery in 7–15 days. No hourly billing, no scope creep, no surprises. You know exactly what you're getting before we start.</p></div>
+            <div class="how-body"><p>Clear pricing upfront. Delivery in 7–15+ days, depending on complexity. No hourly billing. You know exactly what you're getting before we start.</p></div>
           </div>
         </div>
       </div>
@@ -516,53 +493,7 @@ ul,ol{list-style:none}
   </div>
 </section>
 
-<!-- ═══ 03 FEEDBACK — stone ═══ -->
-<section class="feedback-section">
-  <div class="container">
-    <div class="feedback-head">
-      <div class="feedback-head-left">
-        <div class="block-num reveal">03</div>
-        <span class="eyebrow eyebrow--dark reveal d1">Client feedback</span>
-        <h2 class="reveal d1">Feedback from real<br><em>operational projects</em> delivered.</h2>
-      </div>
-      <div class="feedback-head-right reveal d2">Every review is from a completed project — real teams, real workflows, real results. Not demos or prototypes.</div>
-    </div>
-    <div class="feedback-grid">
-      <div class="fb-card reveal d1">
-        <div class="fb-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <p class="fb-quote">"Fast, detailed communication and very professional. He explored multiple approaches and delivered a solid solution."</p>
-        <div><div class="fb-author">— Liam, Marketing Director</div><div class="fb-from">via Upwork</div></div>
-      </div>
-      <div class="fb-card reveal d2">
-        <div class="fb-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <p class="fb-quote">"Raphael transformed our bookings system and made our operations significantly smoother. The automation removed manual steps entirely."</p>
-        <div><div class="fb-author">— Moe, Cleaning Business Owner</div><div class="fb-from">via Upwork · airglitz.com.au</div></div>
-      </div>
-      <div class="fb-card reveal d3">
-        <div class="fb-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <p class="fb-quote">"Communicative, offered good solutions to problems, and delivered exactly what was needed. No surprises, no scope creep."</p>
-        <div><div class="fb-author">— Aloysius, Operations Manager</div><div class="fb-from">via Upwork</div></div>
-      </div>
-      <div class="fb-card reveal d4">
-        <div class="fb-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <p class="fb-quote">"Good knowledge of Google Sheets, Looker, Shopify, and reporting workflows. Communication was clear and effective throughout."</p>
-        <div><div class="fb-author">— Shivam, Shopify Business Owner</div><div class="fb-from">via Upwork</div></div>
-      </div>
-    </div>
-    <div class="reveal d4" style="margin-top:32px">
-      <p style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px">Systems delivered across</p>
-      <div class="tags-wrap">
-        <span class="ind-tag-pill">Healthcare</span>
-        <span class="ind-tag-pill">E-commerce</span>
-        <span class="ind-tag-pill">Finance</span>
-        <span class="ind-tag-pill">Marketing</span>
-        <span class="ind-tag-pill">Operations</span>
-        <span class="ind-tag-pill">SaaS</span>
-        <span class="ind-tag-pill">Professional Services</span>
-      </div>
-    </div>
-  </div>
-</section>
+   
 
 <!-- ═══ 04 WHO — dark ═══ -->
 <section class="who-section">
