@@ -1,1119 +1,644 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-
-       <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-5KLXPS5M');</script>
-  <!-- End Google Tag Manager -->
-
-   
-   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "@id": "https://packdez.com/#organization",
-      "name": "Packdez",
-      "url": "https://packdez.com/",
-      "logo": "https://packdez.com/assets/logo/packdez-logo-512x512.png",
-      "sameAs": [
-        "https://www.linkedin.com/company/packdez/",
-        "https://x.com/packdezHQ",
-        "https://www.youtube.com/@packdezhq"
-      ]
-    }
-    </script>
-
-
-    <link rel="canonical" href="https://packdez.com/about" />
-
-    
-      
-   
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Packdez | Google Sheets Automation Experts</title>
-    <meta name="description" content="Using Google Sheets, Apps Script, and API integrations, Packdez builds internal systems that replace manual workflows.">
-    <link rel="icon" type="image/png" sizes="512x512" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
-    <link rel="apple-touch-icon" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
-
-   
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <style>
-        :root {
-            --background: 0 0% 100%;
-            --foreground: 220 20% 10%;
-            --primary: 146 55% 36%;
-            --primary-foreground: 0 0% 100%;
-            --muted: 220 14% 96%;
-            --muted-foreground: 220 9% 46%;
-            --border: 220 13% 91%;
-            --destructive: 0 84% 60%;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
-            scroll-behavior: smooth;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .bg-primary { background-color: hsl(146 55% 36%); }
-        .text-primary { color: hsl(146 55% 36%); }
-        .border-primary { border-color: hsl(146 55% 36%); }
-        .bg-muted { background-color: hsl(220 14% 96%); }
-        .text-muted-foreground { color: hsl(220 9% 46%); }
-        .border-border { border-color: hsl(220 13% 91%); }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            text-decoration: none;
-        }
-        
-        .btn-primary {
-            background-color: hsl(146 55% 36%);
-            color: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-primary:hover {
-            background-color: hsl(146 55% 32%);
-            box-shadow: 0 4px 12px rgba(46, 140, 78, 0.3);
-            transform: translateY(-1px);
-        }
-
-        .nav-fixed {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid hsl(220 13% 91%);
-        }
-
-
-        
-    /* Hero image container */
-.hero-image-offset {
-  position: relative;
-  margin: 35px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Packdez | Google Sheets Automation Experts</title>
+<meta name="description" content="Using Google Sheets, Apps Script, and API integrations, Packdez builds internal systems that replace manual workflows.">
+<link rel="canonical" href="https://packdez.com/about" />
+<link rel="icon" type="image/png" sizes="512x512" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
+<link rel="apple-touch-icon" href="https://packdez.com/assets/logo/packdez-logo-512x512.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","@id":"https://packdez.com/#organization","name":"Packdez","url":"https://packdez.com/","logo":"https://packdez.com/assets/logo/packdez-logo-512x512.png","sameAs":["https://www.linkedin.com/company/packdez/","https://x.com/packdezHQ","https://www.youtube.com/@packdezhq"]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — exact match to homepage
+============================================================ */
+:root{
+  --g950:#030c06;--g900:#061009;--g800:#0a1c0f;--g700:#103320;--g600:#176633;
+  --g500:#1e9947;--g400:#22c55e;--g300:#4ade80;--g200:#86efac;--g100:#bbf7d0;--g50:#f0fdf4;
+  --ink:#080f0b;--ink2:#1a3324;--ink3:#4a7060;--line:#d1fae5;--line2:#ecfdf5;
+  --white:#fff;--cream:#f8fef9;--stone:#f0fdf4;
+  --sf1:rgba(255,255,255,.03);--sf2:rgba(255,255,255,.06);
+  --bd:rgba(255,255,255,.08);--bdg:rgba(34,197,94,.25);
+  --t1:#edfaf3;--t2:rgba(237,250,243,.68);--t3:rgba(237,250,243,.42);
+  --serif:'Fraunces',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+  --eout:cubic-bezier(.16,1,.3,1);--ease:cubic-bezier(.22,.68,0,1.2);
+  --rsm:8px;--rmd:14px;--rlg:20px;--rxl:28px;--r2xl:40px;
+  --shmd:0 8px 32px rgba(0,0,0,.35);--shlg:0 24px 64px rgba(0,0,0,.5);--shxl:0 40px 100px rgba(0,0,0,.6);
+  --sh-light:0 4px 20px rgba(0,0,0,.07);--sh-light-lg:0 16px 48px rgba(0,0,0,.1);
 }
 
-/* Hero image itself */
-.hero-image-offset img {
-  width: 95%;
-  height: auto;
-  border-radius: 0.5rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
+/* ============================================================
+   RESET
+============================================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{font-family:var(--sans);background:var(--g950);color:var(--t1);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;width:100%}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--sans);cursor:pointer;border:none;background:none}
+ul,ol{list-style:none}
 
-/* Green offset border behind the image */
-.hero-image-offset::after {
-  content: '';
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  right: 10px;
-  bottom: 10px;
-  border: 3px solid hsl(146 55% 36%);
-  border-radius: 0.5rem;
-  z-index: -1;
-}
+/* ============================================================
+   LAYOUT
+============================================================ */
+.container{max-width:1160px;margin:0 auto;padding:0 20px}
 
-/* Mobile adjustment for the green border */
-@media (max-width: 968px) {
-  .hero-image-offset::after {
-    top: -10px;
-    left: -10px;
-    right: 10px;
-    bottom: 10px;
-  }
+/* ============================================================
+   TYPOGRAPHY
+============================================================ */
+.eyebrow{display:block;font-size:.69rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g400);margin-bottom:14px}
+.eyebrow--dark{color:var(--g600)}
 
-    .hero-image-offset {
-  position: relative;
-}
-    
-}
+/* ============================================================
+   BUTTONS
+============================================================ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 26px;font-size:.9rem;font-weight:600;border-radius:var(--rlg);border:none;cursor:pointer;transition:all .22s var(--eout);white-space:nowrap;text-decoration:none;position:relative}
+.btn-primary{background:var(--g500);color:#fff;box-shadow:0 2px 0 var(--g700),0 4px 24px rgba(30,153,71,.35)}
+.btn-primary:hover{background:var(--g600);transform:translateY(-2px)}
+.btn-ghost{background:var(--sf1);color:var(--t2);border:1.5px solid var(--bd);backdrop-filter:blur(8px)}
+.btn-ghost:hover{background:var(--sf2);border-color:var(--bdg);color:var(--t1)}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-outline:hover{border-color:var(--g500);color:var(--g600);background:var(--g50)}
+.btn-lg{padding:15px 28px;font-size:.95rem}
+.btn-sm{padding:8px 18px;font-size:.82rem}
+.btn svg{flex-shrink:0;transition:transform .2s}
+.btn:hover .btn-arrow{transform:translateX(3px)}
 
+/* ============================================================
+   NAV
+============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;transition:all .3s var(--eout)}
+.nav.scrolled{background:rgba(3,12,6,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);padding:10px 0}
+.nav__inner{max-width:1160px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav__logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:.95rem;color:var(--t1)}
+.nav__logo img{width:28px;height:28px;border-radius:6px}
+.nav__links{display:flex;align-items:center;gap:2px}
+.nav__links a{font-size:.84rem;font-weight:500;color:var(--t3);padding:7px 12px;border-radius:var(--rsm);transition:all .18s}
+.nav__links a:hover{color:var(--t1);background:var(--sf1)}
+.nav__links a.active{color:var(--g400)}
+.nav__right{display:flex;align-items:center;gap:10px}
+.nav__hamburger{display:none;color:var(--t1);padding:4px;align-items:center}
+.mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.mob-overlay.open{opacity:1;pointer-events:all}
+.mob-drawer{position:fixed;top:0;right:0;height:100%;width:min(88vw,300px);background:var(--g900);border-left:1px solid var(--bd);z-index:201;padding:24px 20px;transform:translateX(105%);transition:transform .35s var(--eout);display:flex;flex-direction:column;gap:2px}
+.mob-drawer.open{transform:translateX(0)}
+.mob-drawer__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.mob-drawer a.mob-link{display:block;padding:14px 0;font-size:.95rem;font-weight:600;border-bottom:1px solid var(--bd);color:var(--t2);transition:color .18s}
+.mob-drawer a.mob-link:hover{color:var(--t1)}
+@media(max-width:860px){.nav__links,.nav__right{display:none}.nav__hamburger{display:flex}}
+@media(max-width:480px){.nav__inner{padding:0 14px}}
 
-        
-        /* Sidebar layout for content sections */
-        .sidebar-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 4rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
+/* ============================================================
+   HERO — dark with aurora (same as homepage)
+============================================================ */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;overflow:hidden;background:var(--g950)}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px}
+.aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.12;animation:auroraFloat linear infinite}
+.aurora-1{width:600px;height:600px;background:radial-gradient(circle,#22c55e,#0d4a22);top:-200px;right:-100px;animation-duration:20s}
+.aurora-2{width:400px;height:400px;background:radial-gradient(circle,#4ade80,#16a34a);bottom:-100px;left:-100px;animation-duration:26s;animation-direction:reverse}
+.aurora-3{width:350px;height:350px;background:radial-gradient(circle,#86efac,#22c55e);top:30%;left:20%;animation-duration:16s;animation-delay:-5s}
+@keyframes auroraFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(20px,-16px) scale(1.05)}50%{transform:translate(-12px,20px) scale(.96)}75%{transform:translate(14px,12px) scale(1.04)}}
 
-        @media (max-width: 968px) {
-            .sidebar-layout {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 3rem 1.5rem;
-            }
-        }
+.hero__content{position:relative;z-index:1;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1160px;margin:0 auto;padding:0 20px;padding-top:clamp(110px,14vw,160px);padding-bottom:clamp(60px,8vw,100px)}
+.hero__chip{display:inline-flex;align-items:center;gap:8px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:999px;padding:6px 14px;margin-bottom:24px}
+.hero__chip-dot{width:7px;height:7px;border-radius:50%;background:var(--g400);animation:dotPulse 2s ease infinite}
+@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+.hero__chip-text{font-size:.72rem;font-weight:600;color:rgba(34,197,94,.85);letter-spacing:.06em}
+.hero__h1{font-family:var(--serif);font-size:clamp(2.6rem,5.5vw,4.6rem);font-weight:300;line-height:1.03;letter-spacing:-.025em;margin-bottom:20px;color:var(--t1)}
+.hero__h1 em{font-style:italic;color:var(--g300)}
+.hero__sub{font-size:clamp(.9rem,1.5vw,1.04rem);color:var(--t2);line-height:1.75;margin-bottom:28px;max-width:460px}
 
-        .sidebar-nav {
-            position: sticky;
-            top: 100px;
-            height: fit-content;
-        }
+.hero__img-wrap{position:relative;animation:cardFloat .9s var(--eout) .2s both}
+@keyframes cardFloat{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.hero__img-card{position:relative;border-radius:var(--r2xl);overflow:hidden;border:1px solid var(--bd);box-shadow:0 0 0 1px rgba(34,197,94,.05),var(--shxl)}
+.hero__img-card img{width:100%;height:auto;display:block;transition:transform .6s ease}
+.hero__img-card:hover img{transform:scale(1.03)}
+.hero__img-glow{position:absolute;bottom:-30px;right:-30px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.12),transparent 70%);pointer-events:none}
 
-        .sidebar-nav a {
-            display: block;
-            padding: 0.75rem 0;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: hsl(220 9% 46%);
-            text-decoration: none;
-            border-left: 3px solid transparent;
-            padding-left: 1rem;
-            transition: all 0.2s;
-        }
+.hero__pills{display:flex;flex-direction:column;gap:10px;position:absolute;left:-18px;bottom:32px;z-index:5}
+.hero__pill{display:flex;align-items:center;gap:10px;background:rgba(3,12,6,.88);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:var(--rmd);padding:10px 14px;animation:pillIn .6s var(--eout) both}
+.hero__pill:nth-child(1){animation-delay:.4s}
+.hero__pill:nth-child(2){animation-delay:.56s}
+@keyframes pillIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
+.pill-icon{width:30px;height:30px;border-radius:var(--rsm);background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--g300)}
+.pill-num{font-family:var(--serif);font-size:.98rem;font-weight:600;color:var(--g300);line-height:1}
+.pill-lbl{font-size:.66rem;color:var(--t3);margin-top:1px}
 
-        .sidebar-nav a:hover,
-        .sidebar-nav a.active {
-            color: hsl(146 55% 36%);
-            border-left-color: hsl(146 55% 36%);
-        }
+@media(max-width:960px){.hero__content{grid-template-columns:1fr;gap:36px;padding-top:90px}.hero__pills{left:auto;right:-14px;bottom:22px}}
+@media(max-width:480px){.hero__h1{font-size:clamp(2.2rem,9vw,2.8rem)}.hero__sub{font-size:.95rem}.hero__pills{position:static;flex-direction:row;flex-wrap:wrap;gap:8px;margin-top:16px}}
 
-        /* Content blocks with numbers */
-        .content-block {
-            margin-bottom: 5rem;
-        }
+/* ============================================================
+   SECTION 01 — WHY  (white — same as homepage "What you get")
+============================================================ */
+.why-section{background:var(--white);color:var(--ink);padding:clamp(64px,10vw,120px) 0}
+.why-section .block-num{font-family:var(--serif);font-size:clamp(4rem,8vw,6.5rem);font-weight:300;line-height:1;color:rgba(22,163,74,.08);user-select:none}
+.why-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:48px}
+.why-head-left h2{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:300;line-height:1.1;color:var(--ink);margin-top:8px}
+.why-head-left h2 em{font-style:italic;color:var(--g600)}
+.why-head-right{font-size:.9rem;color:var(--ink2);line-height:1.8;padding-left:24px;border-left:2px solid var(--line)}
+.why-cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line2);border-radius:var(--rxl);overflow:hidden}
+.why-card{background:var(--white);padding:32px 28px;position:relative;overflow:hidden;transition:background .2s}
+.why-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g500),var(--g300));transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.why-card:hover{background:var(--g50)}
+.why-card:hover::after{transform:scaleX(1)}
+.why-card-badge{display:inline-block;padding:3px 10px;background:var(--g50);border:1px solid var(--line);border-radius:999px;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g600);margin-bottom:14px}
+.why-card h3{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--ink);margin-bottom:9px;line-height:1.25}
+.why-card p{font-size:.84rem;color:var(--ink2);line-height:1.7}
+@media(max-width:760px){.why-head{grid-template-columns:1fr;gap:20px}.why-head-right{padding-left:0;border-left:none;border-top:2px solid var(--line);padding-top:16px}.why-cards{grid-template-columns:1fr}}
 
-        .block-number {
-            font-size: 6rem;
-            font-weight: 900;
-            line-height: 1;
-            color: hsl(146 55% 36% / 0.1);
-            margin-bottom: 1rem;
-        }
+/* ============================================================
+   SECTION 02 — HOW IT WORKS  (cream — same as homepage outcomes)
+============================================================ */
+.how-section{background:var(--cream);color:var(--ink);padding:clamp(64px,10vw,120px) 0}
+.how-section .block-num{font-family:var(--serif);font-size:clamp(4rem,8vw,6.5rem);font-weight:300;line-height:1;color:rgba(22,163,74,.08);user-select:none}
+.how-inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:start}
+.how-left h2{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.4rem);font-weight:300;line-height:1.12;color:var(--ink);margin-top:8px;margin-bottom:12px}
+.how-left h2 em{font-style:italic;color:var(--g600)}
+.how-left p{font-size:.88rem;color:var(--ink2);line-height:1.8;margin-bottom:28px}
 
-        /* Accordion-style process cards */
-        .process-accordion {
-            border: 1px solid hsl(220 13% 91%);
-            border-radius: 0.75rem;
-            overflow: hidden;
-        }
+.how-accordion{display:flex;flex-direction:column;gap:8px}
+.how-item{background:var(--white);border:1px solid var(--line);border-radius:var(--rlg);overflow:hidden;transition:box-shadow .2s}
+.how-item.active{box-shadow:var(--sh-light)}
+.how-header{padding:16px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:background .2s}
+.how-header:hover{background:var(--g50)}
+.how-num{width:28px;height:28px;border-radius:50%;background:var(--line2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:.84rem;color:var(--ink3);flex-shrink:0;transition:all .2s}
+.how-item.active .how-num{background:var(--g500);border-color:var(--g500);color:#fff}
+.how-header h3{flex:1;font-size:.88rem;font-weight:700;color:var(--ink)}
+.how-chevron{width:16px;height:16px;color:var(--ink3);transition:transform .3s var(--eout);flex-shrink:0}
+.how-item.active .how-chevron{transform:rotate(180deg);color:var(--g600)}
+.how-body{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;padding:0 20px 0 62px}
+.how-item.active .how-body{max-height:160px;padding:0 20px 18px 62px}
+.how-body p{font-size:.83rem;color:var(--ink2);line-height:1.75}
 
-        .process-item {
-            border-bottom: 1px solid hsl(220 13% 91%);
-        }
-
-        .process-item:last-child {
-            border-bottom: none;
-        }
-
-        .process-header {
-            padding: 1.5rem;
-            background: white;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.2s;
-        }
-
-        .process-header:hover {
-            background: hsl(220 14% 98%);
-        }
-
-        .process-content {
-            padding: 0 1.5rem 1.5rem;
-            display: none;
-        }
-
-        .process-item.active .process-content {
-            display: block;
-        }
-
-        /* Stats with large numbers */
-        .stat-large {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .stat-large-number {
-            font-size: 2rem;
-            font-weight: 900;
-            line-height: 1;
-            background: linear-gradient(135deg, hsl(146 55% 36%), hsl(146 65% 45%));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .stat-large-number {
-                font-size: 3rem;
-            }
-        }
-
-        /* Testimonial slider */
-        .testimonial-card {
-            background: white;
-            border: 1px solid hsl(220 13% 91%);
-            border-radius: 1rem;
-            padding: 2rem;
-            min-height: 280px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* Profile card with large image */
-        .profile-showcase {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
-            background: linear-gradient(135deg, hsl(220 14% 98%), white);
-            border-radius: 1.5rem;
-            padding: 3rem;
-            border: 1px solid hsl(220 13% 91%);
-        }
-
-        @media (max-width: 968px) {
-            .profile-showcase {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 2rem;
-            }
-        }
-
-        .profile-image-large {
-            width: 100%;
-            max-width: 150px;
-            aspect-ratio: 1;
-            border-radius: 8rem;
-            object-fit: cover;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Pill badges */
-        .pill-badge {
-            display: inline-block;
-            padding: 0.5rem 1.25rem;
-            background: hsl(146 55% 36% / 0.1);
-            color: hsl(146 55% 36%);
-            border-radius: 999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            border: 1px solid hsl(146 55% 36% / 0.2);
-        }
-
-        /* Quote with vertical line */
-        .quote-vertical {
-            border-left: 4px solid hsl(146 55% 36%);
-            padding-left: 2rem;
-            margin: 2rem 0;
-        }
-
-        .quote-vertical p {
-            font-size: 1.25rem;
-            font-style: italic;
-            color: hsl(220 20% 20%);
-            line-height: 1.7;
-            margin-bottom: 1rem;
-        }
-
-        /* Mobile sidebar */
-        .mobile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.55);
-            backdrop-filter: blur(6px);
-            z-index: 90;
-            display: none;
-        }
-
-        .mobile-overlay.active {
-            display: block;
-        }
-
-        .mobile-sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100%;
-            width: 85%;
-            max-width: 320px;
-            background: white;
-            z-index: 100;
-            padding: 24px;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mobile-sidebar.active {
-            transform: translateX(0);
-        }
-
-        .mobile-sidebar a {
-            padding: 14px 0;
-            font-size: 16px;
-            font-weight: 600;
-            border-bottom: 1px solid hsl(var(--border));
-        }
-
-        /* Fade animations */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Mobile optimizations */
-        @media (max-width: 768px) {
-            .desktop-only {
-                display: none !important;
-            }
-
-            .btn {
-                min-height: 48px;
-                padding: 0.875rem 1.25rem;
-            }
-
-            .block-number {
-                font-size: 4rem;
-            }
-        }
-
-        /* Grid of principle cards */
-        .principles-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .principles-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .principle-compact {
-            padding: 1.5rem;
-            border: 1px solid hsl(220 13% 91%);
-            border-radius: 0.75rem;
-            background: white;
-            transition: all 0.3s ease;
-        }
-
-        .principle-compact:hover {
-            border-color: hsl(146 55% 36%);
-            box-shadow: 0 4px 16px rgba(46, 140, 78, 0.1);
-        }
-
-        .principle-compact-icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            background: hsl(146 55% 36% / 0.1);
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-
-        /* Full-width CTA band */
-        .cta-band {
-            background: #FFFFFF;
-            padding: 5rem 1rem;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .cta-band {
-                padding: 3rem 1.5rem;
-            }
-        }
+/* Delivery card — dark contrast on cream bg */
+.how-right{position:sticky;top:92px}
+.delivery-card{background:var(--g900);border-radius:var(--rxl);overflow:hidden;box-shadow:var(--shxl)}
+.delivery-card-head{background:linear-gradient(135deg,var(--g700),var(--g800));padding:22px 24px;display:flex;align-items:center;gap:12px}
+.delivery-icon{width:36px;height:36px;border-radius:var(--rsm);background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:var(--g300)}
+.delivery-title{font-size:.86rem;font-weight:700;color:var(--t1)}
+.delivery-sub{font-size:.7rem;color:var(--t3);margin-top:2px}
+.delivery-stats{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--bd)}
+.d-stat{padding:20px;border-right:1px solid var(--bd)}
+.d-stat:nth-child(2n){border-right:none}
+.d-stat-num{font-family:var(--serif);font-size:1.5rem;color:var(--g300);line-height:1;margin-bottom:4px;display:block}
+.d-stat-lbl{font-size:.71rem;color:var(--t3);line-height:1.4}
+.delivery-list{padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.delivery-item{display:flex;align-items:center;gap:9px;font-size:.82rem;color:var(--t2)}
+.d-check{color:var(--g400);flex-shrink:0}
+.delivery-cta{padding:4px 20px 20px}
+@media(max-width:900px){.how-inner{grid-template-columns:1fr;gap:36px}.how-right{position:static}}
 
 
-        /* Industry tags */
-        .industry-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-        }
+/* ============================================================
+   SECTION 04 — WHO  (dark — same as homepage p1-section)
+============================================================ */
+.who-section{background:var(--g900);color:var(--t1);padding:clamp(64px,10vw,120px) 0;position:relative;overflow:hidden}
+.who-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.who-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(22,197,94,.07),transparent 65%);pointer-events:none}
+.who-section .block-num{font-family:var(--serif);font-size:clamp(4rem,8vw,6.5rem);font-weight:300;line-height:1;color:rgba(34,197,94,.06);user-select:none}
+.who-head{max-width:580px;margin:0 0 48px}
+.who-head h2{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.4rem);font-weight:300;line-height:1.12;color:var(--t1);margin-top:8px}
+.who-head h2 em{font-style:italic;color:var(--g300)}
+.profile-card{background:rgba(255,255,255,.03);border:1px solid var(--bd);border-radius:var(--r2xl);overflow:hidden;display:grid;grid-template-columns:260px 1fr;position:relative;z-index:1}
+.profile-img-side{background:linear-gradient(160deg,var(--g800),var(--g900));padding:40px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;position:relative;overflow:hidden;border-right:1px solid var(--bd)}
+.profile-img-side::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.1),transparent 65%)}
+.profile-img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid rgba(34,197,94,.25);box-shadow:0 0 0 8px rgba(34,197,94,.06);position:relative;z-index:1}
+.profile-name-block{text-align:center;position:relative;z-index:1}
+.profile-name{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--t1);margin-bottom:6px}
+.profile-title-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.18);border-radius:999px;padding:3px 10px;font-size:.65rem;font-weight:700;color:var(--g300);letter-spacing:.05em;text-transform:uppercase}
+.profile-socials{display:flex;gap:8px;position:relative;z-index:1}
+.p-soc{width:30px;height:30px;border-radius:50%;background:var(--sf1);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;color:var(--t3);transition:all .2s}
+.p-soc:hover{background:var(--g600);color:#fff;border-color:var(--g600)}
+.profile-info-side{padding:40px}
+.profile-quote-wrap{border-left:3px solid var(--g500);padding-left:22px;margin-bottom:24px}
+.profile-quote-wrap p{font-size:.9rem;font-style:italic;color:var(--t2);line-height:1.8;margin-bottom:12px}
+.profile-quote-author{font-size:.8rem;font-weight:700;color:var(--t1)}
+.profile-quote-role{font-size:.7rem;color:var(--t3);margin-top:2px}
+.profile-tags{display:flex;flex-wrap:wrap;gap:7px}
+.profile-tag{display:flex;align-items:center;gap:5px;padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:var(--rsm);font-size:.72rem;font-weight:600;color:var(--t3)}
+@media(max-width:860px){.profile-card{grid-template-columns:1fr}.profile-img-side{padding:32px 24px;border-right:none;border-bottom:1px solid var(--bd)}.profile-info-side{padding:28px 24px}}
 
-        .industry-tag {
-            padding: 0.5rem 1rem;
-            background: white;
-            border: 1px solid hsl(220 13% 91%);
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: hsl(220 20% 10%);
-        }
 
+/* ============================================================
+   CTA — dark card floating on dark bg (matches homepage pain__cta)
+============================================================ */
+.cta-section{background:var(--white);padding:clamp(64px,10vw,120px) 0;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:350px;background:radial-gradient(ellipse,rgba(34,197,94,.08),transparent 65%);pointer-events:none}
+.cta-inner{position:relative;z-index:1;background:linear-gradient(135deg,var(--g800),var(--g900));border-radius:var(--r2xl);padding:clamp(40px,6vw,72px) clamp(32px,6vw,72px);display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;overflow:hidden}
+.cta-inner::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.1),transparent 65%);pointer-events:none}
+.cta-text{position:relative;z-index:1;max-width:520px}
+.cta-text h2{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:300;line-height:1.12;color:var(--t1);margin-bottom:10px}
+.cta-text h2 em{font-style:italic;color:var(--g300)}
+.cta-text p{font-size:.9rem;color:var(--t3);line-height:1.7}
+.cta-right{position:relative;z-index:1;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.cta-trust{display:flex;flex-direction:column;gap:7px}
+.cta-trust-item{display:flex;align-items:center;gap:8px;font-size:.76rem;color:var(--t3)}
+.cta-check{width:16px;height:16px;border-radius:50%;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;color:var(--g400);flex-shrink:0}
+@media(max-width:760px){.cta-inner{flex-direction:column}.cta-right{width:100%}.cta-right .btn{width:100%;justify-content:center}}
 
+/* ============================================================
+   FOOTER — identical to homepage
+============================================================ */
+.footer{background:var(--g950);color:var(--t3);padding:clamp(52px,8vw,80px) 0 28px;border-top:1px solid var(--bd)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-logo{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.footer-logo img{width:26px;height:26px;border-radius:6px}
+.footer-logo span{font-weight:700;color:var(--t1);font-size:.92rem}
+.footer-tagline{font-size:.79rem;line-height:1.7;margin-bottom:20px;max-width:230px}
+.footer-socials{display:flex;gap:7px}
+.fsoc{width:34px;height:34px;border-radius:50%;background:var(--sf1);display:flex;align-items:center;justify-content:center;color:var(--t3);transition:all .2s}
+.fsoc:hover{background:var(--g600);color:#fff}
+.footer-col h4{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:16px;opacity:.6}
+.footer-col li{margin-bottom:9px}
+.footer-col a{font-size:.79rem;color:var(--t3);transition:color .18s}
+.footer-col a:hover{color:var(--t1)}
+.footer-bottom{padding-top:20px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:.74rem}
+@media(max-width:720px){.footer-grid{grid-template-columns:1fr;gap:28px}.footer-bottom{flex-direction:column;text-align:center}}
 
-        /* =====================================================
-   HERO LAYOUT
-====================================================== */
-.section-padding {
-  padding: 5rem 1rem;
-}
+/* ============================================================
+   SCROLL REVEAL
+============================================================ */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--eout),transform .7s var(--eout)}
+.reveal.vis{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-24px);transition:opacity .7s var(--eout),transform .7s var(--eout)}
+.reveal-left.vis{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(24px);transition:opacity .7s var(--eout),transform .7s var(--eout)}
+.reveal-right.vis{opacity:1;transform:none}
+.reveal-scale{opacity:0;transform:scale(.97);transition:opacity .7s var(--eout),transform .7s var(--eout)}
+.reveal-scale.vis{opacity:1;transform:scale(1)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
 
-@media (max-width: 768px) {
-  .section-padding {
-    padding: 3rem 1rem;
-  }
-}
-
-/* =====================================================
-   HERO BADGE
-====================================================== */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  border-radius: 0.375rem;
-  background-color: hsl(146 55% 36% / 0.1);
-  color: hsl(146 55% 36%);
-  border: 1px solid hsl(146 55% 36% / 0.2);
-}
-
-/* =====================================================
-   HERO FLOATING IMAGE CARD
-====================================================== */
-.floating-image-card {
-  position: relative;
-  border-radius: 1.5rem;
-  overflow: hidden;
-  background: linear-gradient(135deg, #ffffff, #f8fafc);
-  border: 1px solid hsl(220 13% 91%);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.floating-image-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 30px 80px rgba(46, 140, 78, 0.15);
-}
-
-.floating-image-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.5s ease;
-}
-
-.floating-image-card:hover img {
-  transform: scale(1.03);
-}
-
-/* =====================================================
-   HERO FADE-IN ANIMATION
-====================================================== */
-.fade-in-section {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.fade-in-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-    </style>
+@media(max-width:480px){.container{padding:0 14px}}
+</style>
 </head>
 <body>
-   <main>
 
-
-    
 <!-- Mobile overlay -->
-<div id="mobile-overlay" class="mobile-overlay" onclick="closeMobileMenu()"></div>
-
-<!-- Mobile sidebar -->
-<aside id="mobile-menu" class="mobile-sidebar">
-  <div class="flex items-center justify-between mb-6">
-    <a href="https://packdez.com/" class="flex items-center gap-2" onclick="closeMobileMenu()">
-      <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez logo" class="h-8 w-8" />
-      <span class="text-xl font-bold">Packdez</span>
+<div id="mob-overlay" class="mob-overlay" onclick="closeMob()"></div>
+<aside id="mob-drawer" class="mob-drawer">
+  <div class="mob-drawer__head">
+    <a href="https://packdez.com/" class="nav__logo" onclick="closeMob()">
+      <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez" width="28" height="28">
+      <span style="font-weight:700;color:var(--t1)">Packdez</span>
     </a>
-    <button onclick="closeMobileMenu()" aria-label="Close menu" class="text-2xl font-bold">×</button>
+    <button onclick="closeMob()" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--t2);padding:4px">✕</button>
   </div>
-  <a href="/works" onclick="closeMobileMenu()">Projects</a>
-  <a href="https://packdez.com/#pricing" onclick="closeMobileMenu()">Pricing</a>
-  <a href="https://packdez.com/#reviews" onclick="closeMobileMenu()">Reviews</a>
-  <a href="/about" onclick="closeMobileMenu()">About</a>
-  <a href="https://packdez.com/#audit" onclick="closeMobileMenu()" class="mt-6 btn btn-primary">
-    Get your plan
-  </a>
+  <a href="/projects" class="mob-link" onclick="closeMob()">Projects</a>
+  <a href="https://packdez.com/#pricing" class="mob-link" onclick="closeMob()">Pricing</a>
+  <a href="https://packdez.com/#reviews" class="mob-link" onclick="closeMob()">Reviews</a>
+  <a href="/about" class="mob-link" onclick="closeMob()">About</a>
+  <a href="https://packdez.com/#book" class="btn btn-primary" style="margin-top:20px;width:100%;justify-content:center" onclick="closeMob()">Book a free call</a>
 </aside>
 
-<!-- Navigation -->
-<nav class="nav-fixed">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="flex items-center justify-between h-16">
-        
-<a
-  href="https://packdez.com/"
-  class="flex items-center gap-2 md:-ml-12"
->
-  <img
-    src="https://packdez.com/assets/logo/packdez-logo-512x512.png"
-    alt="Packdez logo"
-    class="h-8 w-8"
-  />
-  <span class="text-xl font-bold">Packdez</span>
-</a>
-
-        
-      <div class="desktop-only flex items-center gap-6" style="margin-right:-90px;">
-        <a href="/works" class="text-sm font-medium text-muted-foreground hover:text-primary">Projects</a>
-        <a href="https://packdez.com/#pricing" class="text-sm font-medium text-muted-foreground hover:text-primary">Pricing</a>
-        <a href="https://packdez.com/#reviews" class="text-sm font-medium text-muted-foreground hover:text-primary">Reviews</a>
-        <a href="/about" class="text-sm font-medium text-primary">About</a>
-        <a href="https://packdez.com/#audit" class="btn btn-primary ml-auto mr-10" style="padding: 0.5rem 1.25rem;">Get your plan</a>
-      </div>
-      <button class="flex md:hidden" onclick="toggleMobileMenu()" aria-label="Open menu">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="main-nav">
+  <div class="nav__inner">
+    <a href="https://packdez.com/" class="nav__logo">
+      <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez" width="28" height="28">
+      <span>Packdez</span>
+    </a>
+    <div class="nav__links">
+      <a href="/projects">Projects</a>
+      <a href="https://packdez.com/#pricing">Pricing</a>
+      <a href="https://packdez.com/#reviews">Reviews</a>
+      <a href="/about" class="active">About</a>
     </div>
+    <div class="nav__right">
+      <a href="https://packdez.com/#book" class="btn btn-primary btn-sm">Book a free call ↗</a>
+    </div>
+    <button class="nav__hamburger" onclick="openMob()" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
   </div>
 </nav>
 
-    <!-- =====================================================
-     HERO SECTION WITH IMAGE
-====================================================== -->
-<section class="section-padding hero-section" style="padding-top: 8rem; padding-bottom: 6rem;">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-
-      <!-- Text Content -->
-      <div class="fade-in-section">
-        <div class="badge mb-4">About Packdez</div>
-
-        <h1 class="text-3xl md:text-4xl font-bold mb-6 leading-tight tracking-[-0.02em]">
-          Building reliable systems, so teams can focus on their work
-        </h1>
-
-        <p class="text-lg text-muted-foreground mb-6 leading-relaxed">
-          Packdez exists to remove operational friction. We build reliable automation systems in Google Sheets that reduce manual work, eliminate errors, and scale with your team.
-        </p>
-
-        <p class="text-lg text-muted-foreground leading-relaxed">
-          No templates. No shortcuts. Just custom built systems designed around how your team actually works.
-        </p>
+<!-- ═══ HERO — dark ═══ -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+  </div>
+  <div class="hero__content">
+    <div class="reveal">
+      <div class="hero__chip">
+        <span class="hero__chip-dot"></span>
+        <span class="hero__chip-text">About Packdez</span>
       </div>
-
-      <!-- Floating Image Card -->
-      <div class="fade-in-section floating-image-card hero-image-offset fade-up">
-        <img 
-          src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/Raphael%20Levinder.png" 
-          alt="Packdez, Google Sheets automation system dashboard"
-          loading="lazy"
+      <h1 class="hero__h1">Building systems,<br>not <em>more spreadsheets.</em></h1>
+      <p class="hero__sub">Spreadsheets are where operations start. To scale, they should not remain rows and columns.</p>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <a href="https://packdez.com/#book" class="btn btn-primary btn-lg">
+          Book a free call
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/projects" class="btn btn-ghost btn-lg">See real projects</a>
+      </div>
+    </div>
+    <div class="hero__img-wrap reveal-right">
+      <div class="hero__img-card">
+        <img
+          src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/Raphael%20Levinder.png"
+          alt="Raphael Levinders — Automation Engineer"
+          loading="eager"
+          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'500\' height=\'580\'%3E%3Crect width=\'500\' height=\'580\' fill=\'%230a1c0f\'/%3E%3Ccircle cx=\'250\' cy=\'200\' r=\'100\' fill=\'%23103320\'/%3E%3Crect x=\'130\' y=\'320\' width=\'240\' height=\'260\' rx=\'120\' fill=\'%23103320\'/%3E%3Ctext x=\'50%25\' y=\'42%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2322c55e\' font-size=\'52\' font-family=\'Georgia\'%3ERL%3C/text%3E%3C/svg%3E'"
         />
+        <div class="hero__img-glow"></div>
       </div>
-
+      <div class="hero__pills">
+        <div class="hero__pill">
+          <div class="pill-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div><div class="pill-num">5.0★</div><div class="pill-lbl">Client rating</div></div>
+        </div>
+        <div class="hero__pill">
+          <div class="pill-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div><div class="pill-num">7–14d</div><div class="pill-lbl">To live system</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-
-    
-<!-- Why section with sidebar layout -->
-<section style="background: hsl(220 14% 98%); padding: 5rem 0;">
-    <div class="sidebar-layout">
-        <aside class="sidebar-nav desktop-only">
-            <nav>
-                <a href="#why" class="active">Why Packdez</a>
-                <a href="#how">How it works</a>
-                <a href="#feedback">Client feedback</a>
-                <a href="#who">System stewardship</a>
-                <a href="#principles">Principles</a>
-            </nav>
-        </aside>
-
-        <div>
-            <div id="why" class="content-block fade-up">
-                <div class="block-number">01</div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">Why Packdez exists</h2>
-                <p style="font-size: 1.125rem; color: hsl(220 9% 46%); line-height: 1.8; margin-bottom: 1.5rem;">
-                    Most teams don’t need another tool - they need their systems to work.
-                </p>
-                
-                <div style="display: grid; gap: 1.5rem; margin-top: 2rem;">
-                    <div style="padding: 1.5rem; background: white; border-radius: 0.75rem; border: 1px solid hsl(220 13% 91%);">
-                        <h3 style="font-weight: 700; margin-bottom: 0.75rem; font-size: 1.125rem;">The problem</h3>
-                        <p style="color: hsl(220 9% 46%); line-height: 1.7;">
-                            Spreadsheets that worked at 10 people break at 50. Manual processes multiply. Data lives in 5 different tools.
-                        </p>
-                    </div>
-
-                    <div style="padding: 1.5rem; background: white; border-radius: 0.75rem; border: 1px solid hsl(220 13% 91%);">
-                        <h3 style="font-weight: 700; margin-bottom: 0.75rem; font-size: 1.125rem;">The solution</h3>
-                        <p style="color: hsl(220 9% 46%); line-height: 1.7;">
-                            Google Sheets is already where teams work. Apps Script and integrations can automate most repetitive work.
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-
-            <div id="how" class="content-block fade-up">
-                <div class="block-number">02</div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">How Packdez works</h2>
-                <p style="font-size: 1.125rem; color: hsl(220 9% 46%); line-height: 1.8; margin-bottom: 2rem;">
-                    A repeatable process for designing, building, and delivering automation.
-                </p>
-
-                <div class="process-accordion">
-                    <div class="process-item active">
-                        <div class="process-header" onclick="toggleProcess(0)">
-                            <h3 style="font-weight: 700; font-size: 1.125rem;">Built around your workflow</h3>
-                            <i data-lucide="chevron-down" style="width: 1.25rem; height: 1.25rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div class="process-content">
-                            <p style="color: hsl(220 9% 46%); line-height: 1.7;">
-                                Every system is custom. We design automation that fits how your team actually works, not how software dictates. No templates, no generic solutions.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="process-item">
-                        <div class="process-header" onclick="toggleProcess(1)">
-                            <h3 style="font-weight: 700; font-size: 1.125rem;">Designed for reliability</h3>
-                            <i data-lucide="chevron-down" style="width: 1.25rem; height: 1.25rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div class="process-content">
-                            <p style="color: hsl(220 9% 46%); line-height: 1.7;">
-                                Clean logic, proper error handling, and no fragile shortcuts. Systems are built to keep working as your business changes.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="process-item">
-                        <div class="process-header" onclick="toggleProcess(2)">
-                            <h3 style="font-weight: 700; font-size: 1.125rem;">Documented and transferable</h3>
-                            <i data-lucide="chevron-down" style="width: 1.25rem; height: 1.25rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div class="process-content">
-                            <p style="color: hsl(220 9% 46%); line-height: 1.7;">
-                                Clear documentation and training included. Your team owns the system and can maintain it independently.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="process-item">
-                        <div class="process-header" onclick="toggleProcess(3)">
-                            <h3 style="font-weight: 700; font-size: 1.125rem;">Fixed scope & pricing</h3>
-                            <i data-lucide="chevron-down" style="width: 1.25rem; height: 1.25rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <div class="process-content">
-                            <p style="color: hsl(220 9% 46%); line-height: 1.7;">
-                                Clear pricing upfront. Delivery in 7-15 days. No hourly billing, no scope creep, no surprises.
-                            </p>
-                        </div>
-                    </div>                  
-                </div>
-
-
-                 <div class="block-number"></div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">Delivery standards</h2>
-                <p style="font-size: 1.125rem; color: hsl(220 9% 46%); line-height: 1.8; margin-bottom: 2rem;">
-                    Consistent quality, predictable timelines, clear communication.
-                </p>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-                    <div class="stat-large">
-                        <div class="stat-large-number">5.0★</div>
-                        <p style="font-weight: 600; color: hsl(220 9% 46%);">Client feedback</p>
-                    </div>
-                    <div class="stat-large">
-                        <div class="stat-large-number">7-15</div>
-                        <p style="font-weight: 600; color: hsl(220 9% 46%);">Days to delivery</p>
-                    </div>
-                    <div class="stat-large">
-                        <div class="stat-large-number">24hr</div>
-                        <p style="font-weight: 600; color: hsl(220 9% 46%);">Response time</p>
-                    </div>
-                </div>
-                
-            </div>
-
-
-
-            
-            <div id="feedback" class="content-block fade-up">
-                <div class="block-number">03</div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">Client feedback</h2>
-                <p style="font-size: 1.125rem; color: hsl(220 9% 46%); line-height: 1.8; margin-bottom: 2rem;">
-                    Feedback from real operational projects delivered
-                </p>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-                    <div class="testimonial-card">
-                        <div>
-                            <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem;">
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                            </div>
-                            <p style="color: hsl(220 9% 46%); line-height: 1.7; margin-bottom: 1rem;">
-                                "Fast, detailed communication and very professional. He explored multiple approaches and delivered a solid solution."
-                            </p>
-                        </div>
-                        <div>
-                            <p style="font-weight: 700; font-size: 0.875rem;">— Liam, Marketing Director</p>
-                            <p style="font-size: 0.875rem; color: hsl(220 9% 46%);">via Upwork</p>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div>
-                            <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem;">
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                            </div>
-                            <p style="color: hsl(220 9% 46%); line-height: 1.7; margin-bottom: 1rem;">
-                                "Raphael transformed our bookings system and made our operations significantly smoother. The automation removed manual steps."
-                            </p>
-                        </div>
-                        <div>
-                            <p style="font-weight: 700; font-size: 0.875rem;">— Moe, Cleaning Business Owner</p>
-                            <p style="font-size: 0.875rem; color: hsl(220 9% 46%);">via Upwork</p>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div>
-                            <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem;">
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                            </div>
-                            <p style="color: hsl(220 9% 46%); line-height: 1.7; margin-bottom: 1rem;">
-                                "Communicative, offered good solutions to problems, and delivered exactly what was needed."
-                            </p>
-                        </div>
-                        <div>
-                            <p style="font-weight: 700; font-size: 0.875rem;">— Aloysius, Operations Manager</p>
-                            <p style="font-size: 0.875rem; color: hsl(220 9% 46%);">via Upwork</p>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div>
-                            <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem;">
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                                <i data-lucide="star" style="width: 1rem; height: 1rem; color: hsl(43 96% 56%); fill: hsl(43 96% 56%);"></i>
-                            </div>
-                            <p style="color: hsl(220 9% 46%); line-height: 1.7; margin-bottom: 1rem;">
-                                "Good knowledge of Google Sheets, Looker, Shopify, and reporting workflows. Communication was clear and effective."
-                            </p>
-                        </div>
-                        <div>
-                            <p style="font-weight: 700; font-size: 0.875rem;">— Shivam, Shopify Business Owner</p>
-                            <p style="font-size: 0.875rem; color: hsl(220 9% 46%);">via Upwork</p>
-                        </div>
-                    </div>
-                </div>
-
-        <!-- Industries Served -->
-        <div class="fade-in-section mt-12 text-center">
-            <p class="text-sm text-muted-foreground font-semibold mb-4">Systems delivered across</p>
-            <div class="flex flex-wrap justify-center gap-3">
-                <span class="badge">Healthcare</span>
-                <span class="badge">E-commerce</span>
-                <span class="badge">Finance</span>
-                <span class="badge">Marketing</span>
-                <span class="badge">Operations</span>
-                <span class="badge">SaaS</span>
-                <span class="badge">Professional Services</span>
-            </div>
-        </div>
-                
-     </div>
-
-
-
-            
-            <div id="who" class="content-block fade-up">
-                <div class="block-number">04</div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">System stewardship</h2>
-                <p style="font-size: 1.125rem; color: hsl(220 9% 46%); line-height: 1.8; margin-bottom: 2rem;">
-                    Led by an experienced automation engineer with a systems-first approach.
-                </p>
-
-                <div class="profile-showcase">
-                    <div>
-                        <img 
-                            src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/Raphael_Levinders.png" 
-                            alt="Packdez, Google Sheets automation system dashboard"
-                            class="profile-image-large"
-                        />
-                    </div>
-                    <div>
-                        <span class="pill-badge" style="margin-bottom: 1rem; display: inline-block;">Automation Engineer</span>
-                        <h3 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Raphael Levinders</h3>
-
-                            <a href="https://www.linkedin.com/in/raphaellevinders" target="_blank" rel="noopener noreferrer" style="width: 2.5rem; height: 2.5rem; background: hsl(220 14% 96%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="linkedin" style="width: 1rem; height: 1rem;"></i>
-                            </a>
-
-                        <div class="quote-vertical">
-                            <p>
-                                "I worked with Raphael and was impressed by his reliability and practical approach to problem-solving. He consistently delivered quality work and collaborated effectively with the team to achieve our goals."
-                            </p>
-                            <div>
-                                <p style="font-weight: 700; margin-bottom: 0.25rem;">— Phyu (Elisa) Swan</p>
-                                <p style="font-size: 0.875rem; color: hsl(220 9% 46%);">Founder, Wellnite</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="principles" class="content-block fade-up">
-                <div class="block-number">05</div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">Operating principles</h2>
-                <p style="font-size: 1.125rem; color: hsl(220 9% 46%); line-height: 1.8; margin-bottom: 2rem;">
-                    Standards that guide every project.
-                </p>
-
-                <div class="principles-grid">
-                    <div class="principle-compact">
-                        <div class="principle-compact-icon">
-                            <i data-lucide="check-circle" style="width: 1.25rem; height: 1.25rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Clarity over complexity</h3>
-                        <p style="color: hsl(220 9% 46%); font-size: 0.9375rem; line-height: 1.6;">
-                            Simple, understandable systems that teams can maintain.
-                        </p>
-                    </div>
-
-                    <div class="principle-compact">
-                        <div class="principle-compact-icon">
-                            <i data-lucide="users" style="width: 1.25rem; height: 1.25rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Workflow first design</h3>
-                        <p style="color: hsl(220 9% 46%); font-size: 0.9375rem; line-height: 1.6;">
-                            Built around how teams work, not how software dictates.
-                        </p>
-                    </div>
-
-                    <div class="principle-compact">
-                        <div class="principle-compact-icon">
-                            <i data-lucide="message-circle" style="width: 1.25rem; height: 1.25rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Clear communication</h3>
-                        <p style="color: hsl(220 9% 46%); font-size: 0.9375rem; line-height: 1.6;">
-                            No jargon, no vague updates. You know what's happening.
-                        </p>
-                    </div>
-
-                    <div class="principle-compact">
-                        <div class="principle-compact-icon">
-                            <i data-lucide="lock" style="width: 1.25rem; height: 1.25rem; color: hsl(146 55% 36%);"></i>
-                        </div>
-                        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Full ownership transfer</h3>
-                        <p style="color: hsl(220 9% 46%); font-size: 0.9375rem; line-height: 1.6;">
-                            You own the system, code, training and full documentation.
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+<!-- ═══ 01 WHY — white ═══ -->
+<section class="why-section">
+  <div class="container">
+    <div class="why-head">
+      <div class="why-head-left">
+        <div class="block-num reveal">01</div>
+        <span class="eyebrow eyebrow--dark reveal d1">The Why</span>
+        <h2 class="reveal d1">Most businesses start with spreadsheets. Over time, they grow into <em>multiple files.</em></h2>
+      </div>
+      <div class="why-head-right reveal d2">
+        I take what’s already there and turn it into a working custom system - where data connects, updates automatically, and better experience.
+      </div>
     </div>
+    <div class="why-cards">
+      <div class="why-card reveal d2">
+        <div class="why-card-badge">The problem</div>
+        <h3>Work is spread across multiple sheets</h3>
+        <p>Tasks in one place. Client updates in another. Reports somewhere else. Keeping everything in sync takes moving across files.</p>
+      </div>
+      <div class="why-card reveal d3">
+        <div class="why-card-badge">The solution</div>
+        <h3>All your sheets, connected as one system</h3>
+        <p>Your data remains in Google Sheets. But instead of working across files, everything is brought together into a single flow.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- CTA band -->
-<section class="cta-band">
-    <div style="max-width: 900px; margin: 0 auto;">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to automate your workflow?</h2>
-        <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.95;" class="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-            Clear scope in 24 hours · No obligation
-        </p>
-        <a href="https://packdez.com/#audit" style="display: inline-block; background: #298E55; color: white; padding: 1rem; border-radius: 0.5rem; font-weight: 600; text-decoration: none; font-size: 1.125rem; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
-            Get your plan
+<!-- ═══ 02 HOW IT WORKS — cream ═══ -->
+<section class="how-section">
+  <div class="container">
+    <div class="how-inner">
+      <div class="how-left">
+        <div class="block-num reveal">02</div>
+        <span class="eyebrow eyebrow--dark reveal d1">How it works</span>
+        <h2 class="reveal d1">A <em>simple process</em> for kicking off <br>and building every system.</h2>
+        <p class="reveal d2">Each project follows the same approach - from understanding your workflow to delivering your system.</p>
+        <div class="how-accordion reveal d3">
+          <div class="how-item active" id="hi-0">
+            <div class="how-header" onclick="toggleHow(0)">
+              <div class="how-num">1</div>
+              <h3>Built around your workflow</h3>
+              <svg class="how-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="how-body"><p>Every system is custom - designed around how your team actually operates - just a setup that reflect your process.</p></div>
+          </div>
+          <div class="how-item" id="hi-1">
+            <div class="how-header" onclick="toggleHow(1)">
+              <div class="how-num">2</div>
+              <h3>Designed for scalability</h3>
+              <svg class="how-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="how-body"><p>Clean logic, proper error handling, no fragile shortcuts. It is built to keep working as your business grows.</p></div>
+          </div>
+          <div class="how-item" id="hi-2">
+            <div class="how-header" onclick="toggleHow(2)">
+              <div class="how-num">3</div>
+              <h3>Documented and transferable</h3>
+              <svg class="how-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="how-body"><p>Full documentation and a recorded walkthrough included at delivery. Your team owns the system entirely - no compulsory dependency.</p></div>
+          </div>
+          <div class="how-item" id="hi-3">
+            <div class="how-header" onclick="toggleHow(3)">
+              <div class="how-num">4</div>
+              <h3>Scoped before we start</h3>
+              <svg class="how-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="how-body"><p>Clear pricing upfront. Delivery in 7–15+ days, depending on complexity. No hourly billing. You know exactly what you're getting before we start.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="how-right">
+        <div class="delivery-card reveal-right">
+          <div class="delivery-card-head">
+            <div class="delivery-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div>
+              <div class="delivery-title">Delivery standards</div>
+              <div class="delivery-sub">Consistent across every project</div>
+            </div>
+          </div>
+          <div class="delivery-stats">
+            <div class="d-stat"><span class="d-stat-num">5.0★</span><span class="d-stat-lbl">Client rating</span></div>
+            <div class="d-stat"><span class="d-stat-num">7–15d</span><span class="d-stat-lbl">To delivery</span></div>
+            <div class="d-stat"><span class="d-stat-num">72 hrs</span><span class="d-stat-lbl">Working prototype</span></div>
+            <div class="d-stat"><span class="d-stat-num">24 hr</span><span class="d-stat-lbl">Response time</span></div>
+          </div>
+          <div class="delivery-list">
+            <div class="delivery-item"><svg class="d-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Built inside your Google Workspace</div>
+            <div class="delivery-item"><svg class="d-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Direct comms during every build</div>
+            <div class="delivery-item"><svg class="d-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Full documentation + walkthrough video</div>
+            <div class="delivery-item"><svg class="d-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>7 days post-delivery support</div>
+          </div>
+          <div class="delivery-cta">
+            <a href="https://packdez.com/#book" class="btn btn-primary" style="width:100%;justify-content:center">Get your plan <svg class="btn-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+   
+
+<!-- ═══ 04 WHO — dark ═══ -->
+<section class="who-section">
+  <div class="who-glow"></div>
+  <div class="container" style="position:relative;z-index:1">
+    <div class="who-head">
+      <div class="block-num reveal">03</div>
+      <span class="eyebrow reveal d1">WHO YOU’LL WORK WITH</span>
+      <h2 class="reveal d1">You’ll work <em>directly with me</em> from the first call to final handover.</h2>
+    </div>
+    <div class="profile-card reveal-scale d2">
+      <div class="profile-img-side">
+        <img class="profile-img"
+          src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/Raphael_Levinders.png"
+          alt="Raphael Levinders"
+          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'120\'%3E%3Ccircle cx=\'60\' cy=\'60\' r=\'60\' fill=\'%23103320\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2322c55e\' font-size=\'34\' font-family=\'Georgia\'%3ERL%3C/text%3E%3C/svg%3E'"
+        />
+        <div class="profile-name-block">
+          <div class="profile-name">Raphael Levinders</div>
+          <div class="profile-title-pill" style="margin-top:6px">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Systems Builder
+          </div>
+        </div>
+        <div class="profile-socials">
+          <a href="https://www.linkedin.com/in/raphaellevinders" target="_blank" rel="noopener noreferrer" class="p-soc" aria-label="LinkedIn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://x.com/packdezHQ" target="_blank" rel="noopener noreferrer" class="p-soc" aria-label="X">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="profile-info-side">
+        <div class="profile-quote-wrap">
+          <p>"I worked with Raphael and was impressed by his reliability and practical approach to problem-solving. He consistently delivered quality work and collaborated effectively with the team to achieve our goals."</p>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+              <img 
+                src="https://raw.githubusercontent.com/packdez/agency/refs/heads/main/assets/elisaSwan.png"
+                alt="Phyu (Elisa) Swan"
+                style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(34,197,94,.25);flex-shrink:0"
+                onerror="this.style.display='none'"
+              >
+              <div>
+                <div class="profile-quote-author">Phyu (Elisa) Swan</div>
+                <div class="profile-quote-role">Founder, Wellnite</div>
+              </div>
+            </div>
+        </div>
+        <div class="profile-tags">
+          <span class="profile-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>Google Sheets</span>
+          <span class="profile-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Apps Script</span>
+          <span class="profile-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>API Integrations</span>
+          <span class="profile-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="12" width="5" height="10" rx="1"/><rect x="9.5" y="7" width="5" height="15" rx="1"/><rect x="17" y="2" width="5" height="20" rx="1"/></svg>Looker Studio</span>
+          <span class="profile-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>12+ clients</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA — dark ═══ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-inner reveal-scale">
+      <div class="cta-text">
+        <h2>Show me what you use <br> We’ll turn it into <em>a system.</em></h2>
+        <p style="margin-top:12px">We’ll go through your current process and identify what to simplify, connect, and automate. You’ll get a clear scope and timeline before anything starts.</p>
+      </div>
+      <div class="cta-right">
+        <a href="https://packdez.com/#book" class="btn btn-primary btn-lg">
+          Book a free call
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
+        <div class="cta-trust">
+          <div class="cta-trust-item"><div class="cta-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Clear scope in 24 hours</div>
+          <div class="cta-trust-item"><div class="cta-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>Fixed price, agreed upfront</div>
+          <div class="cta-trust-item"><div class="cta-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>No obligation</div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- Footer -->
-<footer style="padding: 4rem 2rem; border-top: 1px solid hsl(220 13% 91%);">
-    <div style="max-width: 1400px; margin: 0 auto;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
-            <div>
-                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                    <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez logo" style="height: 1.75rem; width: 1.75rem;" />
-                    <h3 style="font-size: 1.125rem; font-weight: 700;">Packdez</h3>
-                </div>
-                <p style="font-size: 0.875rem; color: hsl(220 9% 46%); margin-bottom: 1rem;">Stay connected</p>
-                <div style="display: flex; gap: 0.75rem;">
-                    <a href="https://x.com/packdezHQ" target="_blank" rel="noopener noreferrer" style="width: 2.5rem; height: 2.5rem; background: hsl(220 14% 96%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                        <i data-lucide="twitter" style="width: 1rem; height: 1rem;"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/company/packdez/" target="_blank" rel="noopener noreferrer" style="width: 2.5rem; height: 2.5rem; background: hsl(220 14% 96%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                        <i data-lucide="linkedin" style="width: 1rem; height: 1rem;"></i>
-                    </a>
-                    <a href="https://youtube.com/@packdezhqz?si=EXj27rVMq27WlWQp" target="_blank" rel="noopener noreferrer" style="width: 2.5rem; height: 2.5rem; background: hsl(220 14% 96%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                        <i data-lucide="youtube" style="width: 1rem; height: 1rem;"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div>
-                <h4 style="font-weight: 700; margin-bottom: 1rem; font-size: 0.875rem;">What We Build</h4>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 0.5rem;"><span style="font-size: 0.875rem; color: hsl(220 9% 46%);">Automated reporting systems</span></li>
-                    <li style="margin-bottom: 0.5rem;"><span style="font-size: 0.875rem; color: hsl(220 9% 46%);">Operations automation</span></li>
-                    <li style="margin-bottom: 0.5rem;"><span style="font-size: 0.875rem; color: hsl(220 9% 46%);">Custom internal tools</span></li>
-                    <li style="margin-bottom: 0.5rem;"><span style="font-size: 0.875rem; color: hsl(220 9% 46%);">API integrations</span></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 style="font-weight: 700; margin-bottom: 1rem; font-size: 0.875rem;">Contact</h4>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 0.5rem;"><span style="font-size: 0.875rem; color: hsl(220 9% 46%);">packdez.com@gmail.com</span></li>
-                    <li style="margin-bottom: 0.5rem;"><span style="font-size: 0.875rem; color: hsl(220 9% 46%);">Response within 24 hours</span></li>
-                    <li style="margin-bottom: 0.5rem;"><span style="font-size: 0.875rem; color: hsl(220 9% 46%);">Delivery in 7-15 days</span></li>
-                </ul>
-            </div>
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="https://packdez.com/assets/logo/packdez-logo-512x512.png" alt="Packdez" width="26" height="26">
+          <span>Packdez</span>
         </div>
-        
-        <div style="padding-top: 2rem; border-top: 1px solid hsl(220 13% 91%); text-align: center;">
-            <p style="font-size: 0.875rem; color: hsl(220 9% 46%);">© <span id="year"></span> Packdez</p>
+        <p class="footer-tagline">Custom internal systems for service businesses that want to stop doing things manually.</p>
+        <div class="footer-socials">
+          <a href="https://x.com/packdezHQ" target="_blank" rel="noopener" class="fsoc" aria-label="X"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="https://www.linkedin.com/company/packdez/" target="_blank" rel="noopener" class="fsoc" aria-label="LinkedIn"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+          <a href="https://youtube.com/@packdezhq" target="_blank" rel="noopener" class="fsoc" aria-label="YouTube"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
         </div>
+      </div>
+      <div class="footer-col">
+        <h4>Projects Delivered</h4>
+        <ul>
+          <li><a href="https://packdez.com/projects?project=5">Bookings & Scheduling</a></li>
+          <li><a href="https://packdez.com/projects?project=3">Payments & Invoicing</a></li>
+          <li><a href="https://packdez.com/projects?project=10">Reporting & Dashboards</a></li>
+          <li><a href="https://packdez.com/projects?project=1">CRM & Communication</a></li>
+          <li><a href="https://packdez.com/projects?project=3">API Integrations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="/projects">All Projects</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="">Contact: packdez.com@gmail.com</a></li>
+          <li><a href="https://packdez.com/#book">Book a free call</a></li>
+        </ul>
+      </div>
     </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Packdez</span>
+    </div>
+  </div>
 </footer>
 
 <script>
+/* Nav scroll */
+window.addEventListener('scroll',function(){
+  document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>30)
+},{passive:true})
 
+/* Mobile menu */
+function openMob(){
+  document.getElementById('mob-drawer').classList.add('open')
+  document.getElementById('mob-overlay').classList.add('open')
+  document.body.style.overflow='hidden'
+}
+function closeMob(){
+  document.getElementById('mob-drawer').classList.remove('open')
+  document.getElementById('mob-overlay').classList.remove('open')
+  document.body.style.overflow=''
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape') closeMob()})
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+/* How accordion */
+function toggleHow(idx){
+  document.querySelectorAll('.how-item').forEach(function(item,i){
+    if(i===idx) item.classList.toggle('active')
+    else item.classList.remove('active')
+  })
+}
 
-// Observe BOTH hero + content animations
-document
-  .querySelectorAll('.fade-in-section, .fade-up')
-  .forEach(el => observer.observe(el));
+/* Scroll reveal */
+var revObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('vis');revObs.unobserve(e.target)}
+  })
+},{threshold:.1,rootMargin:'0px 0px -40px 0px'})
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(function(el){revObs.observe(el)})
 
-    
-    // Mobile menu
-    function toggleMobileMenu() {
-        document.getElementById('mobile-menu').classList.add('active');
-        document.getElementById('mobile-overlay').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeMobileMenu() {
-        document.getElementById('mobile-menu').classList.remove('active');
-        document.getElementById('mobile-overlay').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    // Process accordion
-    function toggleProcess(index) {
-        const items = document.querySelectorAll('.process-item');
-        items.forEach((item, i) => {
-            if (i === index) {
-                item.classList.toggle('active');
-            } else {
-                item.classList.remove('active');
-            }
-        });
-        lucide.createIcons();
-    }
-
-    // Sidebar navigation active state
-    const sections = document.querySelectorAll('[id]');
-    const navLinks = document.querySelectorAll('.sidebar-nav a');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.pageYOffset >= sectionTop - 200) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
-
-    // Update year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Initialize icons
-    lucide.createIcons();
+/* Footer year */
+document.getElementById('year').textContent=new Date().getFullYear()
 </script>
-
-</main>
 </body>
 </html>
