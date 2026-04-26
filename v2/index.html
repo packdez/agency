@@ -2002,329 +2002,385 @@ document.querySelectorAll('.outcome-step').forEach(function(el){stepObs.observe(
 /* Footer year */
 document.getElementById('year').textContent=new Date().getFullYear()
 </script>
-<!-- ============================================================
-  PACKDEZ LIVE CHAT WIDGET — FRONTEND
+
+<!--
+============================================================
+  PACKDEZ LIVE CHAT WIDGET v2 — DROP-IN REPLACEMENT
   
-  WHAT TO DO IN YOUR HTML:
-  
-  1. REMOVE the entire ROI Pill button:
-     <button id="roi-pill" ...> ... </button>
-  
-  2. REMOVE the ROI Modal div:
-     <div id="roi-overlay" class="roi-overlay" ...> ... </div>
+  WHERE TO UPDATE IN YOUR index.html:
+  ─────────────────────────────────────────────────────────
+  1. Find the old <!-- ══ CHAT STYLES ══ --> block and
+     replace everything from that comment down to and
+     including the closing </script> of the chat IIFE,
+     right before </body>.
 
-  3. REMOVE from <style>: the sections
-     "ROI PILL & MODAL" and their rules.
+  2. Inside the <script> block below, update ONE line:
+        const CHAT_API = "https://script.google.com/macros/s/AKfycbymo99fErCJW0VW9xtPDszXVmJipQfSTOxoD_DHTbvyTw7V62uYuFTdWypNumNGVP_L/exec";
+     Replace with the URL from your latest Apps Script
+     New Deployment (Deploy → New deployment).
 
-  4. PASTE everything below in their place 
-     (just before the </body> closing tag, 
-     after the existing <script> block).
-
-  5. Set your Apps Script Web App URL:
-     const CHAT_API = "https://script.google.com/macros/s/AKfycbx8_n1LhM3FDSnqZwsuO2E_5Jd4EFhC8QRga8BOhrC7qjdXI5q9k3kYey7QsYKavsqg/exec";
-  ============================================================ -->
-
+  3. That's it. Save and upload.
+  ─────────────────────────────────────────────────────────
+  Key changes vs v1:
+  • Bright on-brand colours (white card, green accents)
+  • Name + email REQUIRED with live validation
+  • Bot only replies once — never again after first message
+  • Admin replies appear automatically (polls every 5 s)
+  • text/plain Blob fetch → no CORS preflight
+  • Rate limit guard in frontend too
+  • Smooth spring animations throughout
+============================================================
+-->
 
 <!-- ══ CHAT STYLES ══════════════════════════════════════════ -->
 <style>
-/* Chat pill trigger */
-#chat-pill {
+/* ── Pill ─────────────────────────────────────────────────── */
+#pd-pill {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 54px;
-  height: 54px;
+  bottom: 26px;
+  right: 26px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  background: var(--g500);
+  background: #1e9947;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 0 6px rgba(34,197,94,.18), 0 8px 28px rgba(34,197,94,.45);
-  z-index: 60;
   cursor: pointer;
   border: none;
-  transition: transform .22s, box-shadow .22s;
-  animation: pillPulse 3s ease infinite;
+  z-index: 9990;
+  box-shadow: 0 4px 20px rgba(30,153,71,.45), 0 0 0 0 rgba(34,197,94,.35);
+  transition: transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s;
+  animation: pdPillPulse 2.8s ease infinite;
 }
-#chat-pill:hover {
+#pd-pill:hover {
   transform: scale(1.1);
   animation: none;
-  box-shadow: 0 0 0 10px rgba(34,197,94,.12), 0 12px 36px rgba(34,197,94,.5);
+  box-shadow: 0 6px 28px rgba(30,153,71,.55);
 }
-@keyframes pillPulse {
-  0%,100% { box-shadow: 0 0 0 6px rgba(34,197,94,.18), 0 8px 28px rgba(34,197,94,.45); }
-  50%      { box-shadow: 0 0 0 14px rgba(34,197,94,.07), 0 8px 28px rgba(34,197,94,.45); }
+@keyframes pdPillPulse {
+  0%,100% { box-shadow: 0 4px 20px rgba(30,153,71,.45), 0 0 0 0   rgba(34,197,94,.35); }
+  50%      { box-shadow: 0 4px 20px rgba(30,153,71,.45), 0 0 0 12px rgba(34,197,94,.0); }
 }
-#chat-pill-badge {
+#pd-pill-badge {
   position: absolute;
-  top: -3px;
-  right: -3px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
+  top: -2px;
+  right: -2px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
   background: #ef4444;
   color: #fff;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   display: none;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--g950);
+  padding: 0 4px;
+  border: 2px solid #fff;
+  font-family: var(--sans);
 }
+#pd-pill svg { transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .2s; }
 
-/* Chat window */
-#chat-window {
+/* ── Window ───────────────────────────────────────────────── */
+#pd-win {
   position: fixed;
-  bottom: 92px;
-  right: 24px;
-  width: 360px;
-  max-height: 580px;
-  border-radius: 20px;
-  background: var(--g900);
-  border: 1px solid rgba(255,255,255,.09);
-  box-shadow: 0 28px 80px rgba(0,0,0,.65);
-  z-index: 61;
-  display: none;
+  bottom: 98px;
+  right: 26px;
+  width: 368px;
+  max-height: 600px;
+  border-radius: 22px;
+  background: #fff;
+  border: 1px solid #e4f3ec;
+  box-shadow: 0 12px 48px rgba(16,51,32,.14), 0 2px 8px rgba(16,51,32,.07);
+  z-index: 9991;
+  display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: chatSlideUp .32s cubic-bezier(.22,1,.36,1) both;
+  /* Hidden by default — toggled via .pd-open */
+  opacity: 0;
+  transform: translateY(18px) scale(.97);
+  pointer-events: none;
+  transition: opacity .28s cubic-bezier(.22,1,.36,1),
+              transform .28s cubic-bezier(.22,1,.36,1);
 }
-#chat-window.open {
-  display: flex;
-}
-@keyframes chatSlideUp {
-  from { opacity: 0; transform: translateY(20px) scale(.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+#pd-win.pd-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
 }
 
-/* Header */
-#chat-header {
-  background: linear-gradient(135deg, var(--g700), var(--g800));
-  padding: 16px 18px;
+/* ── Header ───────────────────────────────────────────────── */
+#pd-head {
+  background: linear-gradient(135deg, #103320 0%, #176633 100%);
+  padding: 16px 18px 14px;
   display: flex;
   align-items: center;
   gap: 11px;
   flex-shrink: 0;
-  border-bottom: 1px solid rgba(255,255,255,.07);
 }
-.chat-avatar {
-  width: 38px;
-  height: 38px;
+#pd-head-avatar {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255,255,255,.15);
+  border: 2px solid rgba(255,255,255,.25);
   flex-shrink: 0;
+  background: #0a1c0f;
 }
-.chat-header-info { flex: 1; overflow: hidden; }
-.chat-header-name {
-  font-size: .86rem;
+#pd-head-info { flex: 1; overflow: hidden; }
+#pd-head-name {
+  font-size: .88rem;
   font-weight: 700;
-  color: var(--t1);
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: var(--sans);
 }
-.chat-header-status {
+#pd-head-status {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: .69rem;
-  color: var(--t3);
+  font-size: .7rem;
+  color: rgba(255,255,255,.65);
   margin-top: 1px;
+  font-family: var(--sans);
 }
-.chat-status-dot {
+.pd-status-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--g400);
-  animation: dotPulse 2s ease infinite;
+  background: #4ade80;
+  animation: pdDotPulse 2s ease infinite;
   flex-shrink: 0;
 }
-#chat-close-btn {
+@keyframes pdDotPulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.5; transform:scale(1.4); }
+}
+#pd-close {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(255,255,255,.07);
+  background: rgba(255,255,255,.1);
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--t3);
+  color: rgba(255,255,255,.7);
   flex-shrink: 0;
   transition: background .18s;
 }
-#chat-close-btn:hover { background: rgba(255,255,255,.14); }
+#pd-close:hover { background: rgba(255,255,255,.2); color: #fff; }
 
-/* Messages area */
-#chat-messages {
+/* ── Messages ─────────────────────────────────────────────── */
+#pd-msgs {
   flex: 1;
   overflow-y: auto;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background: #f8fef9;
+  min-height: 180px;
   scroll-behavior: smooth;
-  min-height: 200px;
 }
-#chat-messages::-webkit-scrollbar { width: 4px; }
-#chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+#pd-msgs::-webkit-scrollbar { width: 3px; }
+#pd-msgs::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
 
 /* Bubbles */
-.chat-bubble-wrap {
-  display: flex;
-  flex-direction: column;
+.pd-bwrap { display: flex; flex-direction: column; animation: pdBubbleIn .24s cubic-bezier(.22,1,.36,1) both; }
+@keyframes pdBubbleIn {
+  from { opacity:0; transform:translateY(8px) scale(.97); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
 }
-.chat-bubble-wrap.from-visitor { align-items: flex-end; }
-.chat-bubble-wrap.from-bot,
-.chat-bubble-wrap.from-admin  { align-items: flex-start; }
-.chat-bubble {
-  max-width: 78%;
+.pd-bwrap.pd-from-visitor { align-items: flex-end; }
+.pd-bwrap.pd-from-bot,
+.pd-bwrap.pd-from-admin  { align-items: flex-start; }
+.pd-bubble {
+  max-width: 80%;
   padding: 9px 13px;
   border-radius: 14px;
-  font-size: .82rem;
+  font-size: .83rem;
   line-height: 1.55;
   word-break: break-word;
+  font-family: var(--sans);
 }
-.from-visitor .chat-bubble {
-  background: var(--g500);
+.pd-from-visitor .pd-bubble {
+  background: #103320;
   color: #fff;
   border-bottom-right-radius: 4px;
 }
-.from-bot .chat-bubble,
-.from-admin .chat-bubble {
-  background: rgba(255,255,255,.07);
-  color: var(--t1);
+.pd-from-bot .pd-bubble {
+  background: #fff;
+  color: #103320;
+  border: 1px solid #d1fae5;
   border-bottom-left-radius: 4px;
-  border: 1px solid rgba(255,255,255,.08);
 }
-.from-admin .chat-bubble {
-  background: rgba(34,197,94,.1);
-  border-color: rgba(34,197,94,.2);
+.pd-from-admin .pd-bubble {
+  background: #dcfce7;
+  color: #0a1c0f;
+  border: 1px solid #86efac;
+  border-bottom-left-radius: 4px;
 }
-.chat-bubble-time {
-  font-size: .63rem;
-  color: var(--t3);
+.pd-btime {
+  font-size: .62rem;
+  color: #9ca3af;
   margin-top: 3px;
   padding: 0 2px;
+  font-family: var(--sans);
 }
 
-/* Typing indicator */
-.chat-typing {
+/* Typing dots */
+.pd-typing {
   display: flex;
-  gap: 5px;
+  gap: 4px;
   align-items: center;
   padding: 9px 13px;
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(255,255,255,.08);
+  background: #fff;
+  border: 1px solid #d1fae5;
   border-radius: 14px;
   border-bottom-left-radius: 4px;
   width: fit-content;
 }
-.chat-typing span {
-  width: 6px;
-  height: 6px;
+.pd-typing span {
+  width: 5px; height: 5px;
   border-radius: 50%;
-  background: var(--t3);
-  animation: typingBounce .9s ease infinite;
+  background: #22c55e;
+  animation: pdTypeBounce .85s ease infinite;
 }
-.chat-typing span:nth-child(2) { animation-delay: .16s; }
-.chat-typing span:nth-child(3) { animation-delay: .32s; }
-@keyframes typingBounce {
-  0%,60%,100% { transform: translateY(0); opacity: .4; }
-  30%          { transform: translateY(-5px); opacity: 1; }
+.pd-typing span:nth-child(2) { animation-delay: .15s; }
+.pd-typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes pdTypeBounce {
+  0%,60%,100% { transform:translateY(0);   opacity:.35; }
+  30%          { transform:translateY(-5px); opacity:1; }
 }
 
-/* Identity capture */
-#chat-identify {
-  padding: 14px 16px;
-  background: rgba(255,255,255,.03);
-  border-top: 1px solid rgba(255,255,255,.06);
+/* ── Identity capture ──────────────────────────────────────── */
+#pd-identify {
+  padding: 16px;
+  background: #fff;
+  border-top: 1px solid #e4f3ec;
   flex-shrink: 0;
 }
-.chat-identify-label {
-  font-size: .72rem;
-  color: var(--t3);
-  margin-bottom: 10px;
-  display: block;
-}
-.chat-identify-row {
-  display: flex;
-  gap: 7px;
-  margin-bottom: 7px;
-}
-.chat-identify-row input {
-  flex: 1;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 8px;
-  padding: 8px 11px;
+.pd-id-heading {
   font-size: .8rem;
-  color: var(--t1);
+  font-weight: 700;
+  color: #103320;
+  margin-bottom: 4px;
+  font-family: var(--sans);
+}
+.pd-id-sub {
+  font-size: .72rem;
+  color: #4a7060;
+  margin-bottom: 12px;
+  font-family: var(--sans);
+  line-height: 1.5;
+}
+.pd-id-field {
+  position: relative;
+  margin-bottom: 9px;
+}
+.pd-id-field input {
+  width: 100%;
+  background: #f8fef9;
+  border: 1.5px solid #d1fae5;
+  border-radius: 10px;
+  padding: 10px 12px 10px 36px;
+  font-size: .83rem;
+  color: #103320;
   font-family: var(--sans);
   outline: none;
-  transition: border-color .18s;
-  min-width: 0;
+  transition: border-color .18s, background .18s;
 }
-.chat-identify-row input::placeholder { color: var(--t3); }
-.chat-identify-row input:focus { border-color: rgba(34,197,94,.5); }
-.chat-identify-submit {
+.pd-id-field input:focus {
+  border-color: #22c55e;
+  background: #fff;
+}
+.pd-id-field input.pd-error {
+  border-color: #ef4444;
+  background: #fff5f5;
+}
+.pd-id-field .pd-field-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #22c55e;
+  pointer-events: none;
+}
+.pd-id-field .pd-field-tick {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #22c55e;
+  opacity: 0;
+  transition: opacity .2s;
+  pointer-events: none;
+}
+.pd-id-field input.pd-valid + .pd-field-icon + .pd-field-tick { opacity: 1; }
+.pd-id-err {
+  font-size: .69rem;
+  color: #ef4444;
+  margin-top: 3px;
+  margin-left: 2px;
+  display: none;
+  font-family: var(--sans);
+}
+.pd-id-submit {
   width: 100%;
-  padding: 9px;
-  background: var(--g500);
+  padding: 11px;
+  background: #1e9947;
   color: #fff;
   border: none;
-  border-radius: 8px;
-  font-size: .82rem;
+  border-radius: 10px;
+  font-size: .85rem;
   font-weight: 700;
   cursor: pointer;
   font-family: var(--sans);
-  transition: background .18s;
+  transition: background .18s, transform .15s;
+  margin-top: 4px;
 }
-.chat-identify-submit:hover { background: var(--g600); }
-.chat-skip-identify {
-  display: block;
-  text-align: center;
-  font-size: .69rem;
-  color: var(--t3);
-  margin-top: 7px;
-  cursor: pointer;
-  transition: color .18s;
-}
-.chat-skip-identify:hover { color: var(--t2); }
+.pd-id-submit:hover { background: #176633; transform: translateY(-1px); }
+.pd-id-submit:active { transform: none; }
 
-/* Input area */
-#chat-input-area {
+/* ── Input area ────────────────────────────────────────────── */
+#pd-input-area {
   padding: 12px 14px;
-  border-top: 1px solid rgba(255,255,255,.07);
-  display: flex;
+  border-top: 1px solid #e4f3ec;
+  display: none;
   gap: 8px;
   align-items: flex-end;
+  background: #fff;
   flex-shrink: 0;
 }
-#chat-input {
+#pd-input-area.pd-show { display: flex; }
+#pd-input {
   flex: 1;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.1);
+  background: #f8fef9;
+  border: 1.5px solid #d1fae5;
   border-radius: 12px;
-  padding: 10px 13px;
-  font-size: .82rem;
-  color: var(--t1);
+  padding: 9px 12px;
+  font-size: .83rem;
+  color: #103320;
   font-family: var(--sans);
   outline: none;
   resize: none;
-  max-height: 100px;
+  max-height: 96px;
   line-height: 1.45;
   transition: border-color .18s;
   overflow-y: auto;
 }
-#chat-input::placeholder { color: var(--t3); }
-#chat-input:focus { border-color: rgba(34,197,94,.4); }
-#chat-send-btn {
+#pd-input::placeholder { color: #9ca3af; }
+#pd-input:focus { border-color: #22c55e; background: #fff; }
+#pd-send {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: var(--g500);
+  background: #1e9947;
   border: none;
   cursor: pointer;
   display: flex;
@@ -2333,133 +2389,154 @@ document.getElementById('year').textContent=new Date().getFullYear()
   flex-shrink: 0;
   transition: background .18s, transform .15s;
 }
-#chat-send-btn:hover { background: var(--g600); transform: scale(1.06); }
-#chat-send-btn:disabled { background: var(--g800); cursor: not-allowed; transform: none; }
+#pd-send:hover  { background: #176633; transform: scale(1.06); }
+#pd-send:active { transform: scale(.96); }
+#pd-send:disabled { background: #d1fae5; cursor: not-allowed; transform: none; }
 
-/* Quick reply chips */
-#chat-chips {
+/* ── Quick chips ───────────────────────────────────────────── */
+#pd-chips {
   padding: 0 14px 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   flex-shrink: 0;
+  background: #f8fef9;
 }
-.chat-chip {
-  background: rgba(34,197,94,.08);
-  border: 1px solid rgba(34,197,94,.2);
-  color: var(--g300);
-  font-size: .7rem;
+.pd-chip {
+  background: #fff;
+  border: 1.5px solid #d1fae5;
+  color: #176633;
+  font-size: .71rem;
   font-weight: 600;
   padding: 5px 11px;
   border-radius: 999px;
   cursor: pointer;
   font-family: var(--sans);
-  transition: background .18s, color .18s;
+  transition: background .18s, border-color .18s, transform .15s;
   white-space: nowrap;
 }
-.chat-chip:hover {
-  background: rgba(34,197,94,.18);
-  color: var(--g200);
+.pd-chip:hover {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  transform: translateY(-1px);
 }
 
-/* Offline notice */
-#chat-offline {
-  padding: 10px 16px;
-  background: rgba(251,191,36,.08);
-  border-top: 1px solid rgba(251,191,36,.15);
-  font-size: .73rem;
-  color: rgba(251,191,36,.85);
-  text-align: center;
+/* ── Poll bar (shows when reply is coming) ─────────────────── */
+#pd-poll-bar {
+  height: 2px;
+  background: #e4f3ec;
   flex-shrink: 0;
+  overflow: hidden;
   display: none;
 }
+#pd-poll-bar.pd-show { display: block; }
+#pd-poll-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+  transition: width linear;
+}
 
-/* ── MOBILE ─────────────────────────────────────────── */
+/* ── Mobile ────────────────────────────────────────────────── */
 @media (max-width: 480px) {
-  #chat-window {
-    bottom: 0;
-    right: 0;
-    left: 0;
+  #pd-win {
+    bottom: 0; right: 0; left: 0;
     width: 100%;
-    max-height: 92svh;
-    border-radius: 20px 20px 0 0;
+    max-height: 94svh;
+    border-radius: 22px 22px 0 0;
   }
-  #chat-pill {
-    bottom: 16px;
-    right: 16px;
-  }
+  #pd-pill { bottom: 18px; right: 18px; }
 }
 </style>
 
-
-<!-- ══ CHAT PILL TRIGGER ═════════════════════════════════════ -->
-<button id="chat-pill" aria-label="Open chat">
-  <svg id="chat-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<!-- ══ CHAT PILL ════════════════════════════════════════════ -->
+<button id="pd-pill" aria-label="Open chat with Packdez">
+  <svg id="pd-icon-chat" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
   </svg>
-  <svg id="chat-icon-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none">
+  <svg id="pd-icon-close" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none">
     <path d="M18 6L6 18M6 6l12 12"/>
   </svg>
-  <div id="chat-pill-badge"></div>
+  <div id="pd-pill-badge"></div>
 </button>
 
-
-<!-- ══ CHAT WINDOW ═══════════════════════════════════════════ -->
-<div id="chat-window" role="dialog" aria-label="Chat with Packdez">
+<!-- ══ CHAT WINDOW ══════════════════════════════════════════ -->
+<div id="pd-win" role="dialog" aria-label="Chat with Packdez" aria-hidden="true">
 
   <!-- Header -->
-  <div id="chat-header">
-    <img class="chat-avatar"
+  <div id="pd-head">
+    <img id="pd-head-avatar"
       src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
       alt="Raphael"
-      onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'38\' height=\'38\'%3E%3Ccircle cx=\'19\' cy=\'19\' r=\'19\' fill=\'%230a1c0f\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2322c55e\' font-size=\'14\'%3ERL%3C/text%3E%3C/svg%3E'">
-    <div class="chat-header-info">
-      <div class="chat-header-name">Raphael · Packdez</div>
-      <div class="chat-header-status">
-        <div class="chat-status-dot"></div>
+      onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'20\' fill=\'%230a1c0f\'/%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2322c55e\' font-size=\'15\'%3ERL%3C/text%3E%3C/svg%3E'">
+    <div id="pd-head-info">
+      <div id="pd-head-name">Raphael · Packdez</div>
+      <div id="pd-head-status">
+        <div class="pd-status-dot"></div>
         <span>Usually replies within a few hours</span>
       </div>
     </div>
-    <button id="chat-close-btn" aria-label="Close chat">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <button id="pd-close" aria-label="Close chat">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <path d="M18 6L6 18M6 6l12 12"/>
       </svg>
     </button>
   </div>
 
-  <!-- Offline notice (shown if API is unreachable) -->
-  <div id="chat-offline">⚡ Connecting… messages will be delivered when reconnected.</div>
+  <!-- Poll progress bar -->
+  <div id="pd-poll-bar"><div id="pd-poll-fill"></div></div>
 
   <!-- Messages -->
-  <div id="chat-messages" aria-live="polite"></div>
+  <div id="pd-msgs" aria-live="polite"></div>
 
-  <!-- Quick reply chips (shown initially) -->
-  <div id="chat-chips">
-    <button class="chat-chip" onclick="sendChip(this)">How does this work?</button>
-    <button class="chat-chip" onclick="sendChip(this)">How much does it cost?</button>
-    <button class="chat-chip" onclick="sendChip(this)">See a live demo</button>
-    <button class="chat-chip" onclick="sendChip(this)">I have a project in mind</button>
+  <!-- Quick reply chips -->
+  <div id="pd-chips">
+    <button class="pd-chip" data-chip="How does this work?">How does this work?</button>
+    <button class="pd-chip" data-chip="How much does it cost?">How much does it cost?</button>
+    <button class="pd-chip" data-chip="See a live demo">See a live demo</button>
+    <button class="pd-chip" data-chip="I have a project in mind">I have a project in mind</button>
   </div>
 
-  <!-- Identity capture -->
-  <div id="chat-identify">
-    <span class="chat-identify-label">Leave your name & email so Raphael can reply:</span>
-    <div class="chat-identify-row">
-      <input type="text"  id="ci-name"  placeholder="Your name"  autocomplete="name">
-      <input type="email" id="ci-email" placeholder="Email address" autocomplete="email">
+  <!-- Identity capture (required) -->
+  <div id="pd-identify">
+    <div class="pd-id-heading">Start a conversation with Raphael</div>
+    <div class="pd-id-sub">Enter your details so he can follow up with you directly.</div>
+
+    <div class="pd-id-field">
+      <span class="pd-field-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </span>
+      <input type="text" id="pd-name" placeholder="Your full name" autocomplete="name" maxlength="100">
+      <span class="pd-field-tick">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
+      <div class="pd-id-err" id="pd-name-err">Please enter your name</div>
     </div>
-    <button class="chat-identify-submit" onclick="submitIdentity()">Start chatting →</button>
-    <span class="chat-skip-identify" onclick="skipIdentity()">Skip for now</span>
+
+    <div class="pd-id-field">
+      <span class="pd-field-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </span>
+      <input type="email" id="pd-email" placeholder="Your email address" autocomplete="email" maxlength="200">
+      <span class="pd-field-tick">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
+      <div class="pd-id-err" id="pd-email-err">Enter a valid email address</div>
+    </div>
+
+    <button class="pd-id-submit" id="pd-id-submit" onclick="pdSubmitIdentity()">
+      Start chatting →
+    </button>
   </div>
 
-  <!-- Text input -->
-  <div id="chat-input-area" style="display:none">
-    <textarea id="chat-input" placeholder="Type a message…" rows="1"
-      oninput="autoResize(this)"
-      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"
+  <!-- Message input (shown after identity captured) -->
+  <div id="pd-input-area">
+    <textarea id="pd-input" placeholder="Type a message…" rows="1"
+      oninput="pdAutoResize(this)"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();pdSendMessage()}"
     ></textarea>
-    <button id="chat-send-btn" onclick="sendMessage()" aria-label="Send">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
+    <button id="pd-send" onclick="pdSendMessage()" aria-label="Send message">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
         <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
       </svg>
     </button>
@@ -2467,321 +2544,392 @@ document.getElementById('year').textContent=new Date().getFullYear()
 
 </div>
 
-
-<!-- ══ CHAT SCRIPT ════════════════════════════════════════════ -->
+<!-- ══ CHAT SCRIPT ══════════════════════════════════════════ -->
 <script>
 (function() {
+'use strict';
 
-  // ── CONFIG — replace with your Web App URL after deploying ──
-  const CHAT_API = "https://script.google.com/macros/s/AKfycbymo99fErCJW0VW9xtPDszXVmJipQfSTOxoD_DHTbvyTw7V62uYuFTdWypNumNGVP_L/exec";
-  // e.g. "https://script.google.com/macros/s/AKfycb.../exec"
+// ─────────────────────────────────────────────────────────────
+// !! UPDATE THIS URL after each new Apps Script deployment !!
+// ─────────────────────────────────────────────────────────────
+const CHAT_API = "https://script.google.com/macros/s/AKfycbymo99fErCJW0VW9xtPDszXVmJipQfSTOxoD_DHTbvyTw7V62uYuFTdWypNumNGVP_L/exec";
+// Example: "https://script.google.com/macros/s/AKfycb.../exec"
+// ─────────────────────────────────────────────────────────────
 
-  // ── STATE ───────────────────────────────────────────────────
-  const STORAGE_KEY = "pd_chat_session";
-  let sessionId = null;
-  let visitorName = "";
-  let visitorEmail = "";
-  let identified = false;
-  let isOpen = false;
-  let pendingCount = 0;
+const STORAGE_KEY  = "pd_chat_v2";
+const POLL_MS      = 5000;   // how often to check for new admin replies
+const MAX_MSGS     = 30;     // client-side guard matching server
 
-  const win    = document.getElementById("chat-window");
-  const pill   = document.getElementById("chat-pill");
-  const iconOpen  = document.getElementById("chat-icon-open");
-  const iconClose = document.getElementById("chat-icon-close");
-  const msgArea   = document.getElementById("chat-messages");
-  const inputArea = document.getElementById("chat-input-area");
-  const identArea = document.getElementById("chat-identify");
-  const chipsArea = document.getElementById("chat-chips");
-  const badge     = document.getElementById("chat-pill-badge");
-  const offlineBar= document.getElementById("chat-offline");
+// ── State ────────────────────────────────────────────────────
+let sessionId     = null;
+let visitorName   = "";
+let visitorEmail  = "";
+let identified    = false;
+let isOpen        = false;
+let pendingCount  = 0;
+let pollTimer     = null;
+let pollBarTimer  = null;
+let lastMsgId     = null;   // for incremental polling
+let msgCount      = 0;      // client-side rate limit
+let botHasReplied = false;  // only one bot reply ever
 
-  // ── OPEN / CLOSE ────────────────────────────────────────────
-  pill.addEventListener("click", toggleChat);
-  document.getElementById("chat-close-btn").addEventListener("click", closeChat);
+// ── DOM refs ─────────────────────────────────────────────────
+const pill      = document.getElementById("pd-pill");
+const win       = document.getElementById("pd-win");
+const iconChat  = document.getElementById("pd-icon-chat");
+const iconClose = document.getElementById("pd-icon-close");
+const msgArea   = document.getElementById("pd-msgs");
+const identArea = document.getElementById("pd-identify");
+const inputArea = document.getElementById("pd-input-area");
+const chipsArea = document.getElementById("pd-chips");
+const badge     = document.getElementById("pd-pill-badge");
+const pollBar   = document.getElementById("pd-poll-bar");
+const pollFill  = document.getElementById("pd-poll-fill");
 
-  function toggleChat() {
-    if (isOpen) closeChat(); else openChat();
-  }
+// ── Open / Close ─────────────────────────────────────────────
+pill.addEventListener("click", pdToggle);
+document.getElementById("pd-close").addEventListener("click", pdClose);
 
-  function openChat() {
-    isOpen = true;
-    win.classList.add("open");
-    iconOpen.style.display  = "none";
-    iconClose.style.display = "";
-    clearBadge();
-    if (!sessionId) initSession();
-    // Scroll to bottom
-    setTimeout(() => { msgArea.scrollTop = msgArea.scrollHeight; }, 80);
-  }
+function pdToggle() { isOpen ? pdClose() : pdOpen(); }
 
-  function closeChat() {
-    isOpen = false;
-    win.classList.remove("open");
-    iconOpen.style.display  = "";
-    iconClose.style.display = "none";
-  }
+function pdOpen() {
+  isOpen = true;
+  win.classList.add("pd-open");
+  win.setAttribute("aria-hidden", "false");
+  iconChat.style.display  = "none";
+  iconClose.style.display = "";
+  clearBadge();
+  if (!sessionId) pdInitSession();
+  else            startPoll();
+  setTimeout(() => { msgArea.scrollTop = msgArea.scrollHeight; }, 100);
+}
 
-  // ── SESSION INIT ────────────────────────────────────────────
-  function initSession() {
-    // Try to restore session from localStorage
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const data = JSON.parse(stored);
-        sessionId    = data.sessionId;
-        visitorName  = data.name  || "";
-        visitorEmail = data.email || "";
-        identified   = !!visitorName;
-      }
-    } catch(e) {}
+function pdClose() {
+  isOpen = false;
+  win.classList.remove("pd-open");
+  win.setAttribute("aria-hidden", "true");
+  iconChat.style.display  = "";
+  iconClose.style.display = "none";
+  stopPoll();
+}
 
-    const payload = {
-      action: "init_session",
-      sessionId: sessionId || undefined,
-      sourcePage: location.pathname
-    };
-
-    post(payload)
-      .then(res => {
-        sessionId = res.sessionId;
-        saveSession();
-        if (res.existing && res.messages && res.messages.length) {
-          renderMessages(res.messages);
-          // Skip identity if we already have it
-          if (identified) showInputArea();
-          else showIdentify();
-        } else {
-          renderMessages(res.messages || []);
-          showIdentify();
-        }
-      })
-      .catch(() => {
-        // Offline fallback — show locally
-        showOffline();
-        appendBubble("bot", "Hi! I'm the Packdez assistant. How can I help you today?");
-        showIdentify();
-      });
-  }
-
-  // ── IDENTITY ────────────────────────────────────────────────
-  function showIdentify() {
-    identArea.style.display = "";
-    inputArea.style.display = "none";
-  }
-
-  function showInputArea() {
-    identArea.style.display = "none";
-    inputArea.style.display = "flex";
-    setTimeout(() => document.getElementById("chat-input").focus(), 80);
-  }
-
-  window.submitIdentity = function() {
-    const nameEl  = document.getElementById("ci-name");
-    const emailEl = document.getElementById("ci-email");
-    const name  = nameEl.value.trim();
-    const email = emailEl.value.trim();
-
-    if (!name) { nameEl.focus(); shake(nameEl); return; }
-
-    visitorName  = name;
-    visitorEmail = email;
-    identified   = true;
-    saveSession();
-
-    if (sessionId) {
-      post({ action: "identify", sessionId, name, email }).catch(() => {});
+// ── Session init ─────────────────────────────────────────────
+function pdInitSession() {
+  // Restore from localStorage
+  try {
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) {
+      const d  = JSON.parse(s);
+      sessionId    = d.sessionId  || null;
+      visitorName  = d.name       || "";
+      visitorEmail = d.email      || "";
+      identified   = !!(visitorName && visitorEmail);
+      botHasReplied = d.botReplied || false;
     }
-    showInputArea();
-    hideChips();
-  };
+  } catch(e) {}
 
-  window.skipIdentity = function() {
-    visitorName = "Visitor";
-    identified  = true;
-    showInputArea();
-    hideChips();
-  };
-
-  // ── SEND MESSAGE ─────────────────────────────────────────────
-  window.sendMessage = function() {
-    const input = document.getElementById("chat-input");
-    const text = input.value.trim();
-    if (!text || !sessionId) return;
-
-    input.value = "";
-    input.style.height = "";
-    hideChips();
-
-    appendBubble("visitor", text);
-    showTyping();
-
-    post({
-      action: "send_message",
-      sessionId,
-      text,
-      senderName:  visitorName,
-      senderEmail: visitorEmail
-    })
-    .then(() => {
-      hideTyping();
-      // Automated contextual reply
-      const reply = autoReply(text);
-      if (reply) {
-        setTimeout(() => appendBubble("bot", reply), 600);
+  post({ action: "init_session", sessionId: sessionId || undefined, sourcePage: location.pathname })
+    .then(res => {
+      sessionId = res.sessionId;
+      saveSession();
+      if (res.messages && res.messages.length) {
+        renderMessages(res.messages);
+        botHasReplied = true; // bot already greeted
       }
+      if (identified) showInput();
+      else            showIdentify();
+      startPoll();
     })
     .catch(() => {
-      hideTyping();
-      appendBubble("bot", "Message received! We'll reply to you by email shortly.");
+      // Offline — show bot intro locally, don't set botHasReplied (will retry)
+      appendBubble("bot", "Hi! I'm the Packdez assistant. How can I help you today?");
+      showIdentify();
     });
-  };
+}
 
-  window.sendChip = function(el) {
-    const text = el.textContent;
-    el.disabled = true;
+// ── Identity form ─────────────────────────────────────────────
+function showIdentify() {
+  identArea.style.display = "";
+  inputArea.classList.remove("pd-show");
+}
+function showInput() {
+  identArea.style.display = "none";
+  inputArea.classList.add("pd-show");
+  setTimeout(() => document.getElementById("pd-input").focus(), 60);
+}
+
+// Validation helpers
+function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
+
+// Live validation feedback on email field
+document.getElementById("pd-email").addEventListener("input", function() {
+  const ok = validEmail(this.value.trim());
+  this.classList.toggle("pd-valid", ok);
+  this.classList.toggle("pd-error", this.value.length > 3 && !ok);
+  document.getElementById("pd-email-err").style.display = (this.value.length > 3 && !ok) ? "" : "none";
+});
+document.getElementById("pd-name").addEventListener("input", function() {
+  const ok = this.value.trim().length > 0;
+  this.classList.toggle("pd-valid", ok);
+});
+
+window.pdSubmitIdentity = function() {
+  const nameEl  = document.getElementById("pd-name");
+  const emailEl = document.getElementById("pd-email");
+  const name    = nameEl.value.trim();
+  const email   = emailEl.value.trim();
+  let ok = true;
+
+  if (!name) {
+    nameEl.classList.add("pd-error");
+    document.getElementById("pd-name-err").style.display = "";
+    pdShake(nameEl); ok = false;
+  } else {
+    nameEl.classList.remove("pd-error");
+    document.getElementById("pd-name-err").style.display = "none";
+  }
+
+  if (!validEmail(email)) {
+    emailEl.classList.add("pd-error");
+    document.getElementById("pd-email-err").style.display = "";
+    if (ok) pdShake(emailEl); ok = false;
+  } else {
+    emailEl.classList.remove("pd-error");
+    document.getElementById("pd-email-err").style.display = "none";
+  }
+
+  if (!ok) return;
+
+  visitorName  = name;
+  visitorEmail = email;
+  identified   = true;
+  saveSession();
+
+  if (sessionId) {
+    post({ action: "identify", sessionId, name, email }).catch(() => {});
+  }
+
+  showInput();
+  hideChips();
+
+  // If there was a pending chip message pre-queued, send it now
+  const pending = document.getElementById("pd-input").value.trim();
+  if (pending) {
+    setTimeout(pdSendMessage, 80);
+  }
+};
+
+// ── Chip clicks ───────────────────────────────────────────────
+document.querySelectorAll(".pd-chip").forEach(btn => {
+  btn.addEventListener("click", function() {
+    const text = this.dataset.chip;
+    this.style.opacity = ".5";
+    this.style.pointerEvents = "none";
     hideChips();
 
     if (!identified) {
-      // Show identity form before sending
+      document.getElementById("pd-input").value = text;
       showIdentify();
-      // Pre-fill first message after identification
-      document.getElementById("chat-input").value = text;
       return;
     }
+    pdSendRaw(text);
+  });
+});
 
-    appendBubble("visitor", text);
-    showTyping();
+// ── Send message ──────────────────────────────────────────────
+window.pdSendMessage = function() {
+  const el   = document.getElementById("pd-input");
+  const text = el.value.trim();
+  if (!text) return;
+  el.value = "";
+  el.style.height = "";
+  hideChips();
+  pdSendRaw(text);
+};
 
-    post({ action: "send_message", sessionId, text, senderName: visitorName, senderEmail: visitorEmail })
-      .then(() => {
-        hideTyping();
-        const reply = autoReply(text);
-        if (reply) setTimeout(() => appendBubble("bot", reply), 500);
-      })
-      .catch(() => hideTyping());
-  };
+function pdSendRaw(text) {
+  if (msgCount >= MAX_MSGS) {
+    appendBubble("bot", "You've reached the message limit. Please book a call directly — link is in the menu above.");
+    return;
+  }
 
-  // ── AUTO-REPLIES (local instant responses) ───────────────────
-  const AUTO_REPLIES = {
-    "how does this work": "Great question! I build custom internal systems — dashboards, booking tools, automations — using Google Sheets as the engine. You get a real interface, not just a spreadsheet. Book a free call and I'll show you exactly what makes sense for your workflow.",
-    "how much does it cost": "Most projects range from $200 to $2,500 fixed price — no retainers, no hourly billing. The exact scope depends on what you need. Book a free call and you'll get a clear number upfront.",
-    "see a live demo": "Of course! Check out some live demos at packdez.com/projects — there's a booking system, email CRM, bulk emailer, and more. Want me to point you to the most relevant one for your business?",
-    "i have a project in mind": "Love it — tell me more! What does your current workflow look like, and what's the main thing you'd want automated or cleaned up?",
-  };
+  appendBubble("visitor", text);
+  msgCount++;
+  showTyping();
 
-  function autoReply(text) {
-    const t = text.toLowerCase();
-    for (const [key, val] of Object.entries(AUTO_REPLIES)) {
-      if (t.includes(key)) return val;
+  post({
+    action: "send_message",
+    sessionId, text,
+    senderName: visitorName,
+    senderEmail: visitorEmail
+  })
+  .then(() => {
+    hideTyping();
+    // No bot auto-reply after the first greeting — only actual admin replies
+  })
+  .catch(() => {
+    hideTyping();
+    if (!botHasReplied) {
+      appendBubble("bot", "Message received! Raphael will reply shortly. You can also book a call above.");
+      botHasReplied = true;
     }
-    // Generic fallback
-    return "Got it! Raphael will review your message and reply shortly. You can also book a free call at any time — link is in the menu above.";
-  }
+  });
+}
 
-  // ── RENDER HELPERS ────────────────────────────────────────────
-  function renderMessages(msgs) {
-    msgArea.innerHTML = "";
-    msgs.forEach(m => appendBubble(m.direction, m.text, m.timestamp));
-  }
+// ── Polling for admin replies ─────────────────────────────────
+function startPoll() {
+  stopPoll();
+  if (!sessionId) return;
+  pollBar.classList.add("pd-show");
+  animatePollBar();
+  pollTimer = setInterval(() => {
+    if (!sessionId || !isOpen) return;
+    const payload = { action: "get_messages", sessionId };
+    if (lastMsgId) payload.afterId = lastMsgId;
 
-  let typingEl = null;
-  function showTyping() {
-    if (typingEl) return;
-    typingEl = document.createElement("div");
-    typingEl.className = "chat-bubble-wrap from-bot";
-    typingEl.innerHTML = '<div class="chat-typing"><span></span><span></span><span></span></div>';
-    msgArea.appendChild(typingEl);
-    msgArea.scrollTop = msgArea.scrollHeight;
-  }
-  function hideTyping() {
-    if (typingEl) { typingEl.remove(); typingEl = null; }
-  }
+    post(payload)
+      .then(res => {
+        if (!res.messages || !res.messages.length) return;
+        res.messages.forEach(m => {
+          // Only show admin or bot messages that come back from the server
+          // (visitor messages are already shown optimistically)
+          if (m.direction === "admin" || m.direction === "bot") {
+            if (!document.querySelector(`[data-msgid="${m.id}"]`)) {
+              appendBubble(m.direction, m.text, m.timestamp, m.id);
+              if (!isOpen) bumpBadge();
+            }
+          }
+          lastMsgId = m.id;
+        });
+      })
+      .catch(() => {});
+    animatePollBar();
+  }, POLL_MS);
+}
 
-  function appendBubble(direction, text, timestamp) {
-    const wrap = document.createElement("div");
-    const dir = (direction === "visitor") ? "from-visitor" : (direction === "admin" ? "from-admin" : "from-bot");
-    wrap.className = "chat-bubble-wrap " + dir;
+function stopPoll() {
+  if (pollTimer)    { clearInterval(pollTimer);   pollTimer = null; }
+  if (pollBarTimer) { clearInterval(pollBarTimer); pollBarTimer = null; }
+  pollBar.classList.remove("pd-show");
+}
 
-    const bubble = document.createElement("div");
-    bubble.className = "chat-bubble";
-    bubble.textContent = text;
+function animatePollBar() {
+  pollFill.style.transition = "none";
+  pollFill.style.width = "0%";
+  requestAnimationFrame(() => {
+    pollFill.style.transition = `width ${POLL_MS}ms linear`;
+    pollFill.style.width = "100%";
+  });
+}
 
-    const time = document.createElement("div");
-    time.className = "chat-bubble-time";
-    time.textContent = timestamp ? formatShortTime(timestamp) : formatShortTime(new Date().toISOString());
+// ── Render helpers ────────────────────────────────────────────
+function renderMessages(msgs) {
+  msgArea.innerHTML = "";
+  msgs.forEach(m => appendBubble(m.direction, m.text, m.timestamp, m.id));
+  if (msgs.length) lastMsgId = msgs[msgs.length - 1].id;
+  botHasReplied = msgs.some(m => m.direction === "bot");
+}
 
-    wrap.appendChild(bubble);
-    wrap.appendChild(time);
-    msgArea.appendChild(wrap);
-    msgArea.scrollTop = msgArea.scrollHeight;
+let typingEl = null;
+function showTyping() {
+  if (typingEl) return;
+  typingEl = document.createElement("div");
+  typingEl.className = "pd-bwrap pd-from-bot";
+  typingEl.innerHTML = '<div class="pd-typing"><span></span><span></span><span></span></div>';
+  msgArea.appendChild(typingEl);
+  msgArea.scrollTop = msgArea.scrollHeight;
+}
+function hideTyping() {
+  if (typingEl) { typingEl.remove(); typingEl = null; }
+}
 
-    // Badge if window is closed
-    if (!isOpen) bumpBadge();
-  }
+function appendBubble(direction, text, timestamp, id) {
+  const dir  = direction === "visitor" ? "pd-from-visitor"
+             : direction === "admin"   ? "pd-from-admin"
+             :                           "pd-from-bot";
 
-  function hideChips() {
-    if (chipsArea) chipsArea.style.display = "none";
-  }
+  const wrap   = document.createElement("div");
+  wrap.className = "pd-bwrap " + dir;
+  if (id) wrap.dataset.msgid = id;
 
-  // ── BADGE ─────────────────────────────────────────────────────
-  function bumpBadge() {
-    pendingCount++;
-    badge.textContent = pendingCount > 9 ? "9+" : pendingCount;
-    badge.style.display = "flex";
-  }
-  function clearBadge() {
-    pendingCount = 0;
-    badge.style.display = "none";
-  }
+  const bubble = document.createElement("div");
+  bubble.className = "pd-bubble";
+  bubble.textContent = text;
 
-  // ── UTILITIES ─────────────────────────────────────────────────
-  function post(payload) {
-    return fetch(CHAT_API, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    }).then(r => r.json());
-  }
+  const time = document.createElement("div");
+  time.className = "pd-btime";
+  time.textContent = timestamp ? fmtTime(timestamp) : fmtTime(new Date().toISOString());
 
-  function saveSession() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        sessionId, name: visitorName, email: visitorEmail
-      }));
-    } catch(e) {}
-  }
+  wrap.appendChild(bubble);
+  wrap.appendChild(time);
+  msgArea.appendChild(wrap);
+  msgArea.scrollTop = msgArea.scrollHeight;
 
-  function formatShortTime(ts) {
-    try {
-      const d = new Date(ts);
-      if (isNaN(d)) return "";
-      const now = new Date();
-      const isToday = d.toDateString() === now.toDateString();
-      return isToday
-        ? d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-        : d.toLocaleDateString([], { month: "short", day: "numeric" });
-    } catch(e) { return ""; }
-  }
+  if (!isOpen) bumpBadge();
+}
 
-  window.autoResize = function(el) {
-    el.style.height = "auto";
-    el.style.height = Math.min(el.scrollHeight, 100) + "px";
-  };
+function hideChips() {
+  if (chipsArea) chipsArea.style.display = "none";
+}
 
-  function shake(el) {
-    el.style.transition = "transform .08s";
-    el.style.transform = "translateX(-5px)";
-    setTimeout(() => { el.style.transform = "translateX(5px)"; }, 80);
-    setTimeout(() => { el.style.transform = ""; }, 160);
-  }
+// ── Badge ─────────────────────────────────────────────────────
+function bumpBadge() {
+  pendingCount++;
+  badge.textContent  = pendingCount > 9 ? "9+" : pendingCount;
+  badge.style.display = "flex";
+}
+function clearBadge() {
+  pendingCount = 0;
+  badge.style.display = "none";
+}
 
-  function showOffline() {
-    offlineBar.style.display = "";
-  }
+// ── Network (Blob / text/plain to bypass CORS preflight) ──────
+function post(payload) {
+  const blob = new Blob([JSON.stringify(payload)], { type: "text/plain" });
+  return fetch(CHAT_API, { method: "POST", body: blob })
+    .then(r => r.json());
+}
+
+// ── Persist session ───────────────────────────────────────────
+function saveSession() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      sessionId, name: visitorName, email: visitorEmail, botReplied: botHasReplied
+    }));
+  } catch(e) {}
+}
+
+// ── Utilities ─────────────────────────────────────────────────
+function fmtTime(ts) {
+  try {
+    const d = new Date(ts);
+    if (isNaN(d)) return "";
+    const now = new Date();
+    return d.toDateString() === now.toDateString()
+      ? d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      : d.toLocaleDateString([], { month: "short", day: "numeric" });
+  } catch(e) { return ""; }
+}
+
+window.pdAutoResize = function(el) {
+  el.style.height = "auto";
+  el.style.height = Math.min(el.scrollHeight, 96) + "px";
+};
+
+function pdShake(el) {
+  el.animate([
+    { transform: "translateX(0)" },
+    { transform: "translateX(-6px)" },
+    { transform: "translateX(6px)" },
+    { transform: "translateX(-4px)" },
+    { transform: "translateX(0)" }
+  ], { duration: 320, easing: "ease-out" });
+}
 
 })();
 </script>
+
+   
 </body>
 </html>
 
