@@ -2473,7 +2473,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
 (function() {
 
   // ── CONFIG — replace with your Web App URL after deploying ──
-  const CHAT_API = "https://script.google.com/macros/s/AKfycbx8_n1LhM3FDSnqZwsuO2E_5Jd4EFhC8QRga8BOhrC7qjdXI5q9k3kYey7QsYKavsqg/exec";
+  const CHAT_API = "https://script.google.com/macros/s/AKfycbymo99fErCJW0VW9xtPDszXVmJipQfSTOxoD_DHTbvyTw7V62uYuFTdWypNumNGVP_L/exec";
   // e.g. "https://script.google.com/macros/s/AKfycb.../exec"
 
   // ── STATE ───────────────────────────────────────────────────
@@ -2736,13 +2736,20 @@ document.getElementById('year').textContent=new Date().getFullYear()
   }
 
   // ── UTILITIES ─────────────────────────────────────────────────
-  function post(payload) {
-    return fetch(CHAT_API, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    }).then(r => r.json());
-  }
+function post(payload) {
+  // Use sendBeacon-style: text/plain body skips CORS preflight
+  return new Promise((resolve, reject) => {
+    const blob = new Blob([JSON.stringify(payload)], { type: 'text/plain' });
+    
+    fetch(CHAT_API, {
+      method: 'POST',
+      body: blob
+    })
+    .then(r => r.json())
+    .then(resolve)
+    .catch(reject);
+  });
+}
 
   function saveSession() {
     try {
