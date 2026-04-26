@@ -2060,7 +2060,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
   bottom: 98px;
   right: 26px;
   width: 368px;
-  max-height: 600px;
+  max-height: 500px;
   border-radius: 22px;
   background: #fff;
   border: 1px solid #e4f3ec;
@@ -2156,7 +2156,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
   flex-direction: column;
   gap: 10px;
   background: #f8fef9;
-  min-height: 180px;
+  min-height: 120px;
   scroll-behavior: smooth;
 }
 #pd-msgs::-webkit-scrollbar { width: 3px; }
@@ -2614,7 +2614,6 @@ function pdInitSession() {
     })
     .catch(() => {
       // Offline — show bot intro locally, don't set botHasReplied (will retry)
-      appendBubble("bot", "Hi! I'm the Packdez assistant. How can I help you today?");
       showIdentify();
     });
 }
