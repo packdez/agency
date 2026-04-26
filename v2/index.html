@@ -2771,10 +2771,18 @@ document.querySelectorAll('.outcome-step').forEach(function(el){stepObs.observe(
     offlineBar.style.display = "";
   }
 
-
-  
 /* Footer year */
 document.getElementById('year').textContent=new Date().getFullYear()
+</script>
+
+<script>
+(function() {
+
+function showOffline() {
+    offlineBar.style.display = "";
+  }
+
+})();
 </script>
 </body>
 </html>
