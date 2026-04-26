@@ -2003,670 +2003,896 @@ document.querySelectorAll('.outcome-step').forEach(function(el){stepObs.observe(
 document.getElementById('year').textContent=new Date().getFullYear()
 </script>
 
+<!-- ══════════════════════════════════════════════════════════
+  PACKDEZ LIVE CHAT WIDGET v3 — Intercom-style
+  Drop-in replacement. Paste just before </body>.
 
-<!-- ══ CHAT STYLES ══════════════════════════════════════════ -->
+  ONE LINE TO UPDATE:
+    const CHAT_API = "YOUR_NEW_DEPLOYMENT_URL_HERE";
+
+  Tab content (Home / Help / News) is managed from your
+  Google Sheet tabs: HomeContent, HelpContent, NewsContent.
+  Each row = one card. Columns:
+    type | title | subtitle | body | url | icon | visible | order
+
+  Types: banner | card | article | link | text
+══════════════════════════════════════════════════════════ -->
+
+<!-- ── STYLES ─────────────────────────────────────────────── -->
 <style>
-/* ── Pill ─────────────────────────────────────────────────── */
-#pd-pill {
+/* ── Base reset for widget ───────────────────────────────── */
+#pd3-root *, #pd3-root *::before, #pd3-root *::after {
+  box-sizing: border-box; margin: 0; padding: 0;
+}
+#pd3-root {
+  font-family: -apple-system, 'DM Sans', BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Pill ────────────────────────────────────────────────── */
+#pd3-pill {
   position: fixed;
-  bottom: 26px;
-  right: 26px;
-  width: 58px;
-  height: 58px;
+  bottom: 26px; right: 26px;
+  width: 60px; height: 60px;
   border-radius: 50%;
   background: #1e9947;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
   z-index: 9990;
-  box-shadow: 0 4px 20px rgba(30,153,71,.45), 0 0 0 0 rgba(34,197,94,.35);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(30,153,71,.5), 0 0 0 0 rgba(34,197,94,.3);
   transition: transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s;
-  animation: pdPillPulse 2.8s ease infinite;
+  animation: pd3Pulse 3s ease infinite;
 }
-#pd-pill:hover {
-  transform: scale(1.1);
-  animation: none;
-  box-shadow: 0 6px 28px rgba(30,153,71,.55);
+#pd3-pill:hover {
+  transform: scale(1.08); animation: none;
+  box-shadow: 0 6px 28px rgba(30,153,71,.6);
 }
-@keyframes pdPillPulse {
-  0%,100% { box-shadow: 0 4px 20px rgba(30,153,71,.45), 0 0 0 0   rgba(34,197,94,.35); }
-  50%      { box-shadow: 0 4px 20px rgba(30,153,71,.45), 0 0 0 12px rgba(34,197,94,.0); }
+@keyframes pd3Pulse {
+  0%,100% { box-shadow: 0 4px 20px rgba(30,153,71,.5), 0 0 0 0 rgba(34,197,94,.3); }
+  50%      { box-shadow: 0 4px 20px rgba(30,153,71,.5), 0 0 0 14px rgba(34,197,94,.0); }
 }
-#pd-pill-badge {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  min-width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  background: #ef4444;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 800;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-  border: 2px solid #fff;
-  font-family: var(--sans);
+#pd3-badge {
+  position: absolute; top: -2px; right: -2px;
+  min-width: 20px; height: 20px;
+  border-radius: 10px; background: #ef4444; color: #fff;
+  font-size: 11px; font-weight: 800;
+  display: none; align-items: center; justify-content: center;
+  padding: 0 4px; border: 2px solid #fff;
 }
-#pd-pill svg { transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .2s; }
 
-/* ── Window ───────────────────────────────────────────────── */
-#pd-win {
+/* ── Window ──────────────────────────────────────────────── */
+#pd3-win {
   position: fixed;
-  bottom: 98px;
-  right: 26px;
-  width: 368px;
-  max-height: 400px;
-  border-radius: 22px;
+  bottom: 98px; right: 26px;
+  width: 380px;
+  height: 620px;
+  border-radius: 20px;
   background: #fff;
-  border: 1px solid #e4f3ec;
-  box-shadow: 0 12px 48px rgba(16,51,32,.14), 0 2px 8px rgba(16,51,32,.07);
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,.16), 0 4px 16px rgba(0,0,0,.08);
   z-index: 9991;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  /* Hidden by default — toggled via .pd-open */
-  opacity: 0;
-  transform: translateY(18px) scale(.97);
+  display: flex; flex-direction: column; overflow: hidden;
+  opacity: 0; transform: translateY(20px) scale(.97);
   pointer-events: none;
-  transition: opacity .28s cubic-bezier(.22,1,.36,1),
-              transform .28s cubic-bezier(.22,1,.36,1);
+  transition: opacity .28s cubic-bezier(.22,1,.36,1), transform .28s cubic-bezier(.22,1,.36,1);
 }
-#pd-win.pd-open {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: all;
+#pd3-win.pd3-open {
+  opacity: 1; transform: translateY(0) scale(1); pointer-events: all;
 }
 
-/* ── Header ───────────────────────────────────────────────── */
-#pd-head {
-  background: linear-gradient(135deg, #103320 0%, #176633 100%);
-  padding: 16px 18px 14px;
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  flex-shrink: 0;
+/* ── Hero header ─────────────────────────────────────────── */
+#pd3-hero {
+  background: linear-gradient(145deg, #0a1c0f 0%, #103320 40%, #176633 100%);
+  padding: 22px 20px 60px;
+  position: relative; overflow: hidden; flex-shrink: 0;
 }
-#pd-head-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255,255,255,.25);
-  flex-shrink: 0;
-  background: #0a1c0f;
+#pd3-hero::after {
+  content: '';
+  position: absolute; bottom: -30px; left: 0; right: 0;
+  height: 60px;
+  background: #fff;
+  border-radius: 50% 50% 0 0 / 30px 30px 0 0;
 }
-#pd-head-info { flex: 1; overflow: hidden; }
-#pd-head-name {
-  font-size: .88rem;
-  font-weight: 700;
-  color: #fff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-family: var(--sans);
+.pd3-hero-orb {
+  position: absolute; border-radius: 50%; opacity: .1;
 }
-#pd-head-status {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: .7rem;
-  color: rgba(255,255,255,.65);
-  margin-top: 1px;
-  font-family: var(--sans);
+.pd3-hero-orb-1 { width: 160px; height: 160px; background: #22c55e; top: -40px; right: -40px; }
+.pd3-hero-orb-2 { width: 100px; height: 100px; background: #4ade80; bottom: 10px; left: -20px; }
+#pd3-hero-row {
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; z-index: 1;
 }
-.pd-status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #4ade80;
-  animation: pdDotPulse 2s ease infinite;
-  flex-shrink: 0;
+#pd3-hero-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.3);
+  object-fit: cover; background: #0a1c0f;
 }
-@keyframes pdDotPulse {
+#pd3-close {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,.1); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.7); transition: background .18s;
+}
+#pd3-close:hover { background: rgba(255,255,255,.2); color: #fff; }
+#pd3-hero-text {
+  position: relative; z-index: 1; margin-top: 14px;
+}
+#pd3-hero-title {
+  font-size: 1.3rem; font-weight: 800; color: #fff; line-height: 1.2;
+}
+#pd3-hero-sub {
+  font-size: .78rem; color: rgba(255,255,255,.6); margin-top: 4px;
+}
+.pd3-status-row {
+  display: flex; align-items: center; gap: 6px; margin-top: 8px;
+}
+.pd3-status-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #4ade80;
+  animation: pd3DotPulse 2s ease infinite;
+}
+@keyframes pd3DotPulse {
   0%,100% { opacity:1; transform:scale(1); }
   50%      { opacity:.5; transform:scale(1.4); }
 }
-#pd-close {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.1);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255,255,255,.7);
-  flex-shrink: 0;
+.pd3-status-text { font-size: .72rem; color: rgba(255,255,255,.6); }
+
+/* ── Tabs ────────────────────────────────────────────────── */
+#pd3-tabs {
+  display: flex; background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  flex-shrink: 0; position: relative; z-index: 2;
+}
+.pd3-tab {
+  flex: 1; padding: 12px 4px 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: none; border: none; cursor: pointer;
+  font-size: .68rem; font-weight: 600; color: #9ca3af;
+  border-bottom: 2px solid transparent; transition: all .2s;
+  position: relative;
+}
+.pd3-tab svg { width: 18px; height: 18px; }
+.pd3-tab.active { color: #1e9947; border-bottom-color: #1e9947; }
+.pd3-tab:hover:not(.active) { color: #374151; background: #fafafa; }
+.pd3-tab-badge {
+  position: absolute; top: 6px; right: calc(50% - 16px);
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #ef4444; border: 2px solid #fff; display: none;
+}
+
+/* ── Tab panels ──────────────────────────────────────────── */
+#pd3-panels { flex: 1; overflow: hidden; position: relative; }
+.pd3-panel {
+  position: absolute; inset: 0;
+  overflow-y: auto; overflow-x: hidden;
+  opacity: 0; transform: translateX(12px);
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
+  scrollbar-width: thin; scrollbar-color: #d1fae5 transparent;
+}
+.pd3-panel::-webkit-scrollbar { width: 3px; }
+.pd3-panel::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
+.pd3-panel.active {
+  opacity: 1; transform: translateX(0); pointer-events: all;
+}
+
+/* ── Home / News / Help panels ───────────────────────────── */
+.pd3-content-panel { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.pd3-banner {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 1px solid #bbf7d0; border-radius: 14px;
+  padding: 16px 18px;
+}
+.pd3-banner-title { font-size: .95rem; font-weight: 800; color: #103320; }
+.pd3-banner-sub { font-size: .78rem; color: #4a7060; margin-top: 4px; line-height: 1.5; }
+.pd3-card {
+  background: #fff; border: 1px solid #e5e7eb;
+  border-radius: 14px; padding: 14px 16px;
+  cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; color: inherit;
+}
+.pd3-card:hover { border-color: #22c55e; background: #f9fffe; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(34,197,94,.1); }
+.pd3-card-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: #f0fdf4; display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0; border: 1px solid #d1fae5;
+}
+.pd3-card-body { flex: 1; }
+.pd3-card-title { font-size: .85rem; font-weight: 700; color: #103320; }
+.pd3-card-sub { font-size: .75rem; color: #6b7280; margin-top: 2px; line-height: 1.4; }
+.pd3-card-arrow { color: #d1d5db; flex-shrink: 0; }
+.pd3-article {
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden;
+}
+.pd3-article-trigger {
+  width: 100%; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  background: none; border: none; cursor: pointer; text-align: left;
   transition: background .18s;
 }
-#pd-close:hover { background: rgba(255,255,255,.2); color: #fff; }
-
-/* ── Messages ─────────────────────────────────────────────── */
-#pd-msgs {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: #f8fef9;
-  min-height: 100px;
-  scroll-behavior: smooth;
+.pd3-article-trigger:hover { background: #f9fffe; }
+.pd3-article-icon {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: #f0fdf4; display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
 }
-#pd-msgs::-webkit-scrollbar { width: 3px; }
-#pd-msgs::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
+.pd3-article-info { flex: 1; }
+.pd3-article-title { font-size: .84rem; font-weight: 700; color: #103320; }
+.pd3-article-sub { font-size: .73rem; color: #6b7280; margin-top: 2px; }
+.pd3-article-chevron {
+  color: #d1d5db; transition: transform .25s;
+}
+.pd3-article.open .pd3-article-chevron { transform: rotate(90deg); }
+.pd3-article-body {
+  max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s ease;
+  padding: 0 16px; font-size: .8rem; color: #4b5563; line-height: 1.65;
+}
+.pd3-article.open .pd3-article-body {
+  max-height: 240px; padding: 0 16px 14px;
+}
+.pd3-link-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px;
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+  text-decoration: none; color: inherit; transition: all .18s;
+}
+.pd3-link-item:hover { border-color: #22c55e; background: #f9fffe; }
+.pd3-link-icon { font-size: 1.1rem; }
+.pd3-link-title { font-size: .83rem; font-weight: 700; color: #103320; flex: 1; }
+.pd3-text-block {
+  font-size: .82rem; color: #6b7280; line-height: 1.6;
+  padding: 4px 2px;
+}
+.pd3-loading {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 32px 16px; color: #9ca3af; font-size: .8rem;
+}
+.pd3-loading-dots span {
+  display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+  background: #22c55e; animation: pd3LD .8s ease infinite;
+  margin: 0 2px;
+}
+.pd3-loading-dots span:nth-child(2) { animation-delay: .14s; }
+.pd3-loading-dots span:nth-child(3) { animation-delay: .28s; }
+@keyframes pd3LD { 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-5px);opacity:1} }
+
+/* ── Messages panel ──────────────────────────────────────── */
+#pd3-panel-messages { display: flex; flex-direction: column; }
+#pd3-conv-start {
+  padding: 16px 16px 0; flex-shrink: 0;
+}
+#pd3-conv-start-btn {
+  width: 100%; padding: 13px;
+  background: #1e9947; color: #fff; border: none; border-radius: 12px;
+  font-size: .88rem; font-weight: 700; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background .18s, transform .15s;
+  font-family: inherit;
+}
+#pd3-conv-start-btn:hover { background: #176633; transform: translateY(-1px); }
+#pd3-prev-convs { padding: 12px 16px; flex-shrink: 0; }
+.pd3-prev-label { font-size: .68rem; font-weight: 700; color: #9ca3af; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.pd3-prev-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px;
+  cursor: pointer; transition: all .18s; margin-bottom: 6px;
+}
+.pd3-prev-item:hover { border-color: #22c55e; background: #f0fdf4; }
+.pd3-prev-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(135deg,#103320,#22c55e);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: .72rem; font-weight: 700; flex-shrink: 0;
+}
+.pd3-prev-info { flex: 1; }
+.pd3-prev-preview { font-size: .78rem; font-weight: 600; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pd3-prev-time { font-size: .67rem; color: #9ca3af; margin-top: 1px; }
+
+/* ── Active chat view ────────────────────────────────────── */
+#pd3-chat-view {
+  flex: 1; display: none; flex-direction: column;
+}
+#pd3-chat-view.pd3-show { display: flex; }
+#pd3-chat-topbar {
+  padding: 10px 14px; border-bottom: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+#pd3-back-btn {
+  background: none; border: none; cursor: pointer;
+  color: #6b7280; display: flex; align-items: center; gap: 4px;
+  font-size: .78rem; font-weight: 600; padding: 4px 0; font-family: inherit;
+  transition: color .15s;
+}
+#pd3-back-btn:hover { color: #1e9947; }
+#pd3-chat-label { font-size: .82rem; font-weight: 700; color: #111; flex: 1; }
+#pd3-msgs {
+  flex: 1; overflow-y: auto; padding: 14px;
+  display: flex; flex-direction: column; gap: 10px;
+  background: #f9fafb; scroll-behavior: smooth;
+}
+#pd3-msgs::-webkit-scrollbar { width: 3px; }
+#pd3-msgs::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
 
 /* Bubbles */
-.pd-bwrap { display: flex; flex-direction: column; animation: pdBubbleIn .24s cubic-bezier(.22,1,.36,1) both; }
-@keyframes pdBubbleIn {
-  from { opacity:0; transform:translateY(8px) scale(.97); }
-  to   { opacity:1; transform:translateY(0) scale(1); }
+.pd3-bwrap { display: flex; flex-direction: column; animation: pd3BIn .22s cubic-bezier(.22,1,.36,1) both; }
+@keyframes pd3BIn { from{opacity:0;transform:translateY(8px) scale(.97)} to{opacity:1;transform:none} }
+.pd3-bwrap.visitor { align-items: flex-end; }
+.pd3-bwrap.bot, .pd3-bwrap.admin { align-items: flex-start; }
+.pd3-bubble {
+  max-width: 78%; padding: 9px 13px; border-radius: 16px;
+  font-size: .83rem; line-height: 1.55; word-break: break-word;
 }
-.pd-bwrap.pd-from-visitor { align-items: flex-end; }
-.pd-bwrap.pd-from-bot,
-.pd-bwrap.pd-from-admin  { align-items: flex-start; }
-.pd-bubble {
-  max-width: 80%;
-  padding: 9px 13px;
-  border-radius: 14px;
-  font-size: .83rem;
-  line-height: 1.55;
-  word-break: break-word;
-  font-family: var(--sans);
-}
-.pd-from-visitor .pd-bubble {
-  background: #103320;
-  color: #fff;
-  border-bottom-right-radius: 4px;
-}
-.pd-from-bot .pd-bubble {
-  background: #fff;
-  color: #103320;
-  border: 1px solid #d1fae5;
-  border-bottom-left-radius: 4px;
-}
-.pd-from-admin .pd-bubble {
-  background: #dcfce7;
-  color: #0a1c0f;
-  border: 1px solid #86efac;
-  border-bottom-left-radius: 4px;
-}
-.pd-btime {
-  font-size: .62rem;
-  color: #9ca3af;
-  margin-top: 3px;
-  padding: 0 2px;
-  font-family: var(--sans);
-}
+.visitor .pd3-bubble { background: #1e9947; color: #fff; border-bottom-right-radius: 4px; }
+.bot .pd3-bubble { background: #fff; color: #103320; border: 1px solid #e5e7eb; border-bottom-left-radius: 4px; }
+.admin .pd3-bubble { background: #dcfce7; color: #0a1c0f; border: 1px solid #86efac; border-bottom-left-radius: 4px; }
+.pd3-btime { font-size: .61rem; color: #9ca3af; margin-top: 3px; padding: 0 2px; }
 
-/* Typing dots */
-.pd-typing {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  padding: 9px 13px;
-  background: #fff;
-  border: 1px solid #d1fae5;
-  border-radius: 14px;
-  border-bottom-left-radius: 4px;
-  width: fit-content;
+/* Typing */
+.pd3-typing {
+  display: flex; gap: 4px; align-items: center;
+  padding: 9px 13px; background: #fff; border: 1px solid #e5e7eb;
+  border-radius: 16px; border-bottom-left-radius: 4px; width: fit-content;
 }
-.pd-typing span {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: #22c55e;
-  animation: pdTypeBounce .85s ease infinite;
+.pd3-typing span {
+  width: 5px; height: 5px; border-radius: 50%; background: #22c55e;
+  animation: pd3TB .85s ease infinite;
 }
-.pd-typing span:nth-child(2) { animation-delay: .15s; }
-.pd-typing span:nth-child(3) { animation-delay: .3s; }
-@keyframes pdTypeBounce {
-  0%,60%,100% { transform:translateY(0);   opacity:.35; }
-  30%          { transform:translateY(-5px); opacity:1; }
-}
+.pd3-typing span:nth-child(2) { animation-delay: .15s; }
+.pd3-typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes pd3TB { 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-5px);opacity:1} }
 
-/* ── Identity capture ──────────────────────────────────────── */
-#pd-identify {
-  padding: 16px;
-  background: #fff;
-  border-top: 1px solid #e4f3ec;
-  flex-shrink: 0;
+/* ── Identity form ───────────────────────────────────────── */
+#pd3-identify {
+  padding: 14px 16px; background: #fff;
+  border-top: 1px solid #f0f0f0; flex-shrink: 0;
 }
-.pd-id-heading {
-  font-size: .8rem;
-  font-weight: 700;
-  color: #103320;
-  margin-bottom: 4px;
-  font-family: var(--sans);
+.pd3-id-title { font-size: .82rem; font-weight: 700; color: #103320; margin-bottom: 2px; }
+.pd3-id-sub { font-size: .72rem; color: #6b7280; margin-bottom: 12px; line-height: 1.45; }
+.pd3-field { position: relative; margin-bottom: 9px; }
+.pd3-field input {
+  width: 100%; background: #f9fafb; border: 1.5px solid #e5e7eb;
+  border-radius: 10px; padding: 10px 12px 10px 36px;
+  font-size: .83rem; color: #103320; font-family: inherit;
+  outline: none; transition: border-color .18s, background .18s;
 }
-.pd-id-sub {
-  font-size: .72rem;
-  color: #4a7060;
-  margin-bottom: 12px;
-  font-family: var(--sans);
-  line-height: 1.5;
+.pd3-field input:focus { border-color: #22c55e; background: #fff; }
+.pd3-field input.err { border-color: #ef4444; background: #fff5f5; }
+.pd3-field input.ok { border-color: #22c55e; }
+.pd3-fi { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: #22c55e; pointer-events: none; }
+.pd3-ft { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); color: #22c55e; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.pd3-field input.ok ~ .pd3-fi ~ .pd3-ft { opacity: 1; }
+.pd3-ferr { font-size: .68rem; color: #ef4444; margin-top: 3px; margin-left: 2px; display: none; }
+#pd3-id-submit {
+  width: 100%; padding: 11px; background: #1e9947; color: #fff;
+  border: none; border-radius: 10px; font-size: .85rem; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: background .18s, transform .15s; margin-top: 4px;
 }
-.pd-id-field {
-  position: relative;
-  margin-bottom: 9px;
-}
-.pd-id-field input {
-  width: 100%;
-  background: #f8fef9;
-  border: 1.5px solid #d1fae5;
-  border-radius: 10px;
-  padding: 10px 12px 10px 36px;
-  font-size: .83rem;
-  color: #103320;
-  font-family: var(--sans);
-  outline: none;
-  transition: border-color .18s, background .18s;
-}
-.pd-id-field input:focus {
-  border-color: #22c55e;
-  background: #fff;
-}
-.pd-id-field input.pd-error {
-  border-color: #ef4444;
-  background: #fff5f5;
-}
-.pd-id-field .pd-field-icon {
-  position: absolute;
-  left: 11px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #22c55e;
-  pointer-events: none;
-}
-.pd-id-field .pd-field-tick {
-  position: absolute;
-  right: 11px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #22c55e;
-  opacity: 0;
-  transition: opacity .2s;
-  pointer-events: none;
-}
-.pd-id-field input.pd-valid + .pd-field-icon + .pd-field-tick { opacity: 1; }
-.pd-id-err {
-  font-size: .69rem;
-  color: #ef4444;
-  margin-top: 3px;
-  margin-left: 2px;
-  display: none;
-  font-family: var(--sans);
-}
-.pd-id-submit {
-  width: 100%;
-  padding: 11px;
-  background: #1e9947;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-size: .85rem;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: var(--sans);
-  transition: background .18s, transform .15s;
-  margin-top: 4px;
-}
-.pd-id-submit:hover { background: #176633; transform: translateY(-1px); }
-.pd-id-submit:active { transform: none; }
+#pd3-id-submit:hover { background: #176633; transform: translateY(-1px); }
 
-/* ── Input area ────────────────────────────────────────────── */
-#pd-input-area {
-  padding: 12px 14px;
-  border-top: 1px solid #e4f3ec;
-  display: none;
-  gap: 8px;
-  align-items: flex-end;
-  background: #fff;
-  flex-shrink: 0;
+/* ── Input bar ───────────────────────────────────────────── */
+#pd3-input-bar {
+  padding: 10px 12px; border-top: 1px solid #f0f0f0;
+  display: none; gap: 8px; align-items: flex-end; background: #fff; flex-shrink: 0;
 }
-#pd-input-area.pd-show { display: flex; }
-#pd-input {
-  flex: 1;
-  background: #f8fef9;
-  border: 1.5px solid #d1fae5;
-  border-radius: 12px;
-  padding: 9px 12px;
-  font-size: .83rem;
-  color: #103320;
-  font-family: var(--sans);
-  outline: none;
-  resize: none;
-  max-height: 96px;
-  line-height: 1.45;
-  transition: border-color .18s;
+#pd3-input-bar.pd3-show { display: flex; }
+#pd3-chips-bar {
+  padding: 0 12px 8px; background: #fff; display: flex; flex-wrap: wrap; gap: 6px; flex-shrink: 0;
+}
+.pd3-chip {
+  background: #f9fafb; border: 1.5px solid #e5e7eb; color: #374151;
+  font-size: .71rem; font-weight: 600; padding: 5px 11px;
+  border-radius: 999px; cursor: pointer; font-family: inherit;
+  transition: all .18s; white-space: nowrap;
+}
+.pd3-chip:hover { background: #f0fdf4; border-color: #22c55e; color: #103320; transform: translateY(-1px); }
+#pd3-input {
+  flex: 1; background: #f9fafb; border: 1.5px solid #e5e7eb;
+  border-radius: 12px; padding: 9px 12px; font-size: .83rem;
+  color: #103320; font-family: inherit; outline: none; resize: none;
+  max-height: 90px; line-height: 1.45; transition: border-color .18s;
   overflow-y: auto;
 }
-#pd-input::placeholder { color: #9ca3af; }
-#pd-input:focus { border-color: #22c55e; background: #fff; }
-#pd-send {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #1e9947;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+#pd3-input::placeholder { color: #9ca3af; }
+#pd3-input:focus { border-color: #22c55e; background: #fff; }
+#pd3-send {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #1e9947; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   transition: background .18s, transform .15s;
 }
-#pd-send:hover  { background: #176633; transform: scale(1.06); }
-#pd-send:active { transform: scale(.96); }
-#pd-send:disabled { background: #d1fae5; cursor: not-allowed; transform: none; }
+#pd3-send:hover { background: #176633; transform: scale(1.06); }
+#pd3-send:active { transform: scale(.95); }
+#pd3-send:disabled { background: #d1fae5; cursor: not-allowed; transform: none; }
 
-/* ── Quick chips ───────────────────────────────────────────── */
-#pd-chips {
-  padding: 0 14px 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  flex-shrink: 0;
-  background: #f8fef9;
-}
-.pd-chip {
-  background: #fff;
-  border: 1.5px solid #d1fae5;
-  color: #176633;
-  font-size: .71rem;
-  font-weight: 600;
-  padding: 5px 11px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-family: var(--sans);
-  transition: background .18s, border-color .18s, transform .15s;
-  white-space: nowrap;
-}
-.pd-chip:hover {
-  background: #f0fdf4;
-  border-color: #22c55e;
-  transform: translateY(-1px);
-}
+/* ── Poll bar ────────────────────────────────────────────── */
+#pd3-poll-bar { height: 2px; background: #f0f0f0; flex-shrink: 0; overflow: hidden; display: none; }
+#pd3-poll-bar.pd3-show { display: block; }
+#pd3-poll-fill { height: 100%; width: 0%; background: linear-gradient(90deg,#22c55e,#4ade80); transition: width linear; }
 
-/* ── Poll bar (shows when reply is coming) ─────────────────── */
-#pd-poll-bar {
-  height: 2px;
-  background: #e4f3ec;
-  flex-shrink: 0;
-  overflow: hidden;
-  display: none;
-}
-#pd-poll-bar.pd-show { display: block; }
-#pd-poll-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #22c55e, #4ade80);
-  transition: width linear;
-}
-
-/* ── Mobile ────────────────────────────────────────────────── */
+/* ── Mobile ──────────────────────────────────────────────── */
 @media (max-width: 480px) {
-  #pd-win {
-    bottom: 0; right: 0; left: 0;
-    width: 100%;
-    max-height: 94svh;
-    border-radius: 22px 22px 0 0;
-  }
-  #pd-pill { bottom: 18px; right: 18px; }
+  #pd3-win { bottom:0; right:0; left:0; width:100%; height:92svh; max-height:92svh; border-radius:22px 22px 0 0; }
+  #pd3-pill { bottom:18px; right:18px; }
 }
 </style>
 
-<!-- ══ CHAT PILL ════════════════════════════════════════════ -->
-<button id="pd-pill" aria-label="Open chat with Packdez">
-  <svg id="pd-icon-chat" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<!-- ── PILL ───────────────────────────────────────────────── -->
+<div id="pd3-root">
+<button id="pd3-pill" aria-label="Chat with Packdez">
+  <svg id="pd3-icon-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
   </svg>
-  <svg id="pd-icon-close" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none">
+  <svg id="pd3-icon-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none">
     <path d="M18 6L6 18M6 6l12 12"/>
   </svg>
-  <div id="pd-pill-badge"></div>
+  <div id="pd3-badge"></div>
 </button>
 
-<!-- ══ CHAT WINDOW ══════════════════════════════════════════ -->
-<div id="pd-win" role="dialog" aria-label="Chat with Packdez" aria-hidden="true">
+<!-- ── WINDOW ─────────────────────────────────────────────── -->
+<div id="pd3-win" role="dialog" aria-label="Chat with Packdez" aria-hidden="true">
 
-  <!-- Header -->
-  <div id="pd-head">
-    <img id="pd-head-avatar"
-      src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
-      alt="Raphael"
-      onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'20\' fill=\'%230a1c0f\'/%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2322c55e\' font-size=\'15\'%3ERL%3C/text%3E%3C/svg%3E'">
-    <div id="pd-head-info">
-      <div id="pd-head-name">Raphael · Packdez</div>
-      <div id="pd-head-status">
-        <div class="pd-status-dot"></div>
-        <span>Usually replies within a few hours</span>
+  <!-- Hero header -->
+  <div id="pd3-hero">
+    <div class="pd3-hero-orb pd3-hero-orb-1"></div>
+    <div class="pd3-hero-orb pd3-hero-orb-2"></div>
+    <div id="pd3-hero-row">
+      <img id="pd3-hero-avatar"
+        src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
+        alt="Raphael"
+        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'42\' height=\'42\'%3E%3Ccircle cx=\'21\' cy=\'21\' r=\'21\' fill=\'%230a1c0f\'/%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2322c55e\' font-size=\'14\'%3ERL%3C/text%3E%3C/svg%3E'">
+      <button id="pd3-close" aria-label="Close">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="pd3-hero-text">
+      <div id="pd3-hero-title">Hi there 👋</div>
+      <div id="pd3-hero-sub">How can we help you today?</div>
+      <div class="pd3-status-row">
+        <div class="pd3-status-dot"></div>
+        <span class="pd3-status-text">Raphael · Usually replies within a few hours</span>
       </div>
     </div>
-    <button id="pd-close" aria-label="Close chat">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <path d="M18 6L6 18M6 6l12 12"/>
-      </svg>
+  </div>
+
+  <!-- Poll bar -->
+  <div id="pd3-poll-bar"><div id="pd3-poll-fill"></div></div>
+
+  <!-- Tabs -->
+  <div id="pd3-tabs">
+    <button class="pd3-tab active" data-tab="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </button>
+    <button class="pd3-tab" data-tab="messages">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Messages
+      <span class="pd3-tab-badge" id="pd3-msg-badge"></span>
+    </button>
+    <button class="pd3-tab" data-tab="help">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Help
+    </button>
+    <button class="pd3-tab" data-tab="news">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
+      News
     </button>
   </div>
 
-  <!-- Poll progress bar -->
-  <div id="pd-poll-bar"><div id="pd-poll-fill"></div></div>
+  <!-- Panels -->
+  <div id="pd3-panels">
 
-  <!-- Messages -->
-  <div id="pd-msgs" aria-live="polite"></div>
-
-  <!-- Quick reply chips -->
-  <div id="pd-chips">
-    <button class="pd-chip" data-chip="How does this work?">How does this work?</button>
-    <button class="pd-chip" data-chip="How much does it cost?">How much does it cost?</button>
-    <button class="pd-chip" data-chip="See a live demo">See a live demo</button>
-    <button class="pd-chip" data-chip="I have a project in mind">I have a project in mind</button>
-  </div>
-
-  <!-- Identity capture (required) -->
-  <div id="pd-identify">
-    <div class="pd-id-heading">Start a conversation with Raphael</div>
-    <div class="pd-id-sub">Enter your details so he can follow up with you directly.</div>
-
-    <div class="pd-id-field">
-      <span class="pd-field-icon">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </span>
-      <input type="text" id="pd-name" placeholder="Your full name" autocomplete="name" maxlength="100">
-      <span class="pd-field-tick">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-      </span>
-      <div class="pd-id-err" id="pd-name-err">Please enter your name</div>
+    <!-- HOME -->
+    <div class="pd3-panel active" id="pd3-panel-home">
+      <div class="pd3-content-panel" id="pd3-home-content">
+        <div class="pd3-loading">
+          <div class="pd3-loading-dots"><span></span><span></span><span></span></div>
+          Loading…
+        </div>
+      </div>
     </div>
 
-    <div class="pd-id-field">
-      <span class="pd-field-icon">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </span>
-      <input type="email" id="pd-email" placeholder="Your email address" autocomplete="email" maxlength="200">
-      <span class="pd-field-tick">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-      </span>
-      <div class="pd-id-err" id="pd-email-err">Enter a valid email address</div>
+    <!-- MESSAGES -->
+    <div class="pd3-panel" id="pd3-panel-messages" style="display:flex;flex-direction:column;position:absolute;inset:0;overflow:hidden">
+
+      <!-- Conversation list view -->
+      <div id="pd3-conv-list" style="flex:1;overflow-y:auto;display:flex;flex-direction:column">
+        <div id="pd3-conv-start">
+          <button id="pd3-conv-start-btn" onclick="pd3StartNewChat()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            Send us a message
+          </button>
+        </div>
+        <div id="pd3-prev-convs" class="pd3-prev-convs" style="display:none">
+          <div class="pd3-prev-label">Previous conversations</div>
+          <div id="pd3-prev-list"></div>
+        </div>
+      </div>
+
+      <!-- Active chat view -->
+      <div id="pd3-chat-view">
+        <div id="pd3-chat-topbar">
+          <button id="pd3-back-btn" onclick="pd3BackToList()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+          </button>
+          <span id="pd3-chat-label">Conversation</span>
+        </div>
+        <div id="pd3-msgs" aria-live="polite"></div>
+        <div id="pd3-chips-bar">
+          <button class="pd3-chip" data-chip="How does this work?">How does this work?</button>
+          <button class="pd3-chip" data-chip="How much does it cost?">How much does it cost?</button>
+          <button class="pd3-chip" data-chip="I have a project in mind">I have a project in mind</button>
+          <button class="pd3-chip" data-chip="See a live demo">See a live demo</button>
+        </div>
+        <div id="pd3-identify">
+          <div class="pd3-id-title">Start a conversation</div>
+          <div class="pd3-id-sub">Enter your details so Raphael can follow up.</div>
+          <div class="pd3-field">
+            <span class="pd3-fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            <input type="text" id="pd3-name" placeholder="Your full name" autocomplete="name" maxlength="100">
+            <span class="pd3-ft"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div class="pd3-ferr" id="pd3-name-err">Please enter your name</div>
+          </div>
+          <div class="pd3-field">
+            <span class="pd3-fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+            <input type="email" id="pd3-email" placeholder="Your email address" autocomplete="email" maxlength="200">
+            <span class="pd3-ft"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div class="pd3-ferr" id="pd3-email-err">Enter a valid email address</div>
+          </div>
+          <button id="pd3-id-submit" onclick="pd3SubmitIdentity()">Start chatting →</button>
+        </div>
+        <div id="pd3-input-bar">
+          <textarea id="pd3-input" placeholder="Type a message…" rows="1"
+            oninput="pd3AutoResize(this)"
+            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();pd3Send()}"
+          ></textarea>
+          <button id="pd3-send" onclick="pd3Send()" aria-label="Send">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          </button>
+        </div>
+      </div>
+
     </div>
 
-    <button class="pd-id-submit" id="pd-id-submit" onclick="pdSubmitIdentity()">
-      Start chatting →
-    </button>
-  </div>
+    <!-- HELP -->
+    <div class="pd3-panel" id="pd3-panel-help">
+      <div class="pd3-content-panel" id="pd3-help-content">
+        <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading…</div>
+      </div>
+    </div>
 
-  <!-- Message input (shown after identity captured) -->
-  <div id="pd-input-area">
-    <textarea id="pd-input" placeholder="Type a message…" rows="1"
-      oninput="pdAutoResize(this)"
-      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();pdSendMessage()}"
-    ></textarea>
-    <button id="pd-send" onclick="pdSendMessage()" aria-label="Send message">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round">
-        <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
-      </svg>
-    </button>
-  </div>
+    <!-- NEWS -->
+    <div class="pd3-panel" id="pd3-panel-news">
+      <div class="pd3-content-panel" id="pd3-news-content">
+        <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading…</div>
+      </div>
+    </div>
 
-</div>
+  </div><!-- /panels -->
+</div><!-- /win -->
+</div><!-- /root -->
 
-<!-- ══ CHAT SCRIPT ══════════════════════════════════════════ -->
+<!-- ── SCRIPT ──────────────────────────────────────────────── -->
 <script>
-(function() {
+(function () {
 'use strict';
 
 // ─────────────────────────────────────────────────────────────
-// !! UPDATE THIS URL after each new Apps Script deployment !!
-// ─────────────────────────────────────────────────────────────
+// !! UPDATE THIS after each new Apps Script deployment !!
 const CHAT_API = "https://script.google.com/macros/s/AKfycbymo99fErCJW0VW9xtPDszXVmJipQfSTOxoD_DHTbvyTw7V62uYuFTdWypNumNGVP_L/exec";
-// Example: "https://script.google.com/macros/s/AKfycb.../exec"
 // ─────────────────────────────────────────────────────────────
 
-const STORAGE_KEY  = "pd_chat_v2";
-const POLL_MS      = 5000;   // how often to check for new admin replies
-const MAX_MSGS     = 30;     // client-side guard matching server
+const STORAGE_KEY = "pd3_chat_v3";
+const POLL_MS     = 5000;
+const MAX_MSGS    = 30;
 
 // ── State ────────────────────────────────────────────────────
-let sessionId     = null;
-let visitorName   = "";
-let visitorEmail  = "";
-let identified    = false;
-let isOpen        = false;
-let pendingCount  = 0;
-let pollTimer     = null;
-let pollBarTimer  = null;
-let lastMsgId     = null;   // for incremental polling
-let msgCount      = 0;      // client-side rate limit
-let botHasReplied = false;  // only one bot reply ever
+let isOpen       = false;
+let activeTab    = "home";
+let sessionId    = null;
+let visitorName  = "";
+let visitorEmail = "";
+let identified   = false;
+let lastMsgId    = null;
+let msgCount     = 0;
+let botReplied   = false;
+let pendingCount = 0;
+let pollTimer    = null;
+let tabContent   = null; // cached from API
+let inChatView   = false;
 
-// ── DOM refs ─────────────────────────────────────────────────
-const pill      = document.getElementById("pd-pill");
-const win       = document.getElementById("pd-win");
-const iconChat  = document.getElementById("pd-icon-chat");
-const iconClose = document.getElementById("pd-icon-close");
-const msgArea   = document.getElementById("pd-msgs");
-const identArea = document.getElementById("pd-identify");
-const inputArea = document.getElementById("pd-input-area");
-const chipsArea = document.getElementById("pd-chips");
-const badge     = document.getElementById("pd-pill-badge");
-const pollBar   = document.getElementById("pd-poll-bar");
-const pollFill  = document.getElementById("pd-poll-fill");
+// ── DOM ──────────────────────────────────────────────────────
+const pill     = document.getElementById("pd3-pill");
+const win      = document.getElementById("pd3-win");
+const iconChat = document.getElementById("pd3-icon-chat");
+const iconX    = document.getElementById("pd3-icon-x");
+const badge    = document.getElementById("pd3-badge");
+const pollBar  = document.getElementById("pd3-poll-bar");
+const pollFill = document.getElementById("pd3-poll-fill");
 
 // ── Open / Close ─────────────────────────────────────────────
-pill.addEventListener("click", pdToggle);
-document.getElementById("pd-close").addEventListener("click", pdClose);
+pill.addEventListener("click", () => isOpen ? pd3Close() : pd3Open());
+document.getElementById("pd3-close").addEventListener("click", pd3Close);
 
-function pdToggle() { isOpen ? pdClose() : pdOpen(); }
-
-function pdOpen() {
+function pd3Open() {
   isOpen = true;
-  win.classList.add("pd-open");
+  win.classList.add("pd3-open");
   win.setAttribute("aria-hidden", "false");
-  iconChat.style.display  = "none";
-  iconClose.style.display = "";
+  iconChat.style.display = "none";
+  iconX.style.display    = "";
   clearBadge();
-  if (!sessionId) pdInitSession();
-  else            startPoll();
-  setTimeout(() => { msgArea.scrollTop = msgArea.scrollHeight; }, 100);
+  if (!tabContent) loadTabContent();
+  if (!sessionId)  initSession();
+  else             startPoll();
 }
 
-function pdClose() {
+function pd3Close() {
   isOpen = false;
-  win.classList.remove("pd-open");
+  win.classList.remove("pd3-open");
   win.setAttribute("aria-hidden", "true");
-  iconChat.style.display  = "";
-  iconClose.style.display = "none";
+  iconChat.style.display = "";
+  iconX.style.display    = "none";
   stopPoll();
 }
 
-// ── Session init ─────────────────────────────────────────────
-function pdInitSession() {
-  // Restore from localStorage
+// ── Tabs ──────────────────────────────────────────────────────
+document.querySelectorAll(".pd3-tab").forEach(btn => {
+  btn.addEventListener("click", function () {
+    const tab = this.dataset.tab;
+    switchTab(tab);
+  });
+});
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll(".pd3-tab").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+  document.querySelectorAll(".pd3-panel").forEach(p => p.classList.remove("active"));
+  document.getElementById("pd3-panel-" + tab).classList.add("active");
+}
+
+// ── Tab content from API ──────────────────────────────────────
+function loadTabContent() {
+  post({ action: "get_tab_content" })
+    .then(res => {
+      tabContent = res;
+      renderTabContent("home",  res.home,  document.getElementById("pd3-home-content"));
+      renderTabContent("help",  res.help,  document.getElementById("pd3-help-content"));
+      renderTabContent("news",  res.news,  document.getElementById("pd3-news-content"));
+    })
+    .catch(() => {
+      // Fallback static content
+      renderFallbackHome();
+      renderFallbackHelp();
+    });
+}
+
+function renderTabContent(tab, items, container) {
+  if (!items || !items.length) {
+    container.innerHTML = '<div style="padding:24px 16px;text-align:center;font-size:.8rem;color:#9ca3af">Nothing here yet.</div>';
+    return;
+  }
+  container.innerHTML = "";
+  items.forEach(item => {
+    const el = buildContentItem(item);
+    if (el) container.appendChild(el);
+  });
+}
+
+function buildContentItem(item) {
+  const type  = (item.type || "text").toLowerCase();
+  const title = item.title || "";
+  const sub   = item.subtitle || "";
+  const body  = item.body || "";
+  const url   = item.url || "";
+  const icon  = item.icon || "📌";
+
+  if (type === "banner") {
+    const d = document.createElement("div");
+    d.className = "pd3-banner";
+    d.innerHTML = `<div class="pd3-banner-title">${esc(title)}</div>${sub ? `<div class="pd3-banner-sub">${esc(sub)}</div>` : ""}`;
+    return d;
+  }
+
+  if (type === "card") {
+    const a = document.createElement(url ? "a" : "div");
+    a.className = "pd3-card";
+    if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+    a.innerHTML = `
+      <div class="pd3-card-icon">${esc(icon)}</div>
+      <div class="pd3-card-body">
+        <div class="pd3-card-title">${esc(title)}</div>
+        ${sub ? `<div class="pd3-card-sub">${esc(sub)}</div>` : ""}
+      </div>
+      ${url ? `<svg class="pd3-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>` : ""}
+    `;
+    return a;
+  }
+
+  if (type === "article") {
+    const wrap = document.createElement("div");
+    wrap.className = "pd3-article";
+    wrap.innerHTML = `
+      <button class="pd3-article-trigger" onclick="pd3ToggleArticle(this.closest('.pd3-article'))">
+        <div class="pd3-article-icon">${esc(icon)}</div>
+        <div class="pd3-article-info">
+          <div class="pd3-article-title">${esc(title)}</div>
+          ${sub ? `<div class="pd3-article-sub">${esc(sub)}</div>` : ""}
+        </div>
+        <svg class="pd3-article-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      ${body ? `<div class="pd3-article-body">${esc(body)}</div>` : ""}
+    `;
+    return wrap;
+  }
+
+  if (type === "link") {
+    const a = document.createElement("a");
+    a.className = "pd3-link-item";
+    a.href = url || "#"; a.target = "_blank"; a.rel = "noopener";
+    a.innerHTML = `<span class="pd3-link-icon">${esc(icon)}</span><span class="pd3-link-title">${esc(title)}</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+    return a;
+  }
+
+  if (type === "text") {
+    const d = document.createElement("div");
+    d.className = "pd3-text-block";
+    d.textContent = title || body;
+    return d;
+  }
+  return null;
+}
+
+window.pd3ToggleArticle = function(el) {
+  const isOpen = el.classList.contains("open");
+  document.querySelectorAll(".pd3-article.open").forEach(a => a.classList.remove("open"));
+  if (!isOpen) el.classList.add("open");
+};
+
+function renderFallbackHome() {
+  const c = document.getElementById("pd3-home-content");
+  c.innerHTML = "";
+  [
+    {type:"banner", title:"Welcome to Packdez 👋", subtitle:"Custom internal systems for your business"},
+    {type:"card", icon:"📅", title:"Book a free call", subtitle:"30 mins with Raphael", url:"https://packdez.com/#book"},
+    {type:"card", icon:"🚀", title:"See live demos", subtitle:"Real projects built for real businesses", url:"https://packdez.com/projects"},
+  ].forEach(item => { const el = buildContentItem(item); if (el) c.appendChild(el); });
+}
+
+function renderFallbackHelp() {
+  const c = document.getElementById("pd3-help-content");
+  c.innerHTML = "";
+  [
+    {type:"article", icon:"❓", title:"What do you build?", subtitle:"Our services explained", body:"Custom internal systems using Google Sheets — dashboards, CRMs, booking systems, and automations."},
+    {type:"article", icon:"⏱", title:"How long does it take?", subtitle:"Timeline overview", body:"Most systems go live in 7–14 days. Working prototype within 72 hours."},
+    {type:"article", icon:"💰", title:"How much does it cost?", subtitle:"Pricing overview", body:"Fixed pricing from $200–$2,500. No hourly billing, no retainers."},
+    {type:"link",    icon:"📖", title:"Full FAQ", url:"https://packdez.com/#faq"},
+  ].forEach(item => { const el = buildContentItem(item); if (el) c.appendChild(el); });
+}
+
+// ── Session init ──────────────────────────────────────────────
+function initSession() {
   try {
     const s = localStorage.getItem(STORAGE_KEY);
     if (s) {
-      const d  = JSON.parse(s);
+      const d = JSON.parse(s);
       sessionId    = d.sessionId  || null;
       visitorName  = d.name       || "";
       visitorEmail = d.email      || "";
       identified   = !!(visitorName && visitorEmail);
-      botHasReplied = d.botReplied || false;
+      botReplied   = d.botReplied || false;
+      lastMsgId    = d.lastMsgId  || null;
     }
   } catch(e) {}
+
+  // Show previous conversation if exists
+  if (sessionId && visitorName) renderPrevConv();
 
   post({ action: "init_session", sessionId: sessionId || undefined, sourcePage: location.pathname })
     .then(res => {
       sessionId = res.sessionId;
-      saveSession();
       if (res.messages && res.messages.length) {
         renderMessages(res.messages);
-        botHasReplied = true; // bot already greeted
+        botReplied = true;
       }
-      if (identified) showInput();
-      else            showIdentify();
+      saveSession();
       startPoll();
     })
     .catch(() => {
-      // Offline — show bot intro locally, don't set botHasReplied (will retry)
-      showIdentify();
+      startPoll();
     });
+}
+
+// ── Chat flow ─────────────────────────────────────────────────
+window.pd3StartNewChat = function () {
+  inChatView = true;
+  document.getElementById("pd3-conv-list").style.display = "none";
+  document.getElementById("pd3-chat-view").classList.add("pd3-show");
+  if (identified) {
+    showInput();
+  } else {
+    showIdentify();
+  }
+  // Render messages if we have a session
+  if (sessionId) {
+    const msgs = document.getElementById("pd3-msgs");
+    if (!msgs.children.length && botReplied) {
+      post({ action: "get_messages", sessionId }).then(res => {
+        if (res.messages) renderMessages(res.messages);
+      }).catch(() => {});
+    }
+  }
+};
+
+window.pd3BackToList = function () {
+  inChatView = false;
+  document.getElementById("pd3-chat-view").classList.remove("pd3-show");
+  document.getElementById("pd3-conv-list").style.display = "";
+  renderPrevConv();
+};
+
+function renderPrevConv() {
+  if (!sessionId || !visitorName) return;
+  const prev = document.getElementById("pd3-prev-convs");
+  const list = document.getElementById("pd3-prev-list");
+  prev.style.display = "";
+  const initials = visitorName.split(" ").map(w => w[0]).join("").toUpperCase().slice(0,2);
+  list.innerHTML = `
+    <div class="pd3-prev-item" onclick="pd3StartNewChat()">
+      <div class="pd3-prev-avatar">${initials}</div>
+      <div class="pd3-prev-info">
+        <div class="pd3-prev-preview">${esc(visitorName)} · Active conversation</div>
+        <div class="pd3-prev-time">Tap to continue</div>
+      </div>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+  `;
 }
 
 // ── Identity form ─────────────────────────────────────────────
 function showIdentify() {
-  identArea.style.display = "";
-  inputArea.classList.remove("pd-show");
+  document.getElementById("pd3-identify").style.display = "";
+  document.getElementById("pd3-input-bar").classList.remove("pd3-show");
 }
 function showInput() {
-  identArea.style.display = "none";
-  inputArea.classList.add("pd-show");
-  setTimeout(() => document.getElementById("pd-input").focus(), 60);
+  document.getElementById("pd3-identify").style.display = "none";
+  document.getElementById("pd3-input-bar").classList.add("pd3-show");
+  setTimeout(() => document.getElementById("pd3-input").focus(), 60);
 }
 
-// Validation helpers
-function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
-
-// Live validation feedback on email field
-document.getElementById("pd-email").addEventListener("input", function() {
+document.getElementById("pd3-email").addEventListener("input", function () {
   const ok = validEmail(this.value.trim());
-  this.classList.toggle("pd-valid", ok);
-  this.classList.toggle("pd-error", this.value.length > 3 && !ok);
-  document.getElementById("pd-email-err").style.display = (this.value.length > 3 && !ok) ? "" : "none";
+  this.classList.toggle("ok", ok);
+  this.classList.toggle("err", this.value.length > 3 && !ok);
+  document.getElementById("pd3-email-err").style.display = (this.value.length > 3 && !ok) ? "" : "none";
 });
-document.getElementById("pd-name").addEventListener("input", function() {
-  const ok = this.value.trim().length > 0;
-  this.classList.toggle("pd-valid", ok);
+document.getElementById("pd3-name").addEventListener("input", function () {
+  this.classList.toggle("ok", this.value.trim().length > 0);
 });
 
-window.pdSubmitIdentity = function() {
-  const nameEl  = document.getElementById("pd-name");
-  const emailEl = document.getElementById("pd-email");
+window.pd3SubmitIdentity = function () {
+  const nameEl  = document.getElementById("pd3-name");
+  const emailEl = document.getElementById("pd3-email");
   const name    = nameEl.value.trim();
   const email   = emailEl.value.trim();
-  let ok = true;
+  let ok        = true;
 
   if (!name) {
-    nameEl.classList.add("pd-error");
-    document.getElementById("pd-name-err").style.display = "";
-    pdShake(nameEl); ok = false;
+    nameEl.classList.add("err");
+    document.getElementById("pd3-name-err").style.display = "";
+    shake(nameEl); ok = false;
   } else {
-    nameEl.classList.remove("pd-error");
-    document.getElementById("pd-name-err").style.display = "none";
+    nameEl.classList.remove("err");
+    document.getElementById("pd3-name-err").style.display = "none";
   }
-
   if (!validEmail(email)) {
-    emailEl.classList.add("pd-error");
-    document.getElementById("pd-email-err").style.display = "";
-    if (ok) pdShake(emailEl); ok = false;
+    emailEl.classList.add("err");
+    document.getElementById("pd3-email-err").style.display = "";
+    if (ok) shake(emailEl); ok = false;
   } else {
-    emailEl.classList.remove("pd-error");
-    document.getElementById("pd-email-err").style.display = "none";
+    emailEl.classList.remove("err");
+    document.getElementById("pd3-email-err").style.display = "none";
   }
 
   if (!ok) return;
@@ -2679,168 +2905,133 @@ window.pdSubmitIdentity = function() {
   if (sessionId) {
     post({ action: "identify", sessionId, name, email }).catch(() => {});
   }
-
   showInput();
   hideChips();
 
-  // If there was a pending chip message pre-queued, send it now
-  const pending = document.getElementById("pd-input").value.trim();
-  if (pending) {
-    setTimeout(pdSendMessage, 80);
-  }
+  const pending = document.getElementById("pd3-input").value.trim();
+  if (pending) setTimeout(pd3Send, 80);
 };
 
-// ── Chip clicks ───────────────────────────────────────────────
-document.querySelectorAll(".pd-chip").forEach(btn => {
-  btn.addEventListener("click", function() {
+// ── Chips ─────────────────────────────────────────────────────
+document.querySelectorAll(".pd3-chip").forEach(btn => {
+  btn.addEventListener("click", function () {
     const text = this.dataset.chip;
-    this.style.opacity = ".5";
-    this.style.pointerEvents = "none";
+    this.style.opacity = ".4"; this.style.pointerEvents = "none";
     hideChips();
-
     if (!identified) {
-      document.getElementById("pd-input").value = text;
+      document.getElementById("pd3-input").value = text;
+      if (!inChatView) pd3StartNewChat();
       showIdentify();
       return;
     }
-    pdSendRaw(text);
+    sendRaw(text);
   });
 });
 
-// ── Send message ──────────────────────────────────────────────
-window.pdSendMessage = function() {
-  const el   = document.getElementById("pd-input");
+function hideChips() {
+  const cb = document.getElementById("pd3-chips-bar");
+  if (cb) cb.style.display = "none";
+}
+
+// ── Send ──────────────────────────────────────────────────────
+window.pd3Send = function () {
+  const el   = document.getElementById("pd3-input");
   const text = el.value.trim();
   if (!text) return;
-  el.value = "";
-  el.style.height = "";
+  el.value = ""; el.style.height = "";
   hideChips();
-  pdSendRaw(text);
+  sendRaw(text);
 };
 
-function pdSendRaw(text) {
+function sendRaw(text) {
   if (msgCount >= MAX_MSGS) {
-    appendBubble("bot", "You've reached the message limit. Please book a call directly — link is in the menu above.");
+    appendBubble("bot", "You've reached the message limit for this session. Please book a call — link is in the menu.");
     return;
   }
 
+  if (!inChatView) pd3StartNewChat();
   appendBubble("visitor", text);
   msgCount++;
   showTyping();
 
-  post({
-    action: "send_message",
-    sessionId, text,
-    senderName: visitorName,
-    senderEmail: visitorEmail
-  })
-  .then(() => {
-    hideTyping();
-    // No bot auto-reply after the first greeting — only actual admin replies
-  })
-  .catch(() => {
-    hideTyping();
-    if (!botHasReplied) {
-      appendBubble("bot", "Message received! Raphael will reply shortly. You can also book a call above.");
-      botHasReplied = true;
-    }
-  });
+  post({ action: "send_message", sessionId, text, senderName: visitorName, senderEmail: visitorEmail })
+    .then(() => { hideTyping(); })
+    .catch(() => { hideTyping(); });
 }
 
-// ── Polling for admin replies ─────────────────────────────────
+// ── Poll ──────────────────────────────────────────────────────
 function startPoll() {
   stopPoll();
   if (!sessionId) return;
-  pollBar.classList.add("pd-show");
-  animatePollBar();
+  pollBar.classList.add("pd3-show");
+  animatePoll();
   pollTimer = setInterval(() => {
     if (!sessionId || !isOpen) return;
     const payload = { action: "get_messages", sessionId };
     if (lastMsgId) payload.afterId = lastMsgId;
-
-    post(payload)
-      .then(res => {
-        if (!res.messages || !res.messages.length) return;
-        res.messages.forEach(m => {
-          // Only show admin or bot messages that come back from the server
-          // (visitor messages are already shown optimistically)
-          if (m.direction === "admin" || m.direction === "bot") {
-            if (!document.querySelector(`[data-msgid="${m.id}"]`)) {
-              appendBubble(m.direction, m.text, m.timestamp, m.id);
-              if (!isOpen) bumpBadge();
-            }
-          }
-          lastMsgId = m.id;
-        });
-      })
-      .catch(() => {});
-    animatePollBar();
+    post(payload).then(res => {
+      if (!res.messages || !res.messages.length) return;
+      res.messages.forEach(m => {
+        if ((m.direction === "admin" || m.direction === "bot") && !document.querySelector(`[data-msgid="${m.id}"]`)) {
+          appendBubble(m.direction, m.text, m.timestamp, m.id);
+          if (!isOpen || !inChatView) bumpBadge();
+        }
+        lastMsgId = m.id;
+      });
+      saveSession();
+    }).catch(() => {});
+    animatePoll();
   }, POLL_MS);
 }
 
 function stopPoll() {
-  if (pollTimer)    { clearInterval(pollTimer);   pollTimer = null; }
-  if (pollBarTimer) { clearInterval(pollBarTimer); pollBarTimer = null; }
-  pollBar.classList.remove("pd-show");
+  if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+  pollBar.classList.remove("pd3-show");
 }
 
-function animatePollBar() {
-  pollFill.style.transition = "none";
-  pollFill.style.width = "0%";
-  requestAnimationFrame(() => {
-    pollFill.style.transition = `width ${POLL_MS}ms linear`;
-    pollFill.style.width = "100%";
-  });
+function animatePoll() {
+  pollFill.style.transition = "none"; pollFill.style.width = "0%";
+  requestAnimationFrame(() => { pollFill.style.transition = `width ${POLL_MS}ms linear`; pollFill.style.width = "100%"; });
 }
 
-// ── Render helpers ────────────────────────────────────────────
+// ── Messages ──────────────────────────────────────────────────
 function renderMessages(msgs) {
-  msgArea.innerHTML = "";
+  const area = document.getElementById("pd3-msgs");
+  area.innerHTML = "";
   msgs.forEach(m => appendBubble(m.direction, m.text, m.timestamp, m.id));
   if (msgs.length) lastMsgId = msgs[msgs.length - 1].id;
-  botHasReplied = msgs.some(m => m.direction === "bot");
+  botReplied = msgs.some(m => m.direction === "bot");
+  saveSession();
 }
 
 let typingEl = null;
 function showTyping() {
   if (typingEl) return;
   typingEl = document.createElement("div");
-  typingEl.className = "pd-bwrap pd-from-bot";
-  typingEl.innerHTML = '<div class="pd-typing"><span></span><span></span><span></span></div>';
-  msgArea.appendChild(typingEl);
-  msgArea.scrollTop = msgArea.scrollHeight;
+  typingEl.className = "pd3-bwrap bot";
+  typingEl.innerHTML = '<div class="pd3-typing"><span></span><span></span><span></span></div>';
+  document.getElementById("pd3-msgs").appendChild(typingEl);
+  document.getElementById("pd3-msgs").scrollTop = 9999;
 }
-function hideTyping() {
-  if (typingEl) { typingEl.remove(); typingEl = null; }
-}
+function hideTyping() { if (typingEl) { typingEl.remove(); typingEl = null; } }
 
 function appendBubble(direction, text, timestamp, id) {
-  const dir  = direction === "visitor" ? "pd-from-visitor"
-             : direction === "admin"   ? "pd-from-admin"
-             :                           "pd-from-bot";
-
-  const wrap   = document.createElement("div");
-  wrap.className = "pd-bwrap " + dir;
+  const msgs = document.getElementById("pd3-msgs");
+  const wrap = document.createElement("div");
+  wrap.className = "pd3-bwrap " + (direction || "bot");
   if (id) wrap.dataset.msgid = id;
 
-  const bubble = document.createElement("div");
-  bubble.className = "pd-bubble";
-  bubble.textContent = text;
+  const bub = document.createElement("div");
+  bub.className = "pd3-bubble";
+  bub.textContent = text;
 
-  const time = document.createElement("div");
-  time.className = "pd-btime";
-  time.textContent = timestamp ? fmtTime(timestamp) : fmtTime(new Date().toISOString());
+  const t = document.createElement("div");
+  t.className = "pd3-btime";
+  t.textContent = fmtTime(timestamp || new Date().toISOString());
 
-  wrap.appendChild(bubble);
-  wrap.appendChild(time);
-  msgArea.appendChild(wrap);
-  msgArea.scrollTop = msgArea.scrollHeight;
-
-  if (!isOpen) bumpBadge();
-}
-
-function hideChips() {
-  if (chipsArea) chipsArea.style.display = "none";
+  wrap.appendChild(bub); wrap.appendChild(t);
+  msgs.appendChild(wrap);
+  msgs.scrollTop = 9999;
 }
 
 // ── Badge ─────────────────────────────────────────────────────
@@ -2848,29 +3039,34 @@ function bumpBadge() {
   pendingCount++;
   badge.textContent  = pendingCount > 9 ? "9+" : pendingCount;
   badge.style.display = "flex";
+  // also show dot on messages tab
+  const msgBadge = document.getElementById("pd3-msg-badge");
+  if (msgBadge) msgBadge.style.display = "block";
 }
 function clearBadge() {
   pendingCount = 0;
   badge.style.display = "none";
+  const msgBadge = document.getElementById("pd3-msg-badge");
+  if (msgBadge) msgBadge.style.display = "none";
 }
 
-// ── Network (Blob / text/plain to bypass CORS preflight) ──────
+// ── Network ───────────────────────────────────────────────────
 function post(payload) {
   const blob = new Blob([JSON.stringify(payload)], { type: "text/plain" });
-  return fetch(CHAT_API, { method: "POST", body: blob })
-    .then(r => r.json());
+  return fetch(CHAT_API, { method: "POST", body: blob }).then(r => r.json());
 }
 
-// ── Persist session ───────────────────────────────────────────
+// ── Persist ───────────────────────────────────────────────────
 function saveSession() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      sessionId, name: visitorName, email: visitorEmail, botReplied: botHasReplied
+      sessionId, name: visitorName, email: visitorEmail,
+      botReplied, lastMsgId
     }));
   } catch(e) {}
 }
 
-// ── Utilities ─────────────────────────────────────────────────
+// ── Utils ─────────────────────────────────────────────────────
 function fmtTime(ts) {
   try {
     const d = new Date(ts);
@@ -2882,24 +3078,32 @@ function fmtTime(ts) {
   } catch(e) { return ""; }
 }
 
-window.pdAutoResize = function(el) {
+function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
+
+function esc(str) {
+  return String(str || "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+window.pd3AutoResize = function (el) {
   el.style.height = "auto";
-  el.style.height = Math.min(el.scrollHeight, 96) + "px";
+  el.style.height = Math.min(el.scrollHeight, 90) + "px";
 };
 
-function pdShake(el) {
+function shake(el) {
   el.animate([
-    { transform: "translateX(0)" },
-    { transform: "translateX(-6px)" },
-    { transform: "translateX(6px)" },
-    { transform: "translateX(-4px)" },
-    { transform: "translateX(0)" }
-  ], { duration: 320, easing: "ease-out" });
+    {transform:"translateX(0)"},{transform:"translateX(-6px)"},
+    {transform:"translateX(6px)"},{transform:"translateX(-4px)"},
+    {transform:"translateX(0)"}
+  ], {duration:320, easing:"ease-out"});
 }
+
+// Close on Escape
+document.addEventListener("keydown", e => { if (e.key === "Escape" && isOpen) pd3Close(); });
 
 })();
 </script>
-
    
 </body>
 </html>
