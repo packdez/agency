@@ -2003,34 +2003,6 @@ document.querySelectorAll('.outcome-step').forEach(function(el){stepObs.observe(
 document.getElementById('year').textContent=new Date().getFullYear()
 </script>
 
-<!--
-============================================================
-  PACKDEZ LIVE CHAT WIDGET v2 — DROP-IN REPLACEMENT
-  
-  WHERE TO UPDATE IN YOUR index.html:
-  ─────────────────────────────────────────────────────────
-  1. Find the old <!-- ══ CHAT STYLES ══ --> block and
-     replace everything from that comment down to and
-     including the closing </script> of the chat IIFE,
-     right before </body>.
-
-  2. Inside the <script> block below, update ONE line:
-        const CHAT_API = "https://script.google.com/macros/s/AKfycbymo99fErCJW0VW9xtPDszXVmJipQfSTOxoD_DHTbvyTw7V62uYuFTdWypNumNGVP_L/exec";
-     Replace with the URL from your latest Apps Script
-     New Deployment (Deploy → New deployment).
-
-  3. That's it. Save and upload.
-  ─────────────────────────────────────────────────────────
-  Key changes vs v1:
-  • Bright on-brand colours (white card, green accents)
-  • Name + email REQUIRED with live validation
-  • Bot only replies once — never again after first message
-  • Admin replies appear automatically (polls every 5 s)
-  • text/plain Blob fetch → no CORS preflight
-  • Rate limit guard in frontend too
-  • Smooth spring animations throughout
-============================================================
--->
 
 <!-- ══ CHAT STYLES ══════════════════════════════════════════ -->
 <style>
