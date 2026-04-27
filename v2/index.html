@@ -2301,8 +2301,13 @@ document.getElementById('year').textContent=new Date().getFullYear()
 
 /* ── Active chat view ────────────────────────────────────── */
 #pd3-chat-view {
-  flex: 1; display: none; flex-direction: column;
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  min-height: 0; /* CRITICAL */
+  overflow: hidden;
 }
+#pd3-chat-view.pd3-show { display: flex; }
 #pd3-chat-view.pd3-show { display: flex; }
 #pd3-chat-topbar {
   padding: 10px 14px; border-bottom: 1px solid #f0f0f0;
@@ -2324,25 +2329,109 @@ document.getElementById('year').textContent=new Date().getFullYear()
 #pd3-msgs::-webkit-scrollbar { width: 3px; }
 #pd3-msgs::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
 
+
+   
 /* Bubbles */
-.pd3-bwrap { display: flex; flex-direction: column; animation: pd3BIn .22s cubic-bezier(.22,1,.36,1) both; }
-@keyframes pd3BIn { from{opacity:0;transform:translateY(8px) scale(.97)} to{opacity:1;transform:none} }
-.pd3-bwrap.visitor { align-items: flex-end; }
-.pd3-bwrap.bot, .pd3-bwrap.admin { align-items: flex-start; }
-.pd3-bubble {
-  padding: 9px 13px; border-radius: 16px;
-  font-size: .83rem; line-height: 1.55; word-break: break-word;
+#pd3-msgs {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #f9fafb;
+  scroll-behavior: smooth;
+  min-height: 0; /* CRITICAL — allows flex child to scroll */
 }
-.visitor .pd3-bubble { background: #1e9947; color: #fff; border-bottom-right-radius: 4px; }
-.bot .pd3-bubble { background: #fff; color: #103320; border: 1px solid #e5e7eb; border-bottom-left-radius: 4px; }
-.admin .pd3-bubble { background: #dcfce7; color: #0a1c0f; border: 1px solid #86efac; border-bottom-left-radius: 4px; }
-.pd3-btime { font-size: .61rem; color: #9ca3af; margin-top: 3px; padding: 0 2px; }
+#pd3-msgs::-webkit-scrollbar { width: 3px; }
+#pd3-msgs::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
+
+.pd3-bwrap {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  max-width: 88%;
+}
+.pd3-bwrap.visitor {
+  flex-direction: row-reverse;
+  align-self: flex-end;
+}
+.pd3-bwrap.bot,
+.pd3-bwrap.admin {
+  flex-direction: row;
+  align-self: flex-start;
+}
+
+.pd3-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .62rem;
+  font-weight: 700;
+  overflow: hidden;
+}
+.pd3-avatar img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.pd3-bcontent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.visitor .pd3-bcontent { align-items: flex-end; }
+.bot .pd3-bcontent, .admin .pd3-bcontent { align-items: flex-start; }
+
+.pd3-bubble {
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: .84rem;
+  line-height: 1.55;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+.visitor .pd3-bubble {
+  background: #1e9947;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.bot .pd3-bubble {
+  background: #fff;
+  color: #103320;
+  border: 1px solid #e5e7eb;
+  border-bottom-left-radius: 4px;
+}
+.admin .pd3-bubble {
+  background: #dcfce7;
+  color: #0a1c0f;
+  border: 1px solid #86efac;
+  border-bottom-left-radius: 4px;
+}
+.pd3-btime {
+  font-size: .60rem;
+  color: #9ca3af;
+  padding: 0 4px;
+}
 
 /* Typing */
 .pd3-typing {
-  display: flex; gap: 4px; align-items: center;
-  padding: 9px 13px; background: #fff; border: 1px solid #e5e7eb;
-  border-radius: 16px; border-bottom-left-radius: 4px; width: fit-content;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
+  width: fit-content;
 }
 .pd3-typing span {
   width: 5px; height: 5px; border-radius: 50%; background: #22c55e;
@@ -2352,10 +2441,6 @@ document.getElementById('year').textContent=new Date().getFullYear()
 .pd3-typing span:nth-child(3) { animation-delay: .3s; }
 @keyframes pd3TB { 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-5px);opacity:1} }
 
-
-.pd3-bwrap { display: flex; flex-direction: column; }
-.pd3-bwrap.visitor { align-items: flex-end; }
-.pd3-bwrap.bot, .pd3-bwrap.admin { align-items: flex-start; }
 
    
 /* ── Identity form ───────────────────────────────────────── */
@@ -2739,21 +2824,20 @@ function buildContentItem(item) {
   }
 
   if (type === "article") {
-    const wrap = document.createElement("div");
-    wrap.className = "pd3-article";
-    wrap.innerHTML = `
-      <button class="pd3-article-trigger" onclick="pd3ToggleArticle(this.closest('.pd3-article'))">
-        <div class="pd3-article-icon">${icon}</div>
-        <div class="pd3-article-info">
-          <div class="pd3-article-title">${esc(title)}</div>
-          ${sub ? `<div class="pd3-article-sub">${esc(sub)}</div>` : ""}
-        </div>
-        <svg class="pd3-article-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
-      ${body ? `<div class="pd3-article-body">${esc(body)}</div>` : ""}
-    `;
-    return wrap;
-  }
+  const wrap = document.createElement("div");
+  wrap.className = "pd3-article";
+  wrap.innerHTML = `
+    <button class="pd3-article-trigger" onclick="pd3OpenArticle(${JSON.stringify({title, sub, body, icon}).replace(/"/g,'&quot;')})">
+      <div class="pd3-article-icon">${icon}</div>
+      <div class="pd3-article-info">
+        <div class="pd3-article-title">${esc(title)}</div>
+        ${sub ? `<div class="pd3-article-sub">${esc(sub)}</div>` : ""}
+      </div>
+      <svg class="pd3-article-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  `;
+  return wrap;
+}
 
   if (type === "link") {
     const a = document.createElement("a");
@@ -3033,38 +3117,61 @@ function renderMessages(msgs) {
 }
 
 let typingEl = null;
+
+function hideTyping() { if (typingEl) { typingEl.remove(); typingEl = null; } }
+
+
 function showTyping() {
   if (typingEl) return;
+  const msgs = document.getElementById("pd3-msgs");
   typingEl = document.createElement("div");
   typingEl.className = "pd3-bwrap bot";
-  typingEl.innerHTML = '<div class="pd3-typing"><span></span><span></span><span></span></div>';
-  document.getElementById("pd3-msgs").appendChild(typingEl);
-  document.getElementById("pd3-msgs").scrollTop = 9999;
+
+  const avatar = document.createElement("div");
+  avatar.className = "pd3-avatar";
+  avatar.innerHTML = `<img src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true" onerror="this.parentNode.textContent='RL'">`;
+
+  const content = document.createElement("div");
+  content.className = "pd3-bcontent";
+  content.innerHTML = '<div class="pd3-typing"><span></span><span></span><span></span></div>';
+
+  typingEl.appendChild(avatar);
+  typingEl.appendChild(content);
+  msgs.appendChild(typingEl);
+  msgs.scrollTop = msgs.scrollHeight;
 }
-function hideTyping() { if (typingEl) { typingEl.remove(); typingEl = null; } }
 
 
 function appendBubble(direction, text, timestamp, id) {
   const msgs = document.getElementById("pd3-msgs");
+
+  // Remove typing indicator if present
+  const existingTyping = msgs.querySelector('.pd3-bwrap.bot .pd3-typing');
+  if (existingTyping && direction !== 'typing') {
+    existingTyping.closest('.pd3-bwrap')?.remove();
+  }
+
   const wrap = document.createElement("div");
   wrap.className = "pd3-bwrap " + (direction || "bot");
   if (id) wrap.dataset.msgid = id;
 
   // Avatar
   const avatar = document.createElement("div");
-  avatar.style.cssText = "width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;align-self:flex-end;";
+  avatar.className = "pd3-avatar";
   if (direction === "visitor") {
-    const initials = visitorName ? visitorName.split(" ").map(w=>w[0]).join("").toUpperCase().slice(0,2) : "ME";
-    avatar.style.background = "#e5e7eb";
-    avatar.style.color = "#374151";
+    const initials = visitorName
+      ? visitorName.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)
+      : "ME";
+    avatar.style.cssText = "background:#e5e7eb;color:#374151;";
     avatar.textContent = initials;
   } else {
-    avatar.innerHTML = '<img src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true" style="width:28px;height:28px;border-radius:50%;object-fit:cover" onerror="this.parentNode.textContent=\'RL\';this.parentNode.style.background=\'#103320\';this.parentNode.style.color=\'#22c55e\'">';
+    avatar.innerHTML = `<img src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
+      onerror="this.parentNode.innerHTML='<span style=background:#103320;color:#22c55e;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700>RL</span>'">`;
   }
 
+  // Content wrapper
   const content = document.createElement("div");
-  content.style.cssText = "display:flex;flex-direction:column;max-width:75%;";
-  content.style.alignItems = direction === "visitor" ? "flex-end" : "flex-start";
+  content.className = "pd3-bcontent";
 
   const bub = document.createElement("div");
   bub.className = "pd3-bubble";
@@ -3076,15 +3183,11 @@ function appendBubble(direction, text, timestamp, id) {
 
   content.appendChild(bub);
   content.appendChild(t);
-
-  // Change wrap to be a flex ROW
-  wrap.style.cssText = "display:flex;gap:8px;align-items:flex-end;margin-bottom:2px;" + (direction === "visitor" ? "flex-direction:row-reverse;" : "");
   wrap.appendChild(avatar);
   wrap.appendChild(content);
   msgs.appendChild(wrap);
-  msgs.scrollTop = 9999;
+  msgs.scrollTop = msgs.scrollHeight;
 }
-
    
 
 // ── Badge ─────────────────────────────────────────────────────
@@ -3120,6 +3223,47 @@ function saveSession() {
 }
 
 // ── Utils ─────────────────────────────────────────────────────
+
+window.pd3OpenArticle = function(item) {
+  const panels = document.getElementById("pd3-panels");
+  
+  // Create article view
+  const view = document.createElement("div");
+  view.id = "pd3-article-view";
+  view.style.cssText = "position:absolute;inset:0;background:#fff;z-index:10;overflow-y:auto;display:flex;flex-direction:column;animation:pd3BIn .2s ease both;";
+  
+  view.innerHTML = `
+    <div style="padding:14px 16px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:10px;flex-shrink:0;background:#fff;position:sticky;top:0;z-index:1;">
+      <button onclick="document.getElementById('pd3-article-view').remove()" 
+        style="background:none;border:none;cursor:pointer;color:#6b7280;display:flex;align-items:center;gap:4px;font-size:.78rem;font-weight:600;font-family:inherit;padding:4px 0;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </button>
+    </div>
+    <div style="padding:24px 20px;flex:1;">
+      <div style="width:40px;height:40px;border-radius:10px;background:#f0fdf4;border:1px solid #d1fae5;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+        ${item.icon || ''}
+      </div>
+      <h2 style="font-size:1.15rem;font-weight:800;color:#103320;line-height:1.3;margin-bottom:6px;">${esc(item.title)}</h2>
+      ${item.sub ? `<p style="font-size:.8rem;color:#6b7280;margin-bottom:20px;">${esc(item.sub)}</p>` : ''}
+      <div style="height:1px;background:#f0f0f0;margin-bottom:20px;"></div>
+      <div style="font-size:.875rem;color:#374151;line-height:1.75;white-space:pre-wrap;">${esc(item.body)}</div>
+    </div>
+    <div style="padding:16px 20px;border-top:1px solid #f0f0f0;flex-shrink:0;">
+      <p style="font-size:.75rem;color:#9ca3af;margin-bottom:10px;text-align:center;">Still have questions?</p>
+      <button onclick="switchTab('messages');document.getElementById('pd3-article-view').remove()"
+        style="width:100%;padding:10px;background:#1e9947;color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">
+        Send a message
+      </button>
+    </div>
+  `;
+
+  // Remove any existing article view
+  document.getElementById("pd3-article-view")?.remove();
+  panels.style.position = "relative";
+  panels.appendChild(view);
+};
+   
 function fmtTime(ts) {
   try {
     const d = new Date(ts);
