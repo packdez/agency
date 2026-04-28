@@ -2763,6 +2763,15 @@ function switchTab(tab) {
   document.querySelectorAll(".pd3-tab").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
   document.querySelectorAll(".pd3-panel").forEach(p => p.classList.remove("active"));
   document.getElementById("pd3-panel-" + tab).classList.add("active");
+
+  // Show hero only on Home tab
+  const hero = document.getElementById("pd3-hero");
+  const pollBar = document.getElementById("pd3-poll-bar");
+  if (tab === "home") {
+    hero.style.display = "";
+  } else {
+    hero.style.display = "none";
+  }
 }
 
 // ── Tab content from API ──────────────────────────────────────
