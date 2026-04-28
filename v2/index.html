@@ -2005,7 +2005,6 @@ document.getElementById('year').textContent=new Date().getFullYear()
 </script>
 
 
-
 <!-- ══════════════════════════════════════════════════════════
   PACKDEZ LIVE CHAT WIDGET v3.1
   Fixes: tabs at bottom · SVG icons · bubble avatars
@@ -2050,7 +2049,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
 /* ── Window ──────────────────────────────────────────────── */
 #pd3-win {
   position: fixed; bottom: 98px; right: 26px;
-  width: 380px; height: 620px; border-radius: 20px;
+  width: 380px; height: min(680px, calc(100svh - 110px)); border-radius: 20px;
   background: #fff; border: 1px solid rgba(0,0,0,.08);
   box-shadow: 0 20px 60px rgba(0,0,0,.16), 0 4px 16px rgba(0,0,0,.08);
   z-index: 9991; display: flex; flex-direction: column; overflow: hidden;
@@ -2063,14 +2062,14 @@ document.getElementById('year').textContent=new Date().getFullYear()
 /* ── Hero header ─────────────────────────────────────────── */
 #pd3-hero {
   background: linear-gradient(145deg, #0a1c0f 0%, #103320 40%, #176633 100%);
-  padding: 22px 20px 56px;
+  padding: 16px 20px 44px;
   position: relative; overflow: hidden; flex-shrink: 0;
 }
 #pd3-hero::after {
   content: '';
-  position: absolute; bottom: -28px; left: 0; right: 0;
-  height: 56px; background: #fff;
-  border-radius: 50% 50% 0 0 / 28px 28px 0 0;
+  position: absolute; bottom: -22px; left: 0; right: 0;
+  height: 44px; background: #fff;
+  border-radius: 50% 50% 0 0 / 22px 22px 0 0;
 }
 .pd3-hero-orb { position: absolute; border-radius: 50%; opacity: .1; }
 .pd3-hero-orb-1 { width: 160px; height: 160px; background: #22c55e; top: -40px; right: -40px; }
@@ -2154,13 +2153,13 @@ document.getElementById('year').textContent=new Date().getFullYear()
 /* ── Tab header bar (Messages / Help / News) */
 #pd3-tab-header {
   display: none;
-  align-items: center; justify-content: space-between;
+  align-items: center; justify-content: center;
   padding: 14px 18px 13px;
   border-bottom: 1px solid #f0f0f0;
   background: #fff; flex-shrink: 0; z-index: 2; position: relative;
 }
 #pd3-tab-header.pd3-show { display: flex; }
-#pd3-tab-header-title { font-size: 1rem; font-weight: 800; color: #103320; letter-spacing: -.01em; }
+#pd3-tab-header-title { font-size: 1rem; font-weight: 800; color: #103320; letter-spacing: -.01em; text-align: center; }
 
 /* ── Messages empty state */
 #pd3-msg-empty {
@@ -2194,25 +2193,24 @@ document.getElementById('year').textContent=new Date().getFullYear()
 #pd3-chat-agent-sub { font-size: .71rem; color: #6b7280; margin-top: 1px; }
 
 /* ── Content panels (Home / Help / News) ─────────────────── */
-.pd3-content-panel { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.pd3-content-panel { padding: 0; display: flex; flex-direction: column; }
 
 /* Banner */
 .pd3-banner {
   background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-  border: 1px solid #bbf7d0; border-radius: 14px; padding: 16px 18px;
+  border-bottom: 1px solid #d1fae5; padding: 18px 22px;
 }
 .pd3-banner-title { font-size: .95rem; font-weight: 800; color: #103320; }
 .pd3-banner-sub { font-size: .78rem; color: #4a7060; margin-top: 4px; line-height: 1.5; }
 
-/* Card */
+/* Card — Home tab style (with icon, border) */
 .pd3-card {
   background: #fff; border: 1px solid #e5e7eb; border-radius: 14px;
   padding: 14px 16px; cursor: pointer; transition: all .2s;
   display: flex; align-items: center; gap: 12px;
-  text-decoration: none; color: inherit;
+  text-decoration: none; color: inherit; margin: 0 18px 10px;
 }
 .pd3-card:hover { border-color: #22c55e; background: #f9fffe; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(34,197,94,.1); }
-/* SVG icon box — no emoji */
 .pd3-card-icon {
   width: 38px; height: 38px; border-radius: 10px;
   background: #f0fdf4; display: flex; align-items: center; justify-content: center;
@@ -2224,48 +2222,82 @@ document.getElementById('year').textContent=new Date().getFullYear()
 .pd3-card-sub { font-size: .75rem; color: #6b7280; margin-top: 2px; line-height: 1.4; }
 .pd3-card-arrow { color: #d1d5db; flex-shrink: 0; }
 
-/* Article (accordion) */
-.pd3-article { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
+/* Article row — card style with margin on sides */
+.pd3-article {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin: 0 18px 8px;
+  overflow: hidden;
+}
 .pd3-article-trigger {
-  width: 100%; padding: 14px 16px;
-  display: flex; align-items: center; gap: 12px;
+  width: 100%; padding: 15px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
   background: none; border: none; cursor: pointer; text-align: left;
-  transition: background .18s; font-family: inherit;
+  transition: background .15s; font-family: inherit;
 }
 .pd3-article-trigger:hover { background: #f9fffe; }
-.pd3-article-icon {
-  width: 34px; height: 34px; border-radius: 9px;
-  background: #f0fdf4; display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; color: #16a34a;
-}
-.pd3-article-icon svg { width: 16px; height: 16px; }
-.pd3-article-info { flex: 1; }
-.pd3-article-title { font-size: .84rem; font-weight: 700; color: #103320; font-family: inherit; }
-.pd3-article-sub { font-size: .73rem; color: #6b7280; margin-top: 2px; font-family: inherit; }
-.pd3-article-chevron { color: #d1d5db; transition: transform .25s; }
+.pd3-article-title { font-size: .88rem; font-weight: 600; color: #103320; font-family: inherit; line-height: 1.45; flex: 1; }
+.pd3-article-chevron { color: #c4c9d4; flex-shrink: 0; }
 .pd3-article-chevron svg { width: 14px; height: 14px; }
-.pd3-article.open .pd3-article-chevron { transform: rotate(90deg); }
-.pd3-article-body {
-  max-height: 0; overflow: hidden;
-  transition: max-height .3s ease, padding .3s ease;
-  padding: 0 16px; font-size: .8rem; color: #4b5563; line-height: 1.65; font-family: inherit;
-}
-.pd3-article.open .pd3-article-body { max-height: 240px; padding: 0 16px 14px; }
 
-/* Link */
+/* Link row — same card style */
 .pd3-link-item {
-  display: flex; align-items: center; gap: 10px; padding: 11px 14px;
-  background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
-  text-decoration: none; color: inherit; transition: all .18s;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 15px 16px; margin: 0 18px 8px;
+  border: 1px solid #e5e7eb; border-radius: 12px;
+  text-decoration: none; color: inherit; transition: background .15s;
+  background: #fff;
 }
-.pd3-link-item:hover { border-color: #22c55e; background: #f9fffe; }
-.pd3-link-ico {
-  width: 34px; height: 34px; border-radius: 9px;
-  background: #f0fdf4; display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; color: #16a34a;
+.pd3-link-item:hover { background: #f9fffe; }
+.pd3-link-title { font-size: .88rem; font-weight: 600; color: #103320; flex: 1; }
+
+/* Article full-page view (slides in over panel) */
+#pd3-article-page {
+  position: absolute; inset: 0; background: #fff; z-index: 20;
+  display: none; flex-direction: column; overflow: hidden;
+  animation: pd3SlideIn .22s cubic-bezier(.22,1,.36,1) both;
 }
-.pd3-link-ico svg { width: 16px; height: 16px; }
-.pd3-link-title { font-size: .83rem; font-weight: 700; color: #103320; flex: 1; }
+#pd3-article-page.open { display: flex; }
+@keyframes pd3SlideIn { from{opacity:0;transform:translateX(18px)} to{opacity:1;transform:none} }
+#pd3-article-page-bar {
+  padding: 13px 18px; border-bottom: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+#pd3-article-page-back {
+  background: none; border: none; cursor: pointer; color: #6b7280;
+  display: flex; align-items: center; gap: 4px;
+  font-size: .78rem; font-weight: 600; font-family: inherit; padding: 4px 0;
+  transition: color .15s;
+}
+#pd3-article-page-back:hover { color: #1e9947; }
+#pd3-article-page-body {
+  flex: 1; overflow-y: auto; padding: 24px 22px;
+  scrollbar-width: thin; scrollbar-color: #d1fae5 transparent;
+}
+#pd3-article-page-body::-webkit-scrollbar { width: 3px; }
+#pd3-article-page-body::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
+.pd3-art-title { font-size: 1.2rem; font-weight: 800; color: #103320; line-height: 1.25; margin-bottom: 6px; }
+.pd3-art-sub { font-size: .82rem; color: #6b7280; margin-bottom: 20px; line-height: 1.5; }
+.pd3-art-divider { height: 1px; background: #f0f0f0; margin-bottom: 20px; }
+.pd3-art-body { font-size: .875rem; color: #374151; line-height: 1.75; }
+.pd3-art-body p { margin-bottom: 14px; }
+.pd3-art-body img { width: 100%; border-radius: 10px; margin: 12px 0; }
+.pd3-art-body iframe { width: 100%; aspect-ratio: 16/9; border-radius: 10px; border: none; margin: 12px 0; }
+.pd3-art-body h3 { font-size: .95rem; font-weight: 700; color: #103320; margin: 18px 0 8px; }
+.pd3-art-body ul { padding-left: 18px; margin-bottom: 14px; }
+.pd3-art-body li { margin-bottom: 6px; }
+#pd3-article-page-footer {
+  padding: 14px 22px; border-top: 1px solid #f0f0f0; flex-shrink: 0;
+  text-align: center;
+}
+#pd3-article-page-footer p { font-size: .75rem; color: #9ca3af; margin-bottom: 10px; }
+#pd3-article-page-cta {
+  width: 100%; padding: 10px; background: #1e9947; color: #fff;
+  border: none; border-radius: 10px; font-size: .85rem; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: background .18s;
+}
+#pd3-article-page-cta:hover { background: #176633; }
 
 /* Loading dots */
 .pd3-loading {
@@ -2336,6 +2368,9 @@ document.getElementById('year').textContent=new Date().getFullYear()
 }
 #pd3-msgs::-webkit-scrollbar { width: 3px; }
 #pd3-msgs::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
+
+/* ── Article page slide-in animation */
+@keyframes pd3SlideIn { from{opacity:0;transform:translateX(18px)} to{opacity:1;transform:none} }
 
 /* ── Bubble animation (used by inline-styled bubbles) */
 @keyframes pd3BIn { from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none} }
@@ -2526,10 +2561,10 @@ document.getElementById('year').textContent=new Date().getFullYear()
         </div>
 
         <!-- Messages area -->
-        <div id="pd3-msgs" aria-live="polite" style="flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:14px;background:#f9fafb;min-height:0;scroll-behavior:smooth;"></div>
+        <div id="pd3-msgs" aria-live="polite" style="flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:14px;background:#f9fafb;min-height:0;scroll-behavior:smooth;"></div>
 
         <!-- Chips -->
-        <div id="pd3-chips-bar" style="padding:0 12px 8px;background:#fff;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;">
+        <div id="pd3-chips-bar" style="padding:0 18px 8px;background:#fff;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;">
           <button class="pd3-chip" data-chip="How does this work?">How does this work?</button>
           <button class="pd3-chip" data-chip="How much does it cost?">How much does it cost?</button>
           <button class="pd3-chip" data-chip="I have a project in mind">I have a project in mind</button>
@@ -2537,7 +2572,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
         </div>
 
         <!-- Identity form -->
-        <div id="pd3-identify" style="padding:14px 16px;background:#fff;border-top:1px solid #f0f0f0;flex-shrink:0;">
+        <div id="pd3-identify" style="padding:14px 18px;background:#fff;border-top:1px solid #f0f0f0;flex-shrink:0;">
           <div class="pd3-id-title">Start a conversation</div>
           <div class="pd3-id-sub">Enter your details so Raphael can follow up.</div>
           <div class="pd3-field">
@@ -2556,7 +2591,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
         </div>
 
         <!-- Input bar -->
-        <div id="pd3-input-bar" style="padding:10px 12px;border-top:1px solid #f0f0f0;display:none;gap:8px;align-items:flex-end;background:#fff;flex-shrink:0;">
+        <div id="pd3-input-bar" style="padding:10px 18px;border-top:1px solid #f0f0f0;display:none;gap:8px;align-items:flex-end;background:#fff;flex-shrink:0;">
           <textarea id="pd3-input" placeholder="Ask a question…" rows="1"
             oninput="pd3AutoResize(this)"
             onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();pd3Send()}"></textarea>
@@ -2569,16 +2604,44 @@ document.getElementById('year').textContent=new Date().getFullYear()
     </div>
 
     <!-- HELP -->
-    <div class="pd3-panel" id="pd3-panel-help">
-      <div class="pd3-content-panel" id="pd3-help-content">
+    <div class="pd3-panel" id="pd3-panel-help" style="position:absolute;inset:0;">
+      <div class="pd3-content-panel" id="pd3-help-content" style="overflow-y:auto;height:100%;padding-top:8px;">
         <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading…</div>
+      </div>
+      <!-- Article full-page view -->
+      <div id="pd3-article-page-help" class="pd3-article-page-overlay" style="position:absolute;inset:0;background:#fff;z-index:20;display:none;flex-direction:column;overflow:hidden;">
+        <div style="padding:13px 18px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:10px;flex-shrink:0;">
+          <button onclick="pd3CloseArticlePage('help')" style="background:none;border:none;cursor:pointer;color:#6b7280;display:flex;align-items:center;gap:5px;font-size:.78rem;font-weight:600;font-family:inherit;padding:4px 0;transition:color .15s;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+          </button>
+        </div>
+        <div id="pd3-article-body-help" style="flex:1;overflow-y:auto;padding:24px 22px;scrollbar-width:thin;"></div>
+        <div style="padding:14px 22px;border-top:1px solid #f0f0f0;flex-shrink:0;text-align:center;">
+          <p style="font-size:.75rem;color:#9ca3af;margin-bottom:10px;">Still have questions?</p>
+          <button onclick="switchTab('messages')" style="width:100%;padding:10px;background:#1e9947;color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Send a message</button>
+        </div>
       </div>
     </div>
 
     <!-- NEWS -->
-    <div class="pd3-panel" id="pd3-panel-news">
-      <div class="pd3-content-panel" id="pd3-news-content">
+    <div class="pd3-panel" id="pd3-panel-news" style="position:absolute;inset:0;">
+      <div class="pd3-content-panel" id="pd3-news-content" style="overflow-y:auto;height:100%;padding-top:8px;">
         <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading…</div>
+      </div>
+      <!-- Article full-page view -->
+      <div id="pd3-article-page-news" class="pd3-article-page-overlay" style="position:absolute;inset:0;background:#fff;z-index:20;display:none;flex-direction:column;overflow:hidden;">
+        <div style="padding:13px 18px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:10px;flex-shrink:0;">
+          <button onclick="pd3CloseArticlePage('news')" style="background:none;border:none;cursor:pointer;color:#6b7280;display:flex;align-items:center;gap:5px;font-size:.78rem;font-weight:600;font-family:inherit;padding:4px 0;transition:color .15s;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+          </button>
+        </div>
+        <div id="pd3-article-body-news" style="flex:1;overflow-y:auto;padding:24px 22px;scrollbar-width:thin;"></div>
+        <div style="padding:14px 22px;border-top:1px solid #f0f0f0;flex-shrink:0;text-align:center;">
+          <p style="font-size:.75rem;color:#9ca3af;margin-bottom:10px;">Still have questions?</p>
+          <button onclick="switchTab('messages')" style="width:100%;padding:10px;background:#1e9947;color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Send a message</button>
+        </div>
       </div>
     </div>
 
@@ -2745,19 +2808,25 @@ function loadTabContent() {
 
 function renderTabContent(tab, items, container) {
   if (!items || !items.length) {
-    container.innerHTML = '<div style="padding:24px;text-align:center;font-size:.8rem;color:#9ca3af">Nothing here yet.</div>';
+    container.innerHTML = '<div style="padding:32px 22px;text-align:center;font-size:.82rem;color:#9ca3af;">Nothing here yet.</div>';
     return;
   }
   container.innerHTML = "";
-  items.forEach(item => { const el = buildItem(item); if (el) container.appendChild(el); });
+  if (tab === "home") container.style.paddingTop = "10px";
+  items.forEach(item => { const el = buildItem(item, tab); if (el) container.appendChild(el); });
 }
 
-function buildItem(item) {
+// Track which tab each item belongs to (set when rendering)
+let _currentBuildTab = "home";
+
+function buildItem(item, tab) {
   const type  = (item.type || "text").toLowerCase();
   const title = item.title || "";
   const sub   = item.subtitle || "";
   const body  = item.body || "";
   const url   = item.url || "";
+  const media = item.media || ""; // optional image URL or YouTube embed URL
+  const t     = tab || _currentBuildTab;
 
   if (type === "banner") {
     const d = document.createElement("div");
@@ -2765,6 +2834,7 @@ function buildItem(item) {
     d.innerHTML = `<div class="pd3-banner-title">${x(title)}</div>${sub ? `<div class="pd3-banner-sub">${x(sub)}</div>` : ""}`;
     return d;
   }
+
   if (type === "card") {
     const a = document.createElement(url ? "a" : "div");
     a.className = "pd3-card";
@@ -2779,63 +2849,99 @@ function buildItem(item) {
     `;
     return a;
   }
+
+  // Article — Intercom style: plain row, click opens full-page view
   if (type === "article") {
     const wrap = document.createElement("div");
     wrap.className = "pd3-article";
+    // Encode item data for click handler
+    const data = x(JSON.stringify({ title, sub, body, media }));
     wrap.innerHTML = `
-      <button class="pd3-article-trigger" onclick="pd3ToggleArticle(this.closest('.pd3-article'))">
-        <div class="pd3-article-icon">${pickIcon(title, type)}</div>
-        <div class="pd3-article-info">
-          <div class="pd3-article-title">${x(title)}</div>
-          ${sub ? `<div class="pd3-article-sub">${x(sub)}</div>` : ""}
-        </div>
-        <div class="pd3-article-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <button class="pd3-article-trigger" onclick='pd3OpenArticlePage(${JSON.stringify(t)}, ${JSON.stringify({ title, sub, body, media })})'>
+        <span class="pd3-article-title">${x(title)}</span>
+        <div class="pd3-article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
       </button>
-      ${body ? `<div class="pd3-article-body">${x(body)}</div>` : ""}
     `;
     return wrap;
   }
+
+  // Link — plain row, external link
   if (type === "link") {
     const a = document.createElement("a");
     a.className = "pd3-link-item";
     a.href = url || "#"; a.target = "_blank"; a.rel = "noopener";
     a.innerHTML = `
-      <div class="pd3-link-ico">${pickIcon(title, "link")}</div>
       <span class="pd3-link-title">${x(title)}</span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     `;
     return a;
   }
+
   if (type === "text") {
     const d = document.createElement("div");
-    d.style.cssText = "font-size:.82rem;color:#6b7280;line-height:1.6;padding:4px 2px";
+    d.style.cssText = "font-size:.82rem;color:#6b7280;line-height:1.6;padding:10px 22px;";
     d.textContent = title || body;
     return d;
   }
   return null;
 }
 
-window.pd3ToggleArticle = function(el) {
-  const was = el.classList.contains("open");
-  document.querySelectorAll(".pd3-article.open").forEach(a => a.classList.remove("open"));
-  if (!was) el.classList.add("open");
+// ── Article full-page open/close ──────────────────────────
+window.pd3OpenArticlePage = function(tab, item) {
+  const pageId   = "pd3-article-page-" + tab;
+  const bodyId   = "pd3-article-body-" + tab;
+  const page     = document.getElementById(pageId);
+  const bodyEl   = document.getElementById(bodyId);
+  if (!page || !bodyEl) return;
+
+  // Build article content
+  let mediaHtml = "";
+  if (item.media) {
+    // YouTube
+    if (item.media.includes("youtube.com") || item.media.includes("youtu.be")) {
+      const vid = item.media.includes("youtu.be")
+        ? item.media.split("youtu.be/")[1]
+        : new URLSearchParams(new URL(item.media).search).get("v");
+      mediaHtml = `<iframe src="https://www.youtube.com/embed/${vid}" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:0 0 16px;display:block;"></iframe>`;
+    } else {
+      mediaHtml = `<img src="${x(item.media)}" alt="" style="width:100%;border-radius:10px;margin:0 0 16px;display:block;">`;
+    }
+  }
+
+  bodyEl.innerHTML = `
+    <h2 style="font-size:1.25rem;font-weight:800;color:#103320;line-height:1.25;margin-bottom:${item.sub ? "6px" : "20px"};">${x(item.title)}</h2>
+    ${item.sub ? `<p style="font-size:.82rem;color:#6b7280;margin-bottom:20px;line-height:1.55;">${x(item.sub)}</p>` : ""}
+    ${mediaHtml ? `<div style="margin-bottom:4px;">${mediaHtml}</div>` : ""}
+    ${item.body ? `<div style="font-size:.875rem;color:#374151;line-height:1.75;white-space:pre-wrap;">${x(item.body)}</div>` : ""}
+  `;
+
+  page.style.display = "flex";
+  page.style.animation = "pd3SlideIn .22s cubic-bezier(.22,1,.36,1) both";
+};
+
+window.pd3CloseArticlePage = function(tab) {
+  const page = document.getElementById("pd3-article-page-" + tab);
+  if (page) page.style.display = "none";
 };
 
 function renderFallbackHome() {
   const c = document.getElementById("pd3-home-content"); c.innerHTML = "";
+  // Add top padding spacer
+  c.style.paddingTop = "10px";
   [
     { type:"card", title:"Book a free call",  subtitle:"30 mins with Raphael — get a clear system plan", url:"https://packdez.com/#book" },
     { type:"card", title:"See live demos",     subtitle:"Real projects built for real businesses",        url:"https://packdez.com/projects" },
-  ].forEach(item => { const el = buildItem(item); if (el) c.appendChild(el); });
+  ].forEach(item => { const el = buildItem(item, "home"); if (el) c.appendChild(el); });
 }
+
 function renderFallbackHelp() {
   const c = document.getElementById("pd3-help-content"); c.innerHTML = "";
   [
     { type:"article", title:"What do you build?",       subtitle:"Our services explained",  body:"Custom internal systems using Google Sheets — dashboards, CRMs, booking systems, and automations." },
     { type:"article", title:"How long does it take?",   subtitle:"Typical timeline",         body:"Most systems go live in 7–14 days. Working prototype within 72 hours." },
     { type:"article", title:"How much does it cost?",   subtitle:"Pricing overview",         body:"Fixed pricing from $200–$2,500. No hourly billing, no retainers." },
-    { type:"link",    title:"Full FAQ",                  subtitle:"",                         url:"https://packdez.com/#faq" },
-  ].forEach(item => { const el = buildItem(item); if (el) c.appendChild(el); });
+    { type:"link",    title:"Full FAQ on packdez.com",  url:"https://packdez.com/#faq" },
+  ].forEach(item => { const el = buildItem(item, "help"); if (el) c.appendChild(el); });
 }
 
 // ── Session ───────────────────────────────────────────────
@@ -3100,6 +3206,7 @@ document.addEventListener("keydown", e => { if (e.key === "Escape" && isOpen) pd
 
 })();
 </script>
+
    
 </body>
 </html>
