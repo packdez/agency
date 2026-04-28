@@ -2004,24 +2004,18 @@ document.querySelectorAll('.outcome-step').forEach(function(el){stepObs.observe(
 document.getElementById('year').textContent=new Date().getFullYear()
 </script>
 
+
+
 <!-- ══════════════════════════════════════════════════════════
-  PACKDEZ LIVE CHAT WIDGET v3 — Intercom-style
-  Drop-in replacement. Paste just before </body>.
-
+  PACKDEZ LIVE CHAT WIDGET v3.1
+  Fixes: tabs at bottom · SVG icons · bubble avatars
+  
   ONE LINE TO UPDATE:
-    const CHAT_API = "YOUR_NEW_DEPLOYMENT_URL_HERE";
-
-  Tab content (Home / Help / News) is managed from your
-  Google Sheet tabs: HomeContent, HelpContent, NewsContent.
-  Each row = one card. Columns:
-    type | title | subtitle | body | url | icon | visible | order
-
-  Types: banner | card | article | link | text
+    const CHAT_API = "YOUR_DEPLOYMENT_URL";
 ══════════════════════════════════════════════════════════ -->
 
-<!-- ── STYLES ─────────────────────────────────────────────── -->
 <style>
-/* ── Base reset for widget ───────────────────────────────── */
+/* ── Base reset ──────────────────────────────────────────── */
 #pd3-root *, #pd3-root *::before, #pd3-root *::after {
   box-sizing: border-box; margin: 0; padding: 0;
 }
@@ -2032,72 +2026,53 @@ document.getElementById('year').textContent=new Date().getFullYear()
 
 /* ── Pill ────────────────────────────────────────────────── */
 #pd3-pill {
-  position: fixed;
-  bottom: 26px; right: 26px;
-  width: 60px; height: 60px;
-  border-radius: 50%;
-  background: #1e9947;
-  border: none;
-  cursor: pointer;
-  z-index: 9990;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 20px rgba(30,153,71,.5), 0 0 0 0 rgba(34,197,94,.3);
+  position: fixed; bottom: 26px; right: 26px;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: #1e9947; border: none; cursor: pointer;
+  z-index: 9990; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(30,153,71,.5);
   transition: transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s;
   animation: pd3Pulse 3s ease infinite;
 }
-#pd3-pill:hover {
-  transform: scale(1.08); animation: none;
-  box-shadow: 0 6px 28px rgba(30,153,71,.6);
-}
+#pd3-pill:hover { transform: scale(1.08); animation: none; box-shadow: 0 6px 28px rgba(30,153,71,.6); }
 @keyframes pd3Pulse {
   0%,100% { box-shadow: 0 4px 20px rgba(30,153,71,.5), 0 0 0 0 rgba(34,197,94,.3); }
-  50%      { box-shadow: 0 4px 20px rgba(30,153,71,.5), 0 0 0 14px rgba(34,197,94,.0); }
+  50%      { box-shadow: 0 4px 20px rgba(30,153,71,.5), 0 0 0 14px rgba(34,197,94,0); }
 }
 #pd3-badge {
   position: absolute; top: -2px; right: -2px;
-  min-width: 20px; height: 20px;
-  border-radius: 10px; background: #ef4444; color: #fff;
-  font-size: 11px; font-weight: 800;
+  min-width: 20px; height: 20px; border-radius: 10px;
+  background: #ef4444; color: #fff; font-size: 11px; font-weight: 800;
   display: none; align-items: center; justify-content: center;
-  padding: 0 4px; border: 2px solid #fff;
+  padding: 0 4px; border: 2px solid #fff; font-family: inherit;
 }
 
 /* ── Window ──────────────────────────────────────────────── */
 #pd3-win {
-  position: fixed;
-  bottom: 98px; right: 26px;
-  width: 380px;
-  height: min(620px, calc(100svh - 120px));
-  border-radius: 20px;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,.08);
+  position: fixed; bottom: 98px; right: 26px;
+  width: 380px; height: 620px; border-radius: 20px;
+  background: #fff; border: 1px solid rgba(0,0,0,.08);
   box-shadow: 0 20px 60px rgba(0,0,0,.16), 0 4px 16px rgba(0,0,0,.08);
-  z-index: 9991;
-  display: flex; flex-direction: column; overflow: hidden;
+  z-index: 9991; display: flex; flex-direction: column; overflow: hidden;
   opacity: 0; transform: translateY(20px) scale(.97);
   pointer-events: none;
   transition: opacity .28s cubic-bezier(.22,1,.36,1), transform .28s cubic-bezier(.22,1,.36,1);
 }
-#pd3-win.pd3-open {
-  opacity: 1; transform: translateY(0) scale(1); pointer-events: all;
-}
+#pd3-win.pd3-open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
 
 /* ── Hero header ─────────────────────────────────────────── */
 #pd3-hero {
   background: linear-gradient(145deg, #0a1c0f 0%, #103320 40%, #176633 100%);
-  padding: 18px 20px 52px;
+  padding: 22px 20px 56px;
   position: relative; overflow: hidden; flex-shrink: 0;
 }
 #pd3-hero::after {
   content: '';
-  position: absolute; bottom: -30px; left: 0; right: 0;
-  height: 60px;
-  background: #fff;
-  border-radius: 50% 50% 0 0 / 30px 30px 0 0;
+  position: absolute; bottom: -28px; left: 0; right: 0;
+  height: 56px; background: #fff;
+  border-radius: 50% 50% 0 0 / 28px 28px 0 0;
 }
-.pd3-hero-orb {
-  position: absolute; border-radius: 50%; opacity: .1;
-}
+.pd3-hero-orb { position: absolute; border-radius: 50%; opacity: .1; }
 .pd3-hero-orb-1 { width: 160px; height: 160px; background: #22c55e; top: -40px; right: -40px; }
 .pd3-hero-orb-2 { width: 100px; height: 100px; background: #4ade80; bottom: 10px; left: -20px; }
 #pd3-hero-row {
@@ -2106,8 +2081,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
 }
 #pd3-hero-avatar {
   width: 42px; height: 42px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.3);
-  object-fit: cover; background: #0a1c0f;
+  border: 2px solid rgba(255,255,255,.3); object-fit: cover; background: #0a1c0f;
 }
 #pd3-close {
   width: 30px; height: 30px; border-radius: 50%;
@@ -2116,53 +2090,23 @@ document.getElementById('year').textContent=new Date().getFullYear()
   color: rgba(255,255,255,.7); transition: background .18s;
 }
 #pd3-close:hover { background: rgba(255,255,255,.2); color: #fff; }
-#pd3-hero-text {
-  position: relative; z-index: 1; margin-top: 14px;
-}
-#pd3-hero-title {
-  font-size: 1.3rem; font-weight: 800; color: #fff; line-height: 1.2;
-}
-#pd3-hero-sub {
-  font-size: .78rem; color: rgba(255,255,255,.6); margin-top: 4px;
-}
-.pd3-status-row {
-  display: flex; align-items: center; gap: 6px; margin-top: 8px;
-}
+#pd3-hero-text { position: relative; z-index: 1; margin-top: 14px; }
+#pd3-hero-title { font-size: 1.3rem; font-weight: 800; color: #fff; line-height: 1.2; }
+#pd3-hero-sub { font-size: .78rem; color: rgba(255,255,255,.6); margin-top: 4px; }
+.pd3-status-row { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
 .pd3-status-dot {
   width: 7px; height: 7px; border-radius: 50%; background: #4ade80;
   animation: pd3DotPulse 2s ease infinite;
 }
-@keyframes pd3DotPulse {
-  0%,100% { opacity:1; transform:scale(1); }
-  50%      { opacity:.5; transform:scale(1.4); }
-}
+@keyframes pd3DotPulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)} }
 .pd3-status-text { font-size: .72rem; color: rgba(255,255,255,.6); }
 
-/* ── Tabs ────────────────────────────────────────────────── */
-#pd3-tabs {
-  display: flex; background: #fff;
-  border-bottom: 1px solid #f0f0f0;
-  flex-shrink: 0; position: relative; z-index: 2;
+/* ── Panels container ────────────────────────────────────── */
+/* IMPORTANT: panels now sit ABOVE the tab bar, flex order handles it */
+#pd3-panels {
+  flex: 1; overflow: hidden; position: relative;
+  /* Panels are above tabs — no change needed, just ensure panels fill remaining space */
 }
-.pd3-tab {
-  flex: 1; padding: 12px 4px 10px;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  background: none; border: none; cursor: pointer;
-  font-size: .68rem; font-weight: 600; color: #9ca3af;
-  border-bottom: 2px solid transparent; transition: all .2s;
-  position: relative;
-}
-.pd3-tab svg { width: 18px; height: 18px; }
-.pd3-tab.active { color: #1e9947; border-bottom-color: #1e9947; }
-.pd3-tab:hover:not(.active) { color: #374151; background: #fafafa; }
-.pd3-tab-badge {
-  position: absolute; top: 6px; right: calc(50% - 16px);
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #ef4444; border: 2px solid #fff; display: none;
-}
-
-/* ── Tab panels ──────────────────────────────────────────── */
-#pd3-panels { flex: 1; overflow: hidden; position: relative; }
 .pd3-panel {
   position: absolute; inset: 0;
   overflow-y: auto; overflow-x: hidden;
@@ -2173,118 +2117,187 @@ document.getElementById('year').textContent=new Date().getFullYear()
 }
 .pd3-panel::-webkit-scrollbar { width: 3px; }
 .pd3-panel::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
-.pd3-panel.active {
-  opacity: 1; transform: translateX(0); pointer-events: all;
+.pd3-panel.active { opacity: 1; transform: translateX(0); pointer-events: all; }
+
+/* ══ BOTTOM TABS (moved from top) ════════════════════════════ */
+#pd3-tabs {
+  display: flex; background: #fff;
+  border-top: 1px solid #e5e7eb;   /* border on TOP now */
+  border-bottom: none;              /* removed bottom border */
+  flex-shrink: 0;
+  order: 2; /* push tabs below panels in flex column */
+  padding: 4px 0 8px;
+}
+.pd3-tab {
+  flex: 1; padding: 8px 4px 4px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: none; border: none; cursor: pointer;
+  font-size: .64rem; font-weight: 500; color: #9ca3af;
+  /* REMOVED: border-bottom indicator — use top indicator or color only */
+  border-top: 2px solid transparent;
+  transition: all .2s; position: relative; font-family: inherit;
+}
+.pd3-tab svg { width: 20px; height: 20px; }
+.pd3-tab.active { color: #1e9947; border-top-color: #1e9947; }
+.pd3-tab:hover:not(.active) { color: #374151; background: #fafafa; }
+.pd3-tab-badge {
+  position: absolute; top: 4px; right: calc(50% - 14px);
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #ef4444; border: 2px solid #fff; display: none;
 }
 
-/* ── Home / News / Help panels ───────────────────────────── */
+/* ── Poll bar ────────────────────────────────────────────── */
+#pd3-poll-bar { height: 2px; background: #f0f0f0; flex-shrink: 0; overflow: hidden; display: none; }
+#pd3-poll-bar.pd3-show { display: block; }
+#pd3-poll-fill { height: 100%; width: 0%; background: linear-gradient(90deg,#22c55e,#4ade80); transition: width linear; }
+
+/* ── Tab header bar (Messages / Help / News) */
+#pd3-tab-header {
+  display: none;
+  align-items: center; justify-content: space-between;
+  padding: 14px 18px 13px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fff; flex-shrink: 0; z-index: 2; position: relative;
+}
+#pd3-tab-header.pd3-show { display: flex; }
+#pd3-tab-header-title { font-size: 1rem; font-weight: 800; color: #103320; letter-spacing: -.01em; }
+
+/* ── Messages empty state */
+#pd3-msg-empty {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px 24px; text-align: center; gap: 10px;
+}
+#pd3-msg-empty-title { font-size: 1rem; font-weight: 800; color: #111; margin-top: 8px; }
+#pd3-msg-empty-sub { font-size: .82rem; color: #6b7280; line-height: 1.55; max-width: 200px; margin-bottom: 4px; }
+#pd3-msg-empty-btn {
+  padding: 11px 22px; background: #f9fafb; border: 1.5px solid #e5e7eb;
+  border-radius: 999px; font-size: .85rem; font-weight: 700; color: #103320;
+  cursor: pointer; font-family: inherit; transition: all .18s;
+  display: flex; align-items: center; gap: 8px;
+}
+#pd3-msg-empty-btn:hover { border-color: #22c55e; background: #f0fdf4; color: #1e9947; }
+
+/* ── Chat header (inside chat view) */
+#pd3-chat-topbar {
+  padding: 10px 14px; border-bottom: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0; background: #fff;
+}
+#pd3-chat-agent {
+  display: flex; align-items: center; gap: 10px; flex: 1;
+}
+#pd3-chat-agent-av {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 2px solid #e5e7eb; object-fit: cover; flex-shrink: 0;
+}
+#pd3-chat-agent-name { font-size: .84rem; font-weight: 700; color: #103320; }
+#pd3-chat-agent-sub { font-size: .71rem; color: #6b7280; margin-top: 1px; }
+
+/* ── Content panels (Home / Help / News) ─────────────────── */
 .pd3-content-panel { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+
+/* Banner */
 .pd3-banner {
   background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-  border: 1px solid #bbf7d0; border-radius: 14px;
-  padding: 16px 18px;
+  border: 1px solid #bbf7d0; border-radius: 14px; padding: 16px 18px;
 }
 .pd3-banner-title { font-size: .95rem; font-weight: 800; color: #103320; }
 .pd3-banner-sub { font-size: .78rem; color: #4a7060; margin-top: 4px; line-height: 1.5; }
+
+/* Card */
 .pd3-card {
-  background: #fff; border: 1px solid #e5e7eb;
-  border-radius: 14px; padding: 14px 16px;
-  cursor: pointer; transition: all .2s;
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 14px;
+  padding: 14px 16px; cursor: pointer; transition: all .2s;
   display: flex; align-items: center; gap: 12px;
   text-decoration: none; color: inherit;
 }
 .pd3-card:hover { border-color: #22c55e; background: #f9fffe; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(34,197,94,.1); }
+/* SVG icon box — no emoji */
 .pd3-card-icon {
   width: 38px; height: 38px; border-radius: 10px;
   background: #f0fdf4; display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; flex-shrink: 0; border: 1px solid #d1fae5;
+  flex-shrink: 0; border: 1px solid #d1fae5; color: #16a34a;
 }
+.pd3-card-icon svg { width: 18px; height: 18px; }
 .pd3-card-body { flex: 1; }
 .pd3-card-title { font-size: .85rem; font-weight: 700; color: #103320; }
 .pd3-card-sub { font-size: .75rem; color: #6b7280; margin-top: 2px; line-height: 1.4; }
 .pd3-card-arrow { color: #d1d5db; flex-shrink: 0; }
-.pd3-article {
-  background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden;
-  transition: box-shadow .2s;
-}
-.pd3-article.open {
-  border-color: #22c55e; box-shadow: 0 2px 12px rgba(34,197,94,.1);
-}
+
+/* Article (accordion) */
+.pd3-article { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; overflow: hidden; }
 .pd3-article-trigger {
   width: 100%; padding: 14px 16px;
   display: flex; align-items: center; gap: 12px;
   background: none; border: none; cursor: pointer; text-align: left;
-  transition: background .18s;
+  transition: background .18s; font-family: inherit;
 }
 .pd3-article-trigger:hover { background: #f9fffe; }
 .pd3-article-icon {
   width: 34px; height: 34px; border-radius: 9px;
   background: #f0fdf4; display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; flex-shrink: 0;
+  flex-shrink: 0; color: #16a34a;
 }
+.pd3-article-icon svg { width: 16px; height: 16px; }
 .pd3-article-info { flex: 1; }
-.pd3-article-title { font-size: .84rem; font-weight: 700; color: #103320; }
-.pd3-article-sub { font-size: .73rem; color: #6b7280; margin-top: 2px; }
-.pd3-article-chevron {
-  color: #d1d5db; transition: transform .25s;
-}
+.pd3-article-title { font-size: .84rem; font-weight: 700; color: #103320; font-family: inherit; }
+.pd3-article-sub { font-size: .73rem; color: #6b7280; margin-top: 2px; font-family: inherit; }
+.pd3-article-chevron { color: #d1d5db; transition: transform .25s; }
+.pd3-article-chevron svg { width: 14px; height: 14px; }
 .pd3-article.open .pd3-article-chevron { transform: rotate(90deg); }
 .pd3-article-body {
   max-height: 0; overflow: hidden;
-  transition: max-height .35s cubic-bezier(.4,0,.2,1), padding .25s ease;
-  padding: 0 16px; font-size: .82rem; color: #4b5563; line-height: 1.65;
+  transition: max-height .3s ease, padding .3s ease;
+  padding: 0 16px; font-size: .8rem; color: #4b5563; line-height: 1.65; font-family: inherit;
 }
-.pd3-article.open .pd3-article-body {
-  max-height: 300px; padding: 0 16px 16px;
-}
-.pd3-article.open .pd3-article-body {
-  max-height: 240px; padding: 0 16px 14px;
-}
+.pd3-article.open .pd3-article-body { max-height: 240px; padding: 0 16px 14px; }
+
+/* Link */
 .pd3-link-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 11px 14px;
+  display: flex; align-items: center; gap: 10px; padding: 11px 14px;
   background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
   text-decoration: none; color: inherit; transition: all .18s;
 }
 .pd3-link-item:hover { border-color: #22c55e; background: #f9fffe; }
-.pd3-link-icon { font-size: 1.1rem; }
-.pd3-link-title { font-size: .83rem; font-weight: 700; color: #103320; flex: 1; }
-.pd3-text-block {
-  font-size: .82rem; color: #6b7280; line-height: 1.6;
-  padding: 4px 2px;
+.pd3-link-ico {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: #f0fdf4; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: #16a34a;
 }
+.pd3-link-ico svg { width: 16px; height: 16px; }
+.pd3-link-title { font-size: .83rem; font-weight: 700; color: #103320; flex: 1; }
+
+/* Loading dots */
 .pd3-loading {
   display: flex; align-items: center; justify-content: center; gap: 8px;
   padding: 32px 16px; color: #9ca3af; font-size: .8rem;
 }
 .pd3-loading-dots span {
   display: inline-block; width: 5px; height: 5px; border-radius: 50%;
-  background: #22c55e; animation: pd3LD .8s ease infinite;
-  margin: 0 2px;
+  background: #22c55e; animation: pd3LD .8s ease infinite; margin: 0 2px;
 }
 .pd3-loading-dots span:nth-child(2) { animation-delay: .14s; }
 .pd3-loading-dots span:nth-child(3) { animation-delay: .28s; }
-@keyframes pd3LD { 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-5px);opacity:1} }
+@keyframes pd3LD { 0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-5px);opacity:1} }
 
 /* ── Messages panel ──────────────────────────────────────── */
 #pd3-panel-messages { display: flex; flex-direction: column; }
-#pd3-conv-start {
-  padding: 16px 16px 0; flex-shrink: 0;
-}
+#pd3-conv-start { padding: 16px 16px 0; flex-shrink: 0; }
 #pd3-conv-start-btn {
   width: 100%; padding: 13px;
   background: #1e9947; color: #fff; border: none; border-radius: 12px;
   font-size: .88rem; font-weight: 700; cursor: pointer;
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: background .18s, transform .15s;
-  font-family: inherit;
+  transition: background .18s, transform .15s; font-family: inherit;
 }
 #pd3-conv-start-btn:hover { background: #176633; transform: translateY(-1px); }
 #pd3-prev-convs { padding: 12px 16px; flex-shrink: 0; }
-.pd3-prev-label { font-size: .68rem; font-weight: 700; color: #9ca3af; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+.pd3-prev-label {
+  font-size: .68rem; font-weight: 700; color: #9ca3af;
+  letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px;
+}
 .pd3-prev-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 12px;
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px;
   background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px;
   cursor: pointer; transition: all .18s; margin-bottom: 6px;
 }
@@ -2300,14 +2313,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
 .pd3-prev-time { font-size: .67rem; color: #9ca3af; margin-top: 1px; }
 
 /* ── Active chat view ────────────────────────────────────── */
-#pd3-chat-view {
-  flex: 1;
-  display: none;
-  flex-direction: column;
-  min-height: 0; /* CRITICAL */
-  overflow: hidden;
-}
-#pd3-chat-view.pd3-show { display: flex; }
+#pd3-chat-view { flex: 1; display: none; flex-direction: column; }
 #pd3-chat-view.pd3-show { display: flex; }
 #pd3-chat-topbar {
   padding: 10px 14px; border-bottom: 1px solid #f0f0f0;
@@ -2321,117 +2327,24 @@ document.getElementById('year').textContent=new Date().getFullYear()
 }
 #pd3-back-btn:hover { color: #1e9947; }
 #pd3-chat-label { font-size: .82rem; font-weight: 700; color: #111; flex: 1; }
+
+/* Messages area */
 #pd3-msgs {
-  flex: 1; overflow-y: auto; padding: 14px;
-  display: flex; flex-direction: column; gap: 10px;
+  flex: 1; overflow-y: auto; padding: 14px 14px 8px;
+  display: flex; flex-direction: column; gap: 12px;
   background: #f9fafb; scroll-behavior: smooth;
 }
 #pd3-msgs::-webkit-scrollbar { width: 3px; }
 #pd3-msgs::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
 
+/* ── Bubble animation (used by inline-styled bubbles) */
+@keyframes pd3BIn { from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none} }
 
-   
-/* Bubbles */
-#pd3-msgs {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: #f9fafb;
-  scroll-behavior: smooth;
-  min-height: 0; /* CRITICAL — allows flex child to scroll */
-}
-#pd3-msgs::-webkit-scrollbar { width: 3px; }
-#pd3-msgs::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
-
-.pd3-bwrap {
-  display: flex;
-  gap: 8px;
-  align-items: flex-end;
-  max-width: 88%;
-}
-.pd3-bwrap.visitor {
-  flex-direction: row-reverse;
-  align-self: flex-end;
-}
-.pd3-bwrap.bot,
-.pd3-bwrap.admin {
-  flex-direction: row;
-  align-self: flex-start;
-}
-
-.pd3-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .62rem;
-  font-weight: 700;
-  overflow: hidden;
-}
-.pd3-avatar img {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.pd3-bcontent {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-}
-.visitor .pd3-bcontent { align-items: flex-end; }
-.bot .pd3-bcontent, .admin .pd3-bcontent { align-items: flex-start; }
-
-.pd3-bubble {
-  padding: 10px 14px;
-  border-radius: 18px;
-  font-size: .84rem;
-  line-height: 1.55;
-  word-break: break-word;
-  white-space: pre-wrap;
-}
-.visitor .pd3-bubble {
-  background: #1e9947;
-  color: #fff;
-  border-bottom-right-radius: 4px;
-}
-.bot .pd3-bubble {
-  background: #fff;
-  color: #103320;
-  border: 1px solid #e5e7eb;
-  border-bottom-left-radius: 4px;
-}
-.admin .pd3-bubble {
-  background: #dcfce7;
-  color: #0a1c0f;
-  border: 1px solid #86efac;
-  border-bottom-left-radius: 4px;
-}
-.pd3-btime {
-  font-size: .60rem;
-  color: #9ca3af;
-  padding: 0 4px;
-}
-
-/* Typing */
+/* Typing indicator */
 .pd3-typing {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  padding: 10px 14px;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 18px;
-  border-bottom-left-radius: 4px;
-  width: fit-content;
+  display: flex; gap: 4px; align-items: center;
+  padding: 9px 13px; background: #fff; border: 1px solid #e5e7eb;
+  border-radius: 16px; border-bottom-left-radius: 4px; width: fit-content;
 }
 .pd3-typing span {
   width: 5px; height: 5px; border-radius: 50%; background: #22c55e;
@@ -2439,11 +2352,19 @@ document.getElementById('year').textContent=new Date().getFullYear()
 }
 .pd3-typing span:nth-child(2) { animation-delay: .15s; }
 .pd3-typing span:nth-child(3) { animation-delay: .3s; }
-@keyframes pd3TB { 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-5px);opacity:1} }
+@keyframes pd3TB { 0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-5px);opacity:1} }
 
+/* Chips */
+#pd3-chips-bar { padding: 0 12px 8px; background: #fff; display: flex; flex-wrap: wrap; gap: 6px; flex-shrink: 0; }
+.pd3-chip {
+  background: #f9fafb; border: 1.5px solid #e5e7eb; color: #374151;
+  font-size: .71rem; font-weight: 600; padding: 5px 11px;
+  border-radius: 999px; cursor: pointer; font-family: inherit;
+  transition: all .18s; white-space: nowrap;
+}
+.pd3-chip:hover { background: #f0fdf4; border-color: #22c55e; color: #103320; transform: translateY(-1px); }
 
-   
-/* ── Identity form ───────────────────────────────────────── */
+/* Identity form */
 #pd3-identify {
   padding: 14px 16px; background: #fff;
   border-top: 1px solid #f0f0f0; flex-shrink: 0;
@@ -2454,12 +2375,12 @@ document.getElementById('year').textContent=new Date().getFullYear()
 .pd3-field input {
   width: 100%; background: #f9fafb; border: 1.5px solid #e5e7eb;
   border-radius: 10px; padding: 10px 12px 10px 36px;
-  font-size: .83rem; color: #103320; font-family: inherit;
-  outline: none; transition: border-color .18s, background .18s;
+  font-size: .83rem; color: #103320; font-family: inherit; outline: none;
+  transition: border-color .18s, background .18s;
 }
 .pd3-field input:focus { border-color: #22c55e; background: #fff; }
 .pd3-field input.err { border-color: #ef4444; background: #fff5f5; }
-.pd3-field input.ok { border-color: #22c55e; }
+.pd3-field input.ok  { border-color: #22c55e; }
 .pd3-fi { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: #22c55e; pointer-events: none; }
 .pd3-ft { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); color: #22c55e; opacity: 0; transition: opacity .2s; pointer-events: none; }
 .pd3-field input.ok ~ .pd3-fi ~ .pd3-ft { opacity: 1; }
@@ -2471,28 +2392,17 @@ document.getElementById('year').textContent=new Date().getFullYear()
 }
 #pd3-id-submit:hover { background: #176633; transform: translateY(-1px); }
 
-/* ── Input bar ───────────────────────────────────────────── */
+/* Input bar */
 #pd3-input-bar {
   padding: 10px 12px; border-top: 1px solid #f0f0f0;
   display: none; gap: 8px; align-items: flex-end; background: #fff; flex-shrink: 0;
 }
 #pd3-input-bar.pd3-show { display: flex; }
-#pd3-chips-bar {
-  padding: 0 12px 8px; background: #fff; display: flex; flex-wrap: wrap; gap: 6px; flex-shrink: 0;
-}
-.pd3-chip {
-  background: #f9fafb; border: 1.5px solid #e5e7eb; color: #374151;
-  font-size: .71rem; font-weight: 600; padding: 5px 11px;
-  border-radius: 999px; cursor: pointer; font-family: inherit;
-  transition: all .18s; white-space: nowrap;
-}
-.pd3-chip:hover { background: #f0fdf4; border-color: #22c55e; color: #103320; transform: translateY(-1px); }
 #pd3-input {
   flex: 1; background: #f9fafb; border: 1.5px solid #e5e7eb;
   border-radius: 12px; padding: 9px 12px; font-size: .83rem;
   color: #103320; font-family: inherit; outline: none; resize: none;
-  max-height: 90px; line-height: 1.45; transition: border-color .18s;
-  overflow-y: auto;
+  max-height: 90px; line-height: 1.45; transition: border-color .18s; overflow-y: auto;
 }
 #pd3-input::placeholder { color: #9ca3af; }
 #pd3-input:focus { border-color: #22c55e; background: #fff; }
@@ -2506,27 +2416,10 @@ document.getElementById('year').textContent=new Date().getFullYear()
 #pd3-send:active { transform: scale(.95); }
 #pd3-send:disabled { background: #d1fae5; cursor: not-allowed; transform: none; }
 
-/* ── Poll bar ────────────────────────────────────────────── */
-#pd3-poll-bar { height: 2px; background: #f0f0f0; flex-shrink: 0; overflow: hidden; display: none; }
-#pd3-poll-bar.pd3-show { display: block; }
-#pd3-poll-fill { height: 100%; width: 0%; background: linear-gradient(90deg,#22c55e,#4ade80); transition: width linear; }
-
-/* ── Mobile ──────────────────────────────────────────────── */
+/* Mobile */
 @media (max-width: 480px) {
   #pd3-win { bottom:0; right:0; left:0; width:100%; height:92svh; max-height:92svh; border-radius:22px 22px 0 0; }
   #pd3-pill { bottom:18px; right:18px; }
-}
-
-#pd3-hero::after {
-  z-index: 0;
-}
-#pd3-tabs {
-  position: relative;
-  z-index: 2;
-}
-#pd3-panels {
-  position: relative;
-  z-index: 1;
 }
 </style>
 
@@ -2542,7 +2435,6 @@ document.getElementById('year').textContent=new Date().getFullYear()
   <div id="pd3-badge"></div>
 </button>
 
-<!-- ── WINDOW ─────────────────────────────────────────────── -->
 <div id="pd3-win" role="dialog" aria-label="Chat with Packdez" aria-hidden="true">
 
   <!-- Hero header -->
@@ -2571,55 +2463,81 @@ document.getElementById('year').textContent=new Date().getFullYear()
   <!-- Poll bar -->
   <div id="pd3-poll-bar"><div id="pd3-poll-fill"></div></div>
 
+  <!-- Tab header (hidden on Home, shown on other tabs) -->
+  <div id="pd3-tab-header">
+    <span id="pd3-tab-header-title">Messages</span>
+  </div>
 
-
-  <!-- Panels -->
+  <!-- PANELS (above tabs) -->
   <div id="pd3-panels">
 
     <!-- HOME -->
     <div class="pd3-panel active" id="pd3-panel-home">
       <div class="pd3-content-panel" id="pd3-home-content">
-        <div class="pd3-loading">
-          <div class="pd3-loading-dots"><span></span><span></span><span></span></div>
-          Loading…
-        </div>
+        <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading…</div>
       </div>
     </div>
 
     <!-- MESSAGES -->
-    <div class="pd3-panel" id="pd3-panel-messages" style="display:flex;flex-direction:column;position:absolute;inset:0;overflow:hidden">
+    <div class="pd3-panel" id="pd3-panel-messages" style="position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;">
 
-      <!-- Conversation list view -->
-      <div id="pd3-conv-list" style="flex:1;overflow-y:auto;display:flex;flex-direction:column">
-        <div id="pd3-conv-start">
-          <button id="pd3-conv-start-btn" onclick="pd3StartNewChat()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            Send us a message
+      <!-- Empty / list state -->
+      <div id="pd3-conv-list" style="flex:1;display:flex;flex-direction:column;overflow-y:auto;">
+
+        <!-- Empty state (Intercom-style) -->
+        <div id="pd3-msg-empty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color:#d1d5db">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+          <div id="pd3-msg-empty-title">No messages</div>
+          <div id="pd3-msg-empty-sub">Messages from the team will be shown here</div>
+          <button id="pd3-msg-empty-btn" onclick="pd3StartNewChat()">
+            Ask a question
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
           </button>
         </div>
-        <div id="pd3-prev-convs" class="pd3-prev-convs" style="display:none">
-          <div class="pd3-prev-label">Previous conversations</div>
+
+        <!-- Previous convs (shown when session exists) -->
+        <div id="pd3-prev-convs" style="display:none;padding:0 16px;">
+          <div class="pd3-prev-label" style="padding-top:16px;">Previous conversations</div>
           <div id="pd3-prev-list"></div>
         </div>
+
       </div>
 
       <!-- Active chat view -->
-      <div id="pd3-chat-view">
+      <div id="pd3-chat-view" style="display:none;flex-direction:column;flex:1;min-height:0;overflow:hidden;">
+
+        <!-- Chat topbar — Intercom style with agent info -->
         <div id="pd3-chat-topbar">
           <button id="pd3-back-btn" onclick="pd3BackToList()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-            Back
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
-          <span id="pd3-chat-label">Conversation</span>
+          <div id="pd3-chat-agent">
+            <img id="pd3-chat-agent-av"
+              src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
+              alt="Raphael"
+              onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'34\' height=\'34\'%3E%3Ccircle cx=\'17\' cy=\'17\' r=\'17\' fill=\'%230a1c0f\'/%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2322c55e\' font-size=\'11\'%3ERL%3C/text%3E%3C/svg%3E'">
+            <div>
+              <div id="pd3-chat-agent-name">Raphael</div>
+              <div id="pd3-chat-agent-sub">Usually replies within a few hours</div>
+            </div>
+          </div>
         </div>
-        <div id="pd3-msgs" aria-live="polite"></div>
-        <div id="pd3-chips-bar">
+
+        <!-- Messages area -->
+        <div id="pd3-msgs" aria-live="polite" style="flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:14px;background:#f9fafb;min-height:0;scroll-behavior:smooth;"></div>
+
+        <!-- Chips -->
+        <div id="pd3-chips-bar" style="padding:0 12px 8px;background:#fff;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;">
           <button class="pd3-chip" data-chip="How does this work?">How does this work?</button>
           <button class="pd3-chip" data-chip="How much does it cost?">How much does it cost?</button>
           <button class="pd3-chip" data-chip="I have a project in mind">I have a project in mind</button>
           <button class="pd3-chip" data-chip="See a live demo">See a live demo</button>
         </div>
-        <div id="pd3-identify">
+
+        <!-- Identity form -->
+        <div id="pd3-identify" style="padding:14px 16px;background:#fff;border-top:1px solid #f0f0f0;flex-shrink:0;">
           <div class="pd3-id-title">Start a conversation</div>
           <div class="pd3-id-sub">Enter your details so Raphael can follow up.</div>
           <div class="pd3-field">
@@ -2636,17 +2554,18 @@ document.getElementById('year').textContent=new Date().getFullYear()
           </div>
           <button id="pd3-id-submit" onclick="pd3SubmitIdentity()">Start chatting →</button>
         </div>
-        <div id="pd3-input-bar">
-          <textarea id="pd3-input" placeholder="Type a message…" rows="1"
+
+        <!-- Input bar -->
+        <div id="pd3-input-bar" style="padding:10px 12px;border-top:1px solid #f0f0f0;display:none;gap:8px;align-items:flex-end;background:#fff;flex-shrink:0;">
+          <textarea id="pd3-input" placeholder="Ask a question…" rows="1"
             oninput="pd3AutoResize(this)"
-            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();pd3Send()}"
-          ></textarea>
+            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();pd3Send()}"></textarea>
           <button id="pd3-send" onclick="pd3Send()" aria-label="Send">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
           </button>
         </div>
-      </div>
 
+      </div>
     </div>
 
     <!-- HELP -->
@@ -2664,59 +2583,62 @@ document.getElementById('year').textContent=new Date().getFullYear()
     </div>
 
   </div><!-- /panels -->
-     <!-- Tabs -->
+
+  <!-- ══ BOTTOM TABS ══ -->
   <div id="pd3-tabs">
     <button class="pd3-tab active" data-tab="home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
       Home
     </button>
     <button class="pd3-tab" data-tab="messages">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+      </svg>
       Messages
       <span class="pd3-tab-badge" id="pd3-msg-badge"></span>
     </button>
     <button class="pd3-tab" data-tab="help">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
       Help
     </button>
     <button class="pd3-tab" data-tab="news">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/>
+        <path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/>
+      </svg>
       News
     </button>
   </div>
+
 </div><!-- /win -->
 </div><!-- /root -->
 
-<!-- ── SCRIPT ──────────────────────────────────────────────── -->
 <script>
 (function () {
 'use strict';
 
-// ─────────────────────────────────────────────────────────────
-// !! UPDATE THIS after each new Apps Script deployment !!
+// ── UPDATE THIS after new deployment ──────────────────────
 const CHAT_API = "https://script.google.com/macros/s/AKfycbymo99fErCJW0VW9xtPDszXVmJipQfSTOxoD_DHTbvyTw7V62uYuFTdWypNumNGVP_L/exec";
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
 
 const STORAGE_KEY = "pd3_chat_v3";
 const POLL_MS     = 5000;
 const MAX_MSGS    = 30;
 
-// ── State ────────────────────────────────────────────────────
-let isOpen       = false;
-let activeTab    = "home";
-let sessionId    = null;
-let visitorName  = "";
-let visitorEmail = "";
-let identified   = false;
-let lastMsgId    = null;
-let msgCount     = 0;
-let botReplied   = false;
-let pendingCount = 0;
-let pollTimer    = null;
-let tabContent   = null; // cached from API
-let inChatView   = false;
+// Raphael's avatar for bot/admin bubbles
+const RAPHAEL_SRC = "https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true";
 
-// ── DOM ──────────────────────────────────────────────────────
+let isOpen=false, activeTab="home", sessionId=null, visitorName="", visitorEmail="",
+    identified=false, lastMsgId=null, msgCount=0, botReplied=false,
+    pendingCount=0, pollTimer=null, tabContent=null, inChatView=false;
+
 const pill     = document.getElementById("pd3-pill");
 const win      = document.getElementById("pd3-win");
 const iconChat = document.getElementById("pd3-icon-chat");
@@ -2725,7 +2647,7 @@ const badge    = document.getElementById("pd3-badge");
 const pollBar  = document.getElementById("pd3-poll-bar");
 const pollFill = document.getElementById("pd3-poll-fill");
 
-// ── Open / Close ─────────────────────────────────────────────
+// ── Open / Close ──────────────────────────────────────────
 pill.addEventListener("click", () => isOpen ? pd3Close() : pd3Open());
 document.getElementById("pd3-close").addEventListener("click", pd3Close);
 
@@ -2740,7 +2662,6 @@ function pd3Open() {
   if (!sessionId)  initSession();
   else             startPoll();
 }
-
 function pd3Close() {
   isOpen = false;
   win.classList.remove("pd3-open");
@@ -2750,13 +2671,11 @@ function pd3Close() {
   stopPoll();
 }
 
-// ── Tabs ──────────────────────────────────────────────────────
+// ── Tabs ──────────────────────────────────────────────────
 document.querySelectorAll(".pd3-tab").forEach(btn => {
-  btn.addEventListener("click", function () {
-    const tab = this.dataset.tab;
-    switchTab(tab);
-  });
+  btn.addEventListener("click", function () { switchTab(this.dataset.tab); });
 });
+const TAB_TITLES = { messages: "Messages", help: "Help Center", news: "What\u2019s New" };
 
 function switchTab(tab) {
   activeTab = tab;
@@ -2764,101 +2683,132 @@ function switchTab(tab) {
   document.querySelectorAll(".pd3-panel").forEach(p => p.classList.remove("active"));
   document.getElementById("pd3-panel-" + tab).classList.add("active");
 
-  // Show hero only on Home tab
+  // Hero: only visible on Home
   const hero = document.getElementById("pd3-hero");
+  const tabHeader = document.getElementById("pd3-tab-header");
   const pollBar = document.getElementById("pd3-poll-bar");
+
   if (tab === "home") {
     hero.style.display = "";
+    tabHeader.classList.remove("pd3-show");
   } else {
     hero.style.display = "none";
+    tabHeader.classList.add("pd3-show");
+    document.getElementById("pd3-tab-header-title").textContent = TAB_TITLES[tab] || tab;
+  }
+
+  // When switching away from messages, hide chat view if open
+  if (tab !== "messages" && inChatView) {
+    // keep state but don't force back
   }
 }
 
-// ── Tab content from API ──────────────────────────────────────
+// ── Tab content ───────────────────────────────────────────
+// SVG icon map — no emoji rendering issues
+const ICONS = {
+  calendar:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  rocket:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg>`,
+  question:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  clock:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  dollar:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>`,
+  book:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>`,
+  link:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>`,
+  news:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/></svg>`,
+  default:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
+};
+
+// Pick an icon based on card title keywords (no emoji needed)
+function pickIcon(title, type) {
+  const t = (title||"").toLowerCase();
+  if (type === "link") return ICONS.link;
+  if (t.includes("call") || t.includes("book") || t.includes("calendl")) return ICONS.calendar;
+  if (t.includes("demo") || t.includes("project") || t.includes("live")) return ICONS.rocket;
+  if (t.includes("cost") || t.includes("price") || t.includes("pric")) return ICONS.dollar;
+  if (t.includes("time") || t.includes("long") || t.includes("take")) return ICONS.clock;
+  if (t.includes("faq") || t.includes("question") || t.includes("build") || t.includes("what")) return ICONS.question;
+  if (t.includes("news") || t.includes("crm") || t.includes("project")) return ICONS.news;
+  if (t.includes("book") || t.includes("doc") || t.includes("guide")) return ICONS.book;
+  return ICONS.default;
+}
+
 function loadTabContent() {
   post({ action: "get_tab_content" })
     .then(res => {
       tabContent = res;
-      renderTabContent("home",  res.home,  document.getElementById("pd3-home-content"));
+      const homeItems = (res.home || []).filter(i => (i.type||"").toLowerCase() !== "banner");
+      renderTabContent("home", homeItems, document.getElementById("pd3-home-content"));
       renderTabContent("help",  res.help,  document.getElementById("pd3-help-content"));
       renderTabContent("news",  res.news,  document.getElementById("pd3-news-content"));
     })
-    .catch(() => {
-      // Fallback static content
-      renderFallbackHome();
-      renderFallbackHelp();
-    });
+    .catch(() => { renderFallbackHome(); renderFallbackHelp(); });
 }
 
 function renderTabContent(tab, items, container) {
   if (!items || !items.length) {
-    container.innerHTML = '<div style="padding:24px 16px;text-align:center;font-size:.8rem;color:#9ca3af">Nothing here yet.</div>';
+    container.innerHTML = '<div style="padding:24px;text-align:center;font-size:.8rem;color:#9ca3af">Nothing here yet.</div>';
     return;
   }
   container.innerHTML = "";
-  items.forEach(item => {
-    const el = buildContentItem(item);
-    if (el) container.appendChild(el);
-  });
+  items.forEach(item => { const el = buildItem(item); if (el) container.appendChild(el); });
 }
 
-function buildContentItem(item) {
+function buildItem(item) {
   const type  = (item.type || "text").toLowerCase();
   const title = item.title || "";
   const sub   = item.subtitle || "";
   const body  = item.body || "";
   const url   = item.url || "";
-  const icon  = item.icon || "📌";
 
   if (type === "banner") {
     const d = document.createElement("div");
     d.className = "pd3-banner";
-    d.innerHTML = `<div class="pd3-banner-title">${esc(title)}</div>${sub ? `<div class="pd3-banner-sub">${esc(sub)}</div>` : ""}`;
+    d.innerHTML = `<div class="pd3-banner-title">${x(title)}</div>${sub ? `<div class="pd3-banner-sub">${x(sub)}</div>` : ""}`;
     return d;
   }
-
   if (type === "card") {
     const a = document.createElement(url ? "a" : "div");
     a.className = "pd3-card";
     if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
     a.innerHTML = `
-      <div class="pd3-card-icon">${icon}</div>
+      <div class="pd3-card-icon">${pickIcon(title, type)}</div>
       <div class="pd3-card-body">
-        <div class="pd3-card-title">${esc(title)}</div>
-        ${sub ? `<div class="pd3-card-sub">${esc(sub)}</div>` : ""}
+        <div class="pd3-card-title">${x(title)}</div>
+        ${sub ? `<div class="pd3-card-sub">${x(sub)}</div>` : ""}
       </div>
-      ${url ? `<svg class="pd3-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>` : ""}
+      ${url ? `<div class="pd3-card-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>` : ""}
     `;
     return a;
   }
-
   if (type === "article") {
-  const wrap = document.createElement("div");
-  wrap.className = "pd3-article";
-  wrap.innerHTML = `
-    <button class="pd3-article-trigger" onclick="pd3OpenArticle(${JSON.stringify({title, sub, body, icon}).replace(/"/g,'&quot;')})">
-      <div class="pd3-article-icon">${icon}</div>
-      <div class="pd3-article-info">
-        <div class="pd3-article-title">${esc(title)}</div>
-        ${sub ? `<div class="pd3-article-sub">${esc(sub)}</div>` : ""}
-      </div>
-      <svg class="pd3-article-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-    </button>
-  `;
-  return wrap;
-}
-
+    const wrap = document.createElement("div");
+    wrap.className = "pd3-article";
+    wrap.innerHTML = `
+      <button class="pd3-article-trigger" onclick="pd3ToggleArticle(this.closest('.pd3-article'))">
+        <div class="pd3-article-icon">${pickIcon(title, type)}</div>
+        <div class="pd3-article-info">
+          <div class="pd3-article-title">${x(title)}</div>
+          ${sub ? `<div class="pd3-article-sub">${x(sub)}</div>` : ""}
+        </div>
+        <div class="pd3-article-chevron"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </button>
+      ${body ? `<div class="pd3-article-body">${x(body)}</div>` : ""}
+    `;
+    return wrap;
+  }
   if (type === "link") {
     const a = document.createElement("a");
     a.className = "pd3-link-item";
     a.href = url || "#"; a.target = "_blank"; a.rel = "noopener";
-    a.innerHTML = `<span class="pd3-link-icon">${icon}</span><span class="pd3-link-title">${esc(title)}</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+    a.innerHTML = `
+      <div class="pd3-link-ico">${pickIcon(title, "link")}</div>
+      <span class="pd3-link-title">${x(title)}</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    `;
     return a;
   }
-
   if (type === "text") {
     const d = document.createElement("div");
-    d.className = "pd3-text-block";
+    d.style.cssText = "font-size:.82rem;color:#6b7280;line-height:1.6;padding:4px 2px";
     d.textContent = title || body;
     return d;
   }
@@ -2866,445 +2816,286 @@ function buildContentItem(item) {
 }
 
 window.pd3ToggleArticle = function(el) {
-  const isOpen = el.classList.contains("open");
+  const was = el.classList.contains("open");
   document.querySelectorAll(".pd3-article.open").forEach(a => a.classList.remove("open"));
-  if (!isOpen) el.classList.add("open");
+  if (!was) el.classList.add("open");
 };
 
 function renderFallbackHome() {
-  const c = document.getElementById("pd3-home-content");
-  c.innerHTML = "";
+  const c = document.getElementById("pd3-home-content"); c.innerHTML = "";
   [
-    {type:"card", icon:"📅", title:"Book a free call", subtitle:"30 mins with Raphael", url:"https://packdez.com/#book"},
-    {type:"card", icon:"🚀", title:"See live demos", subtitle:"Real projects built for real businesses", url:"https://packdez.com/projects"},
-  ].forEach(item => { const el = buildContentItem(item); if (el) c.appendChild(el); });
+    { type:"card", title:"Book a free call",  subtitle:"30 mins with Raphael — get a clear system plan", url:"https://packdez.com/#book" },
+    { type:"card", title:"See live demos",     subtitle:"Real projects built for real businesses",        url:"https://packdez.com/projects" },
+  ].forEach(item => { const el = buildItem(item); if (el) c.appendChild(el); });
 }
-
 function renderFallbackHelp() {
-  const c = document.getElementById("pd3-help-content");
-  c.innerHTML = "";
+  const c = document.getElementById("pd3-help-content"); c.innerHTML = "";
   [
-    {type:"article", icon:"❓", title:"What do you build?", subtitle:"Our services explained", body:"Custom internal systems using Google Sheets — dashboards, CRMs, booking systems, and automations."},
-    {type:"article", icon:"⏱", title:"How long does it take?", subtitle:"Timeline overview", body:"Most systems go live in 7–14 days. Working prototype within 72 hours."},
-    {type:"article", icon:"💰", title:"How much does it cost?", subtitle:"Pricing overview", body:"Fixed pricing from $200–$2,500. No hourly billing, no retainers."},
-    {type:"link",    icon:"📖", title:"Full FAQ", url:"https://packdez.com/#faq"},
-  ].forEach(item => { const el = buildContentItem(item); if (el) c.appendChild(el); });
+    { type:"article", title:"What do you build?",       subtitle:"Our services explained",  body:"Custom internal systems using Google Sheets — dashboards, CRMs, booking systems, and automations." },
+    { type:"article", title:"How long does it take?",   subtitle:"Typical timeline",         body:"Most systems go live in 7–14 days. Working prototype within 72 hours." },
+    { type:"article", title:"How much does it cost?",   subtitle:"Pricing overview",         body:"Fixed pricing from $200–$2,500. No hourly billing, no retainers." },
+    { type:"link",    title:"Full FAQ",                  subtitle:"",                         url:"https://packdez.com/#faq" },
+  ].forEach(item => { const el = buildItem(item); if (el) c.appendChild(el); });
 }
 
-// ── Session init ──────────────────────────────────────────────
+// ── Session ───────────────────────────────────────────────
 function initSession() {
   try {
     const s = localStorage.getItem(STORAGE_KEY);
     if (s) {
       const d = JSON.parse(s);
-      sessionId    = d.sessionId  || null;
-      visitorName  = d.name       || "";
-      visitorEmail = d.email      || "";
-      identified   = !!(visitorName && visitorEmail);
-      botReplied   = d.botReplied || false;
-      lastMsgId    = d.lastMsgId  || null;
+      sessionId = d.sessionId || null; visitorName = d.name || ""; visitorEmail = d.email || "";
+      identified = !!(visitorName && visitorEmail); botReplied = d.botReplied || false; lastMsgId = d.lastMsgId || null;
     }
   } catch(e) {}
-
-  // Show previous conversation if exists
   if (sessionId && visitorName) renderPrevConv();
-
   post({ action: "init_session", sessionId: sessionId || undefined, sourcePage: location.pathname })
     .then(res => {
       sessionId = res.sessionId;
-      if (res.messages && res.messages.length) {
-        renderMessages(res.messages);
-        botReplied = true;
-      }
-      saveSession();
-      startPoll();
-    })
-    .catch(() => {
-      startPoll();
-    });
+      if (res.messages && res.messages.length) { renderMessages(res.messages); botReplied = true; }
+      saveSession(); startPoll();
+    }).catch(() => startPoll());
 }
 
-// ── Chat flow ─────────────────────────────────────────────────
+// ── Chat flow ─────────────────────────────────────────────
 window.pd3StartNewChat = function () {
   inChatView = true;
   document.getElementById("pd3-conv-list").style.display = "none";
-  document.getElementById("pd3-chat-view").classList.add("pd3-show");
-  if (identified) {
-    showInput();
-  } else {
-    showIdentify();
-  }
-  // Render messages if we have a session
+  document.getElementById("pd3-chat-view").style.display = "flex";
+  identified ? showInput() : showIdentify();
   if (sessionId) {
     const msgs = document.getElementById("pd3-msgs");
-    if (!msgs.children.length && botReplied) {
-      post({ action: "get_messages", sessionId }).then(res => {
-        if (res.messages) renderMessages(res.messages);
-      }).catch(() => {});
-    }
+    if (!msgs.children.length && botReplied)
+      post({ action: "get_messages", sessionId }).then(res => { if (res.messages) renderMessages(res.messages); }).catch(() => {});
   }
 };
-
 window.pd3BackToList = function () {
   inChatView = false;
-  document.getElementById("pd3-chat-view").classList.remove("pd3-show");
-  document.getElementById("pd3-conv-list").style.display = "";
+  document.getElementById("pd3-chat-view").style.display = "none";
+  document.getElementById("pd3-conv-list").style.display = "flex";
+  document.getElementById("pd3-conv-list").style.flexDirection = "column";
   renderPrevConv();
 };
-
 function renderPrevConv() {
   if (!sessionId || !visitorName) return;
-  const prev = document.getElementById("pd3-prev-convs");
-  const list = document.getElementById("pd3-prev-list");
-  prev.style.display = "";
+  // Hide empty state, show prev convs
+  const emptyEl = document.getElementById("pd3-msg-empty");
+  if (emptyEl) emptyEl.style.display = "none";
+  document.getElementById("pd3-prev-convs").style.display = "";
   const initials = visitorName.split(" ").map(w => w[0]).join("").toUpperCase().slice(0,2);
-  list.innerHTML = `
+  document.getElementById("pd3-prev-list").innerHTML = `
     <div class="pd3-prev-item" onclick="pd3StartNewChat()">
-      <div class="pd3-prev-avatar">${initials}</div>
+      <div class="pd3-prev-avatar">${x(initials)}</div>
       <div class="pd3-prev-info">
-        <div class="pd3-prev-preview">${esc(visitorName)} · Active conversation</div>
+        <div class="pd3-prev-preview">${x(visitorName)} · Active conversation</div>
         <div class="pd3-prev-time">Tap to continue</div>
       </div>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-    </div>
-  `;
+    </div>`;
 }
 
-// ── Identity form ─────────────────────────────────────────────
 function showIdentify() {
   document.getElementById("pd3-identify").style.display = "";
-  document.getElementById("pd3-input-bar").classList.remove("pd3-show");
+  document.getElementById("pd3-input-bar").style.display = "none";
 }
 function showInput() {
   document.getElementById("pd3-identify").style.display = "none";
-  document.getElementById("pd3-input-bar").classList.add("pd3-show");
+  document.getElementById("pd3-input-bar").style.display = "flex";
   setTimeout(() => document.getElementById("pd3-input").focus(), 60);
 }
 
 document.getElementById("pd3-email").addEventListener("input", function () {
   const ok = validEmail(this.value.trim());
-  this.classList.toggle("ok", ok);
-  this.classList.toggle("err", this.value.length > 3 && !ok);
+  this.classList.toggle("ok", ok); this.classList.toggle("err", this.value.length > 3 && !ok);
   document.getElementById("pd3-email-err").style.display = (this.value.length > 3 && !ok) ? "" : "none";
 });
-document.getElementById("pd3-name").addEventListener("input", function () {
-  this.classList.toggle("ok", this.value.trim().length > 0);
-});
+document.getElementById("pd3-name").addEventListener("input", function () { this.classList.toggle("ok", this.value.trim().length > 0); });
 
 window.pd3SubmitIdentity = function () {
-  const nameEl  = document.getElementById("pd3-name");
-  const emailEl = document.getElementById("pd3-email");
-  const name    = nameEl.value.trim();
-  const email   = emailEl.value.trim();
-  let ok        = true;
-
-  if (!name) {
-    nameEl.classList.add("err");
-    document.getElementById("pd3-name-err").style.display = "";
-    shake(nameEl); ok = false;
-  } else {
-    nameEl.classList.remove("err");
-    document.getElementById("pd3-name-err").style.display = "none";
-  }
-  if (!validEmail(email)) {
-    emailEl.classList.add("err");
-    document.getElementById("pd3-email-err").style.display = "";
-    if (ok) shake(emailEl); ok = false;
-  } else {
-    emailEl.classList.remove("err");
-    document.getElementById("pd3-email-err").style.display = "none";
-  }
-
+  const ne = document.getElementById("pd3-name"); const ee = document.getElementById("pd3-email");
+  const name = ne.value.trim(); const email = ee.value.trim(); let ok = true;
+  if (!name) { ne.classList.add("err"); document.getElementById("pd3-name-err").style.display = ""; shake(ne); ok = false; }
+  else { ne.classList.remove("err"); document.getElementById("pd3-name-err").style.display = "none"; }
+  if (!validEmail(email)) { ee.classList.add("err"); document.getElementById("pd3-email-err").style.display = ""; if (ok) shake(ee); ok = false; }
+  else { ee.classList.remove("err"); document.getElementById("pd3-email-err").style.display = "none"; }
   if (!ok) return;
-
-  visitorName  = name;
-  visitorEmail = email;
-  identified   = true;
-  saveSession();
-
-  if (sessionId) {
-    post({ action: "identify", sessionId, name, email }).catch(() => {});
-  }
-  showInput();
-  hideChips();
-
+  visitorName = name; visitorEmail = email; identified = true; saveSession();
+  if (sessionId) post({ action: "identify", sessionId, name, email }).catch(() => {});
+  showInput(); hideChips();
   const pending = document.getElementById("pd3-input").value.trim();
   if (pending) setTimeout(pd3Send, 80);
 };
 
-// ── Chips ─────────────────────────────────────────────────────
 document.querySelectorAll(".pd3-chip").forEach(btn => {
   btn.addEventListener("click", function () {
     const text = this.dataset.chip;
-    this.style.opacity = ".4"; this.style.pointerEvents = "none";
-    hideChips();
-    if (!identified) {
-      document.getElementById("pd3-input").value = text;
-      if (!inChatView) pd3StartNewChat();
-      showIdentify();
-      return;
-    }
+    this.style.opacity = ".4"; this.style.pointerEvents = "none"; hideChips();
+    if (!identified) { document.getElementById("pd3-input").value = text; if (!inChatView) pd3StartNewChat(); showIdentify(); return; }
     sendRaw(text);
   });
 });
+function hideChips() { const cb = document.getElementById("pd3-chips-bar"); if (cb) cb.style.display = "none"; }
 
-function hideChips() {
-  const cb = document.getElementById("pd3-chips-bar");
-  if (cb) cb.style.display = "none";
-}
-
-// ── Send ──────────────────────────────────────────────────────
 window.pd3Send = function () {
-  const el   = document.getElementById("pd3-input");
-  const text = el.value.trim();
-  if (!text) return;
-  el.value = ""; el.style.height = "";
-  hideChips();
-  sendRaw(text);
+  const el = document.getElementById("pd3-input"); const text = el.value.trim(); if (!text) return;
+  el.value = ""; el.style.height = ""; hideChips(); sendRaw(text);
 };
-
 function sendRaw(text) {
-  if (msgCount >= MAX_MSGS) {
-    appendBubble("bot", "You've reached the message limit for this session. Please book a call — link is in the menu.");
-    return;
-  }
-
+  if (msgCount >= MAX_MSGS) { appendBubble("bot", "Message limit reached. Please book a call via the menu."); return; }
   if (!inChatView) pd3StartNewChat();
-  appendBubble("visitor", text);
-  msgCount++;
-  showTyping();
-
+  appendBubble("visitor", text); msgCount++; showTyping();
   post({ action: "send_message", sessionId, text, senderName: visitorName, senderEmail: visitorEmail })
-    .then(() => { hideTyping(); })
-    .catch(() => { hideTyping(); });
+    .then(() => hideTyping()).catch(() => hideTyping());
 }
 
-// ── Poll ──────────────────────────────────────────────────────
+// ── Poll ──────────────────────────────────────────────────
 function startPoll() {
-  stopPoll();
-  if (!sessionId) return;
-  pollBar.classList.add("pd3-show");
-  animatePoll();
+  stopPoll(); if (!sessionId) return;
+  pollBar.classList.add("pd3-show"); animatePoll();
   pollTimer = setInterval(() => {
     if (!sessionId || !isOpen) return;
-    const payload = { action: "get_messages", sessionId };
-    if (lastMsgId) payload.afterId = lastMsgId;
+    const payload = { action: "get_messages", sessionId }; if (lastMsgId) payload.afterId = lastMsgId;
     post(payload).then(res => {
       if (!res.messages || !res.messages.length) return;
       res.messages.forEach(m => {
-        if ((m.direction === "admin" || m.direction === "bot") && !document.querySelector(`[data-msgid="${m.id}"]`)) {
+        if ((m.direction === "admin" || m.direction === "bot") && !document.querySelector(`[data-mid="${m.id}"]`)) {
           appendBubble(m.direction, m.text, m.timestamp, m.id);
           if (!isOpen || !inChatView) bumpBadge();
         }
         lastMsgId = m.id;
-      });
-      saveSession();
-    }).catch(() => {});
-    animatePoll();
+      }); saveSession();
+    }).catch(() => {}); animatePoll();
   }, POLL_MS);
 }
-
-function stopPoll() {
-  if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
-  pollBar.classList.remove("pd3-show");
-}
-
+function stopPoll() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } pollBar.classList.remove("pd3-show"); }
 function animatePoll() {
   pollFill.style.transition = "none"; pollFill.style.width = "0%";
   requestAnimationFrame(() => { pollFill.style.transition = `width ${POLL_MS}ms linear`; pollFill.style.width = "100%"; });
 }
 
-// ── Messages ──────────────────────────────────────────────────
+// ── Messages with avatars ─────────────────────────────────
 function renderMessages(msgs) {
-  const area = document.getElementById("pd3-msgs");
-  area.innerHTML = "";
+  const area = document.getElementById("pd3-msgs"); area.innerHTML = "";
   msgs.forEach(m => appendBubble(m.direction, m.text, m.timestamp, m.id));
   if (msgs.length) lastMsgId = msgs[msgs.length - 1].id;
-  botReplied = msgs.some(m => m.direction === "bot");
-  saveSession();
+  botReplied = msgs.some(m => m.direction === "bot"); saveSession();
 }
 
 let typingEl = null;
-
-function hideTyping() { if (typingEl) { typingEl.remove(); typingEl = null; } }
-
-
 function showTyping() {
   if (typingEl) return;
   const msgs = document.getElementById("pd3-msgs");
   typingEl = document.createElement("div");
-  typingEl.className = "pd3-bwrap bot";
+  typingEl.style.cssText = "display:flex;align-items:flex-end;gap:8px;align-self:flex-start;animation:pd3BIn .2s ease both;";
 
-  const avatar = document.createElement("div");
-  avatar.className = "pd3-avatar";
-  avatar.innerHTML = `<img src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true" onerror="this.parentNode.textContent='RL'">`;
+  const av = document.createElement("div");
+  av.style.cssText = "width:26px;height:26px;border-radius:50%;flex-shrink:0;overflow:hidden;border:1.5px solid #e5e7eb;";
+  const img = document.createElement("img");
+  img.src = RAPHAEL_SRC;
+  img.style.cssText = "width:100%;height:100%;object-fit:cover;";
+  img.onerror = function() { this.parentNode.textContent="RL"; this.parentNode.style.background="#103320"; this.parentNode.style.color="#22c55e"; this.parentNode.style.fontSize=".6rem"; this.parentNode.style.fontWeight="700"; this.parentNode.style.display="flex"; this.parentNode.style.alignItems="center"; this.parentNode.style.justifyContent="center"; };
+  av.appendChild(img);
 
-  const content = document.createElement("div");
-  content.className = "pd3-bcontent";
-  content.innerHTML = '<div class="pd3-typing"><span></span><span></span><span></span></div>';
+  const typingBub = document.createElement("div");
+  typingBub.style.cssText = "display:flex;gap:4px;align-items:center;padding:10px 14px;background:#fff;border:1px solid #e5e7eb;border-radius:16px;border-bottom-left-radius:4px;";
+  typingBub.innerHTML = '<span style="width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pd3TB .85s ease infinite;display:inline-block;"></span><span style="width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pd3TB .85s ease .15s infinite;display:inline-block;"></span><span style="width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pd3TB .85s ease .3s infinite;display:inline-block;"></span>';
 
-  typingEl.appendChild(avatar);
-  typingEl.appendChild(content);
+  typingEl.appendChild(av);
+  typingEl.appendChild(typingBub);
   msgs.appendChild(typingEl);
   msgs.scrollTop = msgs.scrollHeight;
 }
-
+function hideTyping() { if (typingEl) { typingEl.remove(); typingEl = null; } }
 
 function appendBubble(direction, text, timestamp, id) {
   const msgs = document.getElementById("pd3-msgs");
-
-  // Remove typing indicator if present
-  const existingTyping = msgs.querySelector('.pd3-bwrap.bot .pd3-typing');
-  if (existingTyping && direction !== 'typing') {
-    existingTyping.closest('.pd3-bwrap')?.remove();
-  }
+  const dir = (direction === "me") ? "visitor" : (direction || "bot");
 
   const wrap = document.createElement("div");
-  wrap.className = "pd3-bwrap " + (direction || "bot");
-  if (id) wrap.dataset.msgid = id;
+  wrap.style.cssText = "display:flex;align-items:flex-end;gap:8px;max-width:88%;animation:pd3BIn .2s ease both;";
+  if (dir === "visitor") {
+    wrap.style.cssText += "flex-direction:row-reverse;align-self:flex-end;";
+  } else {
+    wrap.style.cssText += "flex-direction:row;align-self:flex-start;";
+  }
+  if (id) wrap.dataset.mid = id;
 
   // Avatar
-  const avatar = document.createElement("div");
-  avatar.className = "pd3-avatar";
-  if (direction === "visitor") {
-    const initials = visitorName
-      ? visitorName.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2)
-      : "ME";
-    avatar.style.cssText = "background:#e5e7eb;color:#374151;";
-    avatar.textContent = initials;
+  const av = document.createElement("div");
+  av.style.cssText = "width:26px;height:26px;border-radius:50%;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;margin-bottom:2px;";
+  if (dir === "visitor") {
+    const initials = visitorName ? visitorName.split(" ").map(w=>w[0]).join("").toUpperCase().slice(0,2) : "ME";
+    av.style.cssText += "background:#e5e7eb;color:#374151;";
+    av.textContent = initials;
   } else {
-    avatar.innerHTML = `<img src="https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true"
-      onerror="this.parentNode.innerHTML='<span style=background:#103320;color:#22c55e;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700>RL</span>'">`;
+    av.style.cssText += "border:1.5px solid #e5e7eb;";
+    const img = document.createElement("img");
+    img.src = RAPHAEL_SRC;
+    img.style.cssText = "width:100%;height:100%;object-fit:cover;";
+    img.onerror = function() { this.parentNode.textContent = "RL"; this.parentNode.style.background="#103320"; this.parentNode.style.color="#22c55e"; };
+    av.appendChild(img);
   }
 
-  // Content wrapper
-  const content = document.createElement("div");
-  content.className = "pd3-bcontent";
+  // Bubble + time
+  const col = document.createElement("div");
+  col.style.cssText = "display:flex;flex-direction:column;gap:3px;" + (dir === "visitor" ? "align-items:flex-end;" : "align-items:flex-start;");
 
   const bub = document.createElement("div");
-  bub.className = "pd3-bubble";
+  bub.style.cssText = "padding:9px 13px;border-radius:16px;font-size:.83rem;line-height:1.55;word-break:break-word;white-space:pre-wrap;max-width:240px;";
+  if (dir === "visitor") {
+    bub.style.cssText += "background:#1e9947;color:#fff;border-bottom-right-radius:4px;";
+  } else if (dir === "admin") {
+    bub.style.cssText += "background:#dcfce7;color:#0a1c0f;border:1px solid #86efac;border-bottom-left-radius:4px;";
+  } else {
+    bub.style.cssText += "background:#fff;color:#103320;border:1px solid #e5e7eb;border-bottom-left-radius:4px;";
+  }
   bub.textContent = text;
 
   const t = document.createElement("div");
-  t.className = "pd3-btime";
+  t.style.cssText = "font-size:.6rem;color:#9ca3af;padding:0 2px;";
   t.textContent = fmtTime(timestamp || new Date().toISOString());
 
-  content.appendChild(bub);
-  content.appendChild(t);
-  wrap.appendChild(avatar);
-  wrap.appendChild(content);
+  col.appendChild(bub); col.appendChild(t);
+  wrap.appendChild(av); wrap.appendChild(col);
   msgs.appendChild(wrap);
   msgs.scrollTop = msgs.scrollHeight;
 }
-   
 
-// ── Badge ─────────────────────────────────────────────────────
+// ── Badge ─────────────────────────────────────────────────
 function bumpBadge() {
-  pendingCount++;
-  badge.textContent  = pendingCount > 9 ? "9+" : pendingCount;
-  badge.style.display = "flex";
-  // also show dot on messages tab
-  const msgBadge = document.getElementById("pd3-msg-badge");
-  if (msgBadge) msgBadge.style.display = "block";
+  pendingCount++; badge.textContent = pendingCount > 9 ? "9+" : pendingCount; badge.style.display = "flex";
+  const d = document.getElementById("pd3-msg-badge"); if (d) d.style.display = "block";
 }
 function clearBadge() {
-  pendingCount = 0;
-  badge.style.display = "none";
-  const msgBadge = document.getElementById("pd3-msg-badge");
-  if (msgBadge) msgBadge.style.display = "none";
+  pendingCount = 0; badge.style.display = "none";
+  const d = document.getElementById("pd3-msg-badge"); if (d) d.style.display = "none";
 }
 
-// ── Network ───────────────────────────────────────────────────
+// ── Network ───────────────────────────────────────────────
 function post(payload) {
   const blob = new Blob([JSON.stringify(payload)], { type: "text/plain" });
   return fetch(CHAT_API, { method: "POST", body: blob }).then(r => r.json());
 }
-
-// ── Persist ───────────────────────────────────────────────────
 function saveSession() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      sessionId, name: visitorName, email: visitorEmail,
-      botReplied, lastMsgId
-    }));
-  } catch(e) {}
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ sessionId, name: visitorName, email: visitorEmail, botReplied, lastMsgId })); } catch(e) {}
 }
 
-// ── Utils ─────────────────────────────────────────────────────
-
-window.pd3OpenArticle = function(item) {
-  const panels = document.getElementById("pd3-panels");
-  
-  // Create article view
-  const view = document.createElement("div");
-  view.id = "pd3-article-view";
-  view.style.cssText = "position:absolute;inset:0;background:#fff;z-index:10;overflow-y:auto;display:flex;flex-direction:column;animation:pd3BIn .2s ease both;";
-  
-  view.innerHTML = `
-    <div style="padding:14px 16px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:10px;flex-shrink:0;background:#fff;position:sticky;top:0;z-index:1;">
-      <button onclick="document.getElementById('pd3-article-view').remove()" 
-        style="background:none;border:none;cursor:pointer;color:#6b7280;display:flex;align-items:center;gap:4px;font-size:.78rem;font-weight:600;font-family:inherit;padding:4px 0;">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-        Back
-      </button>
-    </div>
-    <div style="padding:24px 20px;flex:1;">
-      <div style="width:40px;height:40px;border-radius:10px;background:#f0fdf4;border:1px solid #d1fae5;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
-        ${item.icon || ''}
-      </div>
-      <h2 style="font-size:1.15rem;font-weight:800;color:#103320;line-height:1.3;margin-bottom:6px;">${esc(item.title)}</h2>
-      ${item.sub ? `<p style="font-size:.8rem;color:#6b7280;margin-bottom:20px;">${esc(item.sub)}</p>` : ''}
-      <div style="height:1px;background:#f0f0f0;margin-bottom:20px;"></div>
-      <div style="font-size:.875rem;color:#374151;line-height:1.75;white-space:pre-wrap;">${esc(item.body)}</div>
-    </div>
-    <div style="padding:16px 20px;border-top:1px solid #f0f0f0;flex-shrink:0;">
-      <p style="font-size:.75rem;color:#9ca3af;margin-bottom:10px;text-align:center;">Still have questions?</p>
-      <button onclick="switchTab('messages');document.getElementById('pd3-article-view').remove()"
-        style="width:100%;padding:10px;background:#1e9947;color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">
-        Send a message
-      </button>
-    </div>
-  `;
-
-  // Remove any existing article view
-  document.getElementById("pd3-article-view")?.remove();
-  panels.style.position = "relative";
-  panels.appendChild(view);
-};
-   
+// ── Utils ─────────────────────────────────────────────────
 function fmtTime(ts) {
   try {
-    const d = new Date(ts);
-    if (isNaN(d)) return "";
+    const d = new Date(ts); if (isNaN(d)) return "";
     const now = new Date();
     return d.toDateString() === now.toDateString()
       ? d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
       : d.toLocaleDateString([], { month: "short", day: "numeric" });
   } catch(e) { return ""; }
 }
-
 function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
-
-function esc(str) {
-  return String(str || "")
-    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-}
-
-window.pd3AutoResize = function (el) {
-  el.style.height = "auto";
-  el.style.height = Math.min(el.scrollHeight, 90) + "px";
-};
-
+function x(s) { return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+window.pd3AutoResize = function (el) { el.style.height = "auto"; el.style.height = Math.min(el.scrollHeight, 90) + "px"; };
 function shake(el) {
-  el.animate([
-    {transform:"translateX(0)"},{transform:"translateX(-6px)"},
-    {transform:"translateX(6px)"},{transform:"translateX(-4px)"},
-    {transform:"translateX(0)"}
-  ], {duration:320, easing:"ease-out"});
+  el.animate([{transform:"translateX(0)"},{transform:"translateX(-6px)"},{transform:"translateX(6px)"},{transform:"translateX(-4px)"},{transform:"translateX(0)"}],{duration:320,easing:"ease-out"});
 }
-
-// Close on Escape
 document.addEventListener("keydown", e => { if (e.key === "Escape" && isOpen) pd3Close(); });
 
 })();
