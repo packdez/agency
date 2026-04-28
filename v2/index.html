@@ -2866,7 +2866,6 @@ function renderFallbackHome() {
   const c = document.getElementById("pd3-home-content");
   c.innerHTML = "";
   [
-    {type:"banner", title:"Welcome to Packdez 👋", subtitle:"Custom internal systems for your business"},
     {type:"card", icon:"📅", title:"Book a free call", subtitle:"30 mins with Raphael", url:"https://packdez.com/#book"},
     {type:"card", icon:"🚀", title:"See live demos", subtitle:"Real projects built for real businesses", url:"https://packdez.com/projects"},
   ].forEach(item => { const el = buildContentItem(item); if (el) c.appendChild(el); });
