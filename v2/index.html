@@ -2005,8 +2005,8 @@ document.getElementById('year').textContent=new Date().getFullYear()
 </script>
 
 <!-- ══════════════════════════════════════════════════════════
-  PACKDEZ LIVE CHAT WIDGET v3.2
-  Fixes: content overflow · proper padding · neutral news icons · bottom tabs
+  PACKDEZ LIVE CHAT WIDGET v3.1
+  Fixes: tabs at bottom · SVG icons · bubble avatars
   
   ONE LINE TO UPDATE:
     const CHAT_API = "YOUR_DEPLOYMENT_URL";
@@ -2100,9 +2100,10 @@ document.getElementById('year').textContent=new Date().getFullYear()
 .pd3-status-text { font-size: .72rem; color: rgba(255,255,255,.6); }
 
 /* ── Panels container ────────────────────────────────────── */
+/* IMPORTANT: panels now sit ABOVE the tab bar, flex order handles it */
 #pd3-panels {
   flex: 1; overflow: hidden; position: relative;
-  min-height: 0;
+  /* Panels are above tabs — no change needed, just ensure panels fill remaining space */
 }
 .pd3-panel {
   position: absolute; inset: 0;
@@ -2116,12 +2117,13 @@ document.getElementById('year').textContent=new Date().getFullYear()
 .pd3-panel::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
 .pd3-panel.active { opacity: 1; transform: translateX(0); pointer-events: all; }
 
-/* ══ BOTTOM TABS ════════════════════════════════════════════ */
+/* ══ BOTTOM TABS (moved from top) ════════════════════════════ */
 #pd3-tabs {
   display: flex; background: #fff;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid #e5e7eb;   /* border on TOP now */
+  border-bottom: none;              /* removed bottom border */
   flex-shrink: 0;
-  order: 2;
+  order: 2; /* push tabs below panels in flex column */
   padding: 4px 0 8px;
 }
 .pd3-tab {
@@ -2129,6 +2131,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
   display: flex; flex-direction: column; align-items: center; gap: 3px;
   background: none; border: none; cursor: pointer;
   font-size: .64rem; font-weight: 500; color: #9ca3af;
+  /* REMOVED: border-bottom indicator — use top indicator or color only */
   border-top: 2px solid transparent;
   transition: all .2s; position: relative; font-family: inherit;
 }
@@ -2146,7 +2149,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
 #pd3-poll-bar.pd3-show { display: block; }
 #pd3-poll-fill { height: 100%; width: 0%; background: linear-gradient(90deg,#22c55e,#4ade80); transition: width linear; }
 
-/* ── Tab header bar */
+/* ── Tab header bar (Messages / Help / News) */
 #pd3-tab-header {
   display: none;
   align-items: center; justify-content: center;
@@ -2166,14 +2169,16 @@ document.getElementById('year').textContent=new Date().getFullYear()
 #pd3-msg-empty-title { font-size: 1rem; font-weight: 800; color: #111; margin-top: 8px; }
 #pd3-msg-empty-sub { font-size: .82rem; color: #6b7280; line-height: 1.55; max-width: 200px; margin-bottom: 4px; }
 #pd3-msg-empty-btn {
-  padding: 11px 22px; background: #f9fafb; border: 1.5px solid #e5e7eb;
-  border-radius: 999px; font-size: .85rem; font-weight: 700; color: #103320;
-  cursor: pointer; font-family: inherit; transition: all .18s;
-  display: flex; align-items: center; gap: 8px;
+  padding: 13px 28px; background: #fff; border: 2px solid #d1d5db;
+  border-radius: 999px; font-size: .9rem; font-weight: 700; color: #111;
+  cursor: pointer; font-family: inherit; transition: all .2s;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-width: 200px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
 }
-#pd3-msg-empty-btn:hover { border-color: #22c55e; background: #f0fdf4; color: #1e9947; }
+#pd3-msg-empty-btn:hover { border-color: #1e9947; color: #1e9947; box-shadow: 0 2px 10px rgba(30,153,71,.15); }
 
-/* ── Chat header */
+/* ── Chat header (inside chat view) */
 #pd3-chat-topbar {
   padding: 10px 14px; border-bottom: 1px solid #f0f0f0;
   display: flex; align-items: center; gap: 10px; flex-shrink: 0; background: #fff;
@@ -2188,32 +2193,23 @@ document.getElementById('year').textContent=new Date().getFullYear()
 #pd3-chat-agent-name { font-size: .84rem; font-weight: 700; color: #103320; }
 #pd3-chat-agent-sub { font-size: .71rem; color: #6b7280; margin-top: 1px; }
 
-/* ── Content panels — FIXED CONTAINMENT ──────────────────── */
-.pd3-content-panel {
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  overflow-x: hidden;
-}
+/* ── Content panels (Home / Help / News) ─────────────────── */
+.pd3-content-panel { padding: 0; display: flex; flex-direction: column; gap: 6px; }
 
 /* Banner */
 .pd3-banner {
   background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-  border-bottom: 1px solid #d1fae5;
-  padding: 18px 20px;
-  margin: 0;
+  border-bottom: 1px solid #d1fae5; padding: 18px 22px;
 }
 .pd3-banner-title { font-size: .95rem; font-weight: 800; color: #103320; }
 .pd3-banner-sub { font-size: .78rem; color: #4a7060; margin-top: 4px; line-height: 1.5; }
 
-/* Card — FIXED: uses padding inside container instead of margin */
+/* Card — Home tab style (with icon, border) */
 .pd3-card {
   background: #fff; border: 1px solid #e5e7eb; border-radius: 14px;
-  padding: 14px 16px; cursor: pointer; transition: all .2s;
+  padding: 16px 12px; cursor: pointer; transition: all .2s;
   display: flex; align-items: center; gap: 12px;
   text-decoration: none; color: inherit;
-  margin: 0 16px 10px;
 }
 .pd3-card:hover { border-color: #22c55e; background: #f9fffe; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(34,197,94,.1); }
 .pd3-card-icon {
@@ -2222,68 +2218,87 @@ document.getElementById('year').textContent=new Date().getFullYear()
   flex-shrink: 0; border: 1px solid #d1fae5; color: #16a34a;
 }
 .pd3-card-icon svg { width: 18px; height: 18px; }
-.pd3-card-body { flex: 1; min-width: 0; }
+.pd3-card-body { flex: 1; }
 .pd3-card-title { font-size: .85rem; font-weight: 700; color: #103320; }
 .pd3-card-sub { font-size: .75rem; color: #6b7280; margin-top: 2px; line-height: 1.4; }
 .pd3-card-arrow { color: #d1d5db; flex-shrink: 0; }
 
-/* Article row — FIXED: contained within padding */
+/* Article row — distinct card with gap */
 .pd3-article {
   background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 1.5px solid #e5e7eb;
   border-radius: 12px;
-  margin: 0 16px 8px;
   overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
 }
 .pd3-article-trigger {
-  width: 100%; padding: 14px 16px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; padding: 16px 12px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
   background: none; border: none; cursor: pointer; text-align: left;
   transition: background .15s; font-family: inherit;
 }
 .pd3-article-trigger:hover { background: #f9fffe; }
-.pd3-article-icon {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: #f0fdf4; display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; border: 1px solid #d1fae5; color: #16a34a;
-}
-.pd3-article-icon svg { width: 15px; height: 15px; }
-.pd3-article-title { font-size: .85rem; font-weight: 600; color: #103320; font-family: inherit; line-height: 1.45; flex: 1; min-width: 0; }
+.pd3-article-title { font-size: .87rem; font-weight: 600; color: #103320; font-family: inherit; line-height: 1.45; flex: 1; }
 .pd3-article-chevron { color: #c4c9d4; flex-shrink: 0; }
 .pd3-article-chevron svg { width: 14px; height: 14px; }
 
-/* Link row — FIXED */
+/* Link row — same distinct card */
 .pd3-link-item {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 14px 16px; margin: 0 16px 8px;
-  border: 1px solid #e5e7eb; border-radius: 12px;
-  text-decoration: none; color: inherit; transition: all .15s;
-  background: #fff;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px 12px;
+  border: 1.5px solid #e5e7eb; border-radius: 12px;
+  text-decoration: none; color: inherit; transition: background .15s;
+  background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.05);
 }
-.pd3-link-item:hover { border-color: #22c55e; background: #f9fffe; }
-.pd3-link-icon {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: #f0fdf4; display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; border: 1px solid #d1fae5; color: #16a34a;
-}
-.pd3-link-icon svg { width: 15px; height: 15px; }
-.pd3-link-title { font-size: .85rem; font-weight: 600; color: #103320; flex: 1; min-width: 0; }
+.pd3-link-item:hover { background: #f9fffe; }
+.pd3-link-title { font-size: .87rem; font-weight: 600; color: #103320; flex: 1; }
 
-/* Section label */
-.pd3-section-label {
-  font-size: .68rem; font-weight: 700; color: #9ca3af;
-  letter-spacing: .08em; text-transform: uppercase;
-  padding: 14px 16px 8px;
-}
-
-/* Article full-page view */
-.pd3-article-page-overlay {
+/* Article full-page view (slides in over panel) */
+#pd3-article-page {
   position: absolute; inset: 0; background: #fff; z-index: 20;
   display: none; flex-direction: column; overflow: hidden;
   animation: pd3SlideIn .22s cubic-bezier(.22,1,.36,1) both;
 }
-.pd3-article-page-overlay.open { display: flex; }
+#pd3-article-page.open { display: flex; }
 @keyframes pd3SlideIn { from{opacity:0;transform:translateX(18px)} to{opacity:1;transform:none} }
+#pd3-article-page-bar {
+  padding: 13px 18px; border-bottom: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+#pd3-article-page-back {
+  background: none; border: none; cursor: pointer; color: #6b7280;
+  display: flex; align-items: center; gap: 4px;
+  font-size: .78rem; font-weight: 600; font-family: inherit; padding: 4px 0;
+  transition: color .15s;
+}
+#pd3-article-page-back:hover { color: #1e9947; }
+#pd3-article-page-body {
+  flex: 1; overflow-y: auto; padding: 24px 22px;
+  scrollbar-width: thin; scrollbar-color: #d1fae5 transparent;
+}
+#pd3-article-page-body::-webkit-scrollbar { width: 3px; }
+#pd3-article-page-body::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
+.pd3-art-title { font-size: 1.2rem; font-weight: 800; color: #103320; line-height: 1.25; margin-bottom: 6px; }
+.pd3-art-sub { font-size: .82rem; color: #6b7280; margin-bottom: 20px; line-height: 1.5; }
+.pd3-art-divider { height: 1px; background: #f0f0f0; margin-bottom: 20px; }
+.pd3-art-body { font-size: .875rem; color: #374151; line-height: 1.75; }
+.pd3-art-body p { margin-bottom: 14px; }
+.pd3-art-body img { width: 100%; border-radius: 10px; margin: 12px 0; }
+.pd3-art-body iframe { width: 100%; aspect-ratio: 16/9; border-radius: 10px; border: none; margin: 12px 0; }
+.pd3-art-body h3 { font-size: .95rem; font-weight: 700; color: #103320; margin: 18px 0 8px; }
+.pd3-art-body ul { padding-left: 18px; margin-bottom: 14px; }
+.pd3-art-body li { margin-bottom: 6px; }
+#pd3-article-page-footer {
+  padding: 14px 22px; border-top: 1px solid #f0f0f0; flex-shrink: 0;
+  text-align: center;
+}
+#pd3-article-page-footer p { font-size: .75rem; color: #9ca3af; margin-bottom: 10px; }
+#pd3-article-page-cta {
+  width: 100%; padding: 10px; background: #1e9947; color: #fff;
+  border: none; border-radius: 10px; font-size: .85rem; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: background .18s;
+}
+#pd3-article-page-cta:hover { background: #176633; }
 
 /* Loading dots */
 .pd3-loading {
@@ -2300,39 +2315,37 @@ document.getElementById('year').textContent=new Date().getFullYear()
 
 /* ── Messages panel ──────────────────────────────────────── */
 #pd3-panel-messages { display: flex; flex-direction: column; }
-#pd3-conv-start { padding: 16px 16px 0; flex-shrink: 0; }
-#pd3-conv-start-btn {
-  width: 100%; padding: 13px;
-  background: #1e9947; color: #fff; border: none; border-radius: 12px;
-  font-size: .88rem; font-weight: 700; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: background .18s, transform .15s; font-family: inherit;
-}
-#pd3-conv-start-btn:hover { background: #176633; transform: translateY(-1px); }
+/* old start btn css removed */
 #pd3-prev-convs { padding: 12px 16px; flex-shrink: 0; }
 .pd3-prev-label {
   font-size: .68rem; font-weight: 700; color: #9ca3af;
   letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px;
 }
 .pd3-prev-item {
-  display: flex; align-items: center; gap: 10px; padding: 10px 12px;
-  background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px;
-  cursor: pointer; transition: all .18s; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+  background: #fff; border: 1.5px solid #e5e7eb; border-radius: 14px;
+  cursor: pointer; transition: all .2s; margin-bottom: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
 }
-.pd3-prev-item:hover { border-color: #22c55e; background: #f0fdf4; }
+.pd3-prev-item:hover { border-color: #22c55e; background: #f0fdf4; box-shadow: 0 3px 10px rgba(34,197,94,.1); }
 .pd3-prev-avatar {
-  width: 30px; height: 30px; border-radius: 50%;
+  width: 40px; height: 40px; border-radius: 50%;
   background: linear-gradient(135deg,#103320,#22c55e);
   display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: .72rem; font-weight: 700; flex-shrink: 0;
+  color: #fff; font-size: .8rem; font-weight: 700; flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(30,153,71,.25);
 }
 .pd3-prev-info { flex: 1; min-width: 0; }
-.pd3-prev-preview { font-size: .78rem; font-weight: 600; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pd3-prev-time { font-size: .67rem; color: #9ca3af; margin-top: 1px; }
+.pd3-prev-preview { font-size: .85rem; font-weight: 700; color: #103320; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pd3-prev-time { font-size: .72rem; color: #6b7280; margin-top: 3px; }
 
 /* ── Active chat view ────────────────────────────────────── */
 #pd3-chat-view { flex: 1; display: none; flex-direction: column; }
 #pd3-chat-view.pd3-show { display: flex; }
+#pd3-chat-topbar {
+  padding: 10px 14px; border-bottom: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
 #pd3-back-btn {
   background: none; border: none; cursor: pointer;
   color: #6b7280; display: flex; align-items: center; gap: 4px;
@@ -2351,7 +2364,10 @@ document.getElementById('year').textContent=new Date().getFullYear()
 #pd3-msgs::-webkit-scrollbar { width: 3px; }
 #pd3-msgs::-webkit-scrollbar-thumb { background: #d1fae5; border-radius: 2px; }
 
-/* Bubble animation */
+/* ── Article page slide-in animation */
+@keyframes pd3SlideIn { from{opacity:0;transform:translateX(18px)} to{opacity:1;transform:none} }
+
+/* ── Bubble animation (used by inline-styled bubbles) */
 @keyframes pd3BIn { from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none} }
 
 /* Typing indicator */
@@ -2369,42 +2385,51 @@ document.getElementById('year').textContent=new Date().getFullYear()
 @keyframes pd3TB { 0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-5px);opacity:1} }
 
 /* Chips */
-#pd3-chips-bar { padding: 0 12px 8px; background: #fff; display: flex; flex-wrap: wrap; gap: 6px; flex-shrink: 0; }
+#pd3-chips-bar { padding: 10px 14px 10px; background: #fff; border-top: 1px solid #f0f0f0; display: flex; flex-wrap: wrap; gap: 6px 12px; flex-shrink: 0; }
 .pd3-chip {
-  background: #f9fafb; border: 1.5px solid #e5e7eb; color: #374151;
-  font-size: .71rem; font-weight: 600; padding: 5px 11px;
-  border-radius: 999px; cursor: pointer; font-family: inherit;
-  transition: all .18s; white-space: nowrap;
+  background: none; border: none; color: #374151;
+  font-size: .78rem; font-weight: 600; padding: 4px 0;
+  border-radius: 0; cursor: pointer; font-family: inherit;
+  transition: color .18s; white-space: nowrap;
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: #d1d5db;
+  box-shadow: none;
 }
-.pd3-chip:hover { background: #f0fdf4; border-color: #22c55e; color: #103320; transform: translateY(-1px); }
+.pd3-chip:hover { color: #1e9947; text-decoration-color: #1e9947; }
 
 /* Identity form */
 #pd3-identify {
-  padding: 14px 16px; background: #fff;
+  padding: 16px 18px 18px; background: #fff;
   border-top: 1px solid #f0f0f0; flex-shrink: 0;
 }
-.pd3-id-title { font-size: .82rem; font-weight: 700; color: #103320; margin-bottom: 2px; }
-.pd3-id-sub { font-size: .72rem; color: #6b7280; margin-bottom: 12px; line-height: 1.45; }
-.pd3-field { position: relative; margin-bottom: 9px; }
+.pd3-id-title { font-size: .9rem; font-weight: 800; color: #103320; margin-bottom: 4px; }
+.pd3-id-sub { font-size: .76rem; color: #6b7280; margin-bottom: 16px; line-height: 1.5; }
+.pd3-field { position: relative; margin-bottom: 10px; }
 .pd3-field input {
   width: 100%; background: #f9fafb; border: 1.5px solid #e5e7eb;
-  border-radius: 10px; padding: 10px 12px 10px 36px;
-  font-size: .83rem; color: #103320; font-family: inherit; outline: none;
-  transition: border-color .18s, background .18s;
+  border-radius: 12px; padding: 13px 40px 13px 40px;
+  font-size: .85rem; color: #103320; font-family: inherit; outline: none;
+  transition: border-color .2s, background .2s, box-shadow .2s;
 }
-.pd3-field input:focus { border-color: #22c55e; background: #fff; }
+.pd3-field input::placeholder { color: #9ca3af; }
+.pd3-field input:focus {
+  border-color: #22c55e; background: #fff;
+  box-shadow: 0 0 0 3px rgba(34,197,94,.1);
+}
 .pd3-field input.err { border-color: #ef4444; background: #fff5f5; }
 .pd3-field input.ok  { border-color: #22c55e; }
-.pd3-fi { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: #22c55e; pointer-events: none; }
-.pd3-ft { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); color: #22c55e; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.pd3-fi { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: #9ca3af; pointer-events: none; }
+.pd3-field input:focus ~ .pd3-fi { color: #22c55e; }
+.pd3-ft { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); color: #22c55e; opacity: 0; transition: opacity .2s; pointer-events: none; }
 .pd3-field input.ok ~ .pd3-fi ~ .pd3-ft { opacity: 1; }
-.pd3-ferr { font-size: .68rem; color: #ef4444; margin-top: 3px; margin-left: 2px; display: none; }
+.pd3-ferr { font-size: .69rem; color: #ef4444; margin-top: 4px; margin-left: 4px; display: none; }
 #pd3-id-submit {
-  width: 100%; padding: 11px; background: #1e9947; color: #fff;
-  border: none; border-radius: 10px; font-size: .85rem; font-weight: 700;
-  cursor: pointer; font-family: inherit; transition: background .18s, transform .15s; margin-top: 4px;
+  width: 100%; padding: 13px; background: #1e9947; color: #fff;
+  border: none; border-radius: 12px; font-size: .88rem; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: background .18s, transform .15s, box-shadow .18s;
+  margin-top: 6px; box-shadow: 0 2px 8px rgba(30,153,71,.3);
 }
-#pd3-id-submit:hover { background: #176633; transform: translateY(-1px); }
+#pd3-id-submit:hover { background: #176633; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(30,153,71,.4); }
 
 /* Input bar */
 #pd3-input-bar {
@@ -2429,15 +2454,6 @@ document.getElementById('year').textContent=new Date().getFullYear()
 #pd3-send:hover { background: #176633; transform: scale(1.06); }
 #pd3-send:active { transform: scale(.95); }
 #pd3-send:disabled { background: #d1fae5; cursor: not-allowed; transform: none; }
-
-/* Article page body */
-.pd3-art-body { font-size: .875rem; color: #374151; line-height: 1.75; }
-.pd3-art-body p { margin-bottom: 14px; }
-.pd3-art-body img { width: 100%; border-radius: 10px; margin: 12px 0; }
-.pd3-art-body iframe { width: 100%; aspect-ratio: 16/9; border-radius: 10px; border: none; margin: 12px 0; }
-.pd3-art-body h3 { font-size: .95rem; font-weight: 700; color: #103320; margin: 18px 0 8px; }
-.pd3-art-body ul { padding-left: 18px; margin-bottom: 14px; }
-.pd3-art-body li { margin-bottom: 6px; }
 
 /* Mobile */
 @media (max-width: 480px) {
@@ -2474,11 +2490,11 @@ document.getElementById('year').textContent=new Date().getFullYear()
       </button>
     </div>
     <div id="pd3-hero-text">
-      <div id="pd3-hero-title">Hi there &#x1F44B;</div>
+      <div id="pd3-hero-title">Hi there 👋</div>
       <div id="pd3-hero-sub">How can we help you today?</div>
       <div class="pd3-status-row">
         <div class="pd3-status-dot"></div>
-        <span class="pd3-status-text">Raphael &middot; Usually replies within a few hours</span>
+        <span class="pd3-status-text">Raphael · Usually replies within a few hours</span>
       </div>
     </div>
   </div>
@@ -2486,43 +2502,61 @@ document.getElementById('year').textContent=new Date().getFullYear()
   <!-- Poll bar -->
   <div id="pd3-poll-bar"><div id="pd3-poll-fill"></div></div>
 
-  <!-- Tab header -->
+  <!-- Tab header (hidden on Home, shown on other tabs) -->
   <div id="pd3-tab-header">
     <span id="pd3-tab-header-title">Messages</span>
   </div>
 
-  <!-- PANELS -->
+  <!-- PANELS (above tabs) -->
   <div id="pd3-panels">
 
     <!-- HOME -->
     <div class="pd3-panel active" id="pd3-panel-home">
-      <div class="pd3-content-panel" id="pd3-home-content">
-        <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading&hellip;</div>
+      <div class="pd3-content-panel" id="pd3-home-content" style="overflow-y:auto;height:100%;padding:8px 10px;">
+        <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading…</div>
       </div>
     </div>
 
     <!-- MESSAGES -->
     <div class="pd3-panel" id="pd3-panel-messages" style="position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;">
-      <div id="pd3-conv-list" style="flex:1;display:flex;flex-direction:column;overflow-y:auto;">
-        <div id="pd3-msg-empty">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color:#d1d5db">
-            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-          </svg>
-          <div id="pd3-msg-empty-title">No messages</div>
-          <div id="pd3-msg-empty-sub">Messages from the team will be shown here</div>
-          <button id="pd3-msg-empty-btn" onclick="pd3StartNewChat()">
-            Ask a question
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          </button>
+
+      <!-- Empty / list state -->
+      <div id="pd3-conv-list" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+
+        <!-- Scrollable content -->
+        <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+
+          <!-- Empty state -->
+          <div id="pd3-msg-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="color:#d1d5db">
+              <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            </svg>
+            <div id="pd3-msg-empty-title">No messages</div>
+            <div id="pd3-msg-empty-sub">Messages from the team will be shown here</div>
+            <button id="pd3-msg-empty-btn" onclick="pd3StartNewChat()">
+              <span>Ask a question</span>
+              <span style="width:22px;height:22px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </span>
+            </button>
+          </div>
+
+          <!-- Previous convs (shown when session exists) -->
+          <div id="pd3-prev-convs" style="display:none;padding:10px 14px 0;">
+            <div class="pd3-prev-label" style="padding-bottom:8px;">Previous conversations</div>
+            <div id="pd3-prev-list"></div>
+          </div>
+
         </div>
-        <div id="pd3-prev-convs" style="display:none;padding:0 16px;">
-          <div class="pd3-prev-label" style="padding-top:16px;">Previous conversations</div>
-          <div id="pd3-prev-list"></div>
-        </div>
+
+
+
       </div>
 
       <!-- Active chat view -->
       <div id="pd3-chat-view" style="display:none;flex-direction:column;flex:1;min-height:0;overflow:hidden;">
+
+        <!-- Chat topbar — Intercom style with agent info -->
         <div id="pd3-chat-topbar">
           <button id="pd3-back-btn" onclick="pd3BackToList()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -2538,46 +2572,73 @@ document.getElementById('year').textContent=new Date().getFullYear()
             </div>
           </div>
         </div>
-        <div id="pd3-msgs" aria-live="polite" style="flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:14px;background:#f9fafb;min-height:0;scroll-behavior:smooth;"></div>
-        <div id="pd3-chips-bar" style="padding:0 18px 8px;background:#fff;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;">
+
+        <!-- Messages area -->
+        <div id="pd3-msgs" aria-live="polite" style="flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:14px;background:#f9fafb;min-height:0;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;"></div>
+
+        <!-- Chips -->
+        <div id="pd3-chips-bar" style="padding:10px 14px 8px;background:#fff;border-top:1px solid #f0f0f0;display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0;">
           <button class="pd3-chip" data-chip="How does this work?">How does this work?</button>
           <button class="pd3-chip" data-chip="How much does it cost?">How much does it cost?</button>
           <button class="pd3-chip" data-chip="I have a project in mind">I have a project in mind</button>
           <button class="pd3-chip" data-chip="See a live demo">See a live demo</button>
         </div>
-        <div id="pd3-identify" style="padding:14px 18px;background:#fff;border-top:1px solid #f0f0f0;flex-shrink:0;">
-          <div class="pd3-id-title">Start a conversation</div>
-          <div class="pd3-id-sub">Enter your details so Raphael can follow up.</div>
-          <div class="pd3-field">
-            <span class="pd3-fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-            <input type="text" id="pd3-name" placeholder="Your full name" autocomplete="name" maxlength="100">
-            <span class="pd3-ft"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-            <div class="pd3-ferr" id="pd3-name-err">Please enter your name</div>
+
+        <!-- Identity form -->
+        <div id="pd3-identify" style="padding:16px 18px 18px;background:#fff;border-top:1px solid #f0f0f0;flex-shrink:0;">
+          <div style="font-size:.92rem;font-weight:800;color:#103320;margin-bottom:3px;">Start a conversation</div>
+          <div style="font-size:.76rem;color:#6b7280;margin-bottom:14px;line-height:1.5;">Enter your details so Raphael can follow up.</div>
+
+          <div style="position:relative;margin-bottom:10px;">
+            <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9ca3af;pointer-events:none;display:flex;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </span>
+            <input type="text" id="pd3-name" placeholder="Your full name" autocomplete="name" maxlength="100"
+              onfocus="this.style.borderColor='#22c55e';this.style.background='#fff';this.style.boxShadow='0 0 0 3px rgba(34,197,94,.12)'"
+              onblur="this.style.borderColor='#e5e7eb';this.style.background='#f9fafb';this.style.boxShadow='none'"
+              style="width:100%;background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:12px;padding:13px 13px 13px 40px;font-size:.85rem;color:#103320;font-family:inherit;outline:none;box-sizing:border-box;">
+            <div id="pd3-name-err" style="display:none;font-size:.72rem;color:#ef4444;margin-top:5px;margin-left:4px;font-weight:500;">⚠ Please enter your full name</div>
           </div>
-          <div class="pd3-field">
-            <span class="pd3-fi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
-            <input type="email" id="pd3-email" placeholder="Your email address" autocomplete="email" maxlength="200">
-            <span class="pd3-ft"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-            <div class="pd3-ferr" id="pd3-email-err">Enter a valid email address</div>
+
+          <div style="position:relative;margin-bottom:10px;">
+            <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9ca3af;pointer-events:none;display:flex;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <input type="email" id="pd3-email" placeholder="Your email address" autocomplete="email" maxlength="200"
+              onfocus="this.style.borderColor='#22c55e';this.style.background='#fff';this.style.boxShadow='0 0 0 3px rgba(34,197,94,.12)'"
+              onblur="this.style.borderColor='#e5e7eb';this.style.background='#f9fafb';this.style.boxShadow='none'"
+              style="width:100%;background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:12px;padding:13px 13px 13px 40px;font-size:.85rem;color:#103320;font-family:inherit;outline:none;box-sizing:border-box;">
+            <div id="pd3-email-err" style="display:none;font-size:.72rem;color:#ef4444;margin-top:5px;margin-left:4px;font-weight:500;">⚠ Enter a valid email address</div>
           </div>
-          <button id="pd3-id-submit" onclick="pd3SubmitIdentity()">Start chatting &rarr;</button>
+
+          <button id="pd3-id-submit" onclick="pd3SubmitIdentity()"
+            onfocus="this.style.outline='none'"
+            onmouseover="this.style.background='#176633'"
+            onmouseout="this.style.background='#1e9947'"
+            style="width:100%;padding:15px;background:#1e9947;color:#fff;border:none;border-radius:12px;font-size:.92rem;font-weight:800;cursor:pointer;font-family:inherit;margin-top:6px;letter-spacing:.01em;transition:background .2s;">
+            Start chatting →
+          </button>
         </div>
+
+        <!-- Input bar -->
         <div id="pd3-input-bar" style="padding:10px 18px;border-top:1px solid #f0f0f0;display:none;gap:8px;align-items:flex-end;background:#fff;flex-shrink:0;">
-          <textarea id="pd3-input" placeholder="Ask a question&hellip;" rows="1"
+          <textarea id="pd3-input" placeholder="Ask a question…" rows="1"
             oninput="pd3AutoResize(this)"
             onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();pd3Send()}"></textarea>
           <button id="pd3-send" onclick="pd3Send()" aria-label="Send">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
           </button>
         </div>
+
       </div>
     </div>
 
     <!-- HELP -->
     <div class="pd3-panel" id="pd3-panel-help" style="position:absolute;inset:0;">
-      <div class="pd3-content-panel" id="pd3-help-content" style="overflow-y:auto;height:100%;padding-top:8px;">
-        <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading&hellip;</div>
+      <div class="pd3-content-panel" id="pd3-help-content" style="overflow-y:auto;height:100%;padding:8px 10px;">
+        <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading…</div>
       </div>
+      <!-- Article full-page view -->
       <div id="pd3-article-page-help" class="pd3-article-page-overlay" style="position:absolute;inset:0;background:#fff;z-index:20;display:none;flex-direction:column;overflow:hidden;">
         <div style="padding:13px 18px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:10px;flex-shrink:0;">
           <button onclick="pd3CloseArticlePage('help')" style="background:none;border:none;cursor:pointer;color:#6b7280;display:flex;align-items:center;gap:5px;font-size:.78rem;font-weight:600;font-family:inherit;padding:4px 0;transition:color .15s;">
@@ -2586,18 +2647,27 @@ document.getElementById('year').textContent=new Date().getFullYear()
           </button>
         </div>
         <div id="pd3-article-body-help" style="flex:1;overflow-y:auto;padding:24px 22px;scrollbar-width:thin;"></div>
-        <div style="padding:14px 22px;border-top:1px solid #f0f0f0;flex-shrink:0;text-align:center;">
-          <p style="font-size:.75rem;color:#9ca3af;margin-bottom:10px;">Still have questions?</p>
-          <button onclick="switchTab('messages')" style="width:100%;padding:10px;background:#1e9947;color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Send a message</button>
+        <div style="padding:14px 22px 18px;border-top:1px solid #f0f0f0;flex-shrink:0;text-align:center;">
+          <p style="font-size:.75rem;color:#9ca3af;margin-bottom:12px;">Still have questions?</p>
+          <button onclick="switchTab('messages');setTimeout(pd3StartNewChat,80);"
+            style="display:inline-flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 24px;background:#1e9947;border:2px solid #1e9947;border-radius:999px;font-size:.9rem;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;min-width:200px;box-shadow:0 2px 8px rgba(30,153,71,.3);transition:all .2s;"
+            onmouseover="this.style.background='#176633';this.style.borderColor='#176633'"
+            onmouseout="this.style.background='#1e9947';this.style.borderColor='#1e9947'">
+            <span>Send a message</span>
+            <span style="width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            </span>
+          </button>
         </div>
       </div>
     </div>
 
     <!-- NEWS -->
     <div class="pd3-panel" id="pd3-panel-news" style="position:absolute;inset:0;">
-      <div class="pd3-content-panel" id="pd3-news-content" style="overflow-y:auto;height:100%;padding-top:8px;">
-        <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading&hellip;</div>
+      <div class="pd3-content-panel" id="pd3-news-content" style="overflow-y:auto;height:100%;padding:8px 10px;">
+        <div class="pd3-loading"><div class="pd3-loading-dots"><span></span><span></span><span></span></div>Loading…</div>
       </div>
+      <!-- Article full-page view -->
       <div id="pd3-article-page-news" class="pd3-article-page-overlay" style="position:absolute;inset:0;background:#fff;z-index:20;display:none;flex-direction:column;overflow:hidden;">
         <div style="padding:13px 18px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:10px;flex-shrink:0;">
           <button onclick="pd3CloseArticlePage('news')" style="background:none;border:none;cursor:pointer;color:#6b7280;display:flex;align-items:center;gap:5px;font-size:.78rem;font-weight:600;font-family:inherit;padding:4px 0;transition:color .15s;">
@@ -2606,16 +2676,24 @@ document.getElementById('year').textContent=new Date().getFullYear()
           </button>
         </div>
         <div id="pd3-article-body-news" style="flex:1;overflow-y:auto;padding:24px 22px;scrollbar-width:thin;"></div>
-        <div style="padding:14px 22px;border-top:1px solid #f0f0f0;flex-shrink:0;text-align:center;">
-          <p style="font-size:.75rem;color:#9ca3af;margin-bottom:10px;">Still have questions?</p>
-          <button onclick="switchTab('messages')" style="width:100%;padding:10px;background:#1e9947;color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit;">Send a message</button>
+        <div style="padding:14px 22px 18px;border-top:1px solid #f0f0f0;flex-shrink:0;text-align:center;">
+          <p style="font-size:.75rem;color:#9ca3af;margin-bottom:12px;">Still have questions?</p>
+          <button onclick="switchTab('messages');setTimeout(pd3StartNewChat,80);"
+            style="display:inline-flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 24px;background:#1e9947;border:2px solid #1e9947;border-radius:999px;font-size:.9rem;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;min-width:200px;box-shadow:0 2px 8px rgba(30,153,71,.3);transition:all .2s;"
+            onmouseover="this.style.background='#176633';this.style.borderColor='#176633'"
+            onmouseout="this.style.background='#1e9947';this.style.borderColor='#1e9947'">
+            <span>Send a message</span>
+            <span style="width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            </span>
+          </button>
         </div>
       </div>
     </div>
 
-  </div>
+  </div><!-- /panels -->
 
-  <!-- BOTTOM TABS -->
+  <!-- ══ BOTTOM TABS ══ -->
   <div id="pd3-tabs">
     <button class="pd3-tab active" data-tab="home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2648,19 +2726,22 @@ document.getElementById('year').textContent=new Date().getFullYear()
     </button>
   </div>
 
-</div>
-</div>
+</div><!-- /win -->
+</div><!-- /root -->
 
 <script>
 (function () {
 'use strict';
 
+// ── UPDATE THIS after new deployment ──────────────────────
 const CHAT_API = "https://script.google.com/macros/s/AKfycbymo99fErCJW0VW9xtPDszXVmJipQfSTOxoD_DHTbvyTw7V62uYuFTdWypNumNGVP_L/exec";
+// ─────────────────────────────────────────────────────────
 
 const STORAGE_KEY = "pd3_chat_v3";
 const POLL_MS     = 5000;
 const MAX_MSGS    = 30;
 
+// Raphael's avatar for bot/admin bubbles
 const RAPHAEL_SRC = "https://github.com/packdez/agency/blob/main/assets/Raphael%20Levinder.png?raw=true";
 
 let isOpen=false, activeTab="home", sessionId=null, visitorName="", visitorEmail="",
@@ -2675,6 +2756,7 @@ const badge    = document.getElementById("pd3-badge");
 const pollBar  = document.getElementById("pd3-poll-bar");
 const pollFill = document.getElementById("pd3-poll-fill");
 
+// ── Open / Close ──────────────────────────────────────────
 pill.addEventListener("click", () => isOpen ? pd3Close() : pd3Open());
 document.getElementById("pd3-close").addEventListener("click", pd3Close);
 
@@ -2698,6 +2780,7 @@ function pd3Close() {
   stopPoll();
 }
 
+// ── Tabs ──────────────────────────────────────────────────
 document.querySelectorAll(".pd3-tab").forEach(btn => {
   btn.addEventListener("click", function () { switchTab(this.dataset.tab); });
 });
@@ -2709,8 +2792,10 @@ function switchTab(tab) {
   document.querySelectorAll(".pd3-panel").forEach(p => p.classList.remove("active"));
   document.getElementById("pd3-panel-" + tab).classList.add("active");
 
+  // Hero: only visible on Home
   const hero = document.getElementById("pd3-hero");
   const tabHeader = document.getElementById("pd3-tab-header");
+  const pollBar = document.getElementById("pd3-poll-bar");
 
   if (tab === "home") {
     hero.style.display = "";
@@ -2720,46 +2805,51 @@ function switchTab(tab) {
     tabHeader.classList.add("pd3-show");
     document.getElementById("pd3-tab-header-title").textContent = TAB_TITLES[tab] || tab;
   }
+
+  // When switching away from messages, hide chat view if open
+  if (tab !== "messages" && inChatView) {
+    // keep state but don't force back
+  }
 }
 
-// SVG icon map
+// ── Tab content ───────────────────────────────────────────
+// SVG icon map — no emoji rendering issues
 const ICONS = {
-  calendar:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-  rocket:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg>',
-  question:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-  clock:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-  dollar:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>',
-  book:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>',
-  link:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>',
-  // Neutral icon used for all News tab items
-  dot:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/></svg>',
-  default:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+  calendar:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  rocket:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg>`,
+  question:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  clock:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  dollar:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>`,
+  book:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>`,
+  link:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>`,
+  news:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/></svg>`,
+  default:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
 };
 
-function pickIcon(title, type, tab) {
-  // News tab always uses the neutral dot icon
-  if (tab === "news") return ICONS.dot;
+// Pick an icon based on card title keywords (no emoji needed)
+function pickIcon(title, type) {
+  const t = (title||"").toLowerCase();
   if (type === "link") return ICONS.link;
-  var t = (title||"").toLowerCase();
   if (t.includes("call") || t.includes("book") || t.includes("calendl")) return ICONS.calendar;
   if (t.includes("demo") || t.includes("project") || t.includes("live")) return ICONS.rocket;
   if (t.includes("cost") || t.includes("price") || t.includes("pric")) return ICONS.dollar;
   if (t.includes("time") || t.includes("long") || t.includes("take")) return ICONS.clock;
   if (t.includes("faq") || t.includes("question") || t.includes("build") || t.includes("what")) return ICONS.question;
+  if (t.includes("news") || t.includes("crm") || t.includes("project")) return ICONS.news;
   if (t.includes("book") || t.includes("doc") || t.includes("guide")) return ICONS.book;
   return ICONS.default;
 }
 
 function loadTabContent() {
   post({ action: "get_tab_content" })
-    .then(function(res) {
+    .then(res => {
       tabContent = res;
-      var homeItems = (res.home || []).filter(function(i) { return (i.type||"").toLowerCase() !== "banner"; });
+      const homeItems = (res.home || []).filter(i => (i.type||"").toLowerCase() !== "banner");
       renderTabContent("home", homeItems, document.getElementById("pd3-home-content"));
       renderTabContent("help",  res.help,  document.getElementById("pd3-help-content"));
       renderTabContent("news",  res.news,  document.getElementById("pd3-news-content"));
     })
-    .catch(function() { renderFallbackHome(); renderFallbackHelp(); });
+    .catch(() => { renderFallbackHome(); renderFallbackHelp(); });
 }
 
 function renderTabContent(tab, items, container) {
@@ -2768,163 +2858,167 @@ function renderTabContent(tab, items, container) {
     return;
   }
   container.innerHTML = "";
-  if (tab === "home") container.style.paddingTop = "10px";
-  if (tab === "help" || tab === "news") container.style.paddingTop = "8px";
-  items.forEach(function(item) { var el = buildItem(item, tab); if (el) container.appendChild(el); });
-  // Add bottom padding spacer
-  var spacer = document.createElement("div");
-  spacer.style.height = "12px";
-  spacer.style.flexShrink = "0";
-  container.appendChild(spacer);
+  
+  items.forEach(item => { const el = buildItem(item, tab); if (el) container.appendChild(el); });
 }
 
+// Track which tab each item belongs to (set when rendering)
+let _currentBuildTab = "home";
+
 function buildItem(item, tab) {
-  var type  = (item.type || "text").toLowerCase();
-  var title = item.title || "";
-  var sub   = item.subtitle || "";
-  var body  = item.body || "";
-  var url   = item.url || "";
-  var media = item.media || "";
-  var t     = tab || "home";
+  const type  = (item.type || "text").toLowerCase();
+  const title = item.title || "";
+  const sub   = item.subtitle || "";
+  const body  = item.body || "";
+  const url   = item.url || "";
+  const media = item.media || ""; // optional image URL or YouTube embed URL
+  const t     = tab || _currentBuildTab;
 
   if (type === "banner") {
-    var d = document.createElement("div");
+    const d = document.createElement("div");
     d.className = "pd3-banner";
-    d.innerHTML = '<div class="pd3-banner-title">' + x(title) + '</div>' + (sub ? '<div class="pd3-banner-sub">' + x(sub) + '</div>' : "");
+    d.innerHTML = `<div class="pd3-banner-title">${x(title)}</div>${sub ? `<div class="pd3-banner-sub">${x(sub)}</div>` : ""}`;
     return d;
   }
 
   if (type === "card") {
-    var a = document.createElement(url ? "a" : "div");
+    const a = document.createElement(url ? "a" : "div");
     a.className = "pd3-card";
+    a.style.padding = "16px 14px";
     if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
-    a.innerHTML =
-      '<div class="pd3-card-icon">' + pickIcon(title, type, t) + '</div>' +
-      '<div class="pd3-card-body">' +
-        '<div class="pd3-card-title">' + x(title) + '</div>' +
-        (sub ? '<div class="pd3-card-sub">' + x(sub) + '</div>' : "") +
-      '</div>' +
-      (url ? '<div class="pd3-card-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>' : "");
+    a.innerHTML = `
+      <div class="pd3-card-icon">${pickIcon(title, type)}</div>
+      <div class="pd3-card-body">
+        <div class="pd3-card-title">${x(title)}</div>
+        ${sub ? `<div class="pd3-card-sub">${x(sub)}</div>` : ""}
+      </div>
+      ${url ? `<div class="pd3-card-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>` : ""}
+    `;
     return a;
   }
 
+  // Article — Intercom style: plain row, click opens full-page view
   if (type === "article") {
-    var wrap = document.createElement("div");
+    const wrap = document.createElement("div");
     wrap.className = "pd3-article";
-    var triggerBtn = document.createElement("button");
-    triggerBtn.className = "pd3-article-trigger";
-    triggerBtn.innerHTML =
-      '<div class="pd3-article-icon">' + pickIcon(title, type, t) + '</div>' +
-      '<span class="pd3-article-title">' + x(title) + '</span>' +
-      '<div class="pd3-article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>';
-    triggerBtn.addEventListener("click", function() {
-      pd3OpenArticlePage(t, { title: title, sub: sub, body: body, media: media });
-    });
-    wrap.appendChild(triggerBtn);
+    // Encode item data for click handler
+    const data = x(JSON.stringify({ title, sub, body, media }));
+    wrap.innerHTML = `
+      <button class="pd3-article-trigger" style="padding:16px 14px;" onclick='pd3OpenArticlePage(${JSON.stringify(t)}, ${JSON.stringify({ title, sub, body, media })})'>
+        <span class="pd3-article-title">${x(title)}</span>
+        <div class="pd3-article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+      </button>
+    `;
     return wrap;
   }
 
+  // Link — plain row, external link
   if (type === "link") {
-    var la = document.createElement("a");
-    la.className = "pd3-link-item";
-    la.href = url || "#"; la.target = "_blank"; la.rel = "noopener";
-    la.innerHTML =
-      '<div class="pd3-link-icon">' + pickIcon(title, "link", t) + '</div>' +
-      '<span class="pd3-link-title">' + x(title) + '</span>' +
-      '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
-    return la;
+    const a = document.createElement("a");
+    a.className = "pd3-link-item";
+    a.style.padding = "16px 14px";
+    a.href = url || "#"; a.target = "_blank"; a.rel = "noopener";
+    a.innerHTML = `
+      <span class="pd3-link-title">${x(title)}</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    `;
+    return a;
   }
 
   if (type === "text") {
-    var td = document.createElement("div");
-    td.style.cssText = "font-size:.82rem;color:#6b7280;line-height:1.6;padding:10px 20px;";
-    td.textContent = title || body;
-    return td;
+    const d = document.createElement("div");
+    d.style.cssText = "font-size:.82rem;color:#6b7280;line-height:1.6;padding:10px 22px;";
+    d.textContent = title || body;
+    return d;
   }
   return null;
 }
 
+// ── Article full-page open/close ──────────────────────────
 window.pd3OpenArticlePage = function(tab, item) {
-  var pageId = "pd3-article-page-" + tab;
-  var bodyId = "pd3-article-body-" + tab;
-  var page   = document.getElementById(pageId);
-  var bodyEl = document.getElementById(bodyId);
+  const pageId   = "pd3-article-page-" + tab;
+  const bodyId   = "pd3-article-body-" + tab;
+  const page     = document.getElementById(pageId);
+  const bodyEl   = document.getElementById(bodyId);
   if (!page || !bodyEl) return;
 
-  var mediaHtml = "";
+  // Build article content
+  let mediaHtml = "";
   if (item.media) {
+    // YouTube
     if (item.media.includes("youtube.com") || item.media.includes("youtu.be")) {
-      var vid = item.media.includes("youtu.be")
+      const vid = item.media.includes("youtu.be")
         ? item.media.split("youtu.be/")[1]
         : new URLSearchParams(new URL(item.media).search).get("v");
-      mediaHtml = '<iframe src="https://www.youtube.com/embed/' + vid + '" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:0 0 16px;display:block;"></iframe>';
+      mediaHtml = `<iframe src="https://www.youtube.com/embed/${vid}" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:0 0 16px;display:block;"></iframe>`;
     } else {
-      mediaHtml = '<img src="' + x(item.media) + '" alt="" style="width:100%;border-radius:10px;margin:0 0 16px;display:block;">';
+      mediaHtml = `<img src="${x(item.media)}" alt="" style="width:100%;border-radius:10px;margin:0 0 16px;display:block;">`;
     }
   }
 
-  bodyEl.innerHTML =
-    '<h2 style="font-size:1.25rem;font-weight:800;color:#103320;line-height:1.25;margin-bottom:' + (item.sub ? "6px" : "20px") + ';">' + x(item.title) + '</h2>' +
-    (item.sub ? '<p style="font-size:.82rem;color:#6b7280;margin-bottom:20px;line-height:1.55;">' + x(item.sub) + '</p>' : "") +
-    (mediaHtml ? '<div style="margin-bottom:4px;">' + mediaHtml + '</div>' : "") +
-    (item.body ? '<div style="font-size:.875rem;color:#374151;line-height:1.75;white-space:pre-wrap;">' + x(item.body) + '</div>' : "");
+  bodyEl.innerHTML = `
+    <h2 style="font-size:1.25rem;font-weight:800;color:#103320;line-height:1.25;margin-bottom:${item.sub ? "6px" : "20px"};">${x(item.title)}</h2>
+    ${item.sub ? `<p style="font-size:.82rem;color:#6b7280;margin-bottom:20px;line-height:1.55;">${x(item.sub)}</p>` : ""}
+    ${mediaHtml ? `<div style="margin-bottom:4px;">${mediaHtml}</div>` : ""}
+    ${item.body ? `<div style="font-size:.875rem;color:#374151;line-height:1.75;white-space:pre-wrap;">${x(item.body)}</div>` : ""}
+  `;
 
   page.style.display = "flex";
   page.style.animation = "pd3SlideIn .22s cubic-bezier(.22,1,.36,1) both";
 };
 
 window.pd3CloseArticlePage = function(tab) {
-  var page = document.getElementById("pd3-article-page-" + tab);
+  const page = document.getElementById("pd3-article-page-" + tab);
   if (page) page.style.display = "none";
 };
 
 function renderFallbackHome() {
-  var c = document.getElementById("pd3-home-content"); c.innerHTML = "";
-  c.style.paddingTop = "10px";
+  const c = document.getElementById("pd3-home-content"); c.innerHTML = "";
   [
     { type:"card", title:"Book a free call",  subtitle:"30 mins with Raphael — get a clear system plan", url:"https://packdez.com/#book" },
     { type:"card", title:"See live demos",     subtitle:"Real projects built for real businesses",        url:"https://packdez.com/projects" },
-  ].forEach(function(item) { var el = buildItem(item, "home"); if (el) c.appendChild(el); });
+  ].forEach(item => { const el = buildItem(item, "home"); if (el) c.appendChild(el); });
 }
 
 function renderFallbackHelp() {
-  var c = document.getElementById("pd3-help-content"); c.innerHTML = "";
-  c.style.padding = "10px";
+  const c = document.getElementById("pd3-help-content"); c.innerHTML = "";
   [
     { type:"article", title:"What do you build?",       subtitle:"Our services explained",  body:"Custom internal systems using Google Sheets — dashboards, CRMs, booking systems, and automations." },
     { type:"article", title:"How long does it take?",   subtitle:"Typical timeline",         body:"Most systems go live in 7–14 days. Working prototype within 72 hours." },
     { type:"article", title:"How much does it cost?",   subtitle:"Pricing overview",         body:"Fixed pricing from $200–$2,500. No hourly billing, no retainers." },
     { type:"link",    title:"Full FAQ on packdez.com",  url:"https://packdez.com/#faq" },
-  ].forEach(function(item) { var el = buildItem(item, "help"); if (el) c.appendChild(el); });
+  ].forEach(item => { const el = buildItem(item, "help"); if (el) c.appendChild(el); });
 }
 
+// ── Session ───────────────────────────────────────────────
 function initSession() {
   try {
-    var s = localStorage.getItem(STORAGE_KEY);
+    const s = localStorage.getItem(STORAGE_KEY);
     if (s) {
-      var d = JSON.parse(s);
+      const d = JSON.parse(s);
       sessionId = d.sessionId || null; visitorName = d.name || ""; visitorEmail = d.email || "";
       identified = !!(visitorName && visitorEmail); botReplied = d.botReplied || false; lastMsgId = d.lastMsgId || null;
     }
   } catch(e) {}
   if (sessionId && visitorName) renderPrevConv();
   post({ action: "init_session", sessionId: sessionId || undefined, sourcePage: location.pathname })
-    .then(function(res) {
+    .then(res => {
       sessionId = res.sessionId;
       if (res.messages && res.messages.length) { renderMessages(res.messages); botReplied = true; }
       saveSession(); startPoll();
-    }).catch(function() { startPoll(); });
+    }).catch(() => startPoll());
 }
 
+// ── Chat flow ─────────────────────────────────────────────
 window.pd3StartNewChat = function () {
   inChatView = true;
   document.getElementById("pd3-conv-list").style.display = "none";
   document.getElementById("pd3-chat-view").style.display = "flex";
   identified ? showInput() : showIdentify();
   if (sessionId) {
-    var msgs = document.getElementById("pd3-msgs");
+    const msgs = document.getElementById("pd3-msgs");
     if (!msgs.children.length && botReplied)
-      post({ action: "get_messages", sessionId: sessionId }).then(function(res) { if (res.messages) renderMessages(res.messages); }).catch(function() {});
+      post({ action: "get_messages", sessionId }).then(res => { if (res.messages) renderMessages(res.messages); }).catch(() => {});
   }
 };
 window.pd3BackToList = function () {
@@ -2936,19 +3030,20 @@ window.pd3BackToList = function () {
 };
 function renderPrevConv() {
   if (!sessionId || !visitorName) return;
-  var emptyEl = document.getElementById("pd3-msg-empty");
+  // Hide empty state, show prev convs
+  const emptyEl = document.getElementById("pd3-msg-empty");
   if (emptyEl) emptyEl.style.display = "none";
   document.getElementById("pd3-prev-convs").style.display = "";
-  var initials = visitorName.split(" ").map(function(w) { return w[0]; }).join("").toUpperCase().slice(0,2);
-  document.getElementById("pd3-prev-list").innerHTML =
-    '<div class="pd3-prev-item" onclick="pd3StartNewChat()">' +
-      '<div class="pd3-prev-avatar">' + x(initials) + '</div>' +
-      '<div class="pd3-prev-info">' +
-        '<div class="pd3-prev-preview">' + x(visitorName) + ' &middot; Active conversation</div>' +
-        '<div class="pd3-prev-time">Tap to continue</div>' +
-      '</div>' +
-      '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>' +
-    '</div>';
+  const initials = visitorName.split(" ").map(w => w[0]).join("").toUpperCase().slice(0,2);
+  document.getElementById("pd3-prev-list").innerHTML = `
+    <div class="pd3-prev-item" onclick="pd3StartNewChat()">
+      <div class="pd3-prev-avatar">${x(initials)}</div>
+      <div class="pd3-prev-info">
+        <div class="pd3-prev-preview">${x(visitorName)} · Active conversation</div>
+        <div class="pd3-prev-time">Tap to continue</div>
+      </div>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>`;
 }
 
 function showIdentify() {
@@ -2958,100 +3053,128 @@ function showIdentify() {
 function showInput() {
   document.getElementById("pd3-identify").style.display = "none";
   document.getElementById("pd3-input-bar").style.display = "flex";
-  setTimeout(function() { document.getElementById("pd3-input").focus(); }, 60);
+  setTimeout(() => document.getElementById("pd3-input").focus(), 60);
 }
 
 document.getElementById("pd3-email").addEventListener("input", function () {
-  var ok = validEmail(this.value.trim());
-  this.classList.toggle("ok", ok); this.classList.toggle("err", this.value.length > 3 && !ok);
-  document.getElementById("pd3-email-err").style.display = (this.value.length > 3 && !ok) ? "" : "none";
+  const ok = validEmail(this.value.trim());
+  if (this.value.length > 3) {
+    this.style.borderColor = ok ? "#22c55e" : "#ef4444";
+    this.style.background = ok ? "#fff" : "#fff5f5";
+    document.getElementById("pd3-email-err").style.display = ok ? "none" : "block";
+  }
 });
-document.getElementById("pd3-name").addEventListener("input", function () { this.classList.toggle("ok", this.value.trim().length > 0); });
+document.getElementById("pd3-name").addEventListener("input", function () {
+  if (this.value.trim().length > 0) {
+    this.style.borderColor = "#22c55e"; this.style.background = "#fff";
+    document.getElementById("pd3-name-err").style.display = "none";
+  }
+});
 
 window.pd3SubmitIdentity = function () {
-  var ne = document.getElementById("pd3-name"); var ee = document.getElementById("pd3-email");
-  var name = ne.value.trim(); var email = ee.value.trim(); var ok = true;
-  if (!name) { ne.classList.add("err"); document.getElementById("pd3-name-err").style.display = ""; shake(ne); ok = false; }
-  else { ne.classList.remove("err"); document.getElementById("pd3-name-err").style.display = "none"; }
-  if (!validEmail(email)) { ee.classList.add("err"); document.getElementById("pd3-email-err").style.display = ""; if (ok) shake(ee); ok = false; }
-  else { ee.classList.remove("err"); document.getElementById("pd3-email-err").style.display = "none"; }
+  const ne = document.getElementById("pd3-name"); const ee = document.getElementById("pd3-email");
+  const name = ne.value.trim(); const email = ee.value.trim(); let ok = true;
+  if (!name) {
+    ne.style.borderColor = "#ef4444"; ne.style.background = "#fff5f5";
+    document.getElementById("pd3-name-err").style.display = "block";
+    shake(ne); ok = false;
+  } else {
+    ne.style.borderColor = "#22c55e"; ne.style.background = "#fff";
+    document.getElementById("pd3-name-err").style.display = "none";
+  }
+  if (!validEmail(email)) {
+    ee.style.borderColor = "#ef4444"; ee.style.background = "#fff5f5";
+    document.getElementById("pd3-email-err").style.display = "block";
+    if (ok) shake(ee); ok = false;
+  } else {
+    ee.style.borderColor = "#22c55e"; ee.style.background = "#fff";
+    document.getElementById("pd3-email-err").style.display = "none";
+  }
   if (!ok) return;
   visitorName = name; visitorEmail = email; identified = true; saveSession();
-  if (sessionId) post({ action: "identify", sessionId: sessionId, name: name, email: email }).catch(function() {});
+  if (sessionId) post({ action: "identify", sessionId, name, email }).catch(() => {});
   showInput(); hideChips();
-  var pending = document.getElementById("pd3-input").value.trim();
+  const pending = document.getElementById("pd3-input").value.trim();
   if (pending) setTimeout(pd3Send, 80);
 };
 
-document.querySelectorAll(".pd3-chip").forEach(function(btn) {
+document.querySelectorAll(".pd3-chip").forEach(btn => {
   btn.addEventListener("click", function () {
-    var text = this.dataset.chip;
+    const text = this.dataset.chip;
     this.style.opacity = ".4"; this.style.pointerEvents = "none"; hideChips();
     if (!identified) { document.getElementById("pd3-input").value = text; if (!inChatView) pd3StartNewChat(); showIdentify(); return; }
     sendRaw(text);
   });
 });
-function hideChips() { var cb = document.getElementById("pd3-chips-bar"); if (cb) cb.style.display = "none"; }
+function hideChips() { const cb = document.getElementById("pd3-chips-bar"); if (cb) cb.style.display = "none"; }
 
 window.pd3Send = function () {
-  var el = document.getElementById("pd3-input"); var text = el.value.trim(); if (!text) return;
+  const el = document.getElementById("pd3-input"); const text = el.value.trim(); if (!text) return;
   el.value = ""; el.style.height = ""; hideChips(); sendRaw(text);
 };
 function sendRaw(text) {
   if (msgCount >= MAX_MSGS) { appendBubble("bot", "Message limit reached. Please book a call via the menu."); return; }
   if (!inChatView) pd3StartNewChat();
   appendBubble("visitor", text); msgCount++; showTyping();
-  post({ action: "send_message", sessionId: sessionId, text: text, senderName: visitorName, senderEmail: visitorEmail })
-    .then(function() { hideTyping(); }).catch(function() { hideTyping(); });
+  post({ action: "send_message", sessionId, text, senderName: visitorName, senderEmail: visitorEmail })
+    .then(() => hideTyping()).catch(() => hideTyping());
 }
 
+// ── Poll ──────────────────────────────────────────────────
 function startPoll() {
   stopPoll(); if (!sessionId) return;
   pollBar.classList.add("pd3-show"); animatePoll();
-  pollTimer = setInterval(function() {
+  pollTimer = setInterval(() => {
     if (!sessionId || !isOpen) return;
-    var payload = { action: "get_messages", sessionId: sessionId }; if (lastMsgId) payload.afterId = lastMsgId;
-    post(payload).then(function(res) {
+    const payload = { action: "get_messages", sessionId }; if (lastMsgId) payload.afterId = lastMsgId;
+    post(payload).then(res => {
       if (!res.messages || !res.messages.length) return;
-      res.messages.forEach(function(m) {
-        if ((m.direction === "admin" || m.direction === "bot") && !document.querySelector('[data-mid="' + m.id + '"]')) {
+      res.messages.forEach(m => {
+        if ((m.direction === "admin" || m.direction === "bot") && m.id && !document.querySelector(`[data-mid="${m.id}"]`)) {
           appendBubble(m.direction, m.text, m.timestamp, m.id);
           if (!isOpen || !inChatView) bumpBadge();
         }
         lastMsgId = m.id;
       }); saveSession();
-    }).catch(function() {}); animatePoll();
+    }).catch(() => {}); animatePoll();
   }, POLL_MS);
 }
 function stopPoll() { if (pollTimer) { clearInterval(pollTimer); pollTimer = null; } pollBar.classList.remove("pd3-show"); }
 function animatePoll() {
   pollFill.style.transition = "none"; pollFill.style.width = "0%";
-  requestAnimationFrame(function() { pollFill.style.transition = "width " + POLL_MS + "ms linear"; pollFill.style.width = "100%"; });
+  requestAnimationFrame(() => { pollFill.style.transition = `width ${POLL_MS}ms linear`; pollFill.style.width = "100%"; });
 }
 
+// ── Messages with avatars ─────────────────────────────────
 function renderMessages(msgs) {
-  var area = document.getElementById("pd3-msgs"); area.innerHTML = "";
-  msgs.forEach(function(m) { appendBubble(m.direction, m.text, m.timestamp, m.id); });
+  const area = document.getElementById("pd3-msgs"); area.innerHTML = "";
+  // Deduplicate — skip any already rendered by mid
+  const seen = new Set();
+  msgs.forEach(m => {
+    if (m.id && seen.has(m.id)) return;
+    if (m.id) seen.add(m.id);
+    appendBubble(m.direction, m.text, m.timestamp, m.id);
+  });
   if (msgs.length) lastMsgId = msgs[msgs.length - 1].id;
-  botReplied = msgs.some(function(m) { return m.direction === "bot"; }); saveSession();
+  botReplied = msgs.some(m => m.direction === "bot"); saveSession();
 }
 
-var typingEl = null;
+let typingEl = null;
 function showTyping() {
   if (typingEl) return;
-  var msgs = document.getElementById("pd3-msgs");
+  const msgs = document.getElementById("pd3-msgs");
   typingEl = document.createElement("div");
   typingEl.style.cssText = "display:flex;align-items:flex-end;gap:8px;align-self:flex-start;animation:pd3BIn .2s ease both;";
 
-  var av = document.createElement("div");
+  const av = document.createElement("div");
   av.style.cssText = "width:26px;height:26px;border-radius:50%;flex-shrink:0;overflow:hidden;border:1.5px solid #e5e7eb;";
-  var img = document.createElement("img");
+  const img = document.createElement("img");
   img.src = RAPHAEL_SRC;
   img.style.cssText = "width:100%;height:100%;object-fit:cover;";
   img.onerror = function() { this.parentNode.textContent="RL"; this.parentNode.style.background="#103320"; this.parentNode.style.color="#22c55e"; this.parentNode.style.fontSize=".6rem"; this.parentNode.style.fontWeight="700"; this.parentNode.style.display="flex"; this.parentNode.style.alignItems="center"; this.parentNode.style.justifyContent="center"; };
   av.appendChild(img);
 
-  var typingBub = document.createElement("div");
+  const typingBub = document.createElement("div");
   typingBub.style.cssText = "display:flex;gap:4px;align-items:center;padding:10px 14px;background:#fff;border:1px solid #e5e7eb;border-radius:16px;border-bottom-left-radius:4px;";
   typingBub.innerHTML = '<span style="width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pd3TB .85s ease infinite;display:inline-block;"></span><span style="width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pd3TB .85s ease .15s infinite;display:inline-block;"></span><span style="width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pd3TB .85s ease .3s infinite;display:inline-block;"></span>';
 
@@ -3063,10 +3186,10 @@ function showTyping() {
 function hideTyping() { if (typingEl) { typingEl.remove(); typingEl = null; } }
 
 function appendBubble(direction, text, timestamp, id) {
-  var msgs = document.getElementById("pd3-msgs");
-  var dir = (direction === "me") ? "visitor" : (direction || "bot");
+  const msgs = document.getElementById("pd3-msgs");
+  const dir = (direction === "me") ? "visitor" : (direction || "bot");
 
-  var wrap = document.createElement("div");
+  const wrap = document.createElement("div");
   wrap.style.cssText = "display:flex;align-items:flex-end;gap:8px;max-width:88%;animation:pd3BIn .2s ease both;";
   if (dir === "visitor") {
     wrap.style.cssText += "flex-direction:row-reverse;align-self:flex-end;";
@@ -3075,25 +3198,27 @@ function appendBubble(direction, text, timestamp, id) {
   }
   if (id) wrap.dataset.mid = id;
 
-  var av = document.createElement("div");
+  // Avatar
+  const av = document.createElement("div");
   av.style.cssText = "width:26px;height:26px;border-radius:50%;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;margin-bottom:2px;";
   if (dir === "visitor") {
-    var initials = visitorName ? visitorName.split(" ").map(function(w){return w[0];}).join("").toUpperCase().slice(0,2) : "ME";
+    const initials = visitorName ? visitorName.split(" ").map(w=>w[0]).join("").toUpperCase().slice(0,2) : "ME";
     av.style.cssText += "background:#e5e7eb;color:#374151;";
     av.textContent = initials;
   } else {
     av.style.cssText += "border:1.5px solid #e5e7eb;";
-    var img = document.createElement("img");
+    const img = document.createElement("img");
     img.src = RAPHAEL_SRC;
     img.style.cssText = "width:100%;height:100%;object-fit:cover;";
     img.onerror = function() { this.parentNode.textContent = "RL"; this.parentNode.style.background="#103320"; this.parentNode.style.color="#22c55e"; };
     av.appendChild(img);
   }
 
-  var col = document.createElement("div");
+  // Bubble + time
+  const col = document.createElement("div");
   col.style.cssText = "display:flex;flex-direction:column;gap:3px;" + (dir === "visitor" ? "align-items:flex-end;" : "align-items:flex-start;");
 
-  var bub = document.createElement("div");
+  const bub = document.createElement("div");
   bub.style.cssText = "padding:9px 13px;border-radius:16px;font-size:.83rem;line-height:1.55;word-break:break-word;white-space:pre-wrap;max-width:240px;";
   if (dir === "visitor") {
     bub.style.cssText += "background:#1e9947;color:#fff;border-bottom-right-radius:4px;";
@@ -3104,7 +3229,7 @@ function appendBubble(direction, text, timestamp, id) {
   }
   bub.textContent = text;
 
-  var t = document.createElement("div");
+  const t = document.createElement("div");
   t.style.cssText = "font-size:.6rem;color:#9ca3af;padding:0 2px;";
   t.textContent = fmtTime(timestamp || new Date().toISOString());
 
@@ -3114,27 +3239,30 @@ function appendBubble(direction, text, timestamp, id) {
   msgs.scrollTop = msgs.scrollHeight;
 }
 
+// ── Badge ─────────────────────────────────────────────────
 function bumpBadge() {
   pendingCount++; badge.textContent = pendingCount > 9 ? "9+" : pendingCount; badge.style.display = "flex";
-  var d = document.getElementById("pd3-msg-badge"); if (d) d.style.display = "block";
+  const d = document.getElementById("pd3-msg-badge"); if (d) d.style.display = "block";
 }
 function clearBadge() {
   pendingCount = 0; badge.style.display = "none";
-  var d = document.getElementById("pd3-msg-badge"); if (d) d.style.display = "none";
+  const d = document.getElementById("pd3-msg-badge"); if (d) d.style.display = "none";
 }
 
+// ── Network ───────────────────────────────────────────────
 function post(payload) {
-  var blob = new Blob([JSON.stringify(payload)], { type: "text/plain" });
-  return fetch(CHAT_API, { method: "POST", body: blob }).then(function(r) { return r.json(); });
+  const blob = new Blob([JSON.stringify(payload)], { type: "text/plain" });
+  return fetch(CHAT_API, { method: "POST", body: blob }).then(r => r.json());
 }
 function saveSession() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ sessionId: sessionId, name: visitorName, email: visitorEmail, botReplied: botReplied, lastMsgId: lastMsgId })); } catch(e) {}
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ sessionId, name: visitorName, email: visitorEmail, botReplied, lastMsgId })); } catch(e) {}
 }
 
+// ── Utils ─────────────────────────────────────────────────
 function fmtTime(ts) {
   try {
-    var d = new Date(ts); if (isNaN(d)) return "";
-    var now = new Date();
+    const d = new Date(ts); if (isNaN(d)) return "";
+    const now = new Date();
     return d.toDateString() === now.toDateString()
       ? d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
       : d.toLocaleDateString([], { month: "short", day: "numeric" });
@@ -3146,7 +3274,7 @@ window.pd3AutoResize = function (el) { el.style.height = "auto"; el.style.height
 function shake(el) {
   el.animate([{transform:"translateX(0)"},{transform:"translateX(-6px)"},{transform:"translateX(6px)"},{transform:"translateX(-4px)"},{transform:"translateX(0)"}],{duration:320,easing:"ease-out"});
 }
-document.addEventListener("keydown", function(e) { if (e.key === "Escape" && isOpen) pd3Close(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && isOpen) pd3Close(); });
 
 })();
 </script>
