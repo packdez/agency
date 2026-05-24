@@ -2888,20 +2888,44 @@ function renderBody(text) {
   return text
     .split('\n')
     .map(line => {
-      // ![alt](url) → inline image
-      const imgMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+      const t = line.trim();
+
+      // YouTube URL (bare) → embedded video
+      if (t.match(/^https?:\/\/(www\.)?(youtube\.com\/watch|youtu\.be\/)/)) {
+        let vid = '';
+        try {
+          vid = t.includes('youtu.be')
+            ? t.split('youtu.be/')[1].split('?')[0]
+            : new URLSearchParams(new URL(t).search).get('v');
+        } catch(e) {}
+        if (vid) return `<iframe src="https://www.youtube.com/embed/${vid}" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:8px 0;display:block;"></iframe>`;
+      }
+
+// Google Drive share link → inline image
+      if (t.match(/^https?:\/\/drive\.google\.com\/(file\/d\/|open\?id=)/)) {
+        let fileId = '';
+        try {
+          const m = t.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+          if (m) fileId = m[1];
+          else fileId = new URLSearchParams(new URL(t).search).get('id') || '';
+        } catch(e) {}
+        if (fileId) return `<img src="https://drive.google.com/uc?export=view&id=${fileId}" alt="" style="width:100%;border-radius:10px;margin:8px 0;display:block;">`;
+      }
+
+      // Image URL (bare) → inline image
+      if (t.match(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i)) {
+        return `<img src="${t}" alt="" style="width:100%;border-radius:10px;margin:8px 0;display:block;">`;
+      }
+
+      // Markdown image syntax still supported: ![alt](url)
+      const imgMatch = t.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
       if (imgMatch) {
         return `<img src="${imgMatch[2]}" alt="${imgMatch[1]}" style="width:100%;border-radius:10px;margin:8px 0;display:block;">`;
       }
-      // [youtube](url) → embedded video
-      const ytMatch = line.match(/^\[youtube\]\(([^)]+)\)$/);
-      if (ytMatch) {
-        const url = ytMatch[1];
-        const vid = url.includes('youtu.be') ? url.split('youtu.be/')[1] : new URLSearchParams(new URL(url).search).get('v');
-        return `<iframe src="https://www.youtube.com/embed/${vid}" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:8px 0;display:block;"></iframe>`;
-      }
+
       // empty line → spacer
-      if (!line.trim()) return '<br>';
+      if (!t) return '<br>';
+
       // normal text
       return `<span style="display:block;margin-bottom:6px;">${x(line)}</span>`;
     })
