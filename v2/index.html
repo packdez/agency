@@ -2785,6 +2785,7 @@ function pd3Close() {
   document.body.style.overflow = "";
   stopPoll();
 }
+window.pd3Close = pd3Close;
 
 // ── Tabs ──────────────────────────────────────────────────
 document.querySelectorAll(".pd3-tab").forEach(btn => {
