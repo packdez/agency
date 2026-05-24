@@ -2969,18 +2969,21 @@ function buildItem(item, tab) {
   }
 
   // Article — Intercom style: plain row, click opens full-page view
-  if (type === "article") {
+if (type === "article") {
     const wrap = document.createElement("div");
     wrap.className = "pd3-article";
     wrap.style.marginBottom = "6px";
-    // Encode item data for click handler
-    const data = x(JSON.stringify({ title, sub, body, media }));
-    wrap.innerHTML = `
-      <button class="pd3-article-trigger" style="padding:8px;" onclick='pd3OpenArticlePage(${JSON.stringify(t)}, ${JSON.stringify({ title, sub, body, media })})'>
-        <span class="pd3-article-title">${x(title)}</span>
-        <div class="pd3-article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
-      </button>
+    const btn = document.createElement("button");
+    btn.className = "pd3-article-trigger";
+    btn.style.padding = "8px";
+    btn.innerHTML = `
+      <span class="pd3-article-title">${x(title)}</span>
+      <div class="pd3-article-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></div>
     `;
+    btn.addEventListener("click", function() {
+      pd3OpenArticlePage(t, { title, sub, body, media });
+    });
+    wrap.appendChild(btn);
     return wrap;
   }
 
