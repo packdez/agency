@@ -2589,12 +2589,12 @@ document.getElementById('year').textContent=new Date().getFullYear()
           <button class="pd3-chip" data-chip="See a live demo">See a live demo</button>
         </div>
 
-        <!-- Identity form -->
-        <div id="pd3-identify" style="padding:16px 18px 18px;background:#fff;border-top:1px solid #f0f0f0;flex-shrink:0;">
-          <div style="font-size:.92rem;font-weight:800;color:#103320;margin-bottom:3px;">Start a conversation</div>
-          <div style="font-size:.76rem;color:#6b7280;margin-bottom:14px;line-height:1.5;">Enter your details so Raphael can follow up.</div>
+<!-- Identity form -->
+        <div id="pd3-identify" style="padding:10px 18px 14px;background:#fff;border-top:1px solid #f0f0f0;flex-shrink:0;">
+          <div style="font-size:.88rem;font-weight:800;color:#103320;margin-bottom:2px;">Start a conversation</div>
+          <div style="font-size:.73rem;color:#6b7280;margin-bottom:10px;line-height:1.4;">Enter your details so Raphael can follow up.</div>
 
-          <div style="position:relative;margin-bottom:10px;">
+          <div style="position:relative;margin-bottom:7px;">
             <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9ca3af;pointer-events:none;display:flex;">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </span>
@@ -2605,7 +2605,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
             <div id="pd3-name-err" style="display:none;font-size:.72rem;color:#ef4444;margin-top:5px;margin-left:4px;font-weight:500;">⚠ Please enter your full name</div>
           </div>
 
-          <div style="position:relative;margin-bottom:10px;">
+          <div style="position:relative;margin-bottom:7px;">
             <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9ca3af;pointer-events:none;display:flex;">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </span>
@@ -2620,7 +2620,7 @@ document.getElementById('year').textContent=new Date().getFullYear()
             onfocus="this.style.outline='none'"
             onmouseover="this.style.background='#176633'"
             onmouseout="this.style.background='#1e9947'"
-            style="width:100%;padding:15px;background:#1e9947;color:#fff;border:none;border-radius:12px;font-size:.92rem;font-weight:800;cursor:pointer;font-family:inherit;margin-top:6px;letter-spacing:.01em;transition:background .2s;">
+            style="width:100%;padding:11px;background:#1e9947;color:#fff;border:none;border-radius:12px;font-size:.92rem;font-weight:800;cursor:pointer;font-family:inherit;margin-top:4px;letter-spacing:.01em;transition:background .2s;">
             Start chatting →
           </button>
         </div>
@@ -3073,6 +3073,7 @@ function renderPrevConv() {
 function showIdentify() {
   document.getElementById("pd3-identify").style.display = "";
   document.getElementById("pd3-input-bar").style.display = "none";
+  document.getElementById("pd3-chips-bar").style.display = "none";
 }
 function showInput() {
   document.getElementById("pd3-identify").style.display = "none";
