@@ -3125,14 +3125,16 @@ window.pd3SubmitIdentity = function () {
 document.querySelectorAll(".pd3-chip").forEach(btn => {
   btn.addEventListener("click", function () {
     const text = this.dataset.chip;
-    this.style.opacity = ".4"; this.style.pointerEvents = "none"; hideChips();
-    if (!identified) { document.getElementById("pd3-input").value = text; if (!inChatView) pd3StartNewChat(); showIdentify(); return; }
-    sendRaw(text);
+    this.style.opacity = ".4"; this.style.pointerEvents = "none";
+    if (!inChatView) pd3StartNewChat();
+    document.getElementById("pd3-input").value = text;
+    showIdentify();
   });
 });
 function hideChips() { const cb = document.getElementById("pd3-chips-bar"); if (cb) cb.style.display = "none"; }
 
 window.pd3Send = function () {
+  if (!identified) { showIdentify(); return; }
   const el = document.getElementById("pd3-input"); const text = el.value.trim(); if (!text) return;
   el.value = ""; el.style.height = ""; hideChips(); sendRaw(text);
 };
