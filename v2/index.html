@@ -2884,6 +2884,30 @@ function renderTabContent(tab, items, container) {
   container.appendChild(frag);
 }
 
+function renderBody(text) {
+  return text
+    .split('\n')
+    .map(line => {
+      // ![alt](url) → inline image
+      const imgMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+      if (imgMatch) {
+        return `<img src="${imgMatch[2]}" alt="${imgMatch[1]}" style="width:100%;border-radius:10px;margin:8px 0;display:block;">`;
+      }
+      // [youtube](url) → embedded video
+      const ytMatch = line.match(/^\[youtube\]\(([^)]+)\)$/);
+      if (ytMatch) {
+        const url = ytMatch[1];
+        const vid = url.includes('youtu.be') ? url.split('youtu.be/')[1] : new URLSearchParams(new URL(url).search).get('v');
+        return `<iframe src="https://www.youtube.com/embed/${vid}" allowfullscreen style="width:100%;aspect-ratio:16/9;border-radius:10px;border:none;margin:8px 0;display:block;"></iframe>`;
+      }
+      // empty line → spacer
+      if (!line.trim()) return '<br>';
+      // normal text
+      return `<span style="display:block;margin-bottom:6px;">${x(line)}</span>`;
+    })
+    .join('');
+}
+   
 // Track which tab each item belongs to (set when rendering)
 let _currentBuildTab = "home";
 
@@ -2985,7 +3009,7 @@ window.pd3OpenArticlePage = function(tab, item) {
     <h2 style="font-size:1.25rem;font-weight:800;color:#103320;line-height:1.25;margin-bottom:${item.sub ? "6px" : "20px"};">${x(item.title)}</h2>
     ${item.sub ? `<p style="font-size:.82rem;color:#6b7280;margin-bottom:20px;line-height:1.55;">${x(item.sub)}</p>` : ""}
     ${mediaHtml ? `<div style="margin-bottom:4px;">${mediaHtml}</div>` : ""}
-    ${item.body ? `<div style="font-size:.875rem;color:#374151;line-height:1.75;white-space:pre-wrap;">${x(item.body)}</div>` : ""}
+    ${item.body ? `<div style="font-size:.875rem;color:#374151;line-height:1.75;">${renderBody(item.body)}</div>` : ""}
   `;
 
   page.style.display = "flex";
