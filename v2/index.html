@@ -2909,7 +2909,7 @@ function renderBody(text) {
           if (m) fileId = m[1];
           else fileId = new URLSearchParams(new URL(t).search).get('id') || '';
         } catch(e) {}
-        if (fileId) return `<img src="https://drive.google.com/uc?export=view&id=${fileId}" alt="" style="width:100%;border-radius:10px;margin:8px 0;display:block;">`;
+        if (fileId) return `<img src="https://drive.google.com/thumbnail?id=${fileId}&sz=w800" alt="" style="width:100%;border-radius:10px;margin:8px 0;display:block;">`;
       }
 
       // Image URL (bare) → inline image
