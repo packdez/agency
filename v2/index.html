@@ -3128,8 +3128,13 @@ document.querySelectorAll(".pd3-chip").forEach(btn => {
     const text = this.dataset.chip;
     this.style.opacity = ".4"; this.style.pointerEvents = "none";
     if (!inChatView) pd3StartNewChat();
-    document.getElementById("pd3-input").value = text;
-    showIdentify();
+    if (!identified) {
+      document.getElementById("pd3-input").value = text;
+      showIdentify();
+    } else {
+      hideChips();
+      sendRaw(text);
+    }
   });
 });
 function hideChips() { const cb = document.getElementById("pd3-chips-bar"); if (cb) cb.style.display = "none"; }
