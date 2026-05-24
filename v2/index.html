@@ -2961,7 +2961,7 @@ function buildItem(item, tab) {
       <div class="pd3-card-icon">${pickIcon(title, type)}</div>
       <div class="pd3-card-body">
         <div class="pd3-card-title">${x(title)}</div>
-        ${sub ? `<div class="pd3-card-sub">${x(sub)}</div>` : ""}
+        ${sub ? `<div class="pd3-card-sub">${renderBody(sub)}</div>` : ""}
       </div>
       ${url ? `<div class="pd3-card-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>` : ""}
     `;
